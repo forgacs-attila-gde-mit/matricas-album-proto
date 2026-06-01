@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-01] feat | Blokk (Block) API — REFACTOR-001 Phase 4 (Tasks 4.1–4.2)
+
+- Ask: start REFACTOR-001 Phase 4 — the Blokk (Block) entity with reference composition + versioning.
+- Change: new `Block` / `BlockVersion` / `ActivityBlockRelation` entities + `20260601150000_AddBlocks` migration. Mirrors album-template versioning (≤1 draft per block via partial unique index, published immutable; v1 starts as an editable draft). `BlockFlowTypes`/`BlockGroupings` (defaulted) + `BlockActivityRoles` (closed) domain values. Reference composition: a block version points at `StickerVersion` rows (FK restrict, no copy); the same activity version can be referenced by many blocks. Endpoints (list/create/detail/archive, draft/publish/discard, add/remove activity reference, two-pass reorder, version patch) gated behind `Features:Hierarchy:Block` — **on in Development, dark elsewhere**, and not yet wired into any UI.
+- Why: introduce the gold-standard `Blokk` level bottom-up, additively, without touching the running app (feature-flagged + no UI entry point).
+- State another agent needs: migration applies on boot (3 new tables). `dotnet test` 50/50 green; full block flow verified live. **Remaining in Phase 4: Task 4.3 (3-pane drag-&-drop block builder UI) and Task 4.4 (evidence-preserving AlbumInstance-mint migration — highest risk; touches running albums).** Block endpoints exist but no UI consumes them yet.
+
 ## [2026-06-01] feat | Activity model enrichment — REFACTOR-001 Phase 3
 
 - Ask: continue REFACTOR-001 with Phase 3 — promote activity metadata from note-fields to structured columns.
