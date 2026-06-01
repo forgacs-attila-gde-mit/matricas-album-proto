@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-01] feat | Blokk builder UI — REFACTOR-001 Phase 4 (Task 4.3)
+
+- Ask: continue Phase 4 with Task 4.3 — the 3-pane drag-&-drop block builder.
+- Change: `BlockBuilderComponent` (composes the reusable `CreationShellComponent`) — left searchable activity library (add-by-reference + role), center CDK drag-&-drop flow (reorder/role/remove), right live ordered preview. Block API client + models + DTO mappers in `album-api.service.ts`. Route `/teacher/blocks` + flag-gated „Blokkműhely" sidebar entry via new `core/tokens/features.ts` (`hierarchyBlock`). Added `PATCH /api/blocks/{id}/activities/{relationId}` (role change, unknown→400) to back the role selector. Archived blocks hidden from the picker.
+- Why: give teachers a calm, visual way to assemble reusable blocks from activity references (the gold-standard 3-pane builder pattern), still dark behind the flag.
+- State another agent needs: `ng test` 26/26, `dotnet test` 50/50; full block flow + role PATCH verified live; web + api rebuilt. Web flag is a plain constant (flip `FEATURES.hierarchyBlock` to hide). **Remaining in Phase 4: Task 4.4 — evidence-preserving AlbumInstance-mint migration (highest risk).**
+
 ## [2026-06-01] feat | Blokk (Block) API — REFACTOR-001 Phase 4 (Tasks 4.1–4.2)
 
 - Ask: start REFACTOR-001 Phase 4 — the Blokk (Block) entity with reference composition + versioning.
