@@ -1,0 +1,60 @@
+.map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px 0;
+}
+
+.claim {
+  background: white;
+  border: 2px solid var(--primary-500);
+  border-radius: 14px;
+  padding: 14px 22px;
+  text-align: center;
+  max-width: 380px;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 500;
+  color: var(--n-900);
+  box-shadow: 0 2px 0 var(--primary-200);
+}
+
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 600px;
+  margin-top: -4px;
+}
+
+.reason-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reason {
+  background: white;
+  border: 1px solid var(--n-300);
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--n-800);
+  width: 100%;
+}
+
+.example {
+  background: #faf5ff;
+  border: 1px dashed var(--primary-300);
+  border-radius: 12px;
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 17px;
+  color: var(--n-700);
+  font-style: italic;
+  width: 100%;
+}

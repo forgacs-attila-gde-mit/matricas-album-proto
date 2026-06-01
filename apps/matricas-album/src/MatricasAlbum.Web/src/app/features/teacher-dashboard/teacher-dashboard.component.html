@@ -1,0 +1,190 @@
+<div class="content-narrow">
+  <div class="page-head">
+    <div>
+      <ma-chip tone="primary" icon="hub">Műhely</ma-chip>
+      <h1 style="margin-top: 14px;">Matricás album műhely</h1>
+      <div class="sub">
+        Áttekintő kezdőpont: folytasd a futó tanulási utat, vagy indíts egy következő tervezési lépést.
+      </div>
+    </div>
+    <ma-btn variant="primary" icon="auto_awesome" (clicked)="guidedDemo.open()">
+      Bemutató indítása
+    </ma-btn>
+  </div>
+
+  @if (store.loadError()) {
+    <div class="card warning-strip">
+      <ma-icon name="cloud_off" />
+      <div>{{ store.loadError() }}</div>
+    </div>
+  }
+
+  <section class="pilot-strip" aria-label="Pilot fókusz">
+    <div class="pilot-copy">
+      <ma-chip tone="primary" icon="science">Pilot fókusz</ma-chip>
+      <div>
+        <div class="t-title-lg">7-8. évfolyamos természettudomány</div>
+        <div class="muted t-body-sm">
+          Autonómiát támogató iskolák tanárainak: rövid, választható, bizonyítékos tanulási lépések.
+        </div>
+      </div>
+    </div>
+    <div class="pilot-tags" aria-label="Pilot szempontok">
+      <span>tanári döntés</span>
+      <span>diákaktivitás</span>
+      <span>heti tanulás</span>
+    </div>
+  </section>
+
+  @if (priorityStrip(); as priority) {
+    <section class="priority-strip" [class]="'priority-strip priority-' + priority.tone">
+      <div class="priority-icon">
+        <ma-icon [name]="priority.icon" />
+      </div>
+      <div class="priority-copy">
+        <div class="card-section-title">{{ priority.label }}</div>
+        <div class="t-title-lg">{{ priority.title }}</div>
+        <div class="muted t-body-sm">{{ priority.body }}</div>
+      </div>
+      <a class="ma-btn-link priority-action" [routerLink]="priority.path">
+        <ma-btn variant="primary" icon="arrow_forward">{{ priority.cta }}</ma-btn>
+      </a>
+    </section>
+  }
+
+  <section class="start-paths" aria-labelledby="start-paths-title">
+    <div class="start-head">
+      <div>
+        <ma-chip tone="primary" icon="start">Belépési út</ma-chip>
+        <h2 id="start-paths-title" class="start-title">Kezdj a következő pedagógiai lépéssel</h2>
+      </div>
+      <div class="muted t-body-sm">A teljes tantervi hierarchia később épül rá ezekre.</div>
+    </div>
+
+    <div class="start-grid">
+      <button type="button" class="start-card start-card-idea" (click)="startFromIdea()">
+        <div class="start-icon"><ma-icon name="psychology_alt" /></div>
+        <div>
+          <div class="t-title-lg">Kezdj egy ötlettel</div>
+          <div class="muted t-body-sm">Például mérés, megfigyelés vagy tanulói kérdés tevékenységként.</div>
+        </div>
+        <span class="start-action">Tevékenység (matrica) vázlata <ma-icon name="arrow_forward" size="sm" /></span>
+      </button>
+
+      <button type="button" class="start-card start-card-lesson" (click)="startFromLesson()">
+        <div class="start-icon"><ma-icon name="view_agenda" /></div>
+        <div>
+          <div class="t-title-lg">Kezdj egy órával</div>
+          <div class="muted t-body-sm">45 perces természettudományos blokk tevékenységekkel és időkerettel.</div>
+        </div>
+        <span class="start-action">Blokk-vázlat indítása <ma-icon name="arrow_forward" size="sm" /></span>
+      </button>
+
+      <button type="button" class="start-card start-card-curriculum" (click)="startFromCurriculum()">
+        <div class="start-icon"><ma-icon name="account_tree" /></div>
+        <div>
+          <div class="t-title-lg">Kezdj egy tantervvel</div>
+          <div class="muted t-body-sm">7-8. évfolyamos váz modulokkal, témakörökkel és tanulási egységekkel.</div>
+        </div>
+        <span class="start-action">Tantervi váz <ma-icon name="arrow_forward" size="sm" /></span>
+      </button>
+    </div>
+  </section>
+
+  <section class="management-section" aria-labelledby="management-title">
+    <div class="start-head">
+      <div>
+        <ma-chip icon="folder_open">Kezelés és visszakeresés</ma-chip>
+        <h2 id="management-title" class="start-title">Meglévő anyagok és futtatások</h2>
+      </div>
+      <div class="muted t-body-sm">Másodlagos műhelyfelületek: keresés, újrafuttatás, állapotellenőrzés.</div>
+    </div>
+  </section>
+
+  <div class="entry-grid">
+    <a class="entry-card" routerLink="/teacher/sticker-library">
+      <div class="entry-icon"><ma-icon name="local_library" /></div>
+      <div>
+        <div class="t-title-lg">Matricatár</div>
+        <div class="muted t-body-sm">Globális, verziózott tevékenységek (matricák) kezelése.</div>
+      </div>
+      <ma-chip icon="bookmark_added">{{ store.stickerLibrary().length }}</ma-chip>
+    </a>
+
+    <a class="entry-card" routerLink="/teacher/templates">
+      <div class="entry-icon"><ma-icon name="edit_note" /></div>
+      <div>
+        <div class="t-title-lg">Albumtervek</div>
+        <div class="muted t-body-sm">Újrafuttatható tanulási utak konkrét tevékenységverziókkal.</div>
+      </div>
+      <ma-chip icon="edit_note">{{ store.templates().length }}</ma-chip>
+    </a>
+
+    <a class="entry-card" routerLink="/teacher/instances">
+      <div class="entry-icon"><ma-icon name="groups" /></div>
+      <div>
+        <div class="t-title-lg">Futó albumok</div>
+        <div class="muted t-body-sm">Osztályhoz kötött albumfuttatások csapatokkal.</div>
+      </div>
+      <ma-chip icon="groups">{{ store.instances().length }}</ma-chip>
+    </a>
+  </div>
+
+  <section class="card active-panel">
+    <div class="row-between panel-head">
+      <div>
+        <div class="t-title-lg">Aktív futó album</div>
+        <div class="muted t-body-sm">A pedagógiai nézetek és az AI tanácsadás ehhez kapcsolódik.</div>
+      </div>
+      <ma-chip tone="primary" icon="auto_stories">Futó album</ma-chip>
+    </div>
+
+    @if (store.activeInstanceSummary(); as active) {
+      <div class="active-layout">
+        <div>
+          <div class="active-title">{{ active.title }}</div>
+          <div class="muted active-q">Vezérkérdés: „{{ active.drivingQ }}”</div>
+        </div>
+        <div class="summary-grid">
+          <div class="summary-cell">
+            <div class="summary-value">{{ active.currentWeek }}</div>
+            <div class="summary-label">aktuális hét</div>
+          </div>
+          <div class="summary-cell">
+            <div class="summary-value">{{ active.stickerCount }}</div>
+            <div class="summary-label">futó matrica</div>
+          </div>
+          <div class="summary-cell warn">
+            <div class="summary-value">{{ active.pendingEvidenceCount }}</div>
+            <div class="summary-label">visszajelzésre vár</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-block">
+        <div class="row-between">
+          <div class="muted t-body-sm">Albumfuttatás haladása</div>
+          <div class="t-body-sm">{{ progress(active) }}%</div>
+        </div>
+        <div class="progress"><div [style.width.%]="progress(active)"></div></div>
+      </div>
+
+      <div class="row action-row">
+        <a class="ma-btn-link" [routerLink]="activePlanPath()">
+          <ma-btn variant="primary" icon="open_in_new">Futó album megnyitása</ma-btn>
+        </a>
+        <a class="ma-btn-link" [routerLink]="activeFeedbackPath()">
+          <ma-btn variant="secondary" icon="rate_review">Visszajelzési sor</ma-btn>
+        </a>
+      </div>
+    } @else {
+      <div class="empty-state roomy">
+        <ma-icon name="auto_stories" />
+        <div>
+          <div class="t-title">Nincs aktív futó album</div>
+          <div class="muted t-body-sm">Nyisd meg a Futó albumok oldalt, és indíts vagy aktiválj egy albumfuttatást.</div>
+        </div>
+      </div>
+    }
+  </section>
+</div>

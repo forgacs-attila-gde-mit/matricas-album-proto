@@ -1,0 +1,73 @@
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-matricas_album_v3}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER:-postgres}\" -d \"$${POSTGRES_DB:-matricas_album_v3}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  ai-agent:
+    build:
+      context: .
+      dockerfile: src/MatricasAlbum.Agent/Dockerfile
+    restart: unless-stopped
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-4o-mini}
+      ADVICE_TRACE_ENABLED: ${ADVICE_TRACE_ENABLED:-true}
+      ADVICE_TRACE_WIKI_CANDIDATE_LIMIT: ${ADVICE_TRACE_WIKI_CANDIDATE_LIMIT:-12}
+      AGENT_WIKI_PATH: /app/agent-wiki
+    ports:
+      - "8010:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read()"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: src/MatricasAlbum.Api/Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__Default: Host=db;Port=5432;Database=${POSTGRES_DB:-matricas_album_v3};Username=${POSTGRES_USER:-postgres};Password=${POSTGRES_PASSWORD:-postgres}
+      AiAgent__BaseUrl: http://ai-agent:8000
+      DemoAuth__Token: ${DEMO_AUTH_TOKEN:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      ai-agent:
+        condition: service_healthy
+    ports:
+      - "5080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8080/health >/dev/null || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    build:
+      context: .
+      dockerfile: src/MatricasAlbum.Web/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "4300:80"
+
+volumes:
+  postgres-data:

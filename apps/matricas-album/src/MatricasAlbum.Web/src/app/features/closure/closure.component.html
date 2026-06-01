@@ -1,0 +1,256 @@
+<div class="content-narrow">
+  <div class="page-head">
+    <div>
+      <ma-chip tone="primary" icon="flag">Projektzárás</ma-chip>
+      <h1 style="margin-top: 14px;">{{ store.album.title }}</h1>
+      <div class="sub">Projekt vége — bizonyítékok, reflexiók és nyilvános bemutató.</div>
+    </div>
+    <div class="row">
+      <ma-btn variant="secondary" icon="print" (clicked)="store.setPrintOpen('closure')">
+        Nyomtatható zárócsomag
+      </ma-btn>
+      <ma-btn variant="primary" icon="download" (clicked)="store.setPrintOpen('closure')">Összegzés exportálása</ma-btn>
+    </div>
+  </div>
+
+  <!-- Final product hero -->
+  <div class="card final-card">
+    <div class="row" style="gap: 18px; align-items: flex-start;">
+      <div class="final-icon">
+        <ma-icon name="emoji_events" />
+      </div>
+      <div style="flex: 1;">
+        <div class="card-section-title" style="color: var(--primary-700);">Végső produktum</div>
+        <div class="t-headline" style="font-size: 24px; margin-top: 4px;">
+          Mikroklíma-javaslatcsomag az iskola vezetésének
+        </div>
+        <div class="t-body" style="margin-top: 8px; color: var(--n-800);">
+          {{ store.teams.length || 0 }} csapat, 4 hét, 12 bizonyíték → 5 konkrét javaslat az iskolaudvar hőtűrésére.
+        </div>
+        <div class="pill-row" style="margin-top: 12px;">
+          <ma-chip icon="check">Bemutató megtartva</ma-chip>
+          <ma-chip icon="check">Makett elkészült</ma-chip>
+          <ma-chip icon="check">Iskolavezetés visszajelzett</ma-chip>
+          <ma-chip tone="success" icon="psychology">Reflexió: 100%</ma-chip>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card learning-loop-card">
+    <div class="row-between" style="margin-bottom: 14px; gap: 12px; flex-wrap: wrap;">
+      <div>
+        <div class="card-section-title">Tanulási körkép</div>
+        <div class="t-title-lg">Mi látszott a tanulási folyamatból?</div>
+      </div>
+      <ma-chip icon="visibility">Csak olvasható</ma-chip>
+    </div>
+    <div class="learning-loop-grid">
+      @for (item of learningLoopSnapshotItems(); track item.label) {
+        <div class="learning-loop-item">
+          <ma-icon [name]="item.icon" />
+          <div>
+            <div class="learning-loop-label">{{ item.label }}</div>
+            <div class="learning-loop-value">{{ item.value }}</div>
+            <div class="learning-loop-helper">{{ item.helper }}</div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card closure-ai-card">
+    <div class="row-between" style="margin-bottom: 14px; gap: 12px; flex-wrap: wrap;">
+      <div>
+        <div class="card-section-title">AI záró szintézis</div>
+        <div class="t-title-lg">Mintázatok és következő tanári kérdések</div>
+      </div>
+      <ma-btn
+        variant="primary"
+        icon="auto_awesome"
+        [disabled]="store.adviceLoading()"
+        (clicked)="requestClosureSynthesis()"
+      >
+        {{ store.adviceLoading() ? 'Készül...' : 'Szintézis kérése' }}
+      </ma-btn>
+    </div>
+
+    @if (store.closureSynthesis(); as advice) {
+      <ma-ai-card label="Projektzáró AI szintézis" icon="auto_awesome">
+        <strong>{{ advice.message }}</strong>
+        @if (advice.recommendation) {
+          <p>{{ advice.recommendation }}</p>
+        }
+        @if (advice.questions.length > 0) {
+          <ul class="synthesis-questions">
+            @for (question of advice.questions; track question) {
+              <li>{{ question }}</li>
+            }
+          </ul>
+        }
+      </ma-ai-card>
+    } @else {
+      <div class="muted t-body-sm">
+        Kérj rövid, bizonyítékokra támaszkodó záró szintézist a csapatreflexiók, beadások,
+        segítségkérések és tanári hatásnapló alapján.
+      </div>
+    }
+  </div>
+
+  <div class="card teacher-effect-card">
+    <div class="row-between" style="margin-bottom: 16px; gap: 12px; flex-wrap: wrap;">
+      <div>
+        <div class="card-section-title">Tanári hatásnapló</div>
+        <div class="t-title-lg">Mit tanultunk ebből a futtatásból?</div>
+        @if (teacherEffectLogUpdatedLabel(); as updated) {
+          <div class="muted t-body-sm" style="margin-top: 4px;">Utoljára mentve: {{ updated }}</div>
+        } @else {
+          <div class="muted t-body-sm" style="margin-top: 4px;">Részlegesen is menthető; üres mezőkkel törölhető.</div>
+        }
+      </div>
+      <ma-btn
+        variant="primary"
+        icon="save"
+        [disabled]="effectLogSaving()"
+        (clicked)="saveTeacherEffectLog()"
+      >
+        {{ effectLogSaving() ? 'Mentés...' : 'Hatásnapló mentése' }}
+      </ma-btn>
+    </div>
+
+    @if (pilotObservationBridge(); as bridge) {
+      <div class="pilot-observation-bridge">
+        <ma-icon name="edit_note" />
+        <div>
+          <strong>{{ bridge.count }} heti pilot-megfigyelés elérhető</strong>
+          <span>
+            Beemelhető a hatásnapló mezőibe, majd a megszokott mentéssel válik tartóssá.
+            @if (pilotObservationBridgeUpdatedLabel(); as updated) {
+              Utolsó helyi mentés: {{ updated }}.
+            }
+          </span>
+        </div>
+        <ma-btn variant="secondary" icon="playlist_add" (clicked)="applyPilotObservationsToEffectLog()">
+          Beemelés
+        </ma-btn>
+      </div>
+    }
+
+    <div class="effect-log-grid">
+      <label class="effect-field">
+        <span>Mi működött jól?</span>
+        <textarea
+          rows="4"
+          [ngModel]="workedWell()"
+          (ngModelChange)="workedWell.set($event)"
+          placeholder="Pl. melyik matrica, bizonyíték vagy tanári lépés mozdította előre a tanulást?"
+        ></textarea>
+      </label>
+      <label class="effect-field">
+        <span>Hol látszott bevonódás?</span>
+        <textarea
+          rows="4"
+          [ngModel]="engagementSignals()"
+          (ngModelChange)="engagementSignals.set($event)"
+          placeholder="Pl. választási pont, segítségkérés, vita, revízió vagy csapatmunka jelei."
+        ></textarea>
+      </label>
+      <label class="effect-field">
+        <span>Hol kellett tanári adaptáció vagy segítség?</span>
+        <textarea
+          rows="4"
+          [ngModel]="adaptationNotes()"
+          (ngModelChange)="adaptationNotes.set($event)"
+          placeholder="Pl. melyik csapatnál, fázisban vagy bizonyítéknál kellett módosítani?"
+        ></textarea>
+      </label>
+      <label class="effect-field">
+        <span>Mit vinnél tovább vagy módosítanál legközelebb?</span>
+        <textarea
+          rows="4"
+          [ngModel]="reuseNextTime()"
+          (ngModelChange)="reuseNextTime.set($event)"
+          placeholder="Pl. megtartandó keret, rövidítendő rész, új támasz vagy más sorrend."
+        ></textarea>
+      </label>
+    </div>
+  </div>
+
+  <!-- Lezárt album-térkép -->
+  <div class="card" style="margin-bottom: 22px;">
+    <div class="row-between" style="margin-bottom: 14px;">
+      <div class="t-title-lg">Lezárt album-térkép</div>
+      <div class="muted t-body-sm">A bizonyítékokra épülő utazás</div>
+    </div>
+    <div class="timeline-grid">
+      @for (s of store.stickers(); track s.id) {
+        <div class="sticker" [class]="'phase-' + phaseInfo(s.phase).color">
+          <div class="sticker-phase-bar"></div>
+          <div class="sticker-row">
+            <div class="sticker-icon"><ma-icon name="check" /></div>
+            <div style="flex: 1;">
+              <div class="muted t-body-sm">{{ s.week }}. hét • {{ phaseInfo(s.phase).label }}</div>
+              <div class="t-title">{{ s.title }}</div>
+            </div>
+          </div>
+          <ma-chip tone="success" icon="check_circle">Reflektált</ma-chip>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="grid-auto-2" style="margin-bottom: 22px;">
+    <!-- Portfolio evidence -->
+    <div>
+      <div class="t-title-lg" style="margin-bottom: 14px;">Portfólió bizonyítékok</div>
+      <div class="stack">
+        @for (e of store.evidence().slice(0, 3); track e.id) {
+          <ma-evidence-card [evidence]="e" />
+        }
+      </div>
+    </div>
+
+    <!-- Presentation checklist -->
+    <div class="card">
+      <div class="t-title-lg" style="margin-bottom: 14px;">Záró bemutató ellenőrzőlista</div>
+      <div class="stack-sm">
+        @for (item of store.closureChecklist(); track item.id) {
+          <button type="button" class="row checklist-row checklist-toggle" (click)="toggleChecklistItem(item.id, item.done)">
+            <ma-icon [name]="item.done ? 'check_circle' : 'radio_button_unchecked'"
+              [style.color]="item.done ? 'var(--success)' : 'var(--n-400)'" />
+            <div class="t-body" [style.color]="item.done ? 'var(--n-800)' : 'var(--n-500)'">
+              {{ item.label }}
+            </div>
+          </button>
+        } @empty {
+          <div class="muted t-body-sm">Az ellenőrzőlista még üres ennél a futtatásnál.</div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Per-team project reflections -->
+  <div class="card">
+    <div class="t-title-lg" style="margin-bottom: 14px;">
+      <ma-icon name="backpack" size="sm" /> Csapatok projekt-reflexiói
+    </div>
+    <div class="muted t-body-sm" style="margin-bottom: 14px;">
+      Minden csapat a projekt végén ír egy összegző reflexiót. Itt egy helyen látszanak.
+    </div>
+    @for (block of teamReflections(); track block.team.id) {
+      <div class="reflection-row">
+        <div class="row" style="gap: 8px; align-items: center; margin-bottom: 6px;">
+          <span class="team-dot" [style.background]="block.team.color"></span>
+          <div class="t-title">{{ block.team.name }}</div>
+        </div>
+        @if (block.text) {
+          <div class="t-body reflection">„{{ block.text }}"</div>
+        } @else {
+          <div class="muted t-body-sm">Ez a csapat még nem írta meg a projekt-reflexióját.</div>
+        }
+      </div>
+    } @empty {
+      <div class="muted t-body-sm">Még nincsenek csapatok ehhez a futtatáshoz.</div>
+    }
+  </div>
+</div>

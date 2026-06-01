@@ -1,0 +1,144 @@
+<ma-drawer [open]="open()" (close)="close()">
+  @if (evidence(); as e) {
+    <div class="drawer-header">
+      <div class="row">
+        <button type="button" class="icon-btn" (click)="close()"><ma-icon name="close" /></button>
+        <div>
+          <div class="row" style="margin-bottom: 4px; flex-wrap: wrap;">
+            @if (team(); as t) { <ma-team-chip [team]="t" /> }
+            <ma-chip [tone]="statusChip().tone" [icon]="statusChip().icon">{{ statusChip().label }}</ma-chip>
+            @if (e.helpRequested) {
+              <ma-chip tone="danger" icon="back_hand">Segítség kérve</ma-chip>
+            }
+          </div>
+          <div class="t-title-lg">{{ e.title }}</div>
+          <div class="muted t-body-sm">Matrica: {{ sticker()?.title }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-body">
+      <!-- The actual attachment artifact (érvtérkép / mérési táblázat / fotó) -->
+      <ma-evidence-attachment [evidence]="e" />
+
+      @if (mode() === 'teacher') {
+        @if (sticker()?.studentChoice; as choice) {
+          <div class="decision-point-card">
+            <ma-icon name="alt_route" />
+            <div>
+              <div class="card-section-title">Tanulói döntési pont</div>
+              <div class="t-body">{{ choice }}</div>
+            </div>
+          </div>
+        }
+      }
+
+      <div class="card">
+        <div class="card-section-title">Csapat által írt leírás</div>
+        <div class="t-body" style="margin-bottom: 12px;">{{ e.description }}</div>
+        @if (e.helpRequest) {
+          <div class="card-section-title">Segítségkérés</div>
+          <div class="t-body" style="color: #9a3412;">{{ e.helpRequest }}</div>
+        }
+        @if (e.reflection) {
+          <div class="card-section-title" style="margin-top: 12px;">Csapat reflexiója</div>
+          <div class="t-body reflection">„{{ e.reflection }}"</div>
+        }
+      </div>
+
+      @if (mode() === 'student' && e.teacherFeedback) {
+        <div class="card">
+          <div class="card-section-title">Tanári visszajelzés</div>
+          <div class="t-body">{{ e.teacherFeedback }}</div>
+        </div>
+      }
+
+      @if (mode() === 'teacher') {
+        <ma-ai-card label="AI feedback draft tanári ellenőrzéshez">
+          @if (evidenceAdvice(); as advice) {
+            <div class="t-body">{{ advice.message }}</div>
+            @if (advice.recommendation) {
+              <div class="t-body ai-recommendation">{{ advice.recommendation }}</div>
+            }
+            @if (evidenceAdviceDraft(); as draft) {
+              <div class="draft-preview">{{ draft }}</div>
+            }
+            <div class="ai-draft-actions">
+              <ma-btn variant="ghost" icon="refresh" [disabled]="store.adviceLoading()" (clicked)="refreshAiDraft()">
+                AI draft frissítése
+              </ma-btn>
+              @if (advice.action?.type === 'draftFeedback') {
+                <ma-btn variant="secondary" icon="edit" (clicked)="applyAiDraft()">Draft betöltése</ma-btn>
+              }
+            </div>
+          } @else {
+            <div class="t-body">
+              Kérj célzott, szerkeszthető visszajelzés-draftot ehhez a konkrét beküldéshez.
+            </div>
+            <div class="ai-draft-actions">
+              <ma-btn variant="secondary" icon="auto_awesome" [disabled]="store.adviceLoading()" (clicked)="refreshAiDraft()">
+                AI draft frissítése
+              </ma-btn>
+            </div>
+          }
+          <div style="margin-top: 8px;">
+            <ma-chip icon="info">Az AI nem küld visszajelzést. A döntés és a végleges szöveg a Tiéd.</ma-chip>
+          </div>
+        </ma-ai-card>
+
+        <div class="field">
+          <label>Javasolt visszajelzés</label>
+          <div class="field-help">
+            Az AI által generált draft. Mindenképpen szerkeszd, hogy a Te hangod legyen.
+          </div>
+          <textarea
+            class="textarea"
+            rows="5"
+            [ngModel]="feedback()"
+            (ngModelChange)="updateFeedback($event)"
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label>Mi történjen a matricával?</label>
+          <div class="grid-3" style="margin-top: 8px;">
+            <button type="button" class="choice-card" [class.selected]="nextStep() === 'javitas'" (click)="setNextStep('javitas')">
+              <div class="row" style="gap: 8px;"><ma-icon name="redo" /><span class="choice-title">Visszaküldöm javításra</span></div>
+              <div class="choice-sub">A csapat új mérést végez, a matrica „Javítás alatt".</div>
+            </button>
+            <button type="button" class="choice-card" [class.selected]="nextStep() === 'lezar'" (click)="setNextStep('lezar')">
+              <div class="row" style="gap: 8px;"><ma-icon name="check_circle" /><span class="choice-title">Elfogadom és lezárom</span></div>
+              <div class="choice-sub">A matrica „Elkészült" állapotba kerül.</div>
+            </button>
+            <button type="button" class="choice-card" [class.selected]="nextStep() === 'megj'" (click)="setNextStep('megj')">
+              <div class="row" style="gap: 8px;"><ma-icon name="bookmark" /><span class="choice-title">Csak tanári jegyzet</span></div>
+              <div class="choice-sub">Nem kap a csapat üzenetet, a megfigyelést csak Te látod.</div>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="drawer-footer">
+      @if (mode() === 'teacher') {
+        <ma-btn variant="ghost" (clicked)="close()">Mégse</ma-btn>
+        <div class="row">
+          @if (canArchive()) {
+            <ma-btn variant="ghost" icon="archive" (clicked)="archive()">Archiválás</ma-btn>
+          }
+          <ma-btn variant="secondary" icon="edit">Szerkesztem és elküldöm</ma-btn>
+          <ma-btn variant="primary" icon="send" (clicked)="send()">
+            @switch (nextStep()) {
+              @case ('javitas') { Visszaküldöm javításra }
+              @case ('lezar')   { Elfogadom és lezárom a matricát }
+              @case ('megj')    { Mentés tanári jegyzetként }
+            }
+          </ma-btn>
+        </div>
+      } @else {
+        <div class="muted t-body-sm">Olvasásra. A beküldést a tanár véleményezi.</div>
+        <ma-btn variant="primary" icon="close" (clicked)="close()">Bezárás</ma-btn>
+      }
+    </div>
+  }
+</ma-drawer>

@@ -1,0 +1,127 @@
+{
+  "projectionVersion": "matricas-methodology-agent-wiki-v1",
+  "language": "hu",
+  "scope": "self-contained-agent-wiki",
+  "sourcePolicy": "A runtime agent-wiki pedagógiai tartalma kizárólag a Matricás album módszertani kézikönyvéből készült. A discovery wiki, nyers források, külső URL-ek és korábbi projekciós oldalak nem runtime források.",
+  "privacyPolicy": "Személyhez kötött állítás, tanulói minősítés vagy azonosítható belső szervezeti kontextus nem kerülhet a tudástárba.",
+  "runtimeRule": "Az agent csak olvassa ezt a projekciót. Runtime közben nem írhatja és nem bővítheti.",
+  "pages": [
+    {
+      "file": "agent-wiki-hasznalati-szabalyok.md",
+      "title": "Agent-wiki használati szabályok",
+      "kind": "runtime",
+      "displayLabel": null
+    },
+    {
+      "file": "album-mint-tanulasi-ut.md",
+      "title": "Album mint tanulási út",
+      "kind": "methodology",
+      "displayLabel": "Album mint tanulási út"
+    },
+    {
+      "file": "alkotas-es-nyilvanossag.md",
+      "title": "Alkotás, produktum és nyilvánosság",
+      "kind": "methodology",
+      "displayLabel": "Alkotás és nyilvánosság"
+    },
+    {
+      "file": "csapatmunka-es-szerepek.md",
+      "title": "Csapatmunka és szerepek",
+      "kind": "methodology",
+      "displayLabel": "Csapatmunka és szerepek"
+    },
+    {
+      "file": "diak-szokrateszi-tanacs.md",
+      "title": "Diákoknak szóló szókratészi tanács",
+      "kind": "runtime",
+      "displayLabel": null
+    },
+    {
+      "file": "differencialas-albumon-belul.md",
+      "title": "Differenciálás albumon belül",
+      "kind": "methodology",
+      "displayLabel": "Differenciálás"
+    },
+    {
+      "file": "index.md",
+      "title": "Agent-wiki index",
+      "kind": "index",
+      "displayLabel": null
+    },
+    {
+      "file": "kerdezes-es-kutatas.md",
+      "title": "Kérdezés és kutatás",
+      "kind": "methodology",
+      "displayLabel": "Kérdezés és kutatás"
+    },
+    {
+      "file": "matrica-anatomia.md",
+      "title": "A matrica anatómiája",
+      "kind": "methodology",
+      "displayLabel": "Matrica anatómiája"
+    },
+    {
+      "file": "minosegi-ellenorzo.md",
+      "title": "Album minőségellenőrző",
+      "kind": "methodology",
+      "displayLabel": "Album minőségellenőrző"
+    },
+    {
+      "file": "reflexio-es-gondolkodasvaltozas.md",
+      "title": "Reflexió és gondolkodásváltozás",
+      "kind": "methodology",
+      "displayLabel": "Reflexió"
+    },
+    {
+      "file": "tanari-facilitalas.md",
+      "title": "Tanári facilitálás",
+      "kind": "methodology",
+      "displayLabel": "Tanári facilitálás"
+    },
+    {
+      "file": "tanari-tanacsadas.md",
+      "title": "Tanári tanácsadás",
+      "kind": "runtime",
+      "displayLabel": null
+    },
+    {
+      "file": "tanulasi-bizonyitek-es-portfolio.md",
+      "title": "Tanulási bizonyíték és portfólió",
+      "kind": "methodology",
+      "displayLabel": "Bizonyíték és portfólió"
+    },
+    {
+      "file": "vezerkerdes-produktum-kozonseg.md",
+      "title": "Vezérkérdés, produktum és közönség",
+      "kind": "methodology",
+      "displayLabel": "Vezérkérdés és produktum"
+    },
+    {
+      "file": "visszajelzes-es-revizio.md",
+      "title": "Visszajelzés és revízió",
+      "kind": "methodology",
+      "displayLabel": "Visszajelzés és revízió"
+    }
+  ],
+  "checksums": {
+    "aggregate": "faa1319a77473cf9ae015462070302da65bc54900ce6107a06f1cea9bd1d1d2c",
+    "files": {
+      "agent-wiki-hasznalati-szabalyok.md": "89135ddd7686db991d631683a3f90a48e428b06d813a23f09a527833b9fbee6c",
+      "album-mint-tanulasi-ut.md": "55d9e3535ca397d356ac7127555c7f81f42d6394c8b683f5862544e067e71044",
+      "alkotas-es-nyilvanossag.md": "b0ddf89a15ffb46e34d1c6183542a21a47f2630652aa2f5b14a3a101f189b15f",
+      "csapatmunka-es-szerepek.md": "7b767cabf3acb7cc69df883e4c17c488173c9e6175a36b15a797f06814067115",
+      "diak-szokrateszi-tanacs.md": "3e1c1872a2ab21e78bc1cd8e6e2a02c16fca72abf08bb20f4c5e0c8d0d5cfdfc",
+      "differencialas-albumon-belul.md": "2b39b36895d5766502cab574e2737e2093a4b1b189bc8fdb2a5520ab0b25f581",
+      "index.md": "096c27fb84ad6d867633eaee39b3c0b601685b45b432305bfe95daeaf514eac0",
+      "kerdezes-es-kutatas.md": "fc8922ae399d1ee452284ac1ed734be2a310393dd750c93499f9fb85fab8ed1f",
+      "matrica-anatomia.md": "209986829e23eb6fe170ec6f05f0a201cc8a0e7b5dc1ca65dda435ebf8a4f57f",
+      "minosegi-ellenorzo.md": "a0d76a22adf72d406f4fc1da1b7cbcf952942e5a07fbdccef103ae458143863b",
+      "reflexio-es-gondolkodasvaltozas.md": "85410318f35e0e7f970d164fd9f6a354e0b0948bc83fc812bebcf399d1a7e153",
+      "tanari-facilitalas.md": "2ef377d8fbe360c3e94a45f8db54619fc52b567e61b3ea35c61090173abc4fe9",
+      "tanari-tanacsadas.md": "827785e9192c9586b9ef229f56c709b10f081651cd76fb70617e8e63ee3c7b42",
+      "tanulasi-bizonyitek-es-portfolio.md": "bdb946820cb23301285be19c5b3a25b1da669c4d2b63bc70ef9fc221f2aeaa67",
+      "vezerkerdes-produktum-kozonseg.md": "fd9323b655277704ee0291435ccb33691475899aa85d45ddec94b506a1884487",
+      "visszajelzes-es-revizio.md": "ca3c54a6e45c69bd8f2eacaf9cb995ca50d59452dde8f76904ffdd16f25c9ddc"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.ai-card {
+  border-radius: 20px;
+  background: linear-gradient(180deg, #faf5ff 0%, white 100%);
+  border: 1px solid var(--primary-200);
+  padding: 22px 24px;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+.ai-icon {
+  width: 36px; height: 36px;
+  border-radius: 12px;
+  background: var(--primary-100);
+  color: var(--primary-700);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+
+  ma-icon { font-size: 20px; }
+}
+.ai-label {
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--primary-700);
+  font-weight: 600;
+  margin-bottom: 2px;
+}

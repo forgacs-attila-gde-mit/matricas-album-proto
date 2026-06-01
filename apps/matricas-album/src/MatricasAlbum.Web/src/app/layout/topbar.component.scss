@@ -1,0 +1,70 @@
+.topbar {
+  height: var(--header-h);
+  background: white;
+  border-bottom: 1px solid var(--n-200);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.crumbs {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--n-500); font-size: 13px;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+
+  span,
+  strong {
+    display: block;
+    min-width: 0;
+    max-width: min(32vw, 360px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  strong { color: var(--n-800); font-weight: 500; }
+  ma-icon { color: var(--n-300); flex-shrink: 0; }
+}
+
+.spacer { flex: 0 0 auto; }
+
+ma-role-switcher,
+.icon-btn,
+.avatar {
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  width: 40px; height: 40px;
+  border-radius: 999px;
+  background: none; border: none;
+  color: var(--n-700);
+  display: grid; place-items: center;
+  transition: background 120ms;
+  &:hover { background: var(--n-100); }
+}
+
+.avatar {
+  width: 36px; height: 36px;
+  background: var(--primary-500);
+  color: white;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  .crumbs span,
+  .crumbs strong {
+    max-width: min(38vw, 260px);
+  }
+}

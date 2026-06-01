@@ -1,0 +1,22 @@
+.sticker-stamp {
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  flex-shrink: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 22px;
+    border: 1.5px dashed currentColor;
+    opacity: 0.35;
+  }
+
+  ma-icon { font-size: 40px; }
+}
+.stamp-kerdezes  { background: var(--phase-kerdezes-bg);  color: var(--phase-kerdezes-fg);  }
+.stamp-kepzelet  { background: var(--phase-kepzelet-bg);  color: var(--phase-kepzelet-fg);  }
+.stamp-cselekves { background: var(--phase-cselekves-bg); color: var(--phase-cselekves-fg); }
+.stamp-reflexio  { background: var(--phase-reflexio-bg);  color: var(--phase-reflexio-fg);  }

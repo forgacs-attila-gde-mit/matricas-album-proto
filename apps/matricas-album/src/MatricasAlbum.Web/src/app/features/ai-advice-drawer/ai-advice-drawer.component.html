@@ -1,0 +1,131 @@
+<ma-drawer [open]="store.adviceDrawerOpen()" (close)="close()">
+  @if (advice(); as advice) {
+    <div class="drawer-header">
+      <div class="row">
+        <button type="button" class="icon-btn" (click)="close()"><ma-icon name="close" /></button>
+        <div>
+          <div class="row" style="gap: 8px; margin-bottom: 6px;">
+            <ma-chip tone="primary" icon="auto_awesome">AI tanács</ma-chip>
+            <ma-chip icon="rule">{{ advice.status }}</ma-chip>
+          </div>
+          <div class="t-title-lg">{{ advice.action?.label || 'Tanács részletei' }}</div>
+          <div class="muted t-body-sm">Draft állapot: a tanár véglegesíti, az AI nem alkalmaz automatikusan semmit.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-body">
+      <div class="card ai-original">
+        <div class="card-section-title">AI eredeti javaslata</div>
+        <div class="t-body">{{ advice.message }}</div>
+        @if (advice.recommendation) {
+          <div class="recommendation">{{ advice.recommendation }}</div>
+        }
+        @if (advice.citations.length) {
+          <div class="citation-row">
+            @for (citation of advice.citations; track citation.sourceId) {
+              <div class="citation-item">
+                <button
+                  type="button"
+                  class="citation-chip"
+                  [attr.aria-label]="'Súgó megnyitása: ' + citation.label"
+                  (click)="openCitation(citation)"
+                >
+                  <ma-icon name="menu_book" size="sm" />
+                  <span>{{ citation.label }}</span>
+                </button>
+                @if (citationPreview(citation); as preview) {
+                <div class="citation-popover" role="tooltip">
+                  <div class="t-title">{{ preview.title }}</div>
+                  <div class="t-body-sm muted">{{ preview.description }}</div>
+                  <div class="popover-action">
+                    <ma-icon name="open_in_new" size="sm" />
+                    Súgó megnyitása
+                  </div>
+                </div>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      @if (advice.action?.type === 'createSticker' && stickerDraft(); as draft) {
+        <div class="card form-card">
+          <div class="row-between">
+            <div>
+              <div class="card-section-title">Tanári véglegesítés: új matrica</div>
+              <div class="muted t-body-sm">Ezek a mezők lesznek a tanári végleges szövegek alkalmazáskor.</div>
+            </div>
+            <ma-phase-chip [phase]="draft.phase" />
+          </div>
+
+          <label>
+            <span>Cím</span>
+            <input [ngModel]="draft.title" (ngModelChange)="update('title', $event)" />
+          </label>
+          <label>
+            <span>Rövid leírás</span>
+            <textarea rows="2" [ngModel]="draft.shortDescription" (ngModelChange)="update('shortDescription', $event)"></textarea>
+          </label>
+          <label>
+            <span>Diák instrukció</span>
+            <textarea rows="4" [ngModel]="draft.studentInstruction" (ngModelChange)="update('studentInstruction', $event)"></textarea>
+          </label>
+
+          <div>
+            <div class="row-between" style="margin-bottom: 8px;">
+              <div class="card-section-title">Tanári lépések</div>
+              <ma-btn variant="ghost" icon="add" (clicked)="addStep()">Lépés</ma-btn>
+            </div>
+            @for (step of draft.teacherSteps; track $index) {
+              <div class="step-row">
+                <input [ngModel]="step" (ngModelChange)="updateStep($index, $event)" />
+                <button type="button" class="icon-btn" (click)="removeStep($index)"><ma-icon name="delete" /></button>
+              </div>
+            }
+          </div>
+
+          <div class="grid-2">
+            <label>
+              <span>Tanulói döntési pont</span>
+              <textarea rows="3" [ngModel]="draft.studentChoice" (ngModelChange)="update('studentChoice', $event)"></textarea>
+            </label>
+            <label>
+              <span>Reflexiós kérdés</span>
+              <textarea rows="3" [ngModel]="draft.reflectionPrompt" (ngModelChange)="update('reflectionPrompt', $event)"></textarea>
+            </label>
+          </div>
+
+          <div class="grid-2">
+            <label>
+              <span>Bizonyíték típusa</span>
+              <input [ngModel]="draft.evidenceTypeLabel" (ngModelChange)="update('evidenceTypeLabel', $event)" />
+            </label>
+            <label>
+              <span>Hét</span>
+              <input type="number" [ngModel]="draft.week" (ngModelChange)="update('week', +$event)" />
+            </label>
+          </div>
+        </div>
+      }
+
+      @if (advice.action?.type === 'draftFeedback' && feedbackDraft(); as draft) {
+        <div class="card form-card">
+          <div class="card-section-title">Tanári véglegesítés: visszajelzés</div>
+          <div class="muted t-body-sm">Alkalmazás után megnyílik a visszajelzés panel. Ez még szerkeszthető tanári szöveg, nem automatikus mentés.</div>
+          <textarea rows="7" [ngModel]="draft.draft" (ngModelChange)="updateFeedbackDraft($event)"></textarea>
+        </div>
+      }
+    </div>
+
+    <div class="drawer-footer">
+      <ma-btn variant="ghost" (clicked)="close()">Mégse</ma-btn>
+      <label class="review-check">
+        <input type="checkbox" [checked]="reviewConfirmed()" (change)="setReviewConfirmed($any($event.target).checked)" />
+        <span>Átnéztem és tanári döntésként alkalmazom</span>
+      </label>
+      <ma-btn variant="primary" icon="check" [disabled]="!canApply()" (clicked)="apply()">Véglegesítés</ma-btn>
+    </div>
+  }
+</ma-drawer>

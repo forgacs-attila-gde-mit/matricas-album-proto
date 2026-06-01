@@ -1,0 +1,41 @@
+.attachment-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  background: #fbfaf6;
+  border: 1px solid var(--n-200);
+  border-radius: 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transition: border-color 120ms, background 120ms, transform 120ms;
+
+  &:hover {
+    border-color: var(--primary-400);
+    background: #faf5ff;
+  }
+  &:active { transform: translateY(1px); }
+}
+
+.attachment-chip-icon {
+  width: 36px; height: 36px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+
+.attachment-chip-cta {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 8px 4px 10px;
+  border-radius: 999px;
+  background: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  color: var(--primary-700);
+  white-space: nowrap;
+  flex-shrink: 0;
+}

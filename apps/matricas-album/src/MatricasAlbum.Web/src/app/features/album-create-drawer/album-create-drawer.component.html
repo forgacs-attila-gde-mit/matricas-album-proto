@@ -1,0 +1,888 @@
+<ma-drawer [open]="store.wizardOpen()" width="min(820px, 100%)" (close)="close()">
+  <div class="drawer-header">
+    <div class="row">
+      <button type="button" class="icon-btn" (click)="close()" [disabled]="saving()">
+        <ma-icon name="close" />
+      </button>
+      <div>
+        <div class="row" style="margin-bottom: 4px;">
+          @switch (store.wizardMode()) {
+            @case ('sticker') { <ma-chip tone="primary" icon="bookmark_added">{{ headerPrimaryChipLabel() }}</ma-chip> }
+            @case ('newVersion') { <ma-chip tone="primary" icon="history">Új verzió</ma-chip> }
+            @case ('template') { <ma-chip tone="primary" icon="edit_note">{{ headerPrimaryChipLabel() }}</ma-chip> }
+            @case ('newTemplateVersion') { <ma-chip tone="primary" icon="history">Albumterv-verzió</ma-chip> }
+            @case ('instanceSticker') { <ma-chip tone="primary" icon="add_circle">Futó matrica</ma-chip> }
+            @case ('instanceStickerEdit') { <ma-chip tone="primary" icon="edit">Futó matrica</ma-chip> }
+            @case ('instance') { <ma-chip tone="primary" icon="groups">Futó album</ma-chip> }
+          }
+          <ma-chip icon="link">{{ headerBridgeLabel() }}</ma-chip>
+        </div>
+        <div class="t-title-lg">
+          @switch (store.wizardMode()) {
+            @case ('sticker') { Új tevékenység (matrica) }
+            @case ('template') { {{ templateDrawerTitle() }} }
+            @case ('newVersion') {
+              Új verzió létrehozása
+              @if (store.newVersionPrefill(); as p) {
+                <span class="muted t-body-sm" style="display: block; margin-top: 4px;">
+                  Eredeti: <strong>{{ p.parentResourceTitle }}</strong> · v{{ p.latestVersion.versionNumber }}
+                </span>
+              }
+            }
+            @case ('newTemplateVersion') {
+              Új albumterv-verzió
+              @if (store.newTemplateVersionPrefill(); as p) {
+                <span class="muted t-body-sm" style="display: block; margin-top: 4px;">
+                  Eredeti: <strong>{{ p.latestVersion.title }}</strong> · v{{ p.latestVersion.versionNumber }}
+                </span>
+              }
+            }
+            @case ('instanceSticker') { Új matrica ehhez a futtatáshoz }
+            @case ('instanceStickerEdit') {
+              Futó matrica szerkesztése
+              @if (store.instanceStickerPrefill()?.source; as source) {
+                <span class="muted t-body-sm" style="display: block; margin-top: 4px;">
+                  Eredeti: <strong>{{ source.title }}</strong>
+                </span>
+              }
+            }
+            @case ('instance') { Indítás osztállyal }
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form class="drawer-body" (ngSubmit)="submit()">
+    @if (store.wizardMode() === 'newVersion') {
+      <div class="muted t-body-sm" style="margin-bottom: 14px;">
+        Az új verzió átveszi az előző verzió nem szerkesztett mezőit (lépések, döntési pont, várható produktum,
+        reflektív kérdés, B terv, erőforrás-szegény változat). A meglévő albumterv- és futó albumhozzárendelések
+        a régi verzión maradnak.
+      </div>
+    }
+    @if (store.wizardMode() === 'newTemplateVersion') {
+      <div class="muted t-body-sm" style="margin-bottom: 14px;">
+        Az új albumterv-verzió megtartja a jelenlegi matrica-hozzárendeléseket. A már futó albumok a korábbi
+        verzióhoz kötve maradnak.
+      </div>
+    }
+    @switch (store.wizardMode()) {
+      @case ('sticker') {
+        @if (stickerEntryIsIdea()) {
+          <div class="idea-copilot">
+            <div class="idea-copilot-head">
+              <div>
+                <div class="card-section-title">Vázlatsegítő</div>
+                <div class="idea-copilot-title">Írd be az ötletet, és kérj szerkeszthető tevékenységvázlatot.</div>
+              </div>
+              <ma-chip icon="verified_user">Tanári mentés kell</ma-chip>
+            </div>
+            <label class="field">
+              <span>Kiinduló ötlet</span>
+              <textarea
+                name="activityIdea"
+                class="textarea"
+                rows="2"
+                [(ngModel)]="activityIdea"
+                placeholder="Pl. papírrepülő sebességmérés"
+              ></textarea>
+            </label>
+            <div class="idea-copilot-actions">
+              <ma-btn
+                variant="secondary"
+                icon="auto_awesome"
+                [disabled]="!canDraftActivityIdea()"
+                (clicked)="draftActivityFromIdea()"
+              >
+                Vázlat kitöltése
+              </ma-btn>
+              @if (activityIdeaDrafted) {
+                <ma-chip tone="primary" icon="edit">Előtöltve, ellenőrizd a mezőket</ma-chip>
+              }
+            </div>
+            <div class="idea-guardrail">
+              A javaslat csak előtöltés: nem hoz létre tevékenységet, nem épít teljes tantervi struktúrát, és mentés előtt átírható.
+            </div>
+            @if (activityIdeaDrafted) {
+              <div class="handoff-panel">
+                <div>
+                  <div class="card-section-title">Következő szint</div>
+                  <div class="handoff-title">Szeretnéd ezt egy órába szervezni?</div>
+                  <div class="muted t-body-sm">A tevékenységből szerkeszthető órai blokk-vázlat készül, mentés nélkül is visszaléphetsz.</div>
+                </div>
+                <button type="button" class="handoff-action" (click)="startLessonFromCurrentActivity()">
+                  Órai blokk-vázlat <ma-icon name="arrow_forward" size="sm" />
+                </button>
+              </div>
+            }
+          </div>
+        }
+
+        @if (assignableStickers().length > 0) {
+          <div class="adapt-panel">
+            <div>
+              <div class="card-section-title">Meglévő tevékenység adaptálása</div>
+              <div class="muted t-body-sm">Válassz egy meglévő tevékenységet (matricát) kiindulópontnak, majd írd át a saját órádhoz.</div>
+            </div>
+            <div class="adapt-row">
+              <select name="adaptSticker" class="input" [(ngModel)]="selectedAdaptStickerId">
+                <option value="">Válassz meglévő tevékenységet</option>
+                @for (item of assignableStickers(); track item.id) {
+                  <option [value]="item.id">{{ item.title }}</option>
+                }
+              </select>
+              <button type="button" class="adapt-btn" [disabled]="!selectedAdaptStickerId" (click)="adaptSelectedActivity()">
+                Adaptálás
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (activityMetadataVisible()) {
+          <div class="activity-metadata">
+            <div class="activity-metadata-head">
+              <div>
+                <div class="card-section-title">Tanítási keret</div>
+                <div class="activity-metadata-title">Opcionális tanári metaadatok a tevékenységkártyához.</div>
+              </div>
+              <ma-chip icon="tune">Opcionális</ma-chip>
+            </div>
+            <div class="metadata-subhead">
+              <strong>Tevékenységtípus</strong>
+              <span>Mit csinálnak a diákok? Ez külön van a tanulási út fázisától.</span>
+            </div>
+            <div class="activity-type-grid" aria-label="Tevékenységtípus">
+              @for (type of activityTypes; track type.id) {
+                <button
+                  type="button"
+                  class="activity-type-card"
+                  [class.activity-type-card-active]="selectedActivityType === type.id"
+                  (click)="selectedActivityType = type.id"
+                >
+                  <ma-icon [name]="type.icon" size="sm" />
+                  <span>
+                    <strong>{{ type.label }}</strong>
+                    <small>{{ type.description }}</small>
+                  </span>
+                </button>
+              }
+            </div>
+            <div class="metadata-grid">
+              <label class="field">
+                <span>Tantárgy</span>
+                <input name="metadataSubject" class="input" [(ngModel)]="metadataSubject" />
+              </label>
+              <label class="field">
+                <span>Évfolyam</span>
+                <input name="metadataGrade" class="input" [(ngModel)]="metadataGrade" />
+              </label>
+              <label class="field span-2">
+                <span>Kompetenciák</span>
+                <input name="metadataCompetencies" class="input" [(ngModel)]="metadataCompetencies" />
+              </label>
+              <label class="field span-2">
+                <span>NAT-kapcsolódás</span>
+                <input name="metadataNatLinks" class="input" [(ngModel)]="metadataNatLinks" placeholder="Pl. energia, mérés, fenntarthatóság" />
+              </label>
+              <label class="field">
+                <span>Tanterv</span>
+                <input name="contextCurriculum" class="input" [(ngModel)]="contextCurriculum" placeholder="Pl. 7. évfolyam természettudomány" />
+              </label>
+              <label class="field">
+                <span>Modul</span>
+                <input name="contextModule" class="input" [(ngModel)]="contextModule" placeholder="Pl. Erők és kölcsönhatások" />
+              </label>
+              <label class="field">
+                <span>Témakör</span>
+                <input name="contextTopic" class="input" [(ngModel)]="contextTopic" />
+              </label>
+              <label class="field">
+                <span>Tanulási egység</span>
+                <input name="contextLearningUnit" class="input" [(ngModel)]="contextLearningUnit" placeholder="Pl. Sebesség mérése a hétköznapokban" />
+              </label>
+              <label class="field">
+                <span>Blokk</span>
+                <input name="contextBlock" class="input" [(ngModel)]="contextBlock" />
+              </label>
+              <label class="field">
+                <span>Interakció</span>
+                <select name="metadataInteractionMode" class="input" [(ngModel)]="metadataInteractionMode">
+                  <option value="kutatas">Kutatás / megfigyelés</option>
+                  <option value="vita">Vita / érvelés</option>
+                  <option value="alkotas">Alkotás / prototípus</option>
+                  <option value="reflexio">Reflexió</option>
+                  <option value="gyakorlas">Gyakorlás</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Szervezés</span>
+                <select name="metadataParticipantMode" class="input" [(ngModel)]="metadataParticipantMode">
+                  <option value="egyeni">Egyéni munka</option>
+                  <option value="paros">Páros munka</option>
+                  <option value="csoportos">Csoportmunka</option>
+                  <option value="teljes-osztaly">Teljes osztály</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Becsült idő</span>
+                <input name="metadataEstimatedMinutes" class="input" type="number" inputmode="numeric" min="1" max="90" [(ngModel)]="metadataEstimatedMinutes" />
+              </label>
+              <label class="field">
+                <span>Kontextus</span>
+                <select name="metadataContextMode" class="input" [(ngModel)]="metadataContextMode">
+                  <option value="iskola">Iskola</option>
+                  <option value="otthon">Otthon</option>
+                  <option value="kozosseg">Helyi közösség</option>
+                  <option value="terep">Terep / iskolaudvar</option>
+                  <option value="digitalis">Digitális forrás</option>
+                </select>
+              </label>
+              <label class="field span-2">
+                <span>Valós helyzet</span>
+                <input name="metadataContextNote" class="input" [(ngModel)]="metadataContextNote" />
+              </label>
+            </div>
+          </div>
+        }
+
+        <div class="form-grid">
+          <label class="field span-2">
+            <span>Tevékenység címe</span>
+            <input name="stickerTitle" class="input" [(ngModel)]="stickerTitle" placeholder="Pl. Interjú a gondnokkal" />
+          </label>
+          <label class="field">
+            <span>Tanulási út fázisa</span>
+            <select name="stickerPhase" class="input" [(ngModel)]="stickerPhase">
+              <option value="kerdezes">Kérdezés</option>
+              <option value="kepzelet">Képzelet</option>
+              <option value="cselekves">Cselekvés</option>
+              <option value="reflexio">Reflexió</option>
+            </select>
+            <span class="help">A fázis azt jelzi, hol tart a tanulási út; a tevékenységtípus azt, milyen munka történik.</span>
+          </label>
+          <label class="field">
+            <span>Bizonyíték típusa</span>
+            <input name="stickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
+          </label>
+          <label class="field span-2">
+            <span>Rövid leírás</span>
+            <textarea name="stickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+          </label>
+          <label class="field span-2">
+            <span>Diák instrukció</span>
+            <textarea name="stickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+          </label>
+        </div>
+      }
+
+      @case ('newVersion') {
+        <div class="form-grid">
+          <label class="field span-2">
+            <span>Matrica címe</span>
+            <input name="stickerTitle" class="input" [(ngModel)]="stickerTitle" />
+          </label>
+          <label class="field">
+            <span>Fázis</span>
+            <select name="stickerPhase" class="input" [(ngModel)]="stickerPhase">
+              <option value="kerdezes">Kérdezés</option>
+              <option value="kepzelet">Képzelet</option>
+              <option value="cselekves">Cselekvés</option>
+              <option value="reflexio">Reflexió</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Bizonyíték típusa</span>
+            <input name="stickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
+          </label>
+          <label class="field span-2">
+            <span>Rövid leírás</span>
+            <textarea name="stickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+          </label>
+          <label class="field span-2">
+            <span>Diák instrukció</span>
+            <textarea name="stickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+          </label>
+        </div>
+      }
+
+      @case ('instanceSticker') {
+        <div class="muted t-body-sm" style="margin-bottom: 14px;">
+          Ez a matrica csak a futó albumban jelenik meg. A sablontervet és a matricatár-hozzárendeléseket nem módosítja.
+        </div>
+        <div class="form-grid">
+          <label class="field span-2">
+            <span>Matrica címe</span>
+            <input name="instanceStickerTitle" class="input" [(ngModel)]="stickerTitle" placeholder="Pl. Gyors bizonyítékellenőrzés" />
+          </label>
+          <label class="field span-2">
+            <span>Elhelyezés</span>
+            <select name="instanceStickerWeek" class="input" [(ngModel)]="instanceStickerWeek">
+              @for (option of instanceStickerUnitOptions(); track option.week) {
+                <option [ngValue]="option.week">{{ instanceStickerUnitLabel(option) }}</option>
+              }
+            </select>
+            <span class="help">{{ instanceStickerPlacementHelp() }}</span>
+          </label>
+          <label class="field">
+            <span>Fázis</span>
+            <select name="instanceStickerPhase" class="input" [(ngModel)]="stickerPhase">
+              <option value="kerdezes">Kérdezés</option>
+              <option value="kepzelet">Képzelet</option>
+              <option value="cselekves">Cselekvés</option>
+              <option value="reflexio">Reflexió</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Bizonyíték típusa</span>
+            <input name="instanceStickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
+          </label>
+          <label class="field span-2">
+            <span>Rövid leírás</span>
+            <textarea name="instanceStickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+          </label>
+          <label class="field span-2">
+            <span>Diák instrukció</span>
+            <textarea name="instanceStickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+          </label>
+        </div>
+      }
+
+      @case ('instanceStickerEdit') {
+        <div class="muted t-body-sm" style="margin-bottom: 14px;">
+          Ha a matricán már van beadás vagy csapatállapot, a rendszer javított másolatot hoz létre. Az eredeti beadások érintetlenek maradnak.
+        </div>
+        <div class="form-grid">
+          <label class="field span-2">
+            <span>Matrica címe</span>
+            <input name="instanceStickerEditTitle" class="input" [(ngModel)]="stickerTitle" />
+          </label>
+          <label class="field span-2">
+            <span>Elhelyezés</span>
+            <select name="instanceStickerEditWeek" class="input" [(ngModel)]="instanceStickerWeek">
+              @for (option of instanceStickerUnitOptions(); track option.week) {
+                <option [ngValue]="option.week">{{ instanceStickerUnitLabel(option) }}</option>
+              }
+            </select>
+            <span class="help">{{ instanceStickerPlacementHelp() }}</span>
+          </label>
+          <label class="field">
+            <span>Fázis</span>
+            <select name="instanceStickerEditPhase" class="input" [(ngModel)]="stickerPhase">
+              <option value="kerdezes">Kérdezés</option>
+              <option value="kepzelet">Képzelet</option>
+              <option value="cselekves">Cselekvés</option>
+              <option value="reflexio">Reflexió</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Bizonyíték típusa</span>
+            <input name="instanceStickerEditEvidence" class="input" [(ngModel)]="stickerEvidence" />
+          </label>
+          <label class="field span-2">
+            <span>Rövid leírás</span>
+            <textarea name="instanceStickerEditShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+          </label>
+          <label class="field span-2">
+            <span>Diák instrukció</span>
+            <textarea name="instanceStickerEditInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+          </label>
+        </div>
+      }
+
+      @case ('template') {
+        @if (conceptOnboardingVisible()) {
+          <div class="concept-panel">
+            <div class="concept-panel-head">
+              <div>
+                <div class="card-section-title">Módszertani keret</div>
+                <div class="concept-panel-title">Az album a tanulási út térképe.</div>
+              </div>
+              <button
+                type="button"
+                class="concept-dismiss"
+                title="Keret elrejtése"
+                aria-label="Módszertani keret elrejtése"
+                (click)="dismissConceptOnboarding()"
+              >
+                <ma-icon name="close" />
+              </button>
+            </div>
+            <div class="concept-grid">
+              <div class="concept-item">
+                <ma-icon name="route" />
+                <div>
+                  <strong>Album = tanulási út</strong>
+                  <span>Kérdésből, döntésekből, bizonyítékokból és reflexióból áll.</span>
+                </div>
+              </div>
+              <div class="concept-item">
+                <ma-icon name="bookmark_added" />
+                <div>
+                  <strong>Matrica = bizonyítékos epizód</strong>
+                  <span>Egy látható tanulási lépés, nem önmagában álló feladat.</span>
+                </div>
+              </div>
+              <div class="concept-item">
+                <ma-icon name="support_agent" />
+                <div>
+                  <strong>Tanár = facilitátor</strong>
+                  <span>Te nyitod a választási teret, az AI legfeljebb visszajelzést támogat.</span>
+                </div>
+              </div>
+              <div class="concept-item">
+                <ma-icon name="science" />
+                <div>
+                  <strong>Pilot = 7-8. természettudomány</strong>
+                  <span>Autonómiát támogató iskolai helyzetekre hangolt, de később bővíthető.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <div class="entry-context">
+          <div class="card-section-title">{{ templateEntryEyebrow() }}</div>
+          <div class="entry-context-title">{{ templateEntryTitle() }}</div>
+          <div class="muted t-body-sm">{{ templateEntryBody() }}</div>
+        </div>
+
+        <div class="entry-guardrail">
+          <ma-icon name="verified_user" size="sm" />
+          <span>
+            AI csak javasolhat és előtölthet; teljes tanterv-, modul-, témakör- vagy blokkstruktúra csak tanári ellenőrzés után menthető.
+          </span>
+        </div>
+
+        @if (assignableTemplates().length > 0) {
+          <div class="adapt-panel">
+            <div>
+              <div class="card-section-title">Meglévő terv adaptálása</div>
+              <div class="muted t-body-sm">Indulhatsz meglévő albumtervből vagy blokk-vázlatból, de az új változat csak tanári mentéssel jön létre.</div>
+            </div>
+            <div class="adapt-row">
+              <select name="adaptTemplate" class="input" [(ngModel)]="selectedAdaptTemplateId">
+                <option value="">Válassz meglévő tervet</option>
+                @for (template of assignableTemplates(); track template.id) {
+                  <option [value]="template.id">{{ template.title }}</option>
+                }
+              </select>
+              <button type="button" class="adapt-btn" [disabled]="!selectedAdaptTemplateId" (click)="adaptSelectedTemplate()">
+                Adaptálás
+              </button>
+            </div>
+          </div>
+        }
+
+        @if (lessonBuilderVisible()) {
+          <div class="lesson-builder">
+            <div class="lesson-builder-head">
+              <div>
+                <div class="card-section-title">Órai blokk összeállítása</div>
+                <div class="lesson-builder-title">Szerkeszthető tevékenységsor időkerettel.</div>
+              </div>
+              <div class="lesson-builder-meta">
+                <ma-chip icon="format_list_numbered">{{ lessonActivities.length }} tevékenység</ma-chip>
+                <ma-chip icon="schedule">{{ lessonTotalMinutes() }} perc</ma-chip>
+              </div>
+            </div>
+
+            <div class="handoff-ladder">
+              <div>
+                <div class="card-section-title">Elhelyezési javaslat</div>
+                <div class="muted t-body-sm">Blokk → Tanulási egység → Témakör → Modul → Tanterv, még csak szerkeszthető tervezési metaadatként.</div>
+              </div>
+              <div class="handoff-chips">
+                <ma-chip icon="view_agenda">Blokk</ma-chip>
+                <ma-chip icon="view_week">Tanulási egység</ma-chip>
+                <ma-chip icon="topic">Témakör</ma-chip>
+                <ma-chip icon="account_tree">Modul</ma-chip>
+                <ma-chip icon="school">Tanterv</ma-chip>
+              </div>
+            </div>
+
+            <div class="metadata-grid">
+              <label class="field">
+                <span>Tanterv</span>
+                <input name="lessonBlockCurriculum" class="input" [(ngModel)]="lessonBlockCurriculumName" />
+              </label>
+              <label class="field">
+                <span>Modul</span>
+                <input name="lessonBlockModule" class="input" [(ngModel)]="lessonBlockModuleName" />
+              </label>
+              <label class="field span-2">
+                <span>Témakör</span>
+                <input name="lessonBlockTopic" class="input" [(ngModel)]="lessonBlockTopicName" />
+              </label>
+              <label class="field span-2">
+                <span>Tanulási egység</span>
+                <input name="lessonBlockLearningUnit" class="input" [(ngModel)]="lessonBlockLearningUnitName" />
+              </label>
+            </div>
+
+            <div class="lesson-activity-list">
+              @for (activity of lessonActivities; track activity.id; let i = $index) {
+                <div class="lesson-activity-row">
+                  <div class="lesson-activity-order">{{ i + 1 }}</div>
+                  <div class="lesson-activity-fields">
+                    <label class="field">
+                      <span>Tevékenység</span>
+                      <input
+                        class="input"
+                        [name]="'lessonActivityTitle' + i"
+                        [(ngModel)]="activity.title"
+                        (ngModelChange)="syncLessonActivitiesToUnits()"
+                      />
+                    </label>
+                    <label class="field lesson-minutes-field">
+                      <span>Perc</span>
+                      <input
+                        class="input"
+                        type="number"
+                        inputmode="numeric"
+                        min="1"
+                        max="90"
+                        [name]="'lessonActivityMinutes' + i"
+                        [(ngModel)]="activity.minutes"
+                        (ngModelChange)="syncLessonActivitiesToUnits()"
+                      />
+                    </label>
+                    <label class="field">
+                      <span>Részvétel</span>
+                      <select
+                        class="input"
+                        [name]="'lessonActivityParticipation' + i"
+                        [(ngModel)]="activity.participation"
+                        (ngModelChange)="syncLessonActivitiesToUnits()"
+                      >
+                        <option value="required">Kötelező</option>
+                        <option value="optional">Választható</option>
+                        <option value="extra">Extra</option>
+                      </select>
+                    </label>
+                    <label class="field">
+                      <span>Eszköz / forrás</span>
+                      <input
+                        class="input"
+                        [name]="'lessonActivityResources' + i"
+                        [(ngModel)]="activity.resources"
+                      />
+                    </label>
+                  </div>
+                  <div class="lesson-activity-actions" aria-label="Tevékenység sorrend és eltávolítás">
+                    <button
+                      type="button"
+                      class="lesson-icon-btn"
+                      title="Feljebb"
+                      aria-label="Tevékenység feljebb mozgatása"
+                      [disabled]="i === 0"
+                      (click)="moveLessonActivity(i, -1)"
+                    >
+                      <ma-icon name="keyboard_arrow_up" size="sm" />
+                    </button>
+                    <button
+                      type="button"
+                      class="lesson-icon-btn"
+                      title="Lejjebb"
+                      aria-label="Tevékenység lejjebb mozgatása"
+                      [disabled]="i === lessonActivities.length - 1"
+                      (click)="moveLessonActivity(i, 1)"
+                    >
+                      <ma-icon name="keyboard_arrow_down" size="sm" />
+                    </button>
+                    <button
+                      type="button"
+                      class="lesson-icon-btn"
+                      title="Eltávolítás"
+                      aria-label="Tevékenység eltávolítása"
+                      [disabled]="lessonActivities.length <= 3"
+                      (click)="removeLessonActivity(i)"
+                    >
+                      <ma-icon name="delete" size="sm" />
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="lesson-builder-footer">
+              <ma-btn
+                variant="secondary"
+                icon="add"
+                [disabled]="lessonActivities.length >= 5"
+                (clicked)="addLessonActivity()"
+              >
+                Tevékenység hozzáadása
+              </ma-btn>
+              <div class="lesson-guardrail">
+                Ez még a meglévő albumvázlat egységeibe ment: nincs új tanterv-, témakör-, tanulási egység-, blokk- vagy tevékenységséma.
+              </div>
+            </div>
+
+            <div class="metadata-grid">
+              <label class="field span-2">
+                <span>Reflexiós kérdés</span>
+                <input name="lessonBlockReflection" class="input" [(ngModel)]="lessonBlockReflectionPrompt" />
+              </label>
+              <label class="field span-2">
+                <span>Alternatív út</span>
+                <textarea name="lessonBlockAlternative" class="textarea" rows="2" [(ngModel)]="lessonBlockAlternativePath"></textarea>
+              </label>
+            </div>
+          </div>
+        }
+
+        @if (curriculumBuilderVisible()) {
+          <div class="curriculum-builder">
+            <div class="lesson-builder-head">
+              <div>
+                <div class="card-section-title">Tantervi előnézet</div>
+                <div class="lesson-builder-title">Szerkeszthető modulok és témakörök a teljes hierarchia nélkül.</div>
+              </div>
+              <ma-chip icon="account_tree">{{ curriculumModules.length }} modul</ma-chip>
+            </div>
+
+            <div class="printable-signal">
+              <ma-icon name="print" />
+              <div>
+                <strong>Későbbi print/export jelzés</strong>
+                <span>Az éves matrica- és osztálytérkép-ötlet kimeneti kontextus. Itt még nincs rendelés vagy fulfillment.</span>
+              </div>
+            </div>
+
+            <div class="hierarchy-example" aria-label="Tantervi hierarchia példa">
+              <div>
+                <div class="card-section-title">Egy lehetséges kibontás</div>
+                <div class="muted t-body-sm">Nem kötelező kitölteni, csak megmutatja, hová fut ki később a vázlat.</div>
+              </div>
+              <div class="hierarchy-steps">
+                <span><strong>Modul</strong>{{ curriculumExampleModule() }}</span>
+                <span><strong>Témakör</strong>{{ curriculumExampleTopic() }}</span>
+                <span><strong>Tanulási egység</strong>{{ curriculumExampleLearningUnit() }}</span>
+                <span><strong>Blokk</strong>45 perces vizsgálódó óra</span>
+                <span><strong>Tevékenység</strong>Mérés, megosztás, reflexió</span>
+              </div>
+            </div>
+
+            <div class="curriculum-module-list">
+              @for (module of curriculumModules; track module.id; let moduleIndex = $index) {
+                <div class="curriculum-module">
+                  <div class="curriculum-module-head">
+                    <label class="field">
+                      <span>Modul</span>
+                      <input
+                        class="input"
+                        [name]="'curriculumModule' + moduleIndex"
+                        [(ngModel)]="module.title"
+                        (ngModelChange)="syncCurriculumModulesToUnits()"
+                      />
+                    </label>
+                    <button
+                      type="button"
+                      class="lesson-icon-btn"
+                      title="Modul eltávolítása"
+                      aria-label="Modul eltávolítása"
+                      [disabled]="curriculumModules.length <= 1"
+                      (click)="removeCurriculumModule(moduleIndex)"
+                    >
+                      <ma-icon name="delete" size="sm" />
+                    </button>
+                  </div>
+
+                  <div class="topic-list">
+                    @for (topic of module.topics; track $index; let topicIndex = $index) {
+                      <label class="field topic-field">
+                        <span>{{ topicIndex + 1 }}. témakör</span>
+                        <input
+                          class="input"
+                          [name]="'curriculumTopic' + moduleIndex + '-' + topicIndex"
+                          [(ngModel)]="module.topics[topicIndex]"
+                          (ngModelChange)="syncCurriculumModulesToUnits()"
+                        />
+                        <button
+                          type="button"
+                          class="lesson-icon-btn"
+                          title="Témakör eltávolítása"
+                          aria-label="Témakör eltávolítása"
+                          [disabled]="module.topics.length <= 1"
+                          (click)="removeCurriculumTopic(moduleIndex, topicIndex)"
+                        >
+                          <ma-icon name="close" size="sm" />
+                        </button>
+                      </label>
+                    }
+                  </div>
+
+                  <button type="button" class="adapt-btn subtle" (click)="addCurriculumTopic(moduleIndex)">
+                    Témakör hozzáadása
+                  </button>
+                </div>
+              }
+            </div>
+
+            <button type="button" class="adapt-btn" (click)="addCurriculumModule()">Modul hozzáadása</button>
+          </div>
+        }
+
+        <div class="pattern-section">
+          <div class="pattern-section-head">
+            <div>
+              <div class="card-section-title">Pedagógiai minta</div>
+              <div class="muted t-body-sm">Opcionális keret: nem új hierarchiaszint, csak módszertani fókusz.</div>
+            </div>
+            <ma-chip icon="layers">Másodlagos</ma-chip>
+          </div>
+          <div class="pattern-picker">
+            @for (pattern of templatePatterns; track pattern.key) {
+              <button
+                type="button"
+                class="pattern-card"
+                [class.pattern-card-active]="selectedPatternKey === pattern.key"
+                (click)="selectTemplatePattern(pattern.key)"
+              >
+                <span class="pattern-name">{{ pattern.name }}</span>
+                <span class="pattern-description">{{ pattern.description }}</span>
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <label class="field span-2">
+            <span>{{ templateTitleLabel() }}</span>
+            <input name="templateTitle" class="input" [(ngModel)]="templateTitle" />
+          </label>
+          <label class="field span-2">
+            <span>Vezérkérdés</span>
+            <textarea name="drivingQuestion" class="textarea" rows="3" [(ngModel)]="drivingQuestion"></textarea>
+          </label>
+          <label class="field"><span>Tantárgy</span><input name="subject" class="input" [(ngModel)]="subject" /></label>
+          <label class="field"><span>Évfolyam</span><input name="grade" class="input" [(ngModel)]="grade" /></label>
+          <label class="field">
+            <span>Időegység</span>
+            <select name="durationType" class="input" [(ngModel)]="durationType">
+              <option value="het">Hét</option>
+              <option value="ora">Óra</option>
+              <option value="fazis">Fázis</option>
+            </select>
+          </label>
+          <label class="field"><span>Közönség</span><input name="audience" class="input" [(ngModel)]="audience" /></label>
+          <label class="field span-2">
+            <span>Záró produktum</span>
+            <textarea name="finalProduct" class="textarea" rows="3" [(ngModel)]="finalProduct"></textarea>
+          </label>
+          <label class="field span-2">
+            <span>Tanulási fókuszok</span>
+            <input name="dispositions" class="input" [(ngModel)]="dispositions" />
+          </label>
+        </div>
+
+        <div class="week-panel">
+          <div class="card-section-title">{{ templateOutlineTitle() }}</div>
+          <div class="week-grid">
+            @for (weekTitle of weekTitles; track $index) {
+              <label class="field week-field">
+                <span>{{ $index + 1 }}. {{ templateUnitLabel() }}</span>
+                <input class="input" [name]="'weekTitle' + $index" [(ngModel)]="weekTitles[$index]" />
+              </label>
+            }
+          </div>
+        </div>
+      }
+
+      @case ('newTemplateVersion') {
+        <div class="form-grid">
+          <label class="field span-2">
+            <span>Albumterv címe</span>
+            <input name="templateTitle" class="input" [(ngModel)]="templateTitle" />
+          </label>
+          <label class="field span-2">
+            <span>Vezérkérdés</span>
+            <textarea name="drivingQuestion" class="textarea" rows="3" [(ngModel)]="drivingQuestion"></textarea>
+          </label>
+          <label class="field"><span>Tantárgy</span><input name="subject" class="input" [(ngModel)]="subject" /></label>
+          <label class="field"><span>Évfolyam</span><input name="grade" class="input" [(ngModel)]="grade" /></label>
+          <label class="field">
+            <span>Időegység</span>
+            <select name="durationType" class="input" [(ngModel)]="durationType">
+              <option value="het">Hét</option>
+              <option value="ora">Óra</option>
+              <option value="fazis">Fázis</option>
+            </select>
+          </label>
+          <label class="field"><span>Közönség</span><input name="audience" class="input" [(ngModel)]="audience" /></label>
+          <label class="field span-2">
+            <span>Záró produktum</span>
+            <textarea name="finalProduct" class="textarea" rows="3" [(ngModel)]="finalProduct"></textarea>
+          </label>
+          <label class="field span-2">
+            <span>Tanulási fókuszok</span>
+            <input name="dispositions" class="input" [(ngModel)]="dispositions" />
+          </label>
+        </div>
+
+        <div class="week-panel">
+          <div class="card-section-title">Heti vázlat</div>
+          <div class="week-grid">
+            @for (weekTitle of weekTitles; track $index) {
+              <label class="field week-field">
+                <span>{{ $index + 1 }}. hét</span>
+                <input class="input" [name]="'weekTitle' + $index" [(ngModel)]="weekTitles[$index]" />
+              </label>
+            }
+          </div>
+        </div>
+      }
+
+      @case ('instance') {
+        <div class="form-grid">
+          <label class="field span-2">
+            <span>Albumterv</span>
+            <select
+              class="input"
+              name="template"
+              [ngModel]="selectedTemplateId()"
+              (ngModelChange)="store.selectTemplate($event)"
+            >
+              @for (template of assignableTemplates(); track template.id) {
+                <option [value]="template.id">{{ template.title }}</option>
+              }
+            </select>
+            @if (assignableTemplates().length === 0) {
+              <span class="help">Nincs indítható albumterv. Az archivált tervek nem választhatók.</span>
+            }
+          </label>
+          <label class="field">
+            <span>Futó album neve</span>
+            <input name="instanceTitle" class="input" [(ngModel)]="instanceTitle" placeholder="Pl. 7.C tavaszi futtatás" />
+          </label>
+          <label class="field">
+            <span>Osztály / csoport</span>
+            <input name="className" class="input" [(ngModel)]="className" />
+          </label>
+          <label class="field span-2">
+            <span>Csapatok</span>
+            <textarea name="teamLines" class="textarea mono" rows="7" [(ngModel)]="teamLines"></textarea>
+            <span class="help">Formátum: Csapatnév | fókusz | tag1, tag2, tag3</span>
+          </label>
+        </div>
+      }
+    }
+  </form>
+
+  <div class="drawer-footer">
+    <ma-btn variant="ghost" (clicked)="close()" [disabled]="saving()">Mégse</ma-btn>
+    <div class="row">
+      @if (!canSubmit()) {
+        <span class="muted t-body-sm">A kötelező mezők még hiányoznak.</span>
+      }
+      <ma-btn variant="primary" icon="add" (clicked)="submit()" [disabled]="!canSubmit()">
+        @if (saving()) {
+          Mentés...
+        } @else {
+          {{ primarySubmitLabel() }}
+        }
+      </ma-btn>
+    </div>
+  </div>
+</ma-drawer>

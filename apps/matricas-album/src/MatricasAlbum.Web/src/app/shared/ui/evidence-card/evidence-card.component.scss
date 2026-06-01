@@ -1,0 +1,39 @@
+:host { display: block; }
+
+.evidence-card {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+  transition: border-color 120ms, box-shadow 120ms;
+
+  &:hover {
+    border-color: var(--primary-300);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.thumb {
+  width: 64px; height: 64px;
+  background: var(--n-100);
+  border-radius: 12px;
+  display: grid; place-items: center;
+  color: var(--n-500);
+  flex-shrink: 0;
+}
+
+.clamp {
+  margin-top: 4px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.feedback {
+  padding: 12px;
+  background: var(--primary-50);
+  border-radius: 12px;
+  border-left: 3px solid var(--primary-500);
+}

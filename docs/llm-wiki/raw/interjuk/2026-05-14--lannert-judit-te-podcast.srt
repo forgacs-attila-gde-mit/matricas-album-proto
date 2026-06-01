@@ -1,0 +1,6683 @@
+1
+00:00:00,000 --> 00:00:03,160
+Sziasztok! Pogácsa Zoltán két epizóddal ezelőtt azt mondta,
+
+2
+00:00:03,420 --> 00:00:06,780
+hogy az a lényeg, hogy az országban az emberek mit tudnak,
+
+3
+00:00:07,680 --> 00:00:10,260
+hogyan kapcsolódnak a világ többi részéhez,
+
+4
+00:00:10,820 --> 00:00:13,020
+hogyan viszonyulnak egymáshoz.
+
+5
+00:00:14,260 --> 00:00:17,220
+Milyen szaktudásuk van, milyen soft skieik vannak,
+
+6
+00:00:17,320 --> 00:00:20,760
+milyen nyelvi skieik vannak, milyen ICT skieik vannak,
+
+7
+00:00:21,860 --> 00:00:24,720
+tudást termelnek-e, tudást tudnak-e,
+
+8
+00:00:24,840 --> 00:00:27,040
+ha nem tudnak termelni, legalább adoptálni,
+
+9
+00:00:27,100 --> 00:00:29,020
+tudják-e a máshol megtermel tudást,
+
+10
+00:00:29,020 --> 00:00:30,940
+vagy lemaradnak.
+
+11
+00:00:31,100 --> 00:00:33,380
+Annak a kormánynak fogom először elhinni azt,
+
+12
+00:00:33,500 --> 00:00:36,960
+hogy ő már tényleg akar valamit,
+
+13
+00:00:37,060 --> 00:00:39,440
+ahol az oktatási miniszter lesz a sztárminiszter.
+
+14
+00:00:39,820 --> 00:00:41,700
+Na de milyen legyen az oktatás,
+
+15
+00:00:42,160 --> 00:00:47,060
+hogy vonzó, gazdag és boldog jóléti állam legyen Magyarországból?
+
+16
+00:00:47,520 --> 00:00:49,780
+Vendégem Lannert Judit, oktatáskutató.
+
+17
+00:00:49,860 --> 00:00:50,760
+Köszönöm, Judit, hogy itt vagy.
+
+18
+00:00:51,020 --> 00:00:52,740
+Én is köszönöm a mehetőséget.
+
+19
+00:00:53,640 --> 00:00:55,600
+Mennyire értesz egyet Pogácsa Zoltánnal?
+
+20
+00:00:56,240 --> 00:00:58,460
+Hát ezt persze, hogy egyet értek,
+
+21
+00:00:58,460 --> 00:01:01,580
+csak ugye mindig az ördög a részletekben van.
+
+22
+00:01:02,220 --> 00:01:05,460
+A mesters és intelligenc szárak külön tantárgyat akarnak bevezetni,
+
+23
+00:01:05,640 --> 00:01:06,560
+ez a világ vicce.
+
+24
+00:01:06,980 --> 00:01:08,160
+És abszolút azt mutatja,
+
+25
+00:01:08,240 --> 00:01:10,380
+hogy sarlattának kezében van az oktatás.
+
+26
+00:01:10,760 --> 00:01:11,640
+Mindig ugye arról beszélünk,
+
+27
+00:01:11,700 --> 00:01:12,740
+szegények vagyunk meg,
+
+28
+00:01:12,860 --> 00:01:14,040
+de nem szegények vagyunk,
+
+29
+00:01:14,120 --> 00:01:14,980
+hanem buták.
+
+30
+00:01:15,640 --> 00:01:17,200
+Árgus szemmel nézzük a pedagos,
+
+31
+00:01:17,280 --> 00:01:18,100
+hogy hol hibázik,
+
+32
+00:01:18,180 --> 00:01:19,320
+ahogy ő is nézi a gyereket,
+
+33
+00:01:19,380 --> 00:01:20,080
+hol hibázik.
+
+34
+00:01:20,080 --> 00:01:22,660
+Na most ez az, ami a kreativitást megöli.
+
+35
+00:01:23,300 --> 00:01:24,940
+Tehát ott, ahol hibázni nem lehet,
+
+36
+00:01:25,960 --> 00:01:28,580
+ott újat sem fogunk kitalálni.
+
+37
+00:01:28,940 --> 00:01:30,020
+Azt érzi mindenki,
+
+38
+00:01:30,120 --> 00:01:31,400
+hogy valamit kéne csinálni,
+
+39
+00:01:31,480 --> 00:01:31,980
+de hogy mit?
+
+40
+00:01:31,980 --> 00:01:36,600
+Ez a Te Podcast-od.
+
+41
+00:01:37,040 --> 00:01:38,940
+A műsor vezető Szűcs Viktor.
+
+42
+00:01:40,120 --> 00:01:42,120
+Szerinted egyébként mennyire rombolja
+
+43
+00:01:42,120 --> 00:01:45,540
+az országunkat a jelenlegi oktatási rendszer?
+
+44
+00:01:45,920 --> 00:01:50,180
+Ez az oktatási rendszer azért nem most nőtt ki,
+
+45
+00:01:50,300 --> 00:01:50,480
+ugye?
+
+46
+00:01:50,700 --> 00:01:53,500
+Tehát, ahogy Agata Kriszi szokta mondani,
+
+47
+00:01:54,500 --> 00:01:57,120
+régi bűnök árnyai messze nyúlnak,
+
+48
+00:01:57,240 --> 00:01:58,140
+tehát azt gondolom,
+
+49
+00:01:58,140 --> 00:02:02,180
+hogy itt az elmúlt 30-40-50 évben
+
+50
+00:02:02,180 --> 00:02:04,920
+végig tudunk mondani olyan dolgokat,
+
+51
+00:02:05,080 --> 00:02:08,300
+ami egyszerűen nem sikerült
+
+52
+00:02:08,300 --> 00:02:10,460
+oda jutnunk,
+
+53
+00:02:10,740 --> 00:02:13,560
+hogy egy magasabb nevekedési pályára jussunk,
+
+54
+00:02:13,680 --> 00:02:15,480
+és ebben a közepesség csapdájában,
+
+55
+00:02:15,560 --> 00:02:17,240
+hogy ezt a közgondások szokták mondani,
+
+56
+00:02:17,560 --> 00:02:19,500
+ott vergődik Magyarország,
+
+57
+00:02:19,980 --> 00:02:22,440
+és voltak bizonyos fellángulások,
+
+58
+00:02:23,340 --> 00:02:26,220
+főleg a 90-es évek elején,
+
+59
+00:02:26,220 --> 00:02:27,660
+és 2000-es évek elején,
+
+60
+00:02:27,660 --> 00:02:31,540
+amikor még sok innováció indult,
+
+61
+00:02:31,660 --> 00:02:34,580
+de hát ezek is valahogy elhaltak.
+
+62
+00:02:35,120 --> 00:02:36,240
+Az oktatás célja,
+
+63
+00:02:36,400 --> 00:02:38,620
+hogy mondjuk egy nemzeti detintás
+
+64
+00:02:38,620 --> 00:02:43,700
+kialakuljon a felnövekvő nemzedékben,
+
+65
+00:02:43,840 --> 00:02:46,000
+az is, hogy boldoguljon a munkarépiacon,
+
+66
+00:02:46,080 --> 00:02:47,620
+és az is, hogy a well-being,
+
+67
+00:02:47,720 --> 00:02:49,140
+ugye ez egyre inkább az ojcéd,
+
+68
+00:02:49,220 --> 00:02:49,800
+és ezt mondja,
+
+69
+00:02:50,000 --> 00:02:52,580
+hogy jól is érezze magát a világban.
+
+70
+00:02:52,580 --> 00:02:56,040
+A probléma akkor van,
+
+71
+00:02:56,040 --> 00:02:58,900
+ha ezek a célok mondjuk egymásnak ellentmondanak,
+
+72
+00:02:59,000 --> 00:03:01,580
+tehát ugye a boldog országokban ezek a célok
+
+73
+00:03:01,580 --> 00:03:02,780
+egymásra tudnak épülni,
+
+74
+00:03:02,860 --> 00:03:04,080
+és nincs ellentmondás.
+
+75
+00:03:04,080 --> 00:03:09,460
+Nálunk valamennyire ellentmondás az,
+
+76
+00:03:09,540 --> 00:03:10,500
+hogy a jövőben,
+
+77
+00:03:10,720 --> 00:03:13,220
+a jövőbeli munkarépiacon boldogulni tudjon valaki,
+
+78
+00:03:13,300 --> 00:03:15,080
+ahhoz ugye 21. századi kompetenciákat
+
+79
+00:03:15,980 --> 00:03:17,080
+kéne fejleszteni.
+
+80
+00:03:18,080 --> 00:03:20,500
+És hát ezt a magyar oktatási rendszer,
+
+81
+00:03:20,580 --> 00:03:21,880
+ezt nagyon, nagyon nem,
+
+82
+00:03:22,120 --> 00:03:24,740
+nincs a toppon ezen a téren.
+
+83
+00:03:25,140 --> 00:03:26,860
+Szerintem az egyik nagy gond,
+
+84
+00:03:27,500 --> 00:03:29,460
+hogy soha nem gondoltuk át,
+
+85
+00:03:29,460 --> 00:03:33,340
+hogy milyen egy fenntartható mélethatékony iskola szerkezet,
+
+86
+00:03:33,800 --> 00:03:37,460
+illetve soha nem figyeltünk a demográfiai dolgokra.
+
+87
+00:03:37,980 --> 00:03:40,620
+Tehát meg a 90-ben ugye mindenki megörült,
+
+88
+00:03:40,720 --> 00:03:42,180
+hogy végre szabadok vagyunk,
+
+89
+00:03:42,660 --> 00:03:43,880
+és teljesen természetes,
+
+90
+00:03:44,000 --> 00:03:47,460
+hogy minden település meg akarta csinálni a saját iskoláját.
+
+91
+00:03:48,040 --> 00:03:49,340
+Hát már akkor látszott,
+
+92
+00:03:49,980 --> 00:03:53,920
+hogy ugyan a 75-ös korosztály elég sokan születtek,
+
+93
+00:03:54,020 --> 00:03:58,640
+de utána jól láthatóan egyre kevesebb gyerek volt.
+
+94
+00:03:58,640 --> 00:04:01,160
+Tehát a 90-es évek elére melehetett látni,
+
+95
+00:04:01,280 --> 00:04:02,700
+hogy itt problémák lesznek.
+
+96
+00:04:02,820 --> 00:04:04,060
+És ebből is fakad az,
+
+97
+00:04:04,140 --> 00:04:06,660
+hogy azok a újszerű kezdeményezések,
+
+98
+00:04:06,760 --> 00:04:09,020
+mint mondjuk a 6 és 8 év folyamos gimnázium,
+
+99
+00:04:09,140 --> 00:04:11,640
+amit egyébként még az egyházi mintára,
+
+100
+00:04:12,320 --> 00:04:15,740
+45 előtt egyházi mintára a Hofmarózsa ugye hozott be,
+
+101
+00:04:17,980 --> 00:04:23,480
+az széria szerint egy ilyen vékony szeletelet volna a kínálatnak,
+
+102
+00:04:23,660 --> 00:04:26,340
+de hát rengeteg iskola erre rára pült,
+
+103
+00:04:26,340 --> 00:04:29,920
+mert hogy így tudta stabilizálni a pedús létszámát,
+
+104
+00:04:29,980 --> 00:04:31,920
+csökkenő gyerek létszám mellett.
+
+105
+00:04:33,020 --> 00:04:36,620
+Kialakult a 90-es évek elején egy olyan állapot,
+
+106
+00:04:36,940 --> 00:04:39,700
+hogy jóval több tanár volt, mint gyerek,
+
+107
+00:04:40,680 --> 00:04:43,280
+ami hát nagyon drágává tette rendszert.
+
+108
+00:04:43,860 --> 00:04:47,540
+És akkor behozták a közalkamazotti törvényt,
+
+109
+00:04:48,020 --> 00:04:50,200
+akkor nem történt meg egy olyan tisztulás,
+
+110
+00:04:50,200 --> 00:04:55,100
+hogy akkor oké, akkor elindul egy stabil életpálya,
+
+111
+00:04:55,780 --> 00:04:58,920
+de oda nem engedünk be mindenkit, meg rostálunk,
+
+112
+00:04:58,980 --> 00:05:00,320
+mert amúgy is sokan vannak.
+
+113
+00:05:00,880 --> 00:05:03,520
+És a rendre mindig ez elmaradt.
+
+114
+00:05:05,580 --> 00:05:08,720
+A 2000-es évek végére lehetett látni,
+
+115
+00:05:08,840 --> 00:05:11,360
+hogy finanszírozhatatlan az oktatás,
+
+116
+00:05:11,480 --> 00:05:14,240
+ugye nagyon sok településen ott volt az iskola,
+
+117
+00:05:14,340 --> 00:05:16,540
+szerették volna, nem tudták föntartani,
+
+118
+00:05:16,540 --> 00:05:19,920
+mert egy csomó településnek nem volt meg hozzá az erőforrása.
+
+119
+00:05:21,520 --> 00:05:23,300
+És hát ebből is fakadt,
+
+120
+00:05:24,640 --> 00:05:27,700
+és elkezdtek becsukni kis iskolákat,
+
+121
+00:05:27,820 --> 00:05:31,960
+amik ugyan politikai, tehát ez egy ilyen kényes ügy,
+
+122
+00:05:32,040 --> 00:05:36,020
+de teljesen racionális.
+
+123
+00:05:37,360 --> 00:05:43,160
+És akkor 2010-ben teljesen jogos dolog volt,
+
+124
+00:05:43,160 --> 00:05:46,360
+hogy legyen tankerületek, nem úgy, ahogy kezdték,
+
+125
+00:05:46,360 --> 00:05:48,740
+de ahova jutott,
+
+126
+00:05:50,160 --> 00:05:52,780
+hogy legyen egy racionálisebb iskolahálózat.
+
+127
+00:05:52,960 --> 00:05:55,140
+De ezt utána megint,
+
+128
+00:05:55,140 --> 00:05:59,800
+hát teljesen ellene mentek azzal,
+
+129
+00:05:59,880 --> 00:06:02,460
+hogy újra nyitották a falusi kisiskolákat,
+
+130
+00:06:02,540 --> 00:06:04,440
+mert ezzel ugye szavazatokat akartak nyerni,
+
+131
+00:06:04,560 --> 00:06:09,920
+illetve az egyháznak egy egészen más utat kinyitottak.
+
+132
+00:06:10,420 --> 00:06:13,780
+És akkor se sikerült ezt a rendszert olyanná tenni,
+
+133
+00:06:14,020 --> 00:06:15,600
+hogy fenntartható legyen.
+
+134
+00:06:16,360 --> 00:06:18,740
+És utána jött az életpályamodell,
+
+135
+00:06:19,480 --> 00:06:22,080
+ami meg nagyon jogos dolog volt, hogy emelni kell,
+
+136
+00:06:22,180 --> 00:06:25,700
+mert tényleg a béka fenek alatt voltak a bérek.
+
+137
+00:06:26,920 --> 00:06:28,740
+De hát ezt ugye nagyon elnyújtva,
+
+138
+00:06:29,740 --> 00:06:32,620
+és hát a béreket csak akkor tudtuk van emelni,
+
+139
+00:06:32,620 --> 00:06:35,620
+hogyha hatékonyabbá tesszük a rendszert.
+
+140
+00:06:36,320 --> 00:06:38,840
+Tehát mérethatékony iskolákat adunk létre,
+
+141
+00:06:38,920 --> 00:06:40,600
+és ez megint nem jött létre.
+
+142
+00:06:40,600 --> 00:06:45,040
+És ez veszetett el odáig,
+
+143
+00:06:45,360 --> 00:06:51,040
+hogy ugye alacsony a egy tanára jelentő tanulók aránya,
+
+144
+00:06:51,120 --> 00:06:54,980
+és ezt mindig egy ilyen siker indikátorként hangoztatják,
+
+145
+00:06:55,100 --> 00:06:57,380
+hogy ezt mutatja, hogy itt van elég tanár,
+
+146
+00:06:57,440 --> 00:06:58,520
+nincs tanárhiány, ugye?
+
+147
+00:06:59,120 --> 00:07:01,520
+Ami egy bődöletes baromság, mert ez nem ezt jelenti,
+
+148
+00:07:01,880 --> 00:07:04,780
+és erre is mindjárt meg kitérhetek, hogy miért.
+
+149
+00:07:04,780 --> 00:07:08,160
+De a lényeg az, hogy ez egyben azt is mutatja,
+
+150
+00:07:08,400 --> 00:07:11,120
+és ezt a hanusság szokta mondani egy amerikai professzor,
+
+151
+00:07:11,240 --> 00:07:14,480
+aki ilyen oktatás közgazdaságtannal foglalkozik,
+
+152
+00:07:14,600 --> 00:07:16,180
+hogy ez inkább azt mutatja,
+
+153
+00:07:16,260 --> 00:07:19,360
+hogy mennyire pedagógus intenzív az oktatás,
+
+154
+00:07:19,420 --> 00:07:19,940
+amilyen nagyon.
+
+155
+00:07:21,100 --> 00:07:22,780
+Viszont ha egy olyan országban,
+
+156
+00:07:23,740 --> 00:07:27,100
+ami nem termel elég elegedő GDP-t,
+
+157
+00:07:28,300 --> 00:07:31,120
+egy ilyen pedagógus intenzív oktatásban
+
+158
+00:07:31,120 --> 00:07:33,520
+csak az alacsony bérek fognak kijönni.
+
+159
+00:07:33,520 --> 00:07:35,620
+Tehát ugye ezért van az,
+
+160
+00:07:35,700 --> 00:07:38,900
+hogy mindig neki futott mindegyik politikai rendszer
+
+161
+00:07:38,900 --> 00:07:43,080
+annak, hogy rendbe tegye, és emelje a béreket,
+
+162
+00:07:43,740 --> 00:07:46,680
+de soha nem tudták átlépni a saját árnyékukat,
+
+163
+00:07:46,840 --> 00:07:48,560
+nem csak most, húsz évesem,
+
+164
+00:07:49,200 --> 00:07:52,620
+hogy igenis a politikai érdek ellen,
+
+165
+00:07:52,860 --> 00:07:56,340
+tehát át kell alakítani ezt az iskola hálózatot,
+
+166
+00:07:56,880 --> 00:07:58,520
+hogy ez méret hatékony legyen.
+
+167
+00:07:58,520 --> 00:08:01,940
+Annak idén a Szociolidusban például a Békés megyében
+
+168
+00:08:01,940 --> 00:08:04,820
+rengeteg iskola lett, mert akkor még ott sokan voltak.
+
+169
+00:08:05,200 --> 00:08:07,500
+Most ott van a legtöbb ölcső deóvoda,
+
+170
+00:08:07,940 --> 00:08:09,540
+és nem születik egy gyerek sem.
+
+171
+00:08:10,080 --> 00:08:13,340
+Tehát, hogy ilyenkor, ha persze a statisztikát nézzük,
+
+172
+00:08:13,420 --> 00:08:15,800
+darabra megvan minden, csak nem ott, ahol.
+
+173
+00:08:16,300 --> 00:08:18,180
+Vagy mondjuk úgy, hogy szokták mondani,
+
+174
+00:08:18,240 --> 00:08:19,660
+hogy hát van elég iskola, pszichológus,
+
+175
+00:08:19,740 --> 00:08:21,780
+de az őben, mint Budapesten van.
+
+176
+00:08:22,480 --> 00:08:24,980
+Tehát, hogy ezek a számok mögé, ha oda megyünk,
+
+177
+00:08:24,980 --> 00:08:27,340
+iszonyú egyenlőtlen eloszlás van,
+
+178
+00:08:27,440 --> 00:08:34,280
+és emögött bizony egy nem racionális intézményi gazdálkodás,
+
+179
+00:08:34,380 --> 00:08:35,980
+vagy iskola hálózat van.
+
+180
+00:08:36,420 --> 00:08:38,340
+És ennek a tetejében persze,
+
+181
+00:08:38,480 --> 00:08:40,440
+mert ugye mivel lehetne még csökkenteni,
+
+182
+00:08:40,520 --> 00:08:42,440
+vagy hatékonyabbá tenni a dolgokat,
+
+183
+00:08:42,540 --> 00:08:44,700
+hogyha a terheket csökkentjük.
+
+184
+00:08:45,860 --> 00:08:47,440
+Mondjuk a gyerekek terheit,
+
+185
+00:08:47,440 --> 00:08:50,180
+kevesebb óra, akkor arra kevesebb tanár kell.
+
+186
+00:08:51,120 --> 00:08:52,180
+Ennek ellenére,
+
+187
+00:08:53,020 --> 00:08:54,400
+hát ami most zajlik,
+
+188
+00:08:54,500 --> 00:08:56,000
+hogy például mesters és intelligencciára
+
+189
+00:08:56,000 --> 00:08:57,860
+külön tantárgyat akarnak bevezetni,
+
+190
+00:08:58,040 --> 00:08:58,940
+ez a világ vicce.
+
+191
+00:08:59,340 --> 00:09:00,560
+És abszolút azt mutatja,
+
+192
+00:09:00,640 --> 00:09:02,780
+hogy sarlatának kezében van az oktatás,
+
+193
+00:09:03,200 --> 00:09:05,140
+nem is értik, hogy mit kéne csinálni.
+
+194
+00:09:05,980 --> 00:09:07,380
+Más országokban egyszerűen,
+
+195
+00:09:07,460 --> 00:09:10,060
+és ez egyébként nálunk is megtörtént a 200-es években,
+
+196
+00:09:10,140 --> 00:09:12,020
+kompetenciú területeket összevonnak,
+
+197
+00:09:12,020 --> 00:09:16,180
+és nagyobb területeken zajlik az oktatás,
+
+198
+00:09:16,260 --> 00:09:17,340
+mondjuk és science-re,
+
+199
+00:09:17,480 --> 00:09:18,920
+ugye ez sokkal jobban lett,
+
+200
+00:09:19,100 --> 00:09:21,260
+ha arra kiképzik a tanárokat,
+
+201
+00:09:21,320 --> 00:09:24,320
+és most nem már a gimnázium végre gondolok,
+
+202
+00:09:24,380 --> 00:09:26,980
+ahol a fakultációban tényleg mondjuk tárgyanként kéne
+
+203
+00:09:26,980 --> 00:09:28,420
+a kémiát meg a fizikát,
+
+204
+00:09:28,480 --> 00:09:30,760
+de mondjuk a felső tagazottan nyugodtan lehetne,
+
+205
+00:09:31,320 --> 00:09:32,460
+és ha lennek ilyen tanárok,
+
+206
+00:09:32,560 --> 00:09:34,760
+akkor nem lenne ilyen örült,
+
+207
+00:09:35,660 --> 00:09:38,500
+hát hogy mondjam, hiány fizika tanárból,
+
+208
+00:09:38,500 --> 00:09:40,960
+meg biologa tanárból.
+
+209
+00:09:40,960 --> 00:09:41,920
+Egyébként megjegyzem,
+
+210
+00:09:42,040 --> 00:09:44,580
+hogy a fizika tanárból többek közt azért is van hiány,
+
+211
+00:09:45,120 --> 00:09:46,840
+mert ha nagyon sokat van tárgy,
+
+212
+00:09:47,400 --> 00:09:49,720
+akkor egyszerűen egy fizika tanárnak mondjuk,
+
+213
+00:09:51,140 --> 00:09:54,620
+ugye heti két órában van fizika jó esetben,
+
+214
+00:09:54,760 --> 00:09:55,960
+és akkor van négy osztály,
+
+215
+00:09:56,000 --> 00:09:56,460
+ő tanít,
+
+216
+00:09:56,480 --> 00:09:58,420
+még mindig hol vagyunk a húsz órától,
+
+217
+00:09:58,500 --> 00:09:59,660
+amit le kéne tanítania.
+
+218
+00:10:00,500 --> 00:10:01,300
+De ahelyett,
+
+219
+00:10:01,420 --> 00:10:03,860
+hogy mondjuk egy másik iskolában is tanítana,
+
+220
+00:10:04,420 --> 00:10:05,460
+nem ez történik,
+
+221
+00:10:05,460 --> 00:10:08,460
+hanem föltöltik az óraszámát gyerekfelügyelettel,
+
+222
+00:10:08,600 --> 00:10:08,980
+meg ilyennel.
+
+223
+00:10:09,080 --> 00:10:10,320
+Tele van a rendszer,
+
+224
+00:10:10,320 --> 00:10:11,880
+csupa ilyen anomáliával,
+
+225
+00:10:12,020 --> 00:10:13,540
+tehát, hogy ezt,
+
+226
+00:10:14,400 --> 00:10:14,820
+tehát nem,
+
+227
+00:10:15,220 --> 00:10:16,260
+visszatérve kérdésen,
+
+228
+00:10:16,460 --> 00:10:18,460
+nem jó az a megfoglalás,
+
+229
+00:10:18,620 --> 00:10:20,320
+hogy káros a rendszer,
+
+230
+00:10:20,360 --> 00:10:21,860
+mert senki nem akar ártani.
+
+231
+00:10:22,520 --> 00:10:23,300
+Én azt gondolom,
+
+232
+00:10:23,500 --> 00:10:25,560
+én még a kormánysal sem gondolom,
+
+233
+00:10:25,660 --> 00:10:27,080
+csak nekik valami nagyon furcsa,
+
+234
+00:10:27,180 --> 00:10:27,940
+a politikai,
+
+235
+00:10:28,160 --> 00:10:29,360
+nem tudom én,
+
+236
+00:10:29,840 --> 00:10:30,840
+elképzelések vannak,
+
+237
+00:10:30,920 --> 00:10:32,080
+hogy hova kéne menni,
+
+238
+00:10:32,080 --> 00:10:36,560
+ami abszolút 200 évvel visszafele van az időben.
+
+239
+00:10:36,560 --> 00:10:40,480
+de nem a probléma az,
+
+240
+00:10:40,900 --> 00:10:43,980
+hogy mindenki jót akar,
+
+241
+00:10:43,980 --> 00:10:44,820
+de nagyon rosszul,
+
+242
+00:10:44,920 --> 00:10:46,680
+és egyszerűen az agyunkat nem használjuk.
+
+243
+00:10:46,780 --> 00:10:48,420
+Szóval nincs racionális gondolkodás,
+
+244
+00:10:48,500 --> 00:10:49,880
+nincs menedzsmentszemlélet,
+
+245
+00:10:50,440 --> 00:10:51,900
+nincs vállalkozói szemléletet,
+
+246
+00:10:52,280 --> 00:10:53,520
+és akkor mit látunk,
+
+247
+00:10:53,620 --> 00:10:56,100
+hogy pont azok a kompetenciák hiányoznak
+
+248
+00:10:56,100 --> 00:10:59,900
+magából az oktatás irányításból.
+
+249
+00:11:00,340 --> 00:11:01,320
+Tehát ugye kezdjük el,
+
+250
+00:11:01,380 --> 00:11:02,400
+mert mindig azok a gyerekek,
+
+251
+00:11:02,400 --> 00:11:04,620
+de nem, hát először nekünk kéne ezzel rendelkezni,
+
+252
+00:11:04,700 --> 00:11:05,520
+hogy át tudjuk adni.
+
+253
+00:11:06,180 --> 00:11:07,200
+Egyáltalán nincs ott.
+
+254
+00:11:07,280 --> 00:11:08,920
+Tehát az a gondolat,
+
+255
+00:11:09,640 --> 00:11:10,860
+hogy a mesterség és intelligenc,
+
+256
+00:11:10,860 --> 00:11:12,400
+tehát tantárként vigyük be,
+
+257
+00:11:12,800 --> 00:11:14,340
+mikor már rengeteg tantárként van,
+
+258
+00:11:14,400 --> 00:11:16,080
+és rengeteg kutatás mutatja azt,
+
+259
+00:11:16,160 --> 00:11:20,180
+hogy minél több tantárként osztjuk a tudást,
+
+260
+00:11:20,300 --> 00:11:21,740
+annál kevesebb jut egyre,
+
+261
+00:11:22,000 --> 00:11:23,140
+és annál inkább,
+
+262
+00:11:23,320 --> 00:11:25,240
+ha mégis zsúfolt marad a tanterv,
+
+263
+00:11:25,340 --> 00:11:27,720
+annál inkább csak magolva fognak tanulni a gyerekek.
+
+264
+00:11:28,260 --> 00:11:29,520
+És akkor már megint ott találjunk,
+
+265
+00:11:29,520 --> 00:11:32,580
+hogy nem tanulnak meg gondolkodni, tanulni.
+
+266
+00:11:34,260 --> 00:11:39,240
+És hát az persze meg azt már azt gondolom tényleg
+
+267
+00:11:39,240 --> 00:11:42,000
+a kárukozás,
+
+268
+00:11:42,100 --> 00:11:43,600
+ezt akkor már azért jötteszem,
+
+269
+00:11:43,800 --> 00:11:45,400
+hogy a kritikai gondolkodás,
+
+270
+00:11:45,500 --> 00:11:49,340
+amire azt hiszem most a legesleg nagyobb szükség lenne,
+
+271
+00:11:49,680 --> 00:11:51,500
+hát amit láttunk a világban,
+
+272
+00:11:52,020 --> 00:11:54,780
+hogy milyen sületlenségekkel etetik az embereket,
+
+273
+00:11:54,820 --> 00:11:55,940
+és ők mind megeszik,
+
+274
+00:11:57,320 --> 00:11:58,800
+ezzel nem csak úgy lehet védekezni,
+
+275
+00:11:58,800 --> 00:12:00,940
+ha ez a kritikai gondolkodást fejlesztjük.
+
+276
+00:12:02,100 --> 00:12:04,880
+Ezt nem csak azért nem fejlesztő az iskola,
+
+277
+00:12:04,980 --> 00:12:06,480
+mert nem ér rá meg, nem tudom,
+
+278
+00:12:06,540 --> 00:12:09,120
+én effektíve ezt kivették van adból,
+
+279
+00:12:09,240 --> 00:12:10,220
+tehát nem szerepel.
+
+280
+00:12:10,320 --> 00:12:12,800
+Helyette értelmező, vagy megértő gondolkodás,
+
+281
+00:12:13,540 --> 00:12:16,160
+én nem tudom, valamilyen egészen,
+
+282
+00:12:16,160 --> 00:12:19,180
+hát valami sekélyes dolog került be.
+
+283
+00:12:19,180 --> 00:12:24,400
+Tehát, hogy ez a 20. századi kompetenciák,
+
+284
+00:12:24,520 --> 00:12:25,940
+ezek tényleg nincsenek ott,
+
+285
+00:12:26,240 --> 00:12:27,960
+de hogy amiért ez nincsenek ott,
+
+286
+00:12:28,060 --> 00:12:31,760
+az már 40-50 év ilyen teljesen,
+
+287
+00:12:31,760 --> 00:12:35,260
+hát nem reflektáló,
+
+288
+00:12:35,480 --> 00:12:40,660
+és nem igazán tudatos oktatáspolitikákból jött össze.
+
+289
+00:12:40,660 --> 00:12:45,660
+Ha néha volt is, hogy akik fölcsillantottak ilyen,
+
+290
+00:12:45,660 --> 00:12:49,860
+hát, hogy mondjam, hozzáállást,
+
+291
+00:12:49,960 --> 00:12:52,480
+és azt gondolom, magyar bánit, vagy a pokornit lehetne mondani,
+
+292
+00:12:52,600 --> 00:12:55,780
+akkor valamennyire több volt a hozzáértés.
+
+293
+00:12:56,500 --> 00:12:58,820
+Ezeknek nem adtak ugye kifutási időt,
+
+294
+00:12:58,900 --> 00:13:03,680
+így aztán ezek is, hát elhaltak ezek a kezdeményezések.
+
+295
+00:13:04,580 --> 00:13:07,460
+Az, hogy a mesterséges intelligenciát említetted,
+
+296
+00:13:07,600 --> 00:13:10,120
+hogy azt nem külön tárgyként kéne oktatni,
+
+297
+00:13:10,120 --> 00:13:11,620
+ezzel alatt azt érted, gondolom,
+
+298
+00:13:11,740 --> 00:13:13,620
+hogy valahogy beépítve mindegyikben,
+
+299
+00:13:13,680 --> 00:13:16,000
+hogy valamilyen szinten legyen szó arról.
+
+300
+00:13:16,540 --> 00:13:18,720
+Tehát azért nyilván nem lehet elhallgatni azt,
+
+301
+00:13:18,840 --> 00:13:19,760
+hogy ez egy létező dolog,
+
+302
+00:13:19,820 --> 00:13:21,260
+és ezt valahogy kezelni is kell,
+
+303
+00:13:21,260 --> 00:13:25,300
+mert pedig pont a kritikus gondolkodás miatt.
+
+304
+00:13:25,500 --> 00:13:26,820
+Ez szerintem a kettő nagyon összefügg,
+
+305
+00:13:26,900 --> 00:13:29,640
+hogy a mesterséges intelligenciát egy kritikus szemlélettel kell.
+
+306
+00:13:29,660 --> 00:13:30,760
+Igen, tehát nem az eszköz.
+
+307
+00:13:31,020 --> 00:13:33,520
+Ezt téveztük, a digitális technológiais ez a baj.
+
+308
+00:13:33,600 --> 00:13:35,840
+Beviszik az eszközt, és azt hiszik, ez a lényeg.
+
+309
+00:13:35,840 --> 00:13:37,560
+Nem, szövegértés.
+
+310
+00:13:37,920 --> 00:13:41,560
+Igazából az alapkompetenciákat kéne sokkal jobban feleszélni.
+
+311
+00:13:41,620 --> 00:13:42,720
+Minden szövegértés.
+
+312
+00:13:42,840 --> 00:13:45,500
+Tehát, hogy meg kéne értenie, hogy ez micsoda,
+
+313
+00:13:45,500 --> 00:13:47,180
+a másik meg kreativitás.
+
+314
+00:13:47,300 --> 00:13:49,960
+Tehát a mesterséges intelligenciát,
+
+315
+00:13:51,460 --> 00:13:54,800
+ha valaki tudás és kreativitás nélő használja,
+
+316
+00:13:54,940 --> 00:13:57,080
+előbb-utóbb lehűíti magát.
+
+317
+00:13:57,320 --> 00:13:59,000
+Tehát ez lesz a vége.
+
+318
+00:13:59,400 --> 00:14:01,520
+Ha valaki viszont tudja, hogy ez mire jó,
+
+319
+00:14:02,000 --> 00:14:03,800
+akkor arra kell használni.
+
+320
+00:14:03,800 --> 00:14:05,040
+Nem tanulással jó.
+
+321
+00:14:05,120 --> 00:14:08,260
+Egyébként vannak Magyarországos példusok,
+
+322
+00:14:08,360 --> 00:14:11,080
+akik egészen jól értik, mit kéne ezzel csinálni.
+
+323
+00:14:11,880 --> 00:14:14,120
+Például óratervezésre, vagy értékelésre.
+
+324
+00:14:14,180 --> 00:14:16,420
+Nem be kell vinni, és nem a gyerekekkel kell.
+
+325
+00:14:18,000 --> 00:14:20,340
+Tehát a legrosszabb példa, de vannak ilyenek,
+
+326
+00:14:20,400 --> 00:14:22,300
+hogy a tanár is meg akarja úszni,
+
+327
+00:14:22,380 --> 00:14:24,720
+és akkor csinál egy tesztet a mesterségi intelligenciával,
+
+328
+00:14:24,760 --> 00:14:26,240
+a gyerek pedig a mesterségi intelligenciával,
+
+329
+00:14:26,360 --> 00:14:27,620
+hogy te kiasztam tesztet.
+
+330
+00:14:28,120 --> 00:14:30,640
+Ez, ha végig gondoljuk...
+
+331
+00:14:30,640 --> 00:14:31,680
+Tehát semmi értelme nincs.
+
+332
+00:14:31,680 --> 00:14:34,640
+Hát nem csak olyan semmi, ez tudásvesztéshez vezet.
+
+333
+00:14:34,760 --> 00:14:37,920
+Tehát pont az ellenkezője, amit az iskolában kéne.
+
+334
+00:14:38,440 --> 00:14:42,380
+Tehát végig kéne gondolni, hogy mit akarunk,
+
+335
+00:14:42,480 --> 00:14:44,640
+és nem a mesterségi intelligenciával, csak egy eszköz.
+
+336
+00:14:45,080 --> 00:14:46,680
+Itt megint az kell, hogy a kompetenciával,
+
+337
+00:14:46,680 --> 00:14:49,980
+a hozzájegyszerű kompetenciákat kell fejleszteni,
+
+338
+00:14:50,040 --> 00:14:53,400
+és ehhez egy nagyon jó eszköz lehet majd a mesterségi intelligencia,
+
+339
+00:14:53,400 --> 00:14:56,360
+amit először a pedagosoknak kéne elsajetítani,
+
+340
+00:14:56,480 --> 00:15:00,580
+úgy tudják majd igazán ők is, hogy mit csináljanak vele.
+
+341
+00:15:00,960 --> 00:15:04,740
+Nagyon jó tanár vagy pedagosasszisztensként tudna működni,
+
+342
+00:15:04,960 --> 00:15:07,400
+akkor ha a pedagos tudja, hogy mit akar.
+
+343
+00:15:07,480 --> 00:15:10,640
+Tehát ez nem fogja helyettünk megoldani,
+
+344
+00:15:10,740 --> 00:15:12,100
+nem fog helyettünk kérdezni.
+
+345
+00:15:13,360 --> 00:15:15,160
+Nagyon jó kérdésekre van szükség.
+
+346
+00:15:15,520 --> 00:15:20,520
+Ugye az iskola meg csak a beviflázott válaszokra van most predesztinálva.
+
+347
+00:15:20,520 --> 00:15:23,640
+Ha meg akarunk küzdeni a mesterségi intelligencia,
+
+348
+00:15:23,820 --> 00:15:27,100
+akkor viszont itt most el kell kezdeni jókat kérdezni,
+
+349
+00:15:27,180 --> 00:15:29,540
+és hagyni a gyerekeket kérdezni,
+
+350
+00:15:29,980 --> 00:15:34,700
+és szabadon tanulni, saját aktivitásunkban tanulni.
+
+351
+00:15:35,740 --> 00:15:37,480
+Ehhez viszont nagyon más szemlélet kell.
+
+352
+00:15:37,600 --> 00:15:41,300
+Tehát én azt gondolom, hogy szemléletváltás nélkül ez nem fog menni.
+
+353
+00:15:41,440 --> 00:15:46,020
+És az adatok is azt mutatják, hogy a számítógép használat
+
+354
+00:15:46,020 --> 00:15:49,980
+ugye azzal indult az egész, bevitték az órákra,
+
+355
+00:15:50,520 --> 00:15:54,040
+és csodák csodájára rosszabb lett a szövegértés tőle.
+
+356
+00:15:54,540 --> 00:15:56,560
+Hát persze, hogy az lett, mert az terült ki,
+
+357
+00:15:56,700 --> 00:16:00,260
+hogy a pedosok ezt simán illusztrálásra használták,
+
+358
+00:16:00,380 --> 00:16:02,660
+ők maguk sem értették, hogy mi legyen vele,
+
+359
+00:16:03,180 --> 00:16:06,220
+és igazából elvitt egy csomó időt arról,
+
+360
+00:16:06,400 --> 00:16:10,360
+amit lehetett volna a gép nélkül csak megbeszélni dolgokat,
+
+361
+00:16:10,420 --> 00:16:12,520
+vagy együttműködni, vagy...
+
+362
+00:16:12,520 --> 00:16:14,120
+Azok tudták ezt jól használni,
+
+363
+00:16:14,180 --> 00:16:15,980
+akik eleve is jól tanítottak,
+
+364
+00:16:15,980 --> 00:16:18,120
+és akik a gépeket is úgy vitték be,
+
+365
+00:16:18,240 --> 00:16:19,440
+hogy csoportokat csináltak,
+
+366
+00:16:19,480 --> 00:16:20,640
+és a gyerekeket hagyták,
+
+367
+00:16:20,640 --> 00:16:22,680
+hogy ők maguk találják ki,
+
+368
+00:16:22,880 --> 00:16:25,240
+hogy hogyan oldják meg a feladatokat.
+
+369
+00:16:26,700 --> 00:16:29,760
+Tehát ilyen értelemben nagy veszély bevinni
+
+370
+00:16:29,760 --> 00:16:35,320
+nagyon modern technológiát egy nagyon öskori állapotok közé,
+
+371
+00:16:35,560 --> 00:16:40,680
+mert hogy az inkább csak stabilizálja,
+
+372
+00:16:40,780 --> 00:16:43,440
+vagy hát bele fogja ugyan abba az állapotba
+
+373
+00:16:43,440 --> 00:16:47,140
+merevíteni a rendszert, és nem fog tudást hozni.
+
+374
+00:16:47,740 --> 00:16:50,280
+Igen, ezek a készségek, amikre szükség van.
+
+375
+00:16:50,480 --> 00:16:52,580
+Említetted ugye a kritikai gondolkodást,
+
+376
+00:16:52,660 --> 00:16:53,620
+a kritikus gondolkodást.
+
+377
+00:16:54,360 --> 00:16:56,300
+A könyvednek is az a címe,
+
+378
+00:16:56,380 --> 00:16:57,500
+hogy kreatív tanulás,
+
+379
+00:16:57,580 --> 00:16:58,800
+tehát ez egy másik készség,
+
+380
+00:16:58,880 --> 00:17:01,300
+és ugye a 4K van egy ilyen 4C,
+
+381
+00:17:01,420 --> 00:17:02,420
+vagy tehát hogy 4C,
+
+382
+00:17:02,520 --> 00:17:04,880
+magyarul 4K készségek,
+
+383
+00:17:04,960 --> 00:17:06,600
+tehát ugye a kritikai gondolkodás,
+
+384
+00:17:06,700 --> 00:17:09,040
+kreativitás, kommunikációs, kooperáció.
+
+385
+00:17:09,040 --> 00:17:13,080
+Ezek nagyon fontosak ugye a napjainkban,
+
+386
+00:17:13,260 --> 00:17:16,340
+meg az, hogy a jövőre felkészítsék a diákokat.
+
+387
+00:17:17,040 --> 00:17:19,680
+Ezek valamennyire egyébként jelen vannak nyomokban,
+
+388
+00:17:20,040 --> 00:17:23,720
+ennek a 4 készségnek bármelyike jelenleg az oktatási rendszerben?
+
+389
+00:17:24,560 --> 00:17:25,740
+Hát nyomokban persze,
+
+390
+00:17:26,080 --> 00:17:28,580
+benne van, mert például mi is csinálunk programokat,
+
+391
+00:17:28,640 --> 00:17:30,700
+és ott megpróbáljuk bevinni.
+
+392
+00:17:30,700 --> 00:17:34,940
+Egyébként a 4K-t már 6K van,
+
+393
+00:17:35,060 --> 00:17:42,740
+mert ezt a fullán ezt kibővítette kapcsolatok kezelése,
+
+394
+00:17:42,820 --> 00:17:45,740
+meg kultúrák elfogadása,
+
+395
+00:17:45,840 --> 00:17:47,940
+tehát diverszitás elfogadása,
+
+396
+00:17:48,000 --> 00:17:49,820
+tehát ez most már így 6K,
+
+397
+00:17:49,940 --> 00:17:51,000
+és ugye az az érdekes,
+
+398
+00:17:51,100 --> 00:17:53,560
+hogy a kritikai gondolkodás és a kreativitás,
+
+399
+00:17:53,560 --> 00:17:55,720
+az két kognitív kompetencia,
+
+400
+00:17:55,860 --> 00:17:57,980
+a másik négy viszont nem kognitív.
+
+401
+00:17:57,980 --> 00:18:02,040
+És igazából egyre inkább látszik,
+
+402
+00:18:02,300 --> 00:18:04,840
+hogy itt a mesters intelligencia mellett
+
+403
+00:18:04,840 --> 00:18:08,400
+az emberi tényezők fognak egyre jelentőség teljesebben lenni,
+
+404
+00:18:08,520 --> 00:18:10,160
+az érzelmi intelligencia,
+
+405
+00:18:11,200 --> 00:18:14,140
+minden az, amit egy ilyen hagyományos,
+
+406
+00:18:14,260 --> 00:18:17,800
+frontális és ismeretekre építő oktatás
+
+407
+00:18:17,800 --> 00:18:20,720
+nem igazán vett figyelembe.
+
+408
+00:18:20,720 --> 00:18:22,040
+Most már azt látjuk,
+
+409
+00:18:22,180 --> 00:18:24,500
+hogy nagyon sok munkát majd ki lehet,
+
+410
+00:18:25,740 --> 00:18:27,860
+hogy helyettesíteni lehet,
+
+411
+00:18:27,980 --> 00:18:30,680
+még az ilyen, még szellemi munkát is,
+
+412
+00:18:30,740 --> 00:18:31,740
+még a mi munkákat is,
+
+413
+00:18:31,820 --> 00:18:34,220
+mert mondjuk egy dokumentum elemzést
+
+414
+00:18:34,220 --> 00:18:36,040
+már primán meg tud csinálni egy
+
+415
+00:18:36,040 --> 00:18:38,540
+mesterséges intelligencia is.
+
+416
+00:18:39,120 --> 00:18:41,100
+Csak hát utána azt ugye ellenőrizni kell.
+
+417
+00:18:41,300 --> 00:18:43,220
+Tehát szakértővé kell válni,
+
+418
+00:18:43,940 --> 00:18:47,680
+és úgy használni a mesterséges intelligenciát,
+
+419
+00:18:47,800 --> 00:18:50,020
+viszont érezni nem fog soha az életben
+
+420
+00:18:50,020 --> 00:18:51,320
+a mesterséges intelligencia.
+
+421
+00:18:51,740 --> 00:18:53,520
+Rengeteg olyan munka lesz,
+
+422
+00:18:53,520 --> 00:18:56,180
+a gondoskodás, idősápolás,
+
+423
+00:18:56,280 --> 00:18:58,260
+amit most nem fizettünk meg.
+
+424
+00:18:59,260 --> 00:19:02,840
+Nők szinte láthatatlanul végzik.
+
+425
+00:19:03,500 --> 00:19:04,580
+Ezek azok a munkák,
+
+426
+00:19:04,720 --> 00:19:07,260
+amik szerintem sokkal-sokkal fontosabbak
+
+427
+00:19:07,260 --> 00:19:08,180
+lesznek a jövőben,
+
+428
+00:19:08,280 --> 00:19:09,180
+és ha ezt nem,
+
+429
+00:19:09,400 --> 00:19:10,260
+erre nem figyelünk,
+
+430
+00:19:10,480 --> 00:19:13,860
+akkor nagyon élhetetlen világot fogunk létrehozni.
+
+431
+00:19:13,860 --> 00:19:18,940
+Egyébként a kreativitás
+
+432
+00:19:18,940 --> 00:19:22,160
+és a kritikai gondolkodás össze is nagyon összefügg.
+
+433
+00:19:22,240 --> 00:19:22,960
+Ugye szokták mondani,
+
+434
+00:19:23,000 --> 00:19:25,300
+hogy a kreativitás az egy ilyen diverges gondolkodás,
+
+435
+00:19:25,380 --> 00:19:25,880
+de nem oda,
+
+436
+00:19:26,020 --> 00:19:27,760
+ugyanúgy kell analitikus gondolkodás.
+
+437
+00:19:28,500 --> 00:19:30,180
+Ugyanis az lesz kreatív,
+
+438
+00:19:30,820 --> 00:19:32,620
+aki érzékel egy probléma van,
+
+439
+00:19:34,100 --> 00:19:35,780
+tehát föltesz egy kérdést,
+
+440
+00:19:36,040 --> 00:19:38,120
+és ez kritikai gondolkodás nélkül nem megy.
+
+441
+00:19:38,120 --> 00:19:39,540
+Tehát az az eleje,
+
+442
+00:19:39,660 --> 00:19:41,700
+és akkor indulhat el egy kreatív folyamat,
+
+443
+00:19:41,700 --> 00:19:44,060
+mert általában amit mi is,
+
+444
+00:19:44,480 --> 00:19:46,240
+tehát a kreatív tanulás könyvükben
+
+445
+00:19:46,240 --> 00:19:51,680
+magunk kivetettük az OECD-nek a terminológiáját,
+
+446
+00:19:51,800 --> 00:19:56,960
+hogy originális és probléma megoldó gondolat,
+
+447
+00:19:57,300 --> 00:19:59,800
+tehát ez egyáltalán nem csak művészet,
+
+448
+00:20:00,000 --> 00:20:00,380
+sőt,
+
+449
+00:20:00,980 --> 00:20:05,860
+hanem inkább az egyre gyorsabb,
+
+450
+00:20:05,860 --> 00:20:07,360
+felegyorsabb világunkban
+
+451
+00:20:07,360 --> 00:20:10,620
+ezek az újszerű problémákra való megoldás,
+
+452
+00:20:10,620 --> 00:20:13,640
+készsége ez a kreativitás.
+
+453
+00:20:14,360 --> 00:20:15,880
+És hogyha akkor jól értem,
+
+454
+00:20:15,980 --> 00:20:16,840
+akkor az oktatásnak,
+
+455
+00:20:17,000 --> 00:20:20,220
+ugye, amit először az egyik problémája,
+
+456
+00:20:20,600 --> 00:20:21,700
+az a létszámhiány,
+
+457
+00:20:21,760 --> 00:20:24,560
+illetve a pedagógusoknak az eloszlásának
+
+458
+00:20:24,560 --> 00:20:26,060
+a nem egyenletes volta,
+
+459
+00:20:26,380 --> 00:20:28,920
+vagy a nem logikus eloszlása.
+
+460
+00:20:29,280 --> 00:20:30,800
+A másik ugye a szemléletmód,
+
+461
+00:20:31,300 --> 00:20:32,620
+abban is van egy hiányosság,
+
+462
+00:20:32,620 --> 00:20:34,080
+és én úgy tudom, egyébként nagy probléma
+
+463
+00:20:34,080 --> 00:20:36,940
+a pedagógusoknak a megbecsültsége is,
+
+464
+00:20:37,080 --> 00:20:38,700
+erről szoktak egyébként panaszkodni.
+
+465
+00:20:38,700 --> 00:20:41,040
+Nem tudom, itt most egyébként
+
+466
+00:20:41,040 --> 00:20:44,240
+inkább az anyagi megbecsülést értjük,
+
+467
+00:20:44,500 --> 00:20:48,000
+vagy akár a gyerekek általi megbecsültséget.
+
+468
+00:20:49,560 --> 00:20:50,800
+Picit az az érzésem,
+
+469
+00:20:50,920 --> 00:20:53,660
+hogy azért sok tanárnak,
+
+470
+00:20:53,720 --> 00:20:55,180
+vagy pedagógusnak, tanítónak
+
+471
+00:20:55,180 --> 00:20:57,700
+nincs elég eszköze a fegyelmezése,
+
+472
+00:20:58,380 --> 00:20:59,640
+és ezért is lehet,
+
+473
+00:20:59,640 --> 00:21:01,960
+hogy azt érzik, hogy nincsenek eléggé megbecsülve.
+
+474
+00:21:02,560 --> 00:21:04,100
+Nagyon megváltozott a világ,
+
+475
+00:21:04,200 --> 00:21:05,420
+és a gyerekek is mások.
+
+476
+00:21:06,060 --> 00:21:07,480
+Tehát az, hogy nincs eszközük,
+
+477
+00:21:07,480 --> 00:21:08,680
+ez lehet, de azért
+
+478
+00:21:08,680 --> 00:21:12,000
+és igaz, hogy nem eléggé
+
+479
+00:21:12,000 --> 00:21:15,280
+hát fejlődik a pedagógus képzése,
+
+480
+00:21:15,400 --> 00:21:16,760
+de én azt szoktam mondani,
+
+481
+00:21:16,900 --> 00:21:18,820
+hogy ma már minden szakmában
+
+482
+00:21:18,820 --> 00:21:21,480
+nekünk kell
+
+483
+00:21:21,480 --> 00:21:23,100
+lépést tartani.
+
+484
+00:21:23,760 --> 00:21:25,820
+Hogy nem tudnak a pedagógusok
+
+485
+00:21:25,820 --> 00:21:26,980
+lépést tartani?
+
+486
+00:21:26,980 --> 00:21:29,100
+Egyik probléma például, hogy nem beszélünk nyelveket.
+
+487
+00:21:29,200 --> 00:21:31,040
+Hát egy rengeteg dolog már elérhető.
+
+488
+00:21:31,580 --> 00:21:33,560
+Nem igaz, hogy várni kell arra,
+
+489
+00:21:33,780 --> 00:21:34,900
+amíg majd jön valaki,
+
+490
+00:21:34,900 --> 00:21:37,940
+és majd ad egy kreditet hozzá, meg még pénzt is ad hozzá.
+
+491
+00:21:38,300 --> 00:21:39,080
+Ez a szemlélet,
+
+492
+00:21:39,420 --> 00:21:41,940
+ez nem tartható.
+
+493
+00:21:42,500 --> 00:21:43,560
+Én azt gondolom, hogy ha nem megy,
+
+494
+00:21:43,640 --> 00:21:44,960
+akkor el kell hagyni a pályát,
+
+495
+00:21:45,020 --> 00:21:45,840
+ha meg ott van a pályán,
+
+496
+00:21:45,920 --> 00:21:47,300
+akkor viszont ne kellet mindent tenni,
+
+497
+00:21:47,380 --> 00:21:49,000
+és nem igaz, hogy mindent megtesznek.
+
+498
+00:21:49,100 --> 00:21:49,740
+Én azt gondolom,
+
+499
+00:21:49,740 --> 00:21:52,660
+hogy a saját fejlődésük terén
+
+500
+00:21:52,660 --> 00:21:55,800
+hát sokkal-sokkal többet lehetne tenni.
+
+501
+00:21:56,260 --> 00:21:57,400
+És pontosan erről van szó,
+
+502
+00:21:57,460 --> 00:21:58,640
+hogy ezek a gyerekek mások,
+
+503
+00:21:58,720 --> 00:22:00,120
+más eszközök kelenek hozzá.
+
+504
+00:22:00,900 --> 00:22:02,200
+És ezek a más eszközök,
+
+505
+00:22:02,400 --> 00:22:03,440
+ezek elérhetők.
+
+506
+00:22:03,820 --> 00:22:06,060
+Akár a mi kreatív partnerség programunkban is,
+
+507
+00:22:06,140 --> 00:22:07,440
+ugye ahol művészeket viszünk be,
+
+508
+00:22:07,500 --> 00:22:08,820
+rengeteg olyan program van,
+
+509
+00:22:09,380 --> 00:22:10,820
+amivel lehet látni,
+
+510
+00:22:10,940 --> 00:22:12,780
+hogy lehet ezeket a gyerekeket megnyerni.
+
+511
+00:22:13,380 --> 00:22:13,700
+Igen,
+
+512
+00:22:13,940 --> 00:22:16,020
+rengeteg munka és tanulás van mögötte,
+
+513
+00:22:16,020 --> 00:22:19,220
+de hát ez a siker máshol sem,
+
+514
+00:22:19,300 --> 00:22:21,040
+egy vállalkozó sem úgy lesik keres,
+
+515
+00:22:21,140 --> 00:22:21,940
+hogy ül és várja,
+
+516
+00:22:22,040 --> 00:22:23,700
+hogy jöjjön hozzá az uniós pénz.
+
+517
+00:22:24,440 --> 00:22:26,180
+Tehát, hogy én azt gondolom,
+
+518
+00:22:26,440 --> 00:22:28,460
+hogy ez a vállalkozó szemléletet
+
+519
+00:22:28,460 --> 00:22:30,960
+a pedagógusoknak is át kéne vennie,
+
+520
+00:22:31,100 --> 00:22:32,880
+és hát persze ezen nem fog segíteni,
+
+521
+00:22:32,960 --> 00:22:35,060
+ha legalacsonyabb pontszámokkal kerülnek be
+
+522
+00:22:35,060 --> 00:22:36,380
+a képzésbe a pedagógusok.
+
+523
+00:22:36,480 --> 00:22:39,400
+Tehát pontosan az igazán sikeres országok,
+
+524
+00:22:39,480 --> 00:22:40,420
+mint Finnország,
+
+525
+00:22:40,820 --> 00:22:42,380
+az pont azt került elérni,
+
+526
+00:22:42,440 --> 00:22:43,880
+de nem egyik napról a másikra,
+
+527
+00:22:43,880 --> 00:22:45,140
+ez is egy 30-es folyamat,
+
+528
+00:22:45,140 --> 00:22:47,180
+hogy a legtehetségesebb emberek
+
+529
+00:22:47,180 --> 00:22:48,580
+akarnak pedagógusnak menni.
+
+530
+00:22:49,100 --> 00:22:50,200
+És azt gondolom, ez a kulcs.
+
+531
+00:22:50,660 --> 00:22:53,260
+Tehát, ha a pedagógusok nem a top,
+
+532
+00:22:53,620 --> 00:22:55,380
+akkor nem fogunk tudni kijönni
+
+533
+00:22:55,380 --> 00:22:56,480
+ebből a gödörből.
+
+534
+00:22:56,540 --> 00:22:57,420
+Ezt hogy érték el?
+
+535
+00:22:58,440 --> 00:23:00,080
+Hát, ezt úgy érték el,
+
+536
+00:23:01,100 --> 00:23:04,520
+hogy ők hosszú időn,
+
+537
+00:23:04,560 --> 00:23:06,140
+át ők azért ezt mértek,
+
+538
+00:23:07,040 --> 00:23:07,600
+nézték,
+
+539
+00:23:08,600 --> 00:23:10,540
+hogy hogy sikerül ez a dolog,
+
+540
+00:23:10,540 --> 00:23:13,280
+illetve bevittek kutatási elemeket
+
+541
+00:23:13,280 --> 00:23:14,480
+a képzésbe.
+
+542
+00:23:14,640 --> 00:23:17,340
+Tehát az ő képzésük
+
+543
+00:23:17,340 --> 00:23:18,080
+nem arról szól,
+
+544
+00:23:18,240 --> 00:23:19,100
+hogy van egy anyag,
+
+545
+00:23:19,200 --> 00:23:20,040
+amit nagyon jól tudok,
+
+546
+00:23:20,100 --> 00:23:20,820
+és átadom,
+
+547
+00:23:21,440 --> 00:23:22,800
+hanem benne van az is,
+
+548
+00:23:23,360 --> 00:23:24,500
+kritikai gondolkodás,
+
+549
+00:23:24,580 --> 00:23:25,680
+hogy jól csinálom,
+
+550
+00:23:26,100 --> 00:23:27,160
+csinálhatom jobban.
+
+551
+00:23:27,580 --> 00:23:28,220
+Hogy mérjem,
+
+552
+00:23:28,380 --> 00:23:29,260
+hogy jól csinálom-e?
+
+553
+00:23:29,760 --> 00:23:31,320
+Milyen eszközeim vannak erre?
+
+554
+00:23:32,120 --> 00:23:32,920
+Nálunk ugye,
+
+555
+00:23:33,060 --> 00:23:34,620
+annak idén az egyik államtitkár,
+
+556
+00:23:34,720 --> 00:23:35,780
+mikor erről volt szó,
+
+557
+00:23:35,840 --> 00:23:37,640
+hogy hát kéne kutatni,
+
+558
+00:23:37,640 --> 00:23:39,000
+azt mondja,
+
+559
+00:23:39,060 --> 00:23:40,060
+Isten mert elég,
+
+560
+00:23:40,200 --> 00:23:41,300
+ha szeretik a gyerekeket.
+
+561
+00:23:41,620 --> 00:23:43,140
+Nehogy már kutató legyen belőle.
+
+562
+00:23:43,220 --> 00:23:44,680
+Teljes félreértése annak,
+
+563
+00:23:44,760 --> 00:23:46,020
+mi az, hogy kutatás.
+
+564
+00:23:46,460 --> 00:23:48,040
+A kutatás nálunk igen,
+
+565
+00:23:48,180 --> 00:23:48,840
+arra kapnak doktorit,
+
+566
+00:23:49,680 --> 00:23:50,640
+hogy valaki mondjuk,
+
+567
+00:23:51,500 --> 00:23:52,200
+nem tudom én,
+
+568
+00:23:53,080 --> 00:23:56,440
+egy Adi Endréből csinál egy,
+
+569
+00:23:56,840 --> 00:23:57,400
+nem tudom én,
+
+570
+00:23:57,460 --> 00:23:58,520
+egy doktor dolgozatot,
+
+571
+00:23:58,620 --> 00:23:59,320
+pedagógus.
+
+572
+00:23:59,800 --> 00:24:01,640
+Máshol abból kap doktorit,
+
+573
+00:24:01,640 --> 00:24:02,820
+hogy bebizonyítja,
+
+574
+00:24:02,900 --> 00:24:04,080
+hogy nagyon jól tud tanítani,
+
+575
+00:24:04,160 --> 00:24:05,320
+és a gyerekek fejlődnek.
+
+576
+00:24:05,320 --> 00:24:06,820
+És ugyanez,
+
+577
+00:24:07,160 --> 00:24:08,120
+ehhez az kell,
+
+578
+00:24:08,340 --> 00:24:09,040
+hogy értse,
+
+579
+00:24:09,100 --> 00:24:09,760
+hogy mit csinál,
+
+580
+00:24:09,860 --> 00:24:11,440
+és a kutatási elemek
+
+581
+00:24:11,440 --> 00:24:12,980
+erről szólnak,
+
+582
+00:24:13,280 --> 00:24:14,440
+hogy tudjunk reflektálni
+
+583
+00:24:14,440 --> 00:24:15,440
+a saját munkánkra.
+
+584
+00:24:15,580 --> 00:24:16,820
+Ettől még nem leszünk kutatók.
+
+585
+00:24:17,140 --> 00:24:19,260
+Az, hogy egy kicsit ebbe bele szagol,
+
+586
+00:24:19,480 --> 00:24:20,720
+ez például
+
+587
+00:24:20,720 --> 00:24:21,540
+abba segítette,
+
+588
+00:24:21,640 --> 00:24:23,320
+hogy kérdéseket tud feltenni.
+
+589
+00:24:23,740 --> 00:24:24,820
+És mondjuk a pokok,
+
+590
+00:24:24,940 --> 00:24:26,520
+pedagógiai oktatási központok,
+
+591
+00:24:26,600 --> 00:24:27,560
+akik ott ülnek
+
+592
+00:24:27,560 --> 00:24:29,080
+a babérjaikon,
+
+593
+00:24:29,080 --> 00:24:29,960
+és ott várják,
+
+594
+00:24:30,060 --> 00:24:31,900
+hogy miért nem jönnek az iskolák hozzájuk.
+
+595
+00:24:31,960 --> 00:24:32,720
+Hát hogy jönnének,
+
+596
+00:24:32,720 --> 00:24:34,020
+nincsenek kérdéseik,
+
+597
+00:24:34,580 --> 00:24:36,000
+és ők sem mennek hozzájuk.
+
+598
+00:24:36,120 --> 00:24:36,640
+Tehát itt
+
+599
+00:24:36,640 --> 00:24:38,720
+egy ilyen tehetetlenség
+
+600
+00:24:38,720 --> 00:24:39,920
+ugye uralja a terepet.
+
+601
+00:24:40,620 --> 00:24:41,360
+Egy ilyen pedagógus,
+
+602
+00:24:41,440 --> 00:24:42,960
+aki egy ilyen képzésen esik át,
+
+603
+00:24:43,160 --> 00:24:44,940
+annak lesznek ötletei.
+
+604
+00:24:45,080 --> 00:24:45,840
+Az fogja,
+
+605
+00:24:46,060 --> 00:24:47,360
+hogy most mit kéne csinálnom,
+
+606
+00:24:47,440 --> 00:24:47,900
+hogy kéne.
+
+607
+00:24:48,540 --> 00:24:49,340
+Tehát persze erre
+
+608
+00:24:49,340 --> 00:24:51,400
+kéne neki lehetőséget adni,
+
+609
+00:24:51,520 --> 00:24:52,480
+és nem kéne
+
+610
+00:24:52,480 --> 00:24:53,500
+egy olyan pedagógus
+
+611
+00:24:53,500 --> 00:24:55,000
+értékes rendszert behozni,
+
+612
+00:24:55,000 --> 00:24:59,140
+ami agyon méri a gyerekeket.
+
+613
+00:24:59,240 --> 00:25:00,300
+Teljesen kiherélték
+
+614
+00:25:00,300 --> 00:25:01,660
+a kompetenciamérést,
+
+615
+00:25:01,780 --> 00:25:03,260
+ami egy igazi unikon volt,
+
+616
+00:25:03,360 --> 00:25:04,380
+és nagyon jól működött.
+
+617
+00:25:04,780 --> 00:25:06,280
+Most már minden évben mérnek,
+
+618
+00:25:07,080 --> 00:25:09,260
+és igazán nem látni az értelmét.
+
+619
+00:25:10,860 --> 00:25:11,940
+Visszakorják csatolni
+
+620
+00:25:11,940 --> 00:25:12,580
+közvetlenül
+
+621
+00:25:12,580 --> 00:25:13,980
+a pedagógus értékelésbe
+
+622
+00:25:13,980 --> 00:25:14,800
+és bérezésbe.
+
+623
+00:25:15,340 --> 00:25:16,720
+Már látszanak az első
+
+624
+00:25:16,720 --> 00:25:18,460
+eredmények.
+
+625
+00:25:19,000 --> 00:25:20,560
+Nagyon megalázó,
+
+626
+00:25:20,660 --> 00:25:22,600
+nem igazán szakmai értékelés
+
+627
+00:25:22,600 --> 00:25:24,460
+után kap plusz 20 ezer forintot,
+
+628
+00:25:24,920 --> 00:25:25,840
+ha nem tudom én
+
+629
+00:25:25,840 --> 00:25:28,440
+Miki mahoz odabent,
+
+630
+00:25:28,540 --> 00:25:29,100
+és azt mondta,
+
+631
+00:25:29,220 --> 00:25:30,500
+hogy igen, ez jó.
+
+632
+00:25:31,020 --> 00:25:33,100
+Tehát ez egy teljes
+
+633
+00:25:33,100 --> 00:25:34,800
+férértéssel rendszerek.
+
+634
+00:25:34,880 --> 00:25:35,400
+Erre mondtam,
+
+635
+00:25:35,480 --> 00:25:36,660
+hogy Sarlatának közében
+
+636
+00:25:36,660 --> 00:25:39,380
+van ez az egész oktatás.
+
+637
+00:25:41,620 --> 00:25:43,960
+Tehát a finnek így értékel,
+
+638
+00:25:44,040 --> 00:25:44,560
+de ha add mondjuk
+
+639
+00:25:44,560 --> 00:25:45,780
+egy portugál példát,
+
+640
+00:25:45,780 --> 00:25:47,120
+mert a prestízs
+
+641
+00:25:47,120 --> 00:25:49,640
+az egy érdekes dolog,
+
+642
+00:25:49,640 --> 00:25:52,700
+és az egyrészt a bérből,
+
+643
+00:25:52,820 --> 00:25:56,760
+másrészt a szakmai autonómia,
+
+644
+00:25:56,880 --> 00:25:57,740
+a kettő együtt.
+
+645
+00:25:58,460 --> 00:25:59,660
+És a bér nem azt jelenti,
+
+646
+00:25:59,780 --> 00:26:00,820
+hogy a világ
+
+647
+00:26:00,820 --> 00:26:01,840
+legmagasabb bére,
+
+648
+00:26:02,680 --> 00:26:03,640
+hanem azt jelenti,
+
+649
+00:26:03,960 --> 00:26:05,340
+hogy az adott ország
+
+650
+00:26:05,340 --> 00:26:06,640
+értelmiségi
+
+651
+00:26:06,640 --> 00:26:08,160
+foglalkozása,
+
+652
+00:26:08,240 --> 00:26:08,820
+ez mérten
+
+653
+00:26:08,820 --> 00:26:11,020
+egy jó szintű
+
+654
+00:26:11,020 --> 00:26:12,180
+bér.
+
+655
+00:26:12,560 --> 00:26:13,340
+Tehát például
+
+656
+00:26:13,340 --> 00:26:15,080
+az amerikaiak
+
+657
+00:26:15,080 --> 00:26:16,260
+jóval többet keresnek
+
+658
+00:26:16,260 --> 00:26:16,960
+így nemzetközi
+
+659
+00:26:16,960 --> 00:26:18,380
+az összehasonlításban,
+
+660
+00:26:18,520 --> 00:26:19,940
+mint mondjuk más országokban.
+
+661
+00:26:20,780 --> 00:26:22,740
+De mintha az amerikai pedosbérn,
+
+662
+00:26:23,000 --> 00:26:23,820
+a töredéke
+
+663
+00:26:23,820 --> 00:26:24,980
+az ott elérhető
+
+664
+00:26:24,980 --> 00:26:26,220
+diplomás béreknek,
+
+665
+00:26:27,140 --> 00:26:27,860
+ők ugyanúgy,
+
+666
+00:26:28,320 --> 00:26:29,880
+az ugyanúgy
+
+667
+00:26:29,880 --> 00:26:31,040
+egy alacsonyi prestízs.
+
+668
+00:26:31,900 --> 00:26:32,520
+Tehát nálunk
+
+669
+00:26:32,520 --> 00:26:33,040
+nem véletlen,
+
+670
+00:26:33,100 --> 00:26:34,100
+hogy arról beszélnek,
+
+671
+00:26:34,220 --> 00:26:35,140
+hogy az unióban
+
+672
+00:26:35,140 --> 00:26:36,020
+minimum,
+
+673
+00:26:36,280 --> 00:26:37,480
+legalább a 90 százaléket
+
+674
+00:26:37,480 --> 00:26:38,040
+el kéne érni
+
+675
+00:26:38,040 --> 00:26:38,960
+a pedosbéreknek,
+
+676
+00:26:39,020 --> 00:26:40,340
+a diplomás átlagbérnek.
+
+677
+00:26:40,740 --> 00:26:42,000
+És most megcéloztuk
+
+678
+00:26:42,000 --> 00:26:43,240
+a 80 százalékot,
+
+679
+00:26:43,320 --> 00:26:43,960
+mert eddig egyébként
+
+680
+00:26:43,960 --> 00:26:44,760
+60 volt.
+
+681
+00:26:44,760 --> 00:26:46,000
+Tehát én azt gondolom,
+
+682
+00:26:46,140 --> 00:26:47,140
+hogy az
+
+683
+00:26:47,140 --> 00:26:49,960
+nem a nagy bére emelés kell,
+
+684
+00:26:50,060 --> 00:26:51,400
+hanem az adott ország
+
+685
+00:26:51,400 --> 00:26:53,520
+diplomás átlagbérét
+
+686
+00:26:53,520 --> 00:26:55,240
+egy százaléka.
+
+687
+00:26:55,380 --> 00:26:57,060
+Most a portugálok megcsinálták,
+
+688
+00:26:57,160 --> 00:26:58,780
+hogy 130 százalékát adják.
+
+689
+00:26:59,180 --> 00:26:59,840
+És hogyan?
+
+690
+00:27:00,400 --> 00:27:02,120
+Mert megszüntetik a kisiskolákat.
+
+691
+00:27:02,360 --> 00:27:04,120
+Ők végigmentek azon a folyamaton,
+
+692
+00:27:04,740 --> 00:27:05,500
+nagyon nyögve,
+
+693
+00:27:05,560 --> 00:27:06,160
+keservesen,
+
+694
+00:27:06,240 --> 00:27:07,520
+és rengeteg sztrájk volt,
+
+695
+00:27:08,160 --> 00:27:08,760
+de volt egy kétharmados
+
+696
+00:27:09,380 --> 00:27:11,120
+szociastokormány 2000-ben,
+
+697
+00:27:11,600 --> 00:27:13,840
+és az végigment ezen az úton.
+
+698
+00:27:13,840 --> 00:27:15,080
+És előbb-utóbb
+
+699
+00:27:15,080 --> 00:27:16,260
+ezek a pedagógusok rájöttek,
+
+700
+00:27:16,360 --> 00:27:17,900
+hogy egy kisiskolába egyedül,
+
+701
+00:27:18,100 --> 00:27:18,820
+sokkal rosszabb,
+
+702
+00:27:18,860 --> 00:27:19,860
+mint egy nagyobb iskolából,
+
+703
+00:27:19,940 --> 00:27:21,380
+meg tudja beszélni a problémáit
+
+704
+00:27:21,380 --> 00:27:22,200
+a többiekkel.
+
+705
+00:27:22,880 --> 00:27:24,960
+És kialakítottak a demográfiai
+
+706
+00:27:24,960 --> 00:27:25,900
+adatok alapján,
+
+707
+00:27:26,000 --> 00:27:27,080
+meg a helyi
+
+708
+00:27:27,080 --> 00:27:28,120
+hét régióban
+
+709
+00:27:28,120 --> 00:27:29,700
+oszlikotta az oktatás,
+
+710
+00:27:29,800 --> 00:27:30,960
+azoknak a helyi,
+
+711
+00:27:31,040 --> 00:27:31,720
+statisztikai,
+
+712
+00:27:31,820 --> 00:27:32,180
+nem tudom,
+
+713
+00:27:32,220 --> 00:27:32,900
+mi közösei,
+
+714
+00:27:33,260 --> 00:27:34,140
+és oktatási
+
+715
+00:27:34,140 --> 00:27:34,800
+irodákkal
+
+716
+00:27:34,800 --> 00:27:35,820
+lemecselték
+
+717
+00:27:35,820 --> 00:27:36,980
+egy-két éven át.
+
+718
+00:27:37,440 --> 00:27:38,260
+Tehát ez nem egy ilyen,
+
+719
+00:27:38,920 --> 00:27:39,600
+hogy végül is
+
+720
+00:27:39,600 --> 00:27:40,740
+hogyan nézzen ki
+
+721
+00:27:40,740 --> 00:27:41,360
+egy ilyen
+
+722
+00:27:41,360 --> 00:27:42,680
+mérethatékony
+
+723
+00:27:42,680 --> 00:27:44,600
+iskola hálózat.
+
+724
+00:27:45,380 --> 00:27:45,800
+Az az érdekes,
+
+725
+00:27:46,800 --> 00:27:47,180
+hogy még
+
+726
+00:27:47,180 --> 00:27:48,420
+ők se értékel
+
+727
+00:27:48,420 --> 00:27:49,260
+így,
+
+728
+00:27:49,620 --> 00:27:50,440
+hogy a fiatalok
+
+729
+00:27:50,440 --> 00:27:50,800
+beáramoljanak.
+
+730
+00:27:51,840 --> 00:27:52,480
+És miért?
+
+731
+00:27:53,060 --> 00:27:53,880
+Mert csak később
+
+732
+00:27:53,880 --> 00:27:54,440
+jöttek rá,
+
+733
+00:27:54,580 --> 00:27:56,000
+hogy a központosítást
+
+734
+00:27:56,000 --> 00:27:57,060
+is meg kell szüntetni.
+
+735
+00:27:57,200 --> 00:27:57,580
+Tehát ott
+
+736
+00:27:57,580 --> 00:27:58,520
+nagyon központi
+
+737
+00:27:58,520 --> 00:27:59,180
+a tanterv,
+
+738
+00:27:59,260 --> 00:28:00,140
+és a tanárokat
+
+739
+00:28:00,140 --> 00:28:00,860
+központilag
+
+740
+00:28:00,860 --> 00:28:01,620
+osztják szét.
+
+741
+00:28:02,020 --> 00:28:02,980
+Nincs autonómia.
+
+742
+00:28:03,620 --> 00:28:03,860
+Tehát
+
+743
+00:28:03,860 --> 00:28:04,620
+lehet
+
+744
+00:28:04,620 --> 00:28:05,620
+magas bért adni,
+
+745
+00:28:05,680 --> 00:28:06,320
+és ez az egyik
+
+746
+00:28:06,320 --> 00:28:07,160
+fontos lépés,
+
+747
+00:28:07,220 --> 00:28:07,880
+de ha nincs mellett
+
+748
+00:28:07,880 --> 00:28:09,020
+a szakmai autonómia,
+
+749
+00:28:09,480 --> 00:28:10,080
+amit viszont csak
+
+750
+00:28:10,080 --> 00:28:10,980
+akkor lehet odaadni,
+
+751
+00:28:11,040 --> 00:28:11,640
+ha tényleg van
+
+752
+00:28:11,640 --> 00:28:12,600
+a szakmai tudás,
+
+753
+00:28:12,700 --> 00:28:13,560
+tehát én
+
+754
+00:28:13,560 --> 00:28:15,160
+óvaintenek mindenkit
+
+755
+00:28:15,160 --> 00:28:15,880
+ugyan mostani
+
+756
+00:28:15,880 --> 00:28:17,620
+pedagógus
+
+757
+00:28:17,620 --> 00:28:18,480
+állományra
+
+758
+00:28:18,480 --> 00:28:19,280
+úgy, ahogy van
+
+759
+00:28:19,280 --> 00:28:20,820
+a teljes autonómiát
+
+760
+00:28:20,820 --> 00:28:21,820
+rá szabadítsa,
+
+761
+00:28:21,880 --> 00:28:22,080
+mert
+
+762
+00:28:22,080 --> 00:28:23,120
+volt már ilyen,
+
+763
+00:28:23,240 --> 00:28:24,840
+és nem tudtak élni vele
+
+764
+00:28:24,840 --> 00:28:26,140
+a 90-es évek elején
+
+765
+00:28:26,140 --> 00:28:26,540
+sem, mondjuk
+
+766
+00:28:26,540 --> 00:28:27,760
+10-15 százalék,
+
+767
+00:28:28,560 --> 00:28:29,280
+de visszatérve
+
+768
+00:28:29,280 --> 00:28:31,040
+a portugálokhoz,
+
+769
+00:28:32,300 --> 00:28:32,940
+akkor csak egy
+
+770
+00:28:32,940 --> 00:28:33,340
+nagyon jól
+
+771
+00:28:33,340 --> 00:28:34,480
+meghizetett szakmunkás
+
+772
+00:28:34,480 --> 00:28:35,260
+lesz belőle ahhoz,
+
+773
+00:28:35,320 --> 00:28:35,820
+hogy tényleg
+
+774
+00:28:35,820 --> 00:28:36,660
+vonzó legyen,
+
+775
+00:28:36,740 --> 00:28:37,900
+és presztizse legyen,
+
+776
+00:28:38,420 --> 00:28:39,120
+azt a szakmai
+
+777
+00:28:39,120 --> 00:28:39,940
+autonómánytósra
+
+778
+00:28:39,940 --> 00:28:40,680
+kell tenni,
+
+779
+00:28:41,100 --> 00:28:41,880
+ami a finneknél
+
+780
+00:28:41,880 --> 00:28:42,300
+megvan.
+
+781
+00:28:43,080 --> 00:28:43,560
+Ott például
+
+782
+00:28:43,560 --> 00:28:44,220
+négy órát
+
+783
+00:28:44,220 --> 00:28:45,900
+tanítanak egy nap,
+
+784
+00:28:47,000 --> 00:28:47,360
+max,
+
+785
+00:28:48,220 --> 00:28:49,960
+és vannak segítségük,
+
+786
+00:28:50,260 --> 00:28:51,640
+és nagyon-nagyon
+
+787
+00:28:51,640 --> 00:28:52,900
+központi eleme
+
+788
+00:28:52,900 --> 00:28:54,160
+a munkájuknak,
+
+789
+00:28:54,240 --> 00:28:55,060
+hogy fölkészüljenek
+
+790
+00:28:55,060 --> 00:28:55,540
+az órára,
+
+791
+00:28:55,580 --> 00:28:56,360
+meg értékeljük
+
+792
+00:28:56,360 --> 00:28:57,080
+a gyerekeket.
+
+793
+00:28:57,420 --> 00:28:58,020
+Amire itthon
+
+794
+00:28:58,020 --> 00:29:00,560
+nincsen idő,
+
+795
+00:29:00,700 --> 00:29:02,260
+mert minden
+
+796
+00:29:02,260 --> 00:29:03,160
+béremelés mellé
+
+797
+00:29:03,160 --> 00:29:03,760
+oda tette
+
+798
+00:29:03,760 --> 00:29:05,180
+az a mindenkori
+
+799
+00:29:05,180 --> 00:29:05,860
+kormánya
+
+800
+00:29:05,860 --> 00:29:06,400
+több
+
+801
+00:29:06,400 --> 00:29:07,300
+adminisztrációt,
+
+802
+00:29:07,340 --> 00:29:07,780
+vagy több
+
+803
+00:29:07,780 --> 00:29:08,540
+ellenőrzést,
+
+804
+00:29:08,660 --> 00:29:09,300
+tehát valahogy
+
+805
+00:29:09,300 --> 00:29:10,660
+az úgy sosem ment,
+
+806
+00:29:10,760 --> 00:29:11,600
+hogy oké,
+
+807
+00:29:11,700 --> 00:29:12,440
+most egy kicsit
+
+808
+00:29:12,440 --> 00:29:13,020
+több
+
+809
+00:29:13,020 --> 00:29:15,180
+pénzt kaptok,
+
+810
+00:29:15,280 --> 00:29:16,080
+és emellett
+
+811
+00:29:16,080 --> 00:29:16,600
+akkor több
+
+812
+00:29:16,600 --> 00:29:17,540
+szabadságot is,
+
+813
+00:29:17,780 --> 00:29:18,320
+mert ez
+
+814
+00:29:18,320 --> 00:29:20,400
+hát ez a szemléletváltozás
+
+815
+00:29:20,400 --> 00:29:20,660
+kéne,
+
+816
+00:29:20,740 --> 00:29:21,220
+ugye nem csak
+
+817
+00:29:21,220 --> 00:29:22,320
+a pedósoknál,
+
+818
+00:29:22,420 --> 00:29:23,360
+hanem a politikusok
+
+819
+00:29:23,360 --> 00:29:23,640
+fejében,
+
+820
+00:29:23,720 --> 00:29:24,560
+meg a szavazók
+
+821
+00:29:24,560 --> 00:29:25,420
+fejében is.
+
+822
+00:29:25,420 --> 00:29:26,660
+Tehát a portugál
+
+823
+00:29:26,660 --> 00:29:27,860
+példa azt mondhatja,
+
+824
+00:29:27,980 --> 00:29:30,280
+hogy a mélethatékony
+
+825
+00:29:30,280 --> 00:29:31,380
+iskolaszerkezet
+
+826
+00:29:31,380 --> 00:29:32,000
+nélkül nem
+
+827
+00:29:32,000 --> 00:29:32,860
+nyitunk el,
+
+828
+00:29:33,000 --> 00:29:33,260
+egy
+
+829
+00:29:33,260 --> 00:29:35,160
+versenyképes
+
+830
+00:29:35,160 --> 00:29:35,660
+bérik,
+
+831
+00:29:36,060 --> 00:29:36,680
+de az még mindig
+
+832
+00:29:36,680 --> 00:29:37,140
+kevés,
+
+833
+00:29:37,660 --> 00:29:38,540
+mert egy valódi
+
+834
+00:29:38,540 --> 00:29:39,340
+értelmiségi
+
+835
+00:29:39,340 --> 00:29:39,860
+szakmai
+
+836
+00:29:39,860 --> 00:29:40,800
+autonomiás
+
+837
+00:29:40,800 --> 00:29:43,500
+foglalkozáshoz
+
+838
+00:29:43,500 --> 00:29:44,320
+el kell jutni,
+
+839
+00:29:45,620 --> 00:29:46,460
+és ahhoz bizony
+
+840
+00:29:46,460 --> 00:29:46,960
+az kell,
+
+841
+00:29:47,060 --> 00:29:47,840
+amit itt a finnek
+
+842
+00:29:47,840 --> 00:29:48,340
+is csinálta,
+
+843
+00:29:48,380 --> 00:29:48,840
+hogy bevinni
+
+844
+00:29:48,840 --> 00:29:50,300
+azokat a kutatójelemeket,
+
+845
+00:29:50,400 --> 00:29:51,420
+amitől tényleg
+
+846
+00:29:51,420 --> 00:29:52,920
+egy értelmiségi,
+
+847
+00:29:53,340 --> 00:29:54,540
+kritikai gondolkodó
+
+848
+00:29:54,540 --> 00:29:55,660
+lesz a pedagógusból,
+
+849
+00:29:56,180 --> 00:29:56,820
+akit utána
+
+850
+00:29:56,820 --> 00:29:58,580
+megkínálnak
+
+851
+00:29:58,580 --> 00:29:59,660
+egy olyan munkával,
+
+852
+00:29:59,780 --> 00:30:00,440
+ahol ki tud
+
+853
+00:30:00,440 --> 00:30:01,160
+bontakozni,
+
+854
+00:30:01,240 --> 00:30:02,080
+és onnantól kezdve
+
+855
+00:30:02,080 --> 00:30:03,760
+a legzseniálásabb
+
+856
+00:30:03,760 --> 00:30:04,300
+fiatalok
+
+857
+00:30:04,300 --> 00:30:05,520
+csak oda akarnak menni,
+
+858
+00:30:05,600 --> 00:30:06,800
+mert annyira jó munka
+
+859
+00:30:06,800 --> 00:30:07,920
+az a pedagógus munka,
+
+860
+00:30:08,380 --> 00:30:09,120
+mint ahogy tényleg
+
+861
+00:30:09,120 --> 00:30:09,860
+az lehetne.
+
+862
+00:30:09,860 --> 00:30:12,640
+ha érdekesnek találod
+
+863
+00:30:12,640 --> 00:30:13,720
+a beszélgetéseinket,
+
+864
+00:30:13,860 --> 00:30:14,480
+akkor like,
+
+865
+00:30:14,720 --> 00:30:15,160
+komment,
+
+866
+00:30:15,400 --> 00:30:16,080
+megosztás,
+
+867
+00:30:16,220 --> 00:30:16,980
+feliratkozás,
+
+868
+00:30:17,380 --> 00:30:17,700
+hype,
+
+869
+00:30:17,920 --> 00:30:18,620
+szuper köszönet,
+
+870
+00:30:19,020 --> 00:30:20,400
+én mindennek is örülök,
+
+871
+00:30:20,760 --> 00:30:21,160
+köszönöm.
+
+872
+00:30:22,920 --> 00:30:23,860
+Tehát, hogyha jól értem,
+
+873
+00:30:23,980 --> 00:30:27,020
+akkor kell a béreken javítani,
+
+874
+00:30:27,140 --> 00:30:28,500
+de emellett nagyon fontos az,
+
+875
+00:30:28,600 --> 00:30:30,020
+hogy autonómiát kapjanak,
+
+876
+00:30:30,100 --> 00:30:31,220
+de azt csak akkor kapjanak,
+
+877
+00:30:31,300 --> 00:30:32,400
+hogyha már hozzáértük.
+
+878
+00:30:32,940 --> 00:30:33,980
+Hozzáértéshez kellenek
+
+879
+00:30:33,980 --> 00:30:35,280
+ezek a kutatói elemek,
+
+880
+00:30:35,980 --> 00:30:36,500
+viszont...
+
+881
+00:30:36,500 --> 00:30:39,400
+Béreket emelni ebben az iskolározati,
+
+882
+00:30:39,860 --> 00:30:40,620
+ebben nem lehet,
+
+883
+00:30:41,000 --> 00:30:42,660
+mert ez nagyon pedagógusintenzív.
+
+884
+00:30:43,220 --> 00:30:45,380
+Tehát át kéne alakítani
+
+885
+00:30:45,380 --> 00:30:47,200
+ugye az óraszerkezetet,
+
+886
+00:30:47,480 --> 00:30:48,560
+az iskolározatot,
+
+887
+00:30:48,900 --> 00:30:51,020
+hogy ne pazaroljuk a pedagógusokat.
+
+888
+00:30:51,180 --> 00:30:53,120
+Tehát őket tényleg csak arra használjuk,
+
+889
+00:30:53,240 --> 00:30:54,460
+amire mondjuk a finnek
+
+890
+00:30:54,460 --> 00:30:58,860
+a magas szakmai óraértékelés,
+
+891
+00:30:58,860 --> 00:31:01,800
+és ne gyerekfelügyeletre,
+
+892
+00:31:01,920 --> 00:31:03,980
+meg én nem tudom milyen adminisztrációra.
+
+893
+00:31:04,320 --> 00:31:06,440
+Az, hogy kutatói elemeket kell
+
+894
+00:31:06,440 --> 00:31:07,620
+bevinni, az mit jelent?
+
+895
+00:31:07,700 --> 00:31:08,680
+Mert ugye azt is mondtad,
+
+896
+00:31:08,820 --> 00:31:13,020
+hogy az rontja a tanároknak a teljesítményét,
+
+897
+00:31:13,120 --> 00:31:15,520
+hogyha ott nekik nagyon sokat kell adminisztrálni,
+
+898
+00:31:15,580 --> 00:31:18,520
+akkor nyilván nem adminisztrációt jelent a kutatói elem,
+
+899
+00:31:18,560 --> 00:31:20,780
+de konkrétan mit jelent a kutatói elem?
+
+900
+00:31:20,880 --> 00:31:22,900
+Hát ennek elemei egyébként megvoltak
+
+901
+00:31:22,900 --> 00:31:25,440
+a pedagógus életpálya modellben is,
+
+902
+00:31:25,440 --> 00:31:26,440
+csak nem eléggé...
+
+903
+00:31:27,240 --> 00:31:29,100
+Tehát mi csináltunk egy kutatást erről,
+
+904
+00:31:29,180 --> 00:31:30,140
+és sajnos kiderült,
+
+905
+00:31:30,140 --> 00:31:36,760
+hogy a legkonzervatívabb szerepeket értékelt a rendszer,
+
+906
+00:31:36,860 --> 00:31:38,740
+tehát azok kerestek sokat az igazgatók,
+
+907
+00:31:38,780 --> 00:31:41,340
+a szakfelügyelők, meg az érettségi vizsgálnökök,
+
+908
+00:31:41,780 --> 00:31:44,780
+de például, aki innovációt vitt be,
+
+909
+00:31:44,920 --> 00:31:46,680
+vagy bemutatóórát tartott,
+
+910
+00:31:46,760 --> 00:31:49,460
+annak negatívan járt a bérével,
+
+911
+00:31:49,580 --> 00:31:51,960
+tehát mint ha még büntette volna is a rendszer.
+
+912
+00:31:52,500 --> 00:31:54,080
+Elvileg most van valami olyan,
+
+913
+00:31:54,080 --> 00:31:55,320
+hogy kutató, tanár,
+
+914
+00:31:55,900 --> 00:31:58,140
+és akkor öt évig, ha bead egy tervet,
+
+915
+00:31:58,280 --> 00:32:02,860
+hogy ő valamit kutatna,
+
+916
+00:32:02,940 --> 00:32:05,840
+és mit kutatna az ő osztálytermi működését.
+
+917
+00:32:05,960 --> 00:32:06,920
+Tehát ez arról szól,
+
+918
+00:32:07,180 --> 00:32:09,020
+és mi is ezt csinálják a kreatív partnersébe,
+
+919
+00:32:09,100 --> 00:32:10,340
+már mint hogy monitorozzuk,
+
+920
+00:32:11,240 --> 00:32:12,700
+hogy kitalálok valamit,
+
+921
+00:32:12,700 --> 00:32:14,700
+hogy milyen kompetencet szeretnék fejleszteni.
+
+922
+00:32:15,520 --> 00:32:16,760
+Ahhoz vannak eszközeim,
+
+923
+00:32:17,580 --> 00:32:19,420
+de ahhoz, hogy lássam, hogy tényleg sikerült,
+
+924
+00:32:19,500 --> 00:32:21,600
+ahhoz az elején, a végén is meg kell mérnem
+
+925
+00:32:21,600 --> 00:32:23,040
+azt a területet,
+
+926
+00:32:23,040 --> 00:32:25,860
+és meg kell néznem egy kontrollcsoporttal is,
+
+927
+00:32:25,960 --> 00:32:26,860
+mert hát az is lehető,
+
+928
+00:32:26,920 --> 00:32:28,200
+hogy amúgy is fejlődtek volna.
+
+929
+00:32:28,560 --> 00:32:29,940
+Tehát ennek megvan a módszertana.
+
+930
+00:32:30,420 --> 00:32:31,040
+És ez csak ennyi,
+
+931
+00:32:31,700 --> 00:32:33,040
+de például is ennyit értene,
+
+932
+00:32:34,160 --> 00:32:36,660
+hogy ő most ilyen eszközökkel ezt akarja,
+
+933
+00:32:36,760 --> 00:32:37,620
+és ezt így méri,
+
+934
+00:32:38,040 --> 00:32:40,560
+és persze ez segítséget kaphat,
+
+935
+00:32:40,560 --> 00:32:42,820
+meg az osztálytermi megfigyelés,
+
+936
+00:32:42,940 --> 00:32:46,400
+az jó, ha van egy külső figyelő,
+
+937
+00:32:46,500 --> 00:32:49,980
+de ugye ezt a egymás órait látogatják a tanárok,
+
+938
+00:32:50,080 --> 00:32:51,180
+ez pont erről szólna,
+
+939
+00:32:51,180 --> 00:32:54,420
+vagy ha eset megbeszéléseket tartanak,
+
+940
+00:32:54,500 --> 00:32:57,300
+ezekben mind van kutatási elemek vannak,
+
+941
+00:32:57,380 --> 00:33:00,180
+vagy hát, hogy mondjam, értékelési.
+
+942
+00:33:00,840 --> 00:33:02,980
+Tehát én nekem a kutatás meg értékelés,
+
+943
+00:33:03,100 --> 00:33:05,280
+az nagyon össze,
+
+944
+00:33:05,400 --> 00:33:07,660
+tehát nem két különböző dolog.
+
+945
+00:33:07,660 --> 00:33:11,400
+Tehát itt a saját osztálytermi munkájára való
+
+946
+00:33:11,400 --> 00:33:15,300
+reflekszió tudományos eszközökkel.
+
+947
+00:33:16,780 --> 00:33:18,880
+Hogyha az a helyzet állna elő,
+
+948
+00:33:19,000 --> 00:33:21,680
+hogy jövőre történik egy változás,
+
+949
+00:33:21,780 --> 00:33:25,380
+és hirtelen nem sarlatánok kezében lenne az oktatás,
+
+950
+00:33:25,480 --> 00:33:27,180
+akkor mi lenne az első lépés,
+
+951
+00:33:28,140 --> 00:33:30,380
+vagy mik lennének az első lépések
+
+952
+00:33:30,380 --> 00:33:33,420
+az oktatás javítása felé?
+
+953
+00:33:33,540 --> 00:33:35,420
+Mit kellene csinálni rögtön?
+
+954
+00:33:35,420 --> 00:33:39,060
+Hát ez azért nagyon nehéz,
+
+955
+00:33:39,120 --> 00:33:40,740
+mert minden borul.
+
+956
+00:33:40,860 --> 00:33:43,720
+Tehát ez olyan, mint így a zeng a játék,
+
+957
+00:33:43,780 --> 00:33:45,680
+hogy kihúzunk egyet, és minden borul.
+
+958
+00:33:45,800 --> 00:33:48,020
+Tehát hogy változtassunk mindent,
+
+959
+00:33:48,060 --> 00:33:49,280
+hogy ne boruljon a rendszer,
+
+960
+00:33:49,360 --> 00:33:50,300
+ugye el kicsit ilyen.
+
+961
+00:33:51,760 --> 00:33:54,320
+Az biztos, hogy újra
+
+962
+00:33:54,320 --> 00:33:59,980
+érdemes lenne ránézni a demográfiai adatokra.
+
+963
+00:33:59,980 --> 00:34:04,020
+Én azt gondolom, hogy nagyon nagy a csökkenés,
+
+964
+00:34:04,020 --> 00:34:07,740
+és ebből egészen biztos probléma fog adódni.
+
+965
+00:34:08,240 --> 00:34:11,220
+Tehát még most a tanárhiány,
+
+966
+00:34:11,280 --> 00:34:15,200
+és az hirtelen föl fog erősödni,
+
+967
+00:34:15,320 --> 00:34:19,320
+mert most az 50 pluszosok hirtelen kimennek a rendszerből.
+
+968
+00:34:20,640 --> 00:34:22,540
+Viszont a másik oldalon elfogy a gyerek,
+
+969
+00:34:23,280 --> 00:34:25,020
+és van egy nagyon jó eszközünk,
+
+970
+00:34:25,020 --> 00:34:27,240
+a mesters és intelligencia,
+
+971
+00:34:27,560 --> 00:34:29,720
+amiket lehet meg a hibrid módszert.
+
+972
+00:34:29,940 --> 00:34:31,580
+Tehát, hogy én azt gondolom,
+
+973
+00:34:31,700 --> 00:34:33,820
+hogy most meg lenne a lehetőség,
+
+974
+00:34:34,160 --> 00:34:35,740
+amit a portaios csináltak,
+
+975
+00:34:35,820 --> 00:34:40,920
+hogy megnézni az iskolákkal együtt,
+
+976
+00:34:41,000 --> 00:34:42,060
+meg a szülők, tehát hogy mondjam,
+
+977
+00:34:42,120 --> 00:34:42,680
+bevonva,
+
+978
+00:34:43,500 --> 00:34:45,440
+hogy milyen irányba lehetne,
+
+979
+00:34:45,960 --> 00:34:48,820
+mondjuk a tankerületek iskola hálózatait
+
+980
+00:34:48,820 --> 00:34:51,180
+átalakítani,
+
+981
+00:34:51,640 --> 00:34:52,900
+hogy hatékonyabb legyen.
+
+982
+00:34:53,440 --> 00:34:55,620
+Hogy mindenkinek jusson szaktanár,
+
+983
+00:34:55,880 --> 00:34:56,860
+jó minőségben.
+
+984
+00:34:57,380 --> 00:34:59,160
+És akkor igen,
+
+985
+00:34:59,260 --> 00:35:00,440
+föl kell tenni azt a kérdést,
+
+986
+00:35:00,540 --> 00:35:01,380
+hogy mit szeretnénk,
+
+987
+00:35:01,460 --> 00:35:02,660
+közel egy rossz iskolát,
+
+988
+00:35:02,720 --> 00:35:03,880
+vagy messzebb egy jót.
+
+989
+00:35:04,420 --> 00:35:06,600
+Ezt minden szavazópolgárnak éles,
+
+990
+00:35:06,660 --> 00:35:07,760
+ki kéne élesíteni,
+
+991
+00:35:08,040 --> 00:35:09,040
+hogy ez a választás.
+
+992
+00:35:09,520 --> 00:35:11,200
+Lehet, hogy nagyon jólnak tűnik,
+
+993
+00:35:11,200 --> 00:35:12,900
+hogy itt van a szomszédban az iskola,
+
+994
+00:35:12,980 --> 00:35:14,260
+és nem kell messzebb menni.
+
+995
+00:35:14,940 --> 00:35:16,200
+De ha csak öt gyerek van,
+
+996
+00:35:16,300 --> 00:35:17,480
+és egy tanítónéli,
+
+997
+00:35:17,480 --> 00:35:19,240
+és az is olyan,
+
+998
+00:35:19,340 --> 00:35:20,920
+lehet, hogy nagyon sok a helyen
+
+999
+00:35:20,920 --> 00:35:22,220
+itt nyugdíj után jönnek vissza,
+
+1000
+00:35:22,860 --> 00:35:25,440
+az adatok is mutatják,
+
+1001
+00:35:25,520 --> 00:35:26,620
+mutatási jelenmények,
+
+1002
+00:35:26,700 --> 00:35:28,620
+hogy az célellentétes.
+
+1003
+00:35:29,020 --> 00:35:31,180
+Nem fejlődnek úgy a kompetenciák.
+
+1004
+00:35:32,520 --> 00:35:33,700
+Tehát azt gondolom,
+
+1005
+00:35:34,320 --> 00:35:38,220
+hogy egy iskola hálózat átalakítás,
+
+1006
+00:35:38,360 --> 00:35:39,500
+amit össze lehet tenni,
+
+1007
+00:35:39,500 --> 00:35:41,940
+ugye a tantárgyak azzal is lehet
+
+1008
+00:35:41,940 --> 00:35:43,480
+a rendszeren könnyíteni,
+
+1009
+00:35:43,600 --> 00:35:44,500
+hogy átgondoljuk,
+
+1010
+00:35:44,680 --> 00:35:46,500
+hogy mit tanítunk és hogyan.
+
+1011
+00:35:46,500 --> 00:35:48,680
+Tehát, hogy ezeket együtt kéne,
+
+1012
+00:35:48,960 --> 00:35:49,700
+és úgy,
+
+1013
+00:35:50,000 --> 00:35:52,520
+hogy bevonva a szereplőket.
+
+1014
+00:35:52,840 --> 00:35:55,740
+Valószínű, érdemes ebből úgy elkezdeni,
+
+1015
+00:35:55,840 --> 00:35:56,960
+hogy egy-két pilottal,
+
+1016
+00:35:57,480 --> 00:36:00,640
+egy-két merésszebb tankerületet bevonni,
+
+1017
+00:36:00,780 --> 00:36:03,220
+akik esetleg ezért kapnak plusz,
+
+1018
+00:36:03,620 --> 00:36:05,140
+ha tényleg jól megy a dolog,
+
+1019
+00:36:05,260 --> 00:36:06,700
+tehát plusz ösztönzőt,
+
+1020
+00:36:07,460 --> 00:36:08,820
+akár anyagi ösztönzőt,
+
+1021
+00:36:08,960 --> 00:36:09,580
+és azzal,
+
+1022
+00:36:09,680 --> 00:36:10,860
+hogy ahogy elkezd működni,
+
+1023
+00:36:10,960 --> 00:36:12,900
+akkor lehet folytatni.
+
+1024
+00:36:12,900 --> 00:36:14,840
+Nehogy én azt gondolom,
+
+1025
+00:36:14,920 --> 00:36:16,320
+hogy mindenképpen át kell,
+
+1026
+00:36:16,900 --> 00:36:21,240
+tehát a demográfiai adatok tükrében
+
+1027
+00:36:21,240 --> 00:36:23,660
+át kell alakítani a rendszert úgy,
+
+1028
+00:36:23,720 --> 00:36:29,700
+hogy tényleg magas béreket tudjunk adni a pedagógusoknak,
+
+1029
+00:36:29,900 --> 00:36:33,780
+akik ezáltal minőségi munkát tudnak nyújtani,
+
+1030
+00:36:33,920 --> 00:36:36,100
+és párhuzamosan viszont végig kell gondolni,
+
+1031
+00:36:36,100 --> 00:36:37,100
+tehát ez nem így.
+
+1032
+00:36:39,320 --> 00:36:44,680
+A 2010-es években mindenütt csökkentették a tantárgyak számát,
+
+1033
+00:36:44,740 --> 00:36:46,100
+vagy összevonták, kivéve Magyarországot.
+
+1034
+00:36:46,900 --> 00:36:50,100
+Egyedül nálunk nőtt a tantárgyak száma az Európában.
+
+1035
+00:36:51,640 --> 00:36:52,320
+Nonsensz.
+
+1036
+00:36:52,760 --> 00:36:54,100
+Tehát ezeket át kell gondolni,
+
+1037
+00:36:55,200 --> 00:36:56,540
+és hát arról van szó,
+
+1038
+00:36:56,680 --> 00:37:01,020
+hogy itt a tantervek írása az nem arról szól,
+
+1039
+00:37:01,020 --> 00:37:07,220
+hogy egy-két nagy nemzetérzelmű és elmaradott,
+
+1040
+00:37:08,440 --> 00:37:15,220
+hát a múltban maradott zöműben férfiak kitalálják,
+
+1041
+00:37:15,880 --> 00:37:17,880
+hogy mit kéne a gyerekeknek tanulni,
+
+1042
+00:37:17,960 --> 00:37:20,100
+és azt gondolják, hogy minél többet beletesznek,
+
+1043
+00:37:20,200 --> 00:37:21,080
+az annál jobb,
+
+1044
+00:37:21,300 --> 00:37:26,460
+és akkor és töképpen utána döngetik a mellőket,
+
+1045
+00:37:26,560 --> 00:37:28,240
+hogy ők milyen jól csinálták.
+
+1046
+00:37:28,240 --> 00:37:30,480
+Nem teljesen másképp kell.
+
+1047
+00:37:31,400 --> 00:37:33,280
+Amit egyébként azt gondolom,
+
+1048
+00:37:33,360 --> 00:37:35,720
+hogy például Csépe Valéria félre verzió,
+
+1049
+00:37:35,820 --> 00:37:36,720
+az egy jó irány volt,
+
+1050
+00:37:36,820 --> 00:37:38,880
+200 pedust bemondtak.
+
+1051
+00:37:39,520 --> 00:37:41,460
+Azt, hogy ezt teljesen félre sodorták,
+
+1052
+00:37:41,620 --> 00:37:43,620
+az is egy világ szégyen.
+
+1053
+00:37:43,680 --> 00:37:44,300
+Ebből látszik,
+
+1054
+00:37:44,400 --> 00:37:47,320
+hogy mennyire pazaroljuk a forrásainkat.
+
+1055
+00:37:47,500 --> 00:37:49,040
+Tehát, hogy itt mindig ugye arról beszélünk,
+
+1056
+00:37:49,120 --> 00:37:49,940
+szegények vagyunk,
+
+1057
+00:37:50,140 --> 00:37:51,440
+de nem szegények vagyunk,
+
+1058
+00:37:51,500 --> 00:37:52,400
+hanem buták,
+
+1059
+00:37:52,960 --> 00:37:55,240
+mert egyáltalán nem tudjuk jól kihasználni
+
+1060
+00:37:55,240 --> 00:37:58,040
+a pozitívumainkat,
+
+1061
+00:37:58,100 --> 00:37:59,400
+meg az eróforrásainkat.
+
+1062
+00:37:59,980 --> 00:38:07,240
+És az, hogy simán belökünk a sülyeztőbe
+
+1063
+00:38:07,800 --> 00:38:09,240
+egy kompetencia alapú fejlesztést,
+
+1064
+00:38:09,240 --> 00:38:14,240
+mert azt a baloldali kormány csinálta,
+
+1065
+00:38:14,620 --> 00:38:16,660
+és mindenképp mást akarunk,
+
+1066
+00:38:16,740 --> 00:38:17,140
+még akkor is,
+
+1067
+00:38:17,180 --> 00:38:19,400
+ha egyébként ezt tök jó lett volna folytatni.
+
+1068
+00:38:20,020 --> 00:38:23,360
+Vagy, hogy egy csomó pénzt költünk arra,
+
+1069
+00:38:23,500 --> 00:38:25,840
+hogy 200 pedagógus csináljon egy NAT-ot,
+
+1070
+00:38:25,960 --> 00:38:29,400
+ami úgy, ahogy azon még lehetett volna alakítani,
+
+1071
+00:38:29,780 --> 00:38:31,660
+két-három éván át csiszolgatni.
+
+1072
+00:38:32,040 --> 00:38:33,740
+Ezt egyszerűen csak kidobjuk.
+
+1073
+00:38:33,840 --> 00:38:35,820
+Hát ennyire gazdagok vagyunk.
+
+1074
+00:38:35,820 --> 00:38:43,780
+Az erőforrások hatékonyabb elosztása mellett
+
+1075
+00:38:43,780 --> 00:38:46,120
+ugye nagyon fontos az autonómia,
+
+1076
+00:38:46,440 --> 00:38:47,880
+ahhoz pedig a szakértelem.
+
+1077
+00:38:48,180 --> 00:38:52,100
+Na már most rendelkezünk egy bizonyos pedagógus állományjal.
+
+1078
+00:38:52,640 --> 00:38:55,180
+Itt most akkor hogy lehet egy olyan hozzáértést
+
+1079
+00:38:55,180 --> 00:38:58,160
+nekik, illetve a vezetőiknek adni,
+
+1080
+00:38:58,620 --> 00:39:00,040
+mert ezen nagyon sok múlik,
+
+1081
+00:39:00,040 --> 00:39:03,480
+hogy aztán autonómiát is kaphassanak.
+
+1082
+00:39:03,480 --> 00:39:05,880
+Hát erre is voltak már példák.
+
+1083
+00:39:05,980 --> 00:39:08,880
+Tehát én azt gondolom, hogy érdemes kikukázni
+
+1084
+00:39:08,880 --> 00:39:11,520
+a régi fejlesztéseket, mert én azt gondolom,
+
+1085
+00:39:11,640 --> 00:39:15,380
+hogy akár a 90-es évek soros önfejlesztő iskola
+
+1086
+00:39:15,380 --> 00:39:18,160
+a hálózat, vagy a 2000-es évek szintén
+
+1087
+00:39:18,160 --> 00:39:21,480
+hálózatos szodási iskolafejlesztési programok,
+
+1088
+00:39:21,560 --> 00:39:26,320
+azok szépen mutatták, hogy ezt egy-egy iskola köré
+
+1089
+00:39:26,320 --> 00:39:28,680
+oda lehet építeni egy olyan hálózatot,
+
+1090
+00:39:28,680 --> 00:39:32,340
+az iskola, mint egy világított torony, ahol jobban tudják,
+
+1091
+00:39:32,420 --> 00:39:35,160
+vagy előrébb tartanak, és ők viszik a többieket.
+
+1092
+00:39:36,120 --> 00:39:40,280
+Ugye a felnőtt képzés ugyanúgy működhetne a pedagógusoknál,
+
+1093
+00:39:40,380 --> 00:39:42,300
+és ez működött annó régen.
+
+1094
+00:39:42,780 --> 00:39:47,980
+Mondjuk az már egy kicsit túlhajtás volt,
+
+1095
+00:39:48,080 --> 00:39:51,160
+amikor ugye uniós programokat csak erre vittünk,
+
+1096
+00:39:51,160 --> 00:39:54,860
+és akkor szinte minden tanár találképzésen volt,
+
+1097
+00:39:54,980 --> 00:39:58,060
+és nem volt senki az óratanteremben,
+
+1098
+00:39:58,120 --> 00:40:00,320
+tehát hogy nem így észre kell csinálni,
+
+1099
+00:40:00,400 --> 00:40:02,220
+de azt gondolom, hogy a pedagógus képzés
+
+1100
+00:40:02,220 --> 00:40:05,620
+és tovább képzés egyszerre tud működni.
+
+1101
+00:40:05,820 --> 00:40:08,740
+A mi programunk, ugye a Kreatív Partnerség,
+
+1102
+00:40:09,320 --> 00:40:14,740
+mi itt képezzük és trénerezzük a pedagógusokat is,
+
+1103
+00:40:15,620 --> 00:40:18,080
+művészeket beviszünk az osztályterembe,
+
+1104
+00:40:18,080 --> 00:40:21,620
+akik együtt próbálják kitalálni,
+
+1105
+00:40:21,820 --> 00:40:25,480
+hogy milyen kreatív módszerekel, feladatokkal lehetne
+
+1106
+00:40:25,480 --> 00:40:30,400
+adott problémát akár matematikában, történelben megoldani,
+
+1107
+00:40:31,700 --> 00:40:34,680
+és ez ebben a folyamatban tanulat a pedagógus is.
+
+1108
+00:40:35,100 --> 00:40:38,120
+Tehát azt gondolom, hogy sokkal jövően kéne megbízni bennük,
+
+1109
+00:40:38,220 --> 00:40:39,960
+mert lehet, hogy most nem csinálják jól,
+
+1110
+00:40:40,520 --> 00:40:44,860
+de ha kapnának támaszt és esélyt meg,
+
+1111
+00:40:44,860 --> 00:40:48,720
+meg hát bizalmat, ez ugyanúgy működ,
+
+1112
+00:40:48,760 --> 00:40:49,780
+mint a gyerekeknél.
+
+1113
+00:40:50,260 --> 00:40:53,680
+Tehát a motiváció, a belső motiváció a pedagógusoknál is fontos,
+
+1114
+00:40:53,760 --> 00:40:54,840
+nem csak a gyerekeknél.
+
+1115
+00:40:55,340 --> 00:40:57,340
+És akkor el tud indulni valami.
+
+1116
+00:40:57,500 --> 00:41:01,680
+Tehát én azt gondolom, hogy ez nem lehetetlen,
+
+1117
+00:41:01,860 --> 00:41:05,420
+de mellette viszont ki kell építeni egy olyan komoly szakmai,
+
+1118
+00:41:05,520 --> 00:41:07,860
+támogató környezetet,
+
+1119
+00:41:08,020 --> 00:41:10,460
+amire támaszkodhat a pedagógus.
+
+1120
+00:41:10,460 --> 00:41:14,160
+Tehát ha valami elakad, akkor tudjon hova fordulni.
+
+1121
+00:41:14,920 --> 00:41:17,420
+Ugye ma nem csak azért nem tud, hova fordulni,
+
+1122
+00:41:17,460 --> 00:41:20,300
+mert nincs ilyen, mert egyébként elvéleg lenne ezek a pokok.
+
+1123
+00:41:20,480 --> 00:41:22,500
+Ez a pedagógiai oktatási központok,
+
+1124
+00:41:22,940 --> 00:41:26,440
+de hát ezeket is most már lassan bevitték a kormányhivatalba,
+
+1125
+00:41:26,580 --> 00:41:31,040
+tehát régen ezek azért különálló szakmai hálózatok voltak,
+
+1126
+00:41:31,120 --> 00:41:35,580
+ahol lehetett, és az iskolák pályáztattak pénzekre,
+
+1127
+00:41:35,580 --> 00:41:40,940
+amivel ott fejlesztéseket kérhettek.
+
+1128
+00:41:41,760 --> 00:41:47,440
+De most ugye arról van szó, hogy árgus szemmel nézzük a pedagógus,
+
+1129
+00:41:47,540 --> 00:41:50,340
+hogy hol hibázik, ahogy ő is nézi a gyereket, hol hibázik.
+
+1130
+00:41:50,900 --> 00:41:52,900
+Na most ez az, ami a kreativitást megöli.
+
+1131
+00:41:53,540 --> 00:41:58,840
+Tehát ott, ahol hibázi nem lehet, ott újat sem fogunk kitalálni.
+
+1132
+00:41:59,740 --> 00:42:01,980
+Tehát erre mondom szemléletváltás megint.
+
+1133
+00:42:01,980 --> 00:42:06,540
+A nyitott gondolkodásra át kell térni az árt gondolkodásból.
+
+1134
+00:42:08,060 --> 00:42:12,820
+Ehhez meg az kell, ami részben bizalmat jelent egymás iránt.
+
+1135
+00:42:13,020 --> 00:42:17,940
+Tehát ez egy nagyon nehéz feladat,
+
+1136
+00:42:18,080 --> 00:42:20,940
+de mondjuk a 90-es évek elején már láttunk ilyet,
+
+1137
+00:42:20,940 --> 00:42:26,480
+hogy egy ilyen a kádári rendszerből hogy ment át nagyon gyorsan.
+
+1138
+00:42:26,480 --> 00:42:31,360
+Tehát, hogy az emberek lelkesedése és a hite,
+
+1139
+00:42:32,080 --> 00:42:36,040
+ha ez sikerül egy ilyen állapotba kerülni megint,
+
+1140
+00:42:36,180 --> 00:42:40,040
+akkor az nagyon-nagyon sok energiát tud hozni.
+
+1141
+00:42:41,040 --> 00:42:45,080
+Te egyébként vállalnád egy új rendszernek a felépítését,
+
+1142
+00:42:45,100 --> 00:42:46,900
+vagy az abban való munkát?
+
+1143
+00:42:46,900 --> 00:42:50,100
+Persze, szívesen veszek részt benne.
+
+1144
+00:42:50,340 --> 00:42:53,300
+Én azt gondolom, hogy viszont az nem működik,
+
+1145
+00:42:54,120 --> 00:42:55,840
+és sajnos ezt csináltuk,
+
+1146
+00:42:56,060 --> 00:42:58,780
+vagy pár ember összeül és megírja.
+
+1147
+00:42:59,720 --> 00:43:00,720
+Tehát ezt szoktam mondani,
+
+1148
+00:43:00,860 --> 00:43:04,320
+hogy ez nagyon kényelmes a pedosoknak is,
+
+1149
+00:43:04,380 --> 00:43:05,640
+hogy valaki helyetünk megírta,
+
+1150
+00:43:05,640 --> 00:43:07,820
+de soha nem fogják csinálni, mert nem voltak benne.
+
+1151
+00:43:08,440 --> 00:43:10,900
+Itt nagyon-nagyon bele kell vinni mindenkit,
+
+1152
+00:43:10,960 --> 00:43:12,620
+és mindenkinek izzadnia kell.
+
+1153
+00:43:13,000 --> 00:43:15,260
+És igen, és azt gondolom, hogy én sem tudok mindent.
+
+1154
+00:43:15,260 --> 00:43:17,220
+Tehát én szívesen együtt gondolkozom,
+
+1155
+00:43:17,540 --> 00:43:19,200
+de abban biztos nem mennék bele,
+
+1156
+00:43:19,440 --> 00:43:20,840
+hogy azt mondják nekem,
+
+1157
+00:43:20,900 --> 00:43:23,160
+hogy akkor én írjak meg egy nem tudom,
+
+1158
+00:43:23,200 --> 00:43:25,760
+én ilyen anyagot, amit majd fognak csinálni.
+
+1159
+00:43:26,560 --> 00:43:28,920
+Egyébként vannak erre is módszerek.
+
+1160
+00:43:29,840 --> 00:43:32,960
+Annak idején például a jövő oktatása,
+
+1161
+00:43:33,180 --> 00:43:34,700
+ennek volt egy ilyen projektünk,
+
+1162
+00:43:34,780 --> 00:43:37,240
+amit az OECD csinált,
+
+1163
+00:43:37,300 --> 00:43:38,800
+és mi megcsináltunk Magyarországon.
+
+1164
+00:43:40,560 --> 00:43:42,600
+Például és a kutatási eszközökkel.
+
+1165
+00:43:42,800 --> 00:43:44,720
+Tehát a kutatás nagyon sok mindenre jó.
+
+1166
+00:43:44,720 --> 00:43:46,520
+Mondjuk Delphi módszerrel.
+
+1167
+00:43:46,680 --> 00:43:48,820
+Tehát az azt jelenti,
+
+1168
+00:43:49,120 --> 00:43:52,120
+hogy pár szakértővel megbeszéljük,
+
+1169
+00:43:52,200 --> 00:43:54,240
+hogy szerintük, mik azok az állítások,
+
+1170
+00:43:54,320 --> 00:43:56,540
+amik fontosak, azt mondjuk megcsinálják,
+
+1171
+00:43:56,580 --> 00:44:00,600
+és utána azt mondjuk 200-300 szakértőnek kiküldjük,
+
+1172
+00:44:00,880 --> 00:44:03,060
+hogy mennyire ért egyet, meg stb.
+
+1173
+00:44:03,460 --> 00:44:06,120
+És akkor mindenki pontozza, stb.
+
+1174
+00:44:06,220 --> 00:44:08,100
+akkor lesz egy lista, és újra kiküldjük.
+
+1175
+00:44:08,100 --> 00:44:09,980
+És ezzel iterálni lehet
+
+1176
+00:44:09,980 --> 00:44:13,060
+a sok szerte ágazó gondolatot,
+
+1177
+00:44:13,200 --> 00:44:15,500
+hogy lassan csak kikristály,
+
+1178
+00:44:15,500 --> 00:44:19,060
+csak mondjuk az a húsz állítás dimenző,
+
+1179
+00:44:19,140 --> 00:44:20,840
+amit mindenki fontosnak tart.
+
+1180
+00:44:21,340 --> 00:44:23,460
+Tehát, hogy vannak technikák arra,
+
+1181
+00:44:23,500 --> 00:44:26,520
+hogyan lehet sok ember gondolkodását össze.
+
+1182
+00:44:26,520 --> 00:44:28,060
+És hát erre azt gondolom,
+
+1183
+00:44:28,120 --> 00:44:30,080
+most már bizonyos a mesters és intelligenciás.
+
+1184
+00:44:30,180 --> 00:44:30,820
+Tehát én azt gondolom,
+
+1185
+00:44:30,920 --> 00:44:36,660
+hogy itt nagyon kreatívan kéne közösen gondolkodni,
+
+1186
+00:44:36,740 --> 00:44:40,420
+ha ezt a közösségi gondolkodást magas szinten,
+
+1187
+00:44:40,480 --> 00:44:42,880
+de egymás iránti respektált,
+
+1188
+00:44:42,880 --> 00:44:46,140
+tisztelettel és bizalommal,
+
+1189
+00:44:46,660 --> 00:44:49,940
+de azért nem virágozzék minden virág.
+
+1190
+00:44:50,040 --> 00:44:50,860
+Tehát én azt gondolom,
+
+1191
+00:44:50,980 --> 00:44:52,520
+hogy azért azt kéne tudni,
+
+1192
+00:44:52,520 --> 00:44:54,000
+hogy ki mihez ért,
+
+1193
+00:44:54,100 --> 00:44:55,960
+és annak akkor nagyobb súlyt adni.
+
+1194
+00:44:55,960 --> 00:44:58,160
+De hogy egy ilyen közös gondolkodást,
+
+1195
+00:44:58,280 --> 00:45:04,140
+ilyen kreatívan erre lehet építeni egy ilyen,
+
+1196
+00:45:04,180 --> 00:45:05,560
+hát egy új társadalmat,
+
+1197
+00:45:05,900 --> 00:45:07,800
+ha eljutunk oda.
+
+1198
+00:45:08,260 --> 00:45:09,480
+Tehát a hatkát,
+
+1199
+00:45:09,580 --> 00:45:11,000
+azt akkor nem csak az oktatásban,
+
+1200
+00:45:11,000 --> 00:45:13,120
+hanem úgy amúgy is a kellene használni.
+
+1201
+00:45:13,120 --> 00:45:14,080
+Hát természetesen.
+
+1202
+00:45:14,640 --> 00:45:16,380
+Azt gondolom, az iskola, társadalom része
+
+1203
+00:45:16,380 --> 00:45:18,940
+és a környezete része.
+
+1204
+00:45:19,400 --> 00:45:21,040
+Tehát amikor arról beszélünk,
+
+1205
+00:45:21,180 --> 00:45:23,420
+hogy belső motiváció meg hatkát,
+
+1206
+00:45:23,500 --> 00:45:25,260
+akkor gondoljunk már kicsit magunkra,
+
+1207
+00:45:25,260 --> 00:45:26,860
+a szülőkre, pedagógusokra,
+
+1208
+00:45:27,060 --> 00:45:27,900
+politikusokra.
+
+1209
+00:45:28,160 --> 00:45:29,460
+Tehát én azt gondolom, hogy igen,
+
+1210
+00:45:29,900 --> 00:45:32,040
+azt gondolom, hogy ő nekik kéne leginkább,
+
+1211
+00:45:32,100 --> 00:45:34,880
+tehát tőlük kéne leginkább ezt elvárni.
+
+1212
+00:45:35,640 --> 00:45:37,020
+És ha ők ezt nem tudják,
+
+1213
+00:45:37,500 --> 00:45:40,860
+akkor onnantól kezdve a rendszerbe sem lesz egy elvárás.
+
+1214
+00:45:40,860 --> 00:45:44,260
+Én most voltam olyan eseményen,
+
+1215
+00:45:44,500 --> 00:45:47,320
+hogy egy ilyen onkodatási konferencia,
+
+1216
+00:45:48,080 --> 00:45:49,360
+ahol nagyon látszott,
+
+1217
+00:45:49,620 --> 00:45:51,680
+hogy már nincs meg az a szakértelem,
+
+1218
+00:45:52,640 --> 00:45:55,320
+sem a minisztérum nincsen,
+
+1219
+00:45:55,380 --> 00:45:57,680
+de nem tudom, akik ott döntéshozók,
+
+1220
+00:45:57,740 --> 00:45:58,680
+sem a tankerület,
+
+1221
+00:45:58,780 --> 00:46:01,140
+sem az iskolégazgatók részén.
+
+1222
+00:46:01,780 --> 00:46:02,920
+Azt érzi mindenki,
+
+1223
+00:46:03,000 --> 00:46:04,260
+hogy valamit kéne csinálni,
+
+1224
+00:46:04,360 --> 00:46:04,880
+de hogy mit?
+
+1225
+00:46:04,880 --> 00:46:10,560
+És egyenértékű egy ilyen egymilliárdból,
+
+1226
+00:46:10,740 --> 00:46:12,820
+mindenki egyszer elmegy egy emlékhelyre,
+
+1227
+00:46:13,240 --> 00:46:14,480
+és mondjuk a mi programunk,
+
+1228
+00:46:14,540 --> 00:46:15,220
+amit mérünk,
+
+1229
+00:46:15,560 --> 00:46:16,840
+és tökre látszik,
+
+1230
+00:46:16,940 --> 00:46:17,540
+hogy mi van,
+
+1231
+00:46:17,680 --> 00:46:18,520
+meg egy másik.
+
+1232
+00:46:19,000 --> 00:46:21,320
+Tehát, hogy ilyen,
+
+1233
+00:46:22,700 --> 00:46:24,680
+ez a szakértelem azért nagyon hiányzik,
+
+1234
+00:46:24,780 --> 00:46:27,540
+mert neki kéne egy irányt adni arra,
+
+1235
+00:46:27,640 --> 00:46:30,980
+hogy akkor most hova menjenek,
+
+1236
+00:46:31,040 --> 00:46:32,240
+hova tartsanak a pedagógusok.
+
+1237
+00:46:32,440 --> 00:46:34,020
+És ez azon a szinten,
+
+1238
+00:46:34,020 --> 00:46:35,360
+ahol végül is a döntés,
+
+1239
+00:46:35,700 --> 00:46:38,320
+meg a pénzek elosztása történik,
+
+1240
+00:46:38,380 --> 00:46:39,260
+ennyire nincs meg,
+
+1241
+00:46:39,440 --> 00:46:43,300
+akkor nem fogunk tudni előre jutni.
+
+1242
+00:46:44,360 --> 00:46:45,500
+Visszakanyarodva egy picit oda,
+
+1243
+00:46:45,600 --> 00:46:47,000
+hogy mit kellene még tanítani,
+
+1244
+00:46:47,240 --> 00:46:49,600
+ugye 6K az az alap,
+
+1245
+00:46:50,380 --> 00:46:53,080
+és hogy minél kevesebb tárgy legyen azért,
+
+1246
+00:46:53,320 --> 00:46:55,460
+úgy összerendezni a struktúrát.
+
+1247
+00:46:56,180 --> 00:46:57,820
+Az egyik, amit említettél már,
+
+1248
+00:46:58,020 --> 00:46:59,920
+az a nyelvtudás, a nyelvtanulás.
+
+1249
+00:46:59,920 --> 00:47:02,880
+Ugye, az nagyon fontos szerintem,
+
+1250
+00:47:02,880 --> 00:47:05,300
+kisgyerekkortól egészen felnőtt koronát,
+
+1251
+00:47:05,380 --> 00:47:06,420
+akár az idősekig.
+
+1252
+00:47:07,040 --> 00:47:10,480
+Hiszen egy olyan ország, mint Magyarország,
+
+1253
+00:47:10,580 --> 00:47:12,920
+akinek ennyire egyedi nyelvünk van,
+
+1254
+00:47:13,080 --> 00:47:14,220
+amint nagyon kevesen beszélünk,
+
+1255
+00:47:14,300 --> 00:47:15,520
+szerintem elengedhetetlen,
+
+1256
+00:47:15,600 --> 00:47:17,640
+hogy folyamatosan új nyelveket,
+
+1257
+00:47:17,820 --> 00:47:21,860
+vagy egy más nyelveket egyre jobban tanuljunk meg.
+
+1258
+00:47:22,860 --> 00:47:24,040
+Az egyik kérdésem az az,
+
+1259
+00:47:24,100 --> 00:47:25,960
+hogy ezt hogy lehetne egyébként kiterjeszteni.
+
+1260
+00:47:25,960 --> 00:47:26,960
+A másik pedig az az,
+
+1261
+00:47:27,340 --> 00:47:29,020
+egy másik tárgy, az pedig a matematika.
+
+1262
+00:47:29,340 --> 00:47:31,160
+Küldtem neked egy cikket,
+
+1263
+00:47:31,400 --> 00:47:35,680
+ahol a Graphisoft vezetője említette azt,
+
+1264
+00:47:35,940 --> 00:47:39,560
+hogy ott van szerinte az országban az egyik legnagyobb hiányosság,
+
+1265
+00:47:39,720 --> 00:47:43,660
+hogy már, hogy az oktatás az leromlott,
+
+1266
+00:47:43,880 --> 00:47:45,980
+és ezen belül a matematika különösen.
+
+1267
+00:47:47,580 --> 00:47:49,780
+Ezt a két tárgyat te mennyire érzett fontosnak,
+
+1268
+00:47:49,840 --> 00:47:53,520
+és ezen a két tárgyon hogy lehetne egyébként erősítani?
+
+1269
+00:47:53,520 --> 00:47:56,780
+Hát most igazából alapkompetenciákról beszéltünk,
+
+1270
+00:47:56,880 --> 00:47:57,600
+tehát én azt gondolom,
+
+1271
+00:47:57,700 --> 00:48:03,280
+hogy mindenek a kulcsa a szövegértés és a logikus gondolkodás.
+
+1272
+00:48:04,160 --> 00:48:06,180
+A szövegértés az egyben empátia,
+
+1273
+00:48:06,320 --> 00:48:07,160
+tehát az azt jelenti,
+
+1274
+00:48:07,340 --> 00:48:09,480
+hogy szövegeket elemzünk olyat,
+
+1275
+00:48:09,540 --> 00:48:11,160
+amit nem mi írtunk más hírta,
+
+1276
+00:48:11,500 --> 00:48:14,720
+megpróbálok belejeszkedni mások világába.
+
+1277
+00:48:14,720 --> 00:48:16,680
+Tehát az egy abszolút nagyon jó
+
+1278
+00:48:16,680 --> 00:48:19,880
+az empátiára, együttműködésre.
+
+1279
+00:48:21,160 --> 00:48:23,140
+A logikus gondolkodás, meg a matematika,
+
+1280
+00:48:23,140 --> 00:48:25,120
+tehát hogy értsem azt,
+
+1281
+00:48:25,320 --> 00:48:26,960
+hogy igen, választani kell.
+
+1282
+00:48:27,080 --> 00:48:28,400
+Vagy közel van az iskola,
+
+1283
+00:48:28,960 --> 00:48:31,880
+és akkor egy tanár lesz ott,
+
+1284
+00:48:32,220 --> 00:48:34,000
+és nem tudjuk megfizetni,
+
+1285
+00:48:34,520 --> 00:48:34,960
+vagy pedig,
+
+1286
+00:48:35,040 --> 00:48:38,200
+tehát hogy pontosan úgy lehet díleket csinálni,
+
+1287
+00:48:38,240 --> 00:48:40,180
+vagy kompromisszunkat, értelmes kompromisszunkat,
+
+1288
+00:48:40,240 --> 00:48:41,320
+ha az emberek értik,
+
+1289
+00:48:41,860 --> 00:48:42,940
+hogy mibe vannak benne.
+
+1290
+00:48:42,940 --> 00:48:45,520
+Tehát a szövegértés és a logikus gondolkodás,
+
+1291
+00:48:45,600 --> 00:48:48,260
+tehát nem nyelvtudás,
+
+1292
+00:48:48,340 --> 00:48:50,320
+vagy ilyen értelme, vagy matematikak kell,
+
+1293
+00:48:50,320 --> 00:48:52,220
+hanem a szövegértés,
+
+1294
+00:48:52,360 --> 00:48:54,720
+ami egyben egy empátiát is jelent,
+
+1295
+00:48:54,820 --> 00:48:56,160
+hiszen az, hogy,
+
+1296
+00:48:57,020 --> 00:48:58,940
+és ilyen értelemben egyébként nem véletlen,
+
+1297
+00:48:59,040 --> 00:49:01,380
+hogy a nők sokkal inkább
+
+1298
+00:49:01,380 --> 00:49:03,500
+empatikusabbak,
+
+1299
+00:49:03,740 --> 00:49:06,620
+mert hogy az összes gyerekiroldalom
+
+1300
+00:49:06,620 --> 00:49:08,440
+szinte mindegyikben fiúval főszereplő,
+
+1301
+00:49:08,440 --> 00:49:09,780
+tehát nekünk nagyon hamar
+
+1302
+00:49:09,780 --> 00:49:11,900
+át kell venni a fiúk
+
+1303
+00:49:11,900 --> 00:49:14,980
+élethelyzetét,
+
+1304
+00:49:15,060 --> 00:49:17,160
+bele kell tudni magunkat képzelni,
+
+1305
+00:49:17,160 --> 00:49:19,000
+ez fordítva nem történik meg.
+
+1306
+00:49:19,580 --> 00:49:21,000
+Például történt egy ilyen,
+
+1307
+00:49:21,120 --> 00:49:24,500
+hogy a kreativitás mérésénél
+
+1308
+00:49:24,500 --> 00:49:25,760
+ilyen vinyátákat tettünk,
+
+1309
+00:49:25,920 --> 00:49:28,100
+ami az van,
+
+1310
+00:49:28,160 --> 00:49:29,320
+hogy ilyen sztorik vannak leírva,
+
+1311
+00:49:29,480 --> 00:49:30,900
+hogy Misi, ezt csinálta,
+
+1312
+00:49:31,360 --> 00:49:33,040
+és hogy szemíted ez kreatíve,
+
+1313
+00:49:33,140 --> 00:49:33,520
+vagy nem,
+
+1314
+00:49:33,920 --> 00:49:35,600
+és te mennyire vagy közel hozzá,
+
+1315
+00:49:35,600 --> 00:49:36,900
+és akkor, mit tudom,
+
+1316
+00:49:36,980 --> 00:49:37,920
+Kati, ezt csinálta.
+
+1317
+00:49:39,120 --> 00:49:40,900
+És azzal szembesültünk,
+
+1318
+00:49:41,160 --> 00:49:44,100
+hogy nagyon sok fiú nem töltötte ki
+
+1319
+00:49:44,100 --> 00:49:45,900
+a kérdések egy részét,
+
+1320
+00:49:45,900 --> 00:49:46,780
+és mondtuk, hogy miért.
+
+1321
+00:49:46,840 --> 00:49:48,600
+Hát azért, mert ott lánya főszereplő,
+
+1322
+00:49:48,740 --> 00:49:51,300
+és az akkor ez nem vonatkozik rá.
+
+1323
+00:49:52,000 --> 00:49:52,960
+Tehát én azt gondolom,
+
+1324
+00:49:53,040 --> 00:49:54,000
+hogy itt kezdődik.
+
+1325
+00:49:54,460 --> 00:49:55,600
+Tehát, hogy itt kezdődik,
+
+1326
+00:49:55,960 --> 00:49:57,980
+és nem véletlen,
+
+1327
+00:49:58,040 --> 00:49:59,160
+hogy a kreativitásban,
+
+1328
+00:49:59,460 --> 00:50:00,340
+minden országban,
+
+1329
+00:50:00,400 --> 00:50:03,500
+az OECD PISA mérésnél,
+
+1330
+00:50:03,500 --> 00:50:06,360
+a lányok szignifikással jobbak voltak a fiúknál,
+
+1331
+00:50:06,440 --> 00:50:07,580
+de minden országban.
+
+1332
+00:50:08,060 --> 00:50:09,960
+És ugyanezt történt 2015-ben
+
+1333
+00:50:09,960 --> 00:50:14,420
+a kollaboratív probléma megoldásnál.
+
+1334
+00:50:14,420 --> 00:50:16,300
+És ennek azért van,
+
+1335
+00:50:16,380 --> 00:50:17,480
+mert a lányok
+
+1336
+00:50:17,480 --> 00:50:21,260
+sokkal nagyobb értéket
+
+1337
+00:50:21,260 --> 00:50:23,700
+tulajdonképpen a kapcsolódásnak
+
+1338
+00:50:23,700 --> 00:50:24,820
+és a kapcsolatoknak.
+
+1339
+00:50:25,440 --> 00:50:28,380
+Tehát amikor csoport munkáról van szó,
+
+1340
+00:50:28,500 --> 00:50:30,320
+azt a fiúk is szeretnek csapatba lenni,
+
+1341
+00:50:30,320 --> 00:50:32,280
+de főleg annak a motiváció az,
+
+1342
+00:50:32,380 --> 00:50:33,440
+hogy jobbak legyenek,
+
+1343
+00:50:33,540 --> 00:50:34,680
+meg legyőzenek mást.
+
+1344
+00:50:35,080 --> 00:50:36,740
+A lányoknak meg a kapcsolódás.
+
+1345
+00:50:36,740 --> 00:50:40,500
+És ez, ez a fajta azt,
+
+1346
+00:50:40,700 --> 00:50:42,720
+hogy figyelek a másikra,
+
+1347
+00:50:43,400 --> 00:50:45,500
+és egy más szempontot is meg tudok érteni,
+
+1348
+00:50:45,540 --> 00:50:46,320
+mint a magamét,
+
+1349
+00:50:47,280 --> 00:50:50,360
+ez az előszobája a kreativitásnak.
+
+1350
+00:50:51,500 --> 00:50:52,160
+Tehát én azt gondolom,
+
+1351
+00:50:52,200 --> 00:50:53,580
+hogy ilyen szinten nem értik.
+
+1352
+00:50:54,620 --> 00:50:56,100
+Vagy mondok valamit,
+
+1353
+00:50:56,200 --> 00:50:57,280
+amikor tudjuk,
+
+1354
+00:50:57,440 --> 00:50:59,600
+hogy a belső motiváció vissza
+
+1355
+00:50:59,600 --> 00:51:00,640
+tanulás öröméhez,
+
+1356
+00:51:00,700 --> 00:51:02,400
+és azzal lehet igazán jól tanulni.
+
+1357
+00:51:02,400 --> 00:51:05,480
+Amikor a kreativitásról van szó,
+
+1358
+00:51:05,660 --> 00:51:08,720
+nagyon sok pedagos elkezd kreatívkodni,
+
+1359
+00:51:09,480 --> 00:51:10,040
+ami azt jelenti,
+
+1360
+00:51:10,140 --> 00:51:11,860
+hogy gyerekek helyett csinál
+
+1361
+00:51:11,860 --> 00:51:13,240
+nagyon kreatív dolgokat,
+
+1362
+00:51:13,660 --> 00:51:16,120
+beviszi, és utána a sztori nem működik,
+
+1363
+00:51:16,200 --> 00:51:17,560
+ő megcsinálja mindent szépen,
+
+1364
+00:51:17,680 --> 00:51:18,520
+képeket, stb.
+
+1365
+00:51:18,620 --> 00:51:20,520
+De hát azt a gyereknek kell megcsinálni,
+
+1366
+00:51:20,560 --> 00:51:20,960
+nem neki.
+
+1367
+00:51:21,620 --> 00:51:24,960
+Vagy pedig kitalál ilyen versenyt,
+
+1368
+00:51:25,020 --> 00:51:26,900
+hogy akkor mindenki kap egy kis autót,
+
+1369
+00:51:27,000 --> 00:51:28,400
+és akkor ott látjuk a falon,
+
+1370
+00:51:28,480 --> 00:51:29,340
+hogy ki hol tart.
+
+1371
+00:51:30,180 --> 00:51:32,240
+Ez egy tipikus külső értékelés.
+
+1372
+00:51:32,240 --> 00:51:33,520
+És mindenki azt fogja nézni,
+
+1373
+00:51:34,020 --> 00:51:35,780
+hogy kit győz le,
+
+1374
+00:51:36,360 --> 00:51:37,280
+és innentől kezdve,
+
+1375
+00:51:37,820 --> 00:51:40,940
+tehát hogy erre mondom a szakmai tudás,
+
+1376
+00:51:41,120 --> 00:51:41,980
+a reflexió,
+
+1377
+00:51:42,560 --> 00:51:45,860
+hogy önmagában ez teljesen hiányzik.
+
+1378
+00:51:46,240 --> 00:51:49,020
+Tehát úgy borítunk a rendszerre
+
+1379
+00:51:49,020 --> 00:51:51,260
+ilyen nagyon ilyen,
+
+1380
+00:51:51,360 --> 00:51:52,060
+mit tudom én,
+
+1381
+00:51:52,720 --> 00:51:55,140
+csilivéli jelzővel kreatív dolgokat,
+
+1382
+00:51:55,200 --> 00:51:56,480
+hogy végig se gondoljuk,
+
+1383
+00:51:56,780 --> 00:51:57,640
+hogy mit akarunk.
+
+1384
+00:51:58,440 --> 00:51:59,000
+És azt gondolom,
+
+1385
+00:51:59,060 --> 00:52:00,960
+a szövegértés és a logikus gondolkártás
+
+1386
+00:52:00,960 --> 00:52:01,740
+az alapja.
+
+1387
+00:52:02,640 --> 00:52:05,040
+És igen, a fiúk a szövegértésben nem jók,
+
+1388
+00:52:05,080 --> 00:52:06,500
+a lányok azért,
+
+1389
+00:52:06,580 --> 00:52:08,940
+mert ebben van egy fajta ilyen,
+
+1390
+00:52:08,940 --> 00:52:10,280
+hát egy előítéletesség,
+
+1391
+00:52:10,360 --> 00:52:11,320
+amit sajnos a nők,
+
+1392
+00:52:11,580 --> 00:52:14,120
+és a pedosok nők is nagyon visznek előre.
+
+1393
+00:52:14,120 --> 00:52:19,280
+A fiúkat kéne a szövegértéssel izzasztani,
+
+1394
+00:52:19,460 --> 00:52:21,380
+a lányokat meg a matematikával.
+
+1395
+00:52:21,720 --> 00:52:23,020
+Mindent meg lehet tanulni.
+
+1396
+00:52:24,640 --> 00:52:28,140
+És nagyon-nagyon sokat segítene rajtunk,
+
+1397
+00:52:28,240 --> 00:52:31,280
+ha férfiak empatikusabbak lennének.
+
+1398
+00:52:31,960 --> 00:52:33,640
+És szerintem nagyon-nagyon jó lenne,
+
+1399
+00:52:33,800 --> 00:52:36,240
+ha a lányok meg logikusabban gondolkodnának.
+
+1400
+00:52:36,240 --> 00:52:39,060
+ez abszolút,
+
+1401
+00:52:39,880 --> 00:52:42,560
+a való életben ugye ez mindenütt
+
+1402
+00:52:42,560 --> 00:52:46,720
+csak előnyünk lenne belőle.
+
+1403
+00:52:47,100 --> 00:52:47,700
+Tehát én azt gondolom,
+
+1404
+00:52:47,760 --> 00:52:48,920
+hogy erre lehet építeni.
+
+1405
+00:52:49,480 --> 00:52:50,240
+Tehát az idegen nyelvtudás
+
+1406
+00:52:50,860 --> 00:52:52,240
+egy nem jó szövegértésre,
+
+1407
+00:52:53,060 --> 00:52:54,240
+tehát anyanyelvi tudás nélkül.
+
+1408
+00:52:55,580 --> 00:52:57,560
+Persze a kétnyelvi gyerekek
+
+1409
+00:52:57,560 --> 00:52:59,720
+az egy más történet,
+
+1410
+00:53:00,080 --> 00:53:02,280
+szinte mind a kettőt
+
+1411
+00:53:02,280 --> 00:53:03,360
+anyanyelvi szinten.
+
+1412
+00:53:03,360 --> 00:53:06,020
+De a legtöbb gyerekkel nem ez van,
+
+1413
+00:53:06,140 --> 00:53:09,620
+tehát iskolában találkozik a nyelvekkel.
+
+1414
+00:53:10,340 --> 00:53:12,460
+Tehát ezeket mindenképp játékos módon
+
+1415
+00:53:12,460 --> 00:53:15,360
+időt adva a gondolkodásra,
+
+1416
+00:53:15,500 --> 00:53:17,220
+és nem stresszelve a gyereket,
+
+1417
+00:53:17,380 --> 00:53:17,640
+és őt.
+
+1418
+00:53:17,720 --> 00:53:18,720
+Tehát ezt hívják
+
+1419
+00:53:18,720 --> 00:53:22,360
+jól működő osztályterem könyvünkben,
+
+1420
+00:53:23,240 --> 00:53:24,260
+erről sokat írunk.
+
+1421
+00:53:24,360 --> 00:53:26,020
+Tehát igazából a kreatív tanulás könyvünkben
+
+1422
+00:53:26,020 --> 00:53:28,900
+nagyon sok ilyen alapozó dolog van.
+
+1423
+00:53:29,480 --> 00:53:30,360
+És a mélységi tanulást,
+
+1424
+00:53:31,360 --> 00:53:32,920
+az egyébként arról,
+
+1425
+00:53:32,920 --> 00:53:34,760
+az pedig azt jelenti,
+
+1426
+00:53:35,300 --> 00:53:37,380
+és amivel a művészek hozzá tudnak tenni,
+
+1427
+00:53:37,980 --> 00:53:39,600
+hogy mondjuk egy matematikát,
+
+1428
+00:53:40,900 --> 00:53:42,960
+mondjuk a függvényeket az egyik órán,
+
+1429
+00:53:43,360 --> 00:53:44,980
+úgy tanulták,
+
+1430
+00:53:45,100 --> 00:53:46,960
+hogy ilyen fonalakat hoztak,
+
+1431
+00:53:47,040 --> 00:53:48,020
+mindenek fölállt,
+
+1432
+00:53:48,080 --> 00:53:50,540
+és ott töképpen a térben
+
+1433
+00:53:50,540 --> 00:53:54,060
+illusztrálták a függvényeket.
+
+1434
+00:53:54,480 --> 00:53:57,120
+Teljesen átállt az agyuk ettől,
+
+1435
+00:53:57,120 --> 00:54:01,000
+sokkal eredményesebb is lett utána a dolgozat.
+
+1436
+00:54:01,000 --> 00:54:03,700
+Mert mi történik ilyenkor?
+
+1437
+00:54:04,220 --> 00:54:07,400
+A gyerek az agyával, a szívével,
+
+1438
+00:54:07,460 --> 00:54:08,900
+és a testével is ott van.
+
+1439
+00:54:09,640 --> 00:54:10,980
+És ez a mélységi tanulás,
+
+1440
+00:54:11,120 --> 00:54:14,120
+amikor nem csak az agyadat használod,
+
+1441
+00:54:14,540 --> 00:54:16,340
+hanem motivált vagy,
+
+1442
+00:54:16,460 --> 00:54:17,600
+tehát ott van a szíved is,
+
+1443
+00:54:17,960 --> 00:54:19,260
+és mozogsz közben,
+
+1444
+00:54:19,640 --> 00:54:22,380
+ezáltal pedig a neurompályákat
+
+1445
+00:54:22,380 --> 00:54:24,340
+stimulálod az agyadban.
+
+1446
+00:54:24,340 --> 00:54:27,180
+Tehát, hogy nem egy,
+
+1447
+00:54:28,540 --> 00:54:32,900
+hogy mondjam, egy atomtudomány ez.
+
+1448
+00:54:33,440 --> 00:54:35,160
+Abszolút meg lehetne csinálni.
+
+1449
+00:54:35,640 --> 00:54:38,260
+Ha hagynák a szakértőket kibontakozni,
+
+1450
+00:54:38,460 --> 00:54:42,960
+és nem sarlatánok tarolnák le a redszert.
+
+1451
+00:54:43,360 --> 00:54:46,460
+A sarlatánk egy része ezek a népnemzeti
+
+1452
+00:54:46,460 --> 00:54:48,860
+kétszáz évvel ezelőttet hozzuk ki,
+
+1453
+00:54:48,880 --> 00:54:50,580
+de a másik része meg meg kell mondanom
+
+1454
+00:54:50,580 --> 00:54:52,420
+a sikeres vállalkozók,
+
+1455
+00:54:52,420 --> 00:54:54,520
+akik azt gondolják, hogy ők sikeresek
+
+1456
+00:54:54,520 --> 00:54:55,280
+a vállalatukban,
+
+1457
+00:54:55,400 --> 00:54:57,640
+akkor az egy az egyben át lehet vinni az iskolába.
+
+1458
+00:54:57,720 --> 00:54:58,140
+Hát nem.
+
+1459
+00:54:58,620 --> 00:55:02,140
+Tehát, hogy kéne egy kicsit több tisztelet
+
+1460
+00:55:02,140 --> 00:55:04,900
+a pedagógia iránt és a pedagógusok iránt,
+
+1461
+00:55:05,420 --> 00:55:07,200
+mert ma mindenki ezzel foglalkozik,
+
+1462
+00:55:07,280 --> 00:55:08,820
+és mindenkinek van egy jó ötlete.
+
+1463
+00:55:09,340 --> 00:55:12,480
+De éppen ezért ebben a katyfaszban
+
+1464
+00:55:12,480 --> 00:55:15,320
+és hangzavarban már nagyon nehéz
+
+1465
+00:55:15,320 --> 00:55:18,480
+ugye kiemelni azt, ami fontos,
+
+1466
+00:55:18,560 --> 00:55:20,040
+amire most itt megpróbáltam
+
+1467
+00:55:20,040 --> 00:55:24,420
+nagyon röviden egy-két dologgal szemlítetni.
+
+1468
+00:55:24,420 --> 00:55:26,480
+Ami viszont utána,
+
+1469
+00:55:26,920 --> 00:55:29,200
+ha a szövegértés, logikus gondolkodás,
+
+1470
+00:55:29,300 --> 00:55:32,360
+ez ugye matematika és írás-olvasás,
+
+1471
+00:55:32,920 --> 00:55:34,700
+erre lehet építeni aztán mondjuk
+
+1472
+00:55:34,700 --> 00:55:36,940
+egy alap természettunományos
+
+1473
+00:55:36,940 --> 00:55:39,280
+és társamtudományi művelettséget.
+
+1474
+00:55:39,700 --> 00:55:40,220
+Tehát én azt gondolom,
+
+1475
+00:55:40,260 --> 00:55:42,360
+felső tagozatban teljesen felesleges
+
+1476
+00:55:42,360 --> 00:55:43,520
+tantárgyakat tanulni,
+
+1477
+00:55:43,580 --> 00:55:45,040
+hanem ezeket egy természettunományos,
+
+1478
+00:55:45,760 --> 00:55:46,440
+ez a science,
+
+1479
+00:55:46,740 --> 00:55:48,460
+ez már úgy, ahogy valahogy tudják,
+
+1480
+00:55:48,460 --> 00:55:50,940
+de a másik, a társamtudományos művelettség
+
+1481
+00:55:50,940 --> 00:55:52,160
+nagyon fontos.
+
+1482
+00:55:52,160 --> 00:55:59,240
+Ma, amikor a tudományt tényleg üldözik,
+
+1483
+00:55:59,680 --> 00:56:00,520
+ezt kell mondjam,
+
+1484
+00:56:01,320 --> 00:56:03,960
+és ezen belül is a társamtudományokat,
+
+1485
+00:56:04,720 --> 00:56:07,900
+és rosszan ilyen, mint egy sztáliné,
+
+1486
+00:56:08,000 --> 00:56:10,180
+boszorkány üldözésben vagyunk,
+
+1487
+00:56:11,200 --> 00:56:12,160
+senki nem fogja föl,
+
+1488
+00:56:12,760 --> 00:56:14,920
+hogy a társamtudományos művelettség
+
+1489
+00:56:14,920 --> 00:56:16,280
+az az egyik legfontosabb.
+
+1490
+00:56:16,280 --> 00:56:18,140
+Mert lehet technológiában,
+
+1491
+00:56:18,380 --> 00:56:19,180
+nem tudom én,
+
+1492
+00:56:19,340 --> 00:56:21,380
+milyen eszközöket létrehozunk,
+
+1493
+00:56:21,860 --> 00:56:23,640
+de hogy mögötten nincs egy érző,
+
+1494
+00:56:24,060 --> 00:56:25,020
+együttműködő ember,
+
+1495
+00:56:25,140 --> 00:56:26,280
+akkor fölrobbatjuk magunkat.
+
+1496
+00:56:26,360 --> 00:56:28,040
+Hát az atombombát is kitalálta valaki,
+
+1497
+00:56:28,140 --> 00:56:29,100
+és aztán lehet dobta.
+
+1498
+00:56:29,620 --> 00:56:30,800
+De azért talán jó lenne,
+
+1499
+00:56:30,980 --> 00:56:32,280
+ha olyanok lennének ott,
+
+1500
+00:56:32,420 --> 00:56:35,040
+akik egy kicsit a társamtudományos oldalon
+
+1501
+00:56:35,040 --> 00:56:37,300
+is meg vannak támogatva,
+
+1502
+00:56:37,620 --> 00:56:39,280
+és nem fognak hülyeségeket csinálni.
+
+1503
+00:56:39,640 --> 00:56:42,640
+Hát ezt még pont a politikusoknak kéne leginkább.
+
+1504
+00:56:42,640 --> 00:56:48,920
+és utána lehetne aztán szakosodni.
+
+1505
+00:56:49,080 --> 00:56:49,980
+Tehát azt gondolom,
+
+1506
+00:56:50,100 --> 00:56:52,740
+hogy a középfok már lehet az,
+
+1507
+00:56:52,900 --> 00:56:55,640
+amikor már megvannak ezek az irányok,
+
+1508
+00:56:56,340 --> 00:56:57,660
+és ott már tudják a gyerekek,
+
+1509
+00:56:57,740 --> 00:56:59,780
+hogy mivel szeretnének igazán foglalkozni,
+
+1510
+00:56:59,860 --> 00:57:04,400
+és akkor ott lehetne egyéni utakat létrehozni,
+
+1511
+00:57:04,500 --> 00:57:05,640
+amire egyébként azt gondolom,
+
+1512
+00:57:05,640 --> 00:57:09,240
+hogy pont a technológia abszolút lehetőséget is adna.
+
+1513
+00:57:09,240 --> 00:57:13,520
+Tehát én egy ilyen oktatást képzelnék kell.
+
+1514
+00:57:14,440 --> 00:57:16,700
+Azt gondolom, hogy az iskolára szükség lesz.
+
+1515
+00:57:17,620 --> 00:57:20,760
+Ez a COVID alatt szerintem ez nagyon szépen kiderült.
+
+1516
+00:57:20,880 --> 00:57:23,040
+Pont azért van szükség, mert ez egy közösségi hely,
+
+1517
+00:57:23,140 --> 00:57:27,380
+mert ugye a gyerekeknek pont azok a társas kompetenciái
+
+1518
+00:57:27,380 --> 00:57:28,680
+fejlődnek az iskolában.
+
+1519
+00:57:28,780 --> 00:57:31,620
+Mi egyébként máig nem foglalkozunk azzal,
+
+1520
+00:57:31,620 --> 00:57:33,780
+hogy a COVID egy-két év alatt bizonyít,
+
+1521
+00:57:34,380 --> 00:57:37,760
+történt egy olyan elmaradás, amit máig nem potoltunk.
+
+1522
+00:57:37,760 --> 00:57:39,980
+Ez vissza fog jönni.
+
+1523
+00:57:40,520 --> 00:57:45,940
+Tehát ez a generáció valamennyiben pont ebben a társas kompetenciában
+
+1524
+00:57:45,940 --> 00:57:47,640
+sajnos lemaradt.
+
+1525
+00:57:48,520 --> 00:57:51,840
+Ezen is kéne gondolkozni, hogy azt a hiányt
+
+1526
+00:57:51,840 --> 00:57:53,300
+hogyan lehet visszahozni.
+
+1527
+00:57:53,460 --> 00:57:56,060
+Tehát lehet, hogy a huszon évesekkel is kéne foglalkozni,
+
+1528
+00:57:56,160 --> 00:57:58,700
+nem csak a tizen és a kisebbekkel.
+
+1529
+00:57:59,500 --> 00:58:03,400
+És hát azt gondolom, hogy a jövőben szerintem a felsőoktatás
+
+1530
+00:58:03,400 --> 00:58:08,120
+fog legjobban megváltozni, mert szerintem ott azt lehet,
+
+1531
+00:58:08,220 --> 00:58:10,060
+hogy a mesesei intelligenc, aki fogja váltani.
+
+1532
+00:58:10,240 --> 00:58:14,820
+Tehát azon nem csodálkoznék, ha, és már most látszódnak a jelei.
+
+1533
+00:58:15,500 --> 00:58:18,880
+Tehát én azt gondolom, hogy az alapképzés közoktatás,
+
+1534
+00:58:19,260 --> 00:58:21,540
+azt gondolom, hogy az megmarad így,
+
+1535
+00:58:21,620 --> 00:58:25,400
+mert az olyan fontos emberi kompetenciákról van szó,
+
+1536
+00:58:25,400 --> 00:58:30,520
+amit nem uszhatunk meg, és nem rakhatjuk a gépre a gyerekeket.
+
+1537
+00:58:31,680 --> 00:58:38,400
+De később viszont szerintem ott sokkal gazdagabb kínálat lesz.
+
+1538
+00:58:38,480 --> 00:58:40,280
+Ezt most már most is látszik egyébként.
+
+1539
+00:58:40,400 --> 00:58:43,200
+A diplomának már nem az az értéke van, mint korábban.
+
+1540
+00:58:43,980 --> 00:58:47,340
+Ami nem biztos, persze szomorú is,
+
+1541
+00:58:47,600 --> 00:58:50,400
+de amennyiben ez kiváltja, az, hogy kompetenciákat értékelünk.
+
+1542
+00:58:50,400 --> 00:58:56,180
+Tehát, hogy nem arról van szó, hogy a butaságot fogjuk értékelni,
+
+1543
+00:58:56,340 --> 00:58:59,420
+hanem, hogy nem a papírt, hanem bizonyos kompetenciákat,
+
+1544
+00:58:59,520 --> 00:59:02,160
+amit aztán nagyon sok helyen meg lehet szerezni,
+
+1545
+00:59:02,520 --> 00:59:05,420
+és mondjuk kompetencia központokba bele,
+
+1546
+00:59:05,860 --> 00:59:08,600
+tehát be lehet bizonyítani, hogy én ezzel rendelkezem,
+
+1547
+00:59:08,680 --> 00:59:11,340
+és nem azzal bizonyítom, hogy nyolc évet ültem a padban,
+
+1548
+00:59:11,460 --> 00:59:14,180
+hanem ott bemutatom, és tényleg értek hozzá.
+
+1549
+00:59:15,580 --> 00:59:18,440
+Szóval azt gondolom, hogy itt lesznek nagy változások,
+
+1550
+00:59:18,440 --> 00:59:22,760
+de az iskola és a pedagúst, én azt gondolom,
+
+1551
+00:59:22,820 --> 00:59:25,900
+hogy középtávon még biztos, hogy szükség van rá.
+
+1552
+00:59:26,280 --> 00:59:30,560
+Most erőt ott teszembe, hogy lehet, hogy mondjuk így az egyetem
+
+1553
+00:59:30,560 --> 00:59:32,900
+helyett, vagy azzal kiegészítve,
+
+1554
+00:59:33,240 --> 00:59:35,620
+ugye oda a belépő az az érettségi,
+
+1555
+00:59:35,920 --> 00:59:37,660
+és lehet, hogy az érettségi mellett, vagy helyett,
+
+1556
+00:59:37,700 --> 00:59:40,800
+vagy nem tudom, érdemes lenne, vagy érdekes ötlet lenne
+
+1557
+00:59:40,800 --> 00:59:44,320
+eljátszani azzal a gondolata, milyen lenne egy ilyen 6K érettségi.
+
+1558
+00:59:44,320 --> 00:59:47,540
+Tehát, hogy nem tárgyakból érettségiznek a gyerekek,
+
+1559
+00:59:47,660 --> 00:59:49,880
+hanem a hat készségből.
+
+1560
+00:59:49,940 --> 00:59:52,480
+Igen. Én nem dombnám ki az érettségünket.
+
+1561
+00:59:52,700 --> 00:59:54,560
+Tehát én azt gondolom, hogy vannak tradíciók,
+
+1562
+00:59:54,620 --> 01:00:06,380
+amik működtek, és azért az ismeretek tudásának is van előnye,
+
+1563
+01:00:06,380 --> 01:00:11,240
+de azt meg lehetne csinálni, hogy egy projektérettségit mellé tenni,
+
+1564
+01:00:11,660 --> 01:00:16,700
+ahol mondjuk egy közösség bizonyítja azt, hogy tud valamit.
+
+1565
+01:00:16,780 --> 01:00:18,680
+A svédek például csináltak olyat,
+
+1566
+01:00:19,320 --> 01:00:23,200
+hogy ilyen csoportos projektérettségi kapcsán mondjuk
+
+1567
+01:00:23,200 --> 01:00:25,580
+egy vikinghajót kellett létrehozni,
+
+1568
+01:00:25,880 --> 01:00:32,880
+de egy igazi vikinghajót a gyerekeknek,
+
+1569
+01:00:32,880 --> 01:00:35,420
+és akkor azt úgy felosztották a munkát.
+
+1570
+01:00:35,520 --> 01:00:37,880
+Volt, aki ahhoz értett, hogy a fafaragáshoz,
+
+1571
+01:00:37,960 --> 01:00:40,080
+de volt, aki meg utána ment és számolt.
+
+1572
+01:00:40,580 --> 01:00:42,260
+Van, aki meg díszítette.
+
+1573
+01:00:42,460 --> 01:00:45,900
+Tehát, hogy ott, és a végén az volt a...
+
+1574
+01:00:45,900 --> 01:00:48,220
+Tehát azt gondolom, hogy egy ilyen lehet,
+
+1575
+01:00:48,280 --> 01:00:51,500
+hogy nem lenne rossz, mert ez egyben a együttműködés,
+
+1576
+01:00:51,580 --> 01:00:56,320
+tehát ez pont ezeket a skilleket, ezeket a hat kát,
+
+1577
+01:00:58,000 --> 01:01:01,000
+ezt mindenképp nem egyéni érettségnek tudnám elképzelni,
+
+1578
+01:01:01,000 --> 01:01:03,760
+hanem mondjuk az osztály, vagy az osztályban
+
+1579
+01:01:03,760 --> 01:01:06,320
+két csoportot csinálni játékosan.
+
+1580
+01:01:06,420 --> 01:01:09,040
+Tehát igazából lehet, hogy nem is adnék olyan,
+
+1581
+01:01:09,440 --> 01:01:13,720
+tehát nem arról szólna, hogy most milyen szintre,
+
+1582
+01:01:13,840 --> 01:01:16,080
+hanem hogy egy ilyetem végig mennek ez az úton,
+
+1583
+01:01:16,260 --> 01:01:19,280
+és egy projektet végig tudnak csinálni úgy,
+
+1584
+01:01:19,340 --> 01:01:20,540
+hogy mindenkit bevonnak.
+
+1585
+01:01:21,160 --> 01:01:24,320
+Szerintem egy ilyen egyébként tök jó lenne,
+
+1586
+01:01:25,000 --> 01:01:27,420
+és egyébként a szakképzés végén is lehetne
+
+1587
+01:01:27,420 --> 01:01:30,320
+a szakképzési vizsgák mellé egy ilyet tenni,
+
+1588
+01:01:30,320 --> 01:01:33,880
+tehát ez nem kell, hogy érettségi, érettségi ezt kössük.
+
+1589
+01:01:36,320 --> 01:01:39,720
+Beszéltünk csomó olyanról, ami egy változás felé visz.
+
+1590
+01:01:40,160 --> 01:01:42,280
+Most jövőre vagy lesz változás, vagy nem.
+
+1591
+01:01:42,920 --> 01:01:47,020
+Vagy lesz olyan, hogy mondjuk a sarlatánok helyett,
+
+1592
+01:01:47,120 --> 01:01:49,900
+ahogy fogalmaztál máshoz, fognak ezzel foglalkozni, vagy nem.
+
+1593
+01:01:50,280 --> 01:01:52,660
+Mi lesz akkor szerinted, vagy mit lehet tenni akkor,
+
+1594
+01:01:52,800 --> 01:01:54,300
+hogyha nem lesz változás jövőre?
+
+1595
+01:01:57,420 --> 01:02:00,680
+Szerintem mindenképp lesz változás.
+
+1596
+01:02:00,820 --> 01:02:03,640
+Tehát a politikai, nem tudom, mert egyszerűen
+
+1597
+01:02:03,640 --> 01:02:07,920
+ez a kikényszeríti a technológia, kikényszeríti a gazdaság.
+
+1598
+01:02:08,400 --> 01:02:12,120
+Tehát, hogy azért ezt nem lehet itt ilyen intaktan működni.
+
+1599
+01:02:12,560 --> 01:02:15,320
+Csak lassabban, meg olyan megbicsakolva,
+
+1600
+01:02:16,320 --> 01:02:19,660
+de biztos, hogy és nem olyan gyorsan,
+
+1601
+01:02:19,720 --> 01:02:21,640
+és nem olyan szépen, nem olyan minőségbe,
+
+1602
+01:02:21,640 --> 01:02:27,900
+de azt nem tudom, hogy ezzel most elszomorítom-e a padóusokat,
+
+1603
+01:02:27,980 --> 01:02:30,140
+vagy nem, de muszáj változniuk.
+
+1604
+01:02:30,260 --> 01:02:32,020
+Tehát ezt nem musza meg senki.
+
+1605
+01:02:33,260 --> 01:02:37,560
+És hát ebben segítséget kapnak a Kreatív Tanulás című könyvedből.
+
+1606
+01:02:37,860 --> 01:02:39,800
+Igen, azt abban is,
+
+1607
+01:02:40,100 --> 01:02:43,580
+de szerintem sok minden másban is figyelnek,
+
+1608
+01:02:43,660 --> 01:02:44,980
+tehát és olvasnak.
+
+1609
+01:02:44,980 --> 01:02:48,040
+Ennyi fért a te podcastodba.
+
+1610
+01:02:48,220 --> 01:02:50,060
+Köszönöm Ődit, hogy eljöttél gyere máskor is.
+
+1611
+01:02:50,780 --> 01:02:51,300
+Köszönöm.
+
+1612
+01:02:51,340 --> 01:02:52,820
+Ha tetszett ez a rész, kérlek,
+
+1613
+01:02:52,940 --> 01:02:54,560
+osszátok meg ismerőseitekkel,
+
+1614
+01:02:54,840 --> 01:02:57,080
+küldjétek el családtagoknak, barátoknak,
+
+1615
+01:02:57,180 --> 01:02:59,380
+munkatársaknak, hogy ők is meghallgathassák,
+
+1616
+01:02:59,600 --> 01:03:00,780
+és nyomjatok a lájkra.
+
+1617
+01:03:01,440 --> 01:03:03,280
+Emellett, ha még nem tettétek meg,
+
+1618
+01:03:03,580 --> 01:03:06,540
+akkor kattintsatok a követés vagy a feliratkozás gombra,
+
+1619
+01:03:06,960 --> 01:03:08,200
+majd pedig a csengőre is,
+
+1620
+01:03:08,200 --> 01:03:10,200
+hogy ne maradjatok le az új részekről.
+
+1621
+01:03:10,200 --> 01:03:13,980
+Ha tehetitek, kérlek támogassátok a podcastot YouTube-on
+
+1622
+01:03:13,980 --> 01:03:17,960
+a videó alatti köszönet vagy szuperköszönet gomb megnyomásával.
+
+1623
+01:03:18,560 --> 01:03:20,500
+Kezdjünk el beszélgetni kommentben,
+
+1624
+01:03:20,840 --> 01:03:22,000
+igyekszem válaszolni.
+
+1625
+01:03:22,600 --> 01:03:23,840
+A YouTube csatornán neve
+
+1626
+01:03:23,840 --> 01:03:26,120
+Én vagyok Viktor vagy En vagyok Viktor,
+
+1627
+01:03:26,320 --> 01:03:27,220
+így egybe.
+
+1628
+01:03:27,880 --> 01:03:30,020
+Itt többek között két műsoromat,
+
+1629
+01:03:30,220 --> 01:03:33,940
+a Te Podcastodat és az Eurovízius podcastot is megtaláljátok.
+
+1630
+01:03:33,940 --> 01:03:37,100
+A Te Podcastod egyik részében beszélgettem már
+
+1631
+01:03:37,100 --> 01:03:40,260
+a leggazdagabb országok titkairól Pogácsa Zoltánnal,
+
+1632
+01:03:40,680 --> 01:03:43,100
+és szakemberrel jártuk körbe azt a témát,
+
+1633
+01:03:43,180 --> 01:03:44,520
+hogy megkérdőjelezhető-e,
+
+1634
+01:03:44,920 --> 01:03:46,900
+ami megkérdőjelezhetetlennek tűnik,
+
+1635
+01:03:47,180 --> 01:03:48,400
+például a létezés.
+
+1636
+01:03:49,080 --> 01:03:50,640
+Vendégem volt Puskás Peti,
+
+1637
+01:03:50,920 --> 01:03:51,800
+Vitézi Dávid,
+
+1638
+01:03:52,060 --> 01:03:52,720
+Lár András,
+
+1639
+01:03:53,160 --> 01:03:55,940
+keresztény, muszlim, zsidó és buddhista vallási vezetők,
+
+1640
+01:03:56,940 --> 01:03:58,180
+egy alvás szakértő,
+
+1641
+01:03:58,440 --> 01:03:59,820
+egy szexuálpszichológus,
+
+1642
+01:04:00,020 --> 01:04:01,220
+egy AI fejlesztő,
+
+1643
+01:04:01,220 --> 01:04:03,240
+Puzsér Rúbert üzlettársa,
+
+1644
+01:04:03,560 --> 01:04:06,160
+az X-Faktor és az Ázsia Express producerei,
+
+1645
+01:04:06,640 --> 01:04:07,580
+politológusok,
+
+1646
+01:04:07,700 --> 01:04:09,480
+köztük Lakner és Ceglidi,
+
+1647
+01:04:09,760 --> 01:04:10,920
+és még jó páran.
+
+1648
+01:04:11,500 --> 01:04:12,740
+A másik műsoromban,
+
+1649
+01:04:12,940 --> 01:04:15,300
+az Eurovízius podcastban többek között
+
+1650
+01:04:15,300 --> 01:04:15,960
+Wolfkatit,
+
+1651
+01:04:16,400 --> 01:04:16,980
+Dérhenit,
+
+1652
+01:04:17,140 --> 01:04:18,360
+Péter Szabó Szilviát,
+
+1653
+01:04:18,600 --> 01:04:19,820
+Kálai Szandárs Andrást,
+
+1654
+01:04:19,980 --> 01:04:20,940
+Lakatos Leventét,
+
+1655
+01:04:21,360 --> 01:04:22,920
+a Norvég Delegáció vezetőt
+
+1656
+01:04:22,920 --> 01:04:25,520
+és Gundel Takács Gábort is vendégül láttam.
+
+1657
+01:04:26,120 --> 01:04:28,480
+Az epizódokat megtaláljátok a YouTube-on,
+
+1658
+01:04:28,480 --> 01:04:30,340
+az Én vagyok Viktor csatornán,
+
+1659
+01:04:30,340 --> 01:04:31,620
+iratkozzatok fel,
+
+1660
+01:04:31,900 --> 01:04:33,320
+kattintsatok a csengő gomra
+
+1661
+01:04:33,320 --> 01:04:35,340
+és fedezétek fel a csatornát.
+
+1662
+01:04:35,860 --> 01:04:38,080
+Kövessetek Instagramon és TikTokon is,
+
+1663
+01:04:38,320 --> 01:04:40,260
+mindkét felületen úgy találtok meg,
+
+1664
+01:04:40,400 --> 01:04:41,520
+hogy a te podcastod,
+
+1665
+01:04:41,840 --> 01:04:43,920
+és bátran használjátok a lájkot is.
+
+1666
+01:04:44,360 --> 01:04:45,900
+Ha pedig Spotify-t használtok,
+
+1667
+01:04:46,160 --> 01:04:48,300
+kérlek értékeljétek a podcast műsort
+
+1668
+01:04:48,300 --> 01:04:49,440
+öt csillaggal.
+
+1669
+01:04:49,920 --> 01:04:51,120
+Találkozunk legközelebb.
+
+1670
+01:04:51,520 --> 01:04:52,000
+Sziasztok!
+
+1671
+01:04:52,000 --> 01:04:53,440
+A te podcastod!

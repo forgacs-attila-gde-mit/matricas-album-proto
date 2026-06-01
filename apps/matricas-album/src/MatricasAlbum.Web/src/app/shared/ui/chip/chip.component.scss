@@ -1,0 +1,21 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+
+  ma-icon { font-size: 14px; }
+}
+
+.chip-neutral { background: var(--n-100); color: var(--n-700); border-color: var(--n-200); }
+.chip-primary { background: var(--primary-100); color: var(--primary-700); border-color: var(--primary-200); }
+.chip-success { background: var(--success-bg); color: #047857; border-color: #a7f3d0; }
+.chip-warning { background: var(--warning-bg); color: var(--warning); border-color: #fcd34d; }
+.chip-danger  { background: var(--danger-bg);  color: var(--danger);  border-color: #fca5a5; }
+.chip-info    { background: var(--info-bg);    color: var(--info-fg); border-color: #93c5fd; }

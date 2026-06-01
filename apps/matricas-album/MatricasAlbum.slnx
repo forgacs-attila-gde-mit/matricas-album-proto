@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MatricasAlbum.Api/MatricasAlbum.Api.csproj" />
+  </Folder>
+</Solution>

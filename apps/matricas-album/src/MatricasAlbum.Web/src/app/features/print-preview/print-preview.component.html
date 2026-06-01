@@ -1,0 +1,321 @@
+@if (store.printOpen()) {
+  <div class="print-overlay">
+    <div class="print-toolbar">
+      <button type="button" class="icon-btn" (click)="close()"><ma-icon name="close" /></button>
+      <div>
+        <div style="font-size: 14px; font-weight: 500;">
+          Nyomtatási előnézet — {{ scopeLabel() }}
+        </div>
+        <div style="font-size: 12px; color: var(--n-400);">
+          A4 portrait • {{ generatedDateLabel }}
+        </div>
+      </div>
+      <div style="flex: 1;"></div>
+      <div class="row" style="gap: 8px;">
+        <ma-btn variant="secondary" size="sm" icon="download" (clicked)="printNow()">PDF letöltése</ma-btn>
+        <ma-btn variant="primary" size="sm" icon="print" (clicked)="printNow()">Nyomtatás</ma-btn>
+      </div>
+    </div>
+
+    <div class="print-scroll">
+      @if (store.printOpen() === 'weekly') {
+      <!-- Page 1 — weekly -->
+      <div class="page">
+        <div class="page-header">
+          <div class="brand-row">
+            <img src="assets/butterfly-mark.svg" />
+            <div>
+              <div class="brand-name">lecke</div>
+              <div class="brand-tag">MATRICÁS ALBUM</div>
+            </div>
+          </div>
+          <div class="meta">
+            <div>Tanári összefoglaló • {{ store.album.className || store.album.grade }}</div>
+            <div>{{ generatedDateLabel }}</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+          <div class="kicker">Heti tanári összefoglaló • {{ store.album.currentWeek }}. hét</div>
+          <h1 class="page-title">{{ store.album.title }}</h1>
+          <div class="page-sub">
+            {{ store.album.grade }} • {{ store.album.subject }} • {{ store.album.duration }} • {{ store.teams.length }} csapat
+          </div>
+        </div>
+
+        <div class="dq-banner">
+          <div class="kicker dq-label">Vezérkérdés</div>
+          <div class="dq-text">„{{ store.album.drivingQ }}"</div>
+        </div>
+
+        <h2 class="page-h2">{{ store.album.currentWeek }}. hét eredményei</h2>
+        <div class="kpi-grid">
+          @for (k of weeklyKpis(); track k.l) {
+            <div class="kpi-box">
+              <div class="kpi-v">{{ k.v }}</div>
+              <div class="kpi-l">{{ k.l }}</div>
+              <div class="kpi-s">{{ k.s }}</div>
+            </div>
+          }
+        </div>
+
+        <h2 class="page-h2">AI minőségi jegyzet</h2>
+        <div class="ai-note">
+          Az aktuális albumadatok alapján készült pillanatkép: {{ store.pendingEvidence().length }}
+          beküldés vár tanári visszajelzésre, és {{ store.evidence().length }} bizonyíték szerepel a portfólióban.
+          <em>Az AI nem dönt — javaslat tanári döntéshez.</em>
+        </div>
+
+        <h2 class="page-h2">Csapatonkénti összefoglaló</h2>
+        <table class="team-table">
+          <thead>
+            <tr>
+              <th>Csapat</th>
+              <th>Választott fókusz</th>
+              <th>Bizonyíték</th>
+              <th>Állapot</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (r of teamRows(); track r[0]) {
+              <tr>
+                <td style="font-weight: 500;">{{ r[0] }}</td>
+                <td class="muted">{{ r[1] }}</td>
+                <td>{{ r[2] }}</td>
+                <td class="muted">{{ r[3] }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <div class="footer">
+          <div>Heti tanári összefoglaló • {{ store.album.title }} • {{ store.album.currentWeek }}. hét</div>
+          <div>1 / 2</div>
+        </div>
+      </div>
+
+      <!-- Page 2 -->
+      <div class="page">
+        <div class="page-header">
+          <div class="brand-row">
+            <img src="assets/butterfly-mark.svg" />
+            <div>
+              <div class="brand-name">lecke</div>
+              <div class="brand-tag">MATRICÁS ALBUM</div>
+            </div>
+          </div>
+          <div class="meta">
+            <div>Tanári összefoglaló • {{ store.album.className || store.album.grade }}</div>
+            <div>{{ generatedDateLabel }}</div>
+          </div>
+        </div>
+
+        <h2 class="page-h2">Következő hét — tanári döntések</h2>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px;">
+          @for (s of nextSteps(); track s.n) {
+            <div class="step-row">
+              <div class="step-num">{{ s.n }}</div>
+              <div style="flex: 1;">
+                <div class="step-title">{{ s.t }}</div>
+                <div class="step-desc">{{ s.d }}</div>
+              </div>
+              <div class="step-state">{{ s.state }}</div>
+            </div>
+          }
+        </div>
+
+        <h2 class="page-h2">Album minőségellenőrző — pillanatkép</h2>
+        <div class="check-grid">
+          @for (q of checklist(); track q.d) {
+            <div class="check-item">
+              <div class="dot" [style.background]="q.c"></div>
+              <div style="flex: 1;">{{ q.d }}</div>
+              <div [style.color]="q.c" style="font-size: 10px; font-weight: 500;">{{ q.s }}</div>
+            </div>
+          }
+        </div>
+
+        <div class="quote">
+          „A matrica nem jutalom, hanem egy lezárt tanulási epizód bizonyítékkal és reflexióval."
+        </div>
+
+        <div class="footer">
+          <div>Heti tanári összefoglaló • {{ store.album.title }} • {{ store.album.currentWeek }}. hét</div>
+          <div>2 / 2</div>
+        </div>
+      </div>
+
+      <div style="color: var(--n-400); font-size: 12px; padding: 8px 0 24px;">2 / 2 oldal</div>
+      }
+
+      @if (store.printOpen() === 'evidence') {
+        <div class="page">
+          <div class="page-header">
+            <div class="brand-row">
+              <img src="assets/butterfly-mark.svg" />
+              <div>
+                <div class="brand-name">lecke</div>
+                <div class="brand-tag">MATRICÁS ALBUM</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>Bizonyíték-portfólió • {{ store.album.className || store.album.grade }}</div>
+              <div>{{ generatedDateLabel }}</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <div class="kicker">Bizonyíték-portfólió export</div>
+            <h1 class="page-title">{{ store.album.title }}</h1>
+            <div class="page-sub">{{ store.evidence().length }} bizonyíték • {{ store.teams.length }} csapat</div>
+          </div>
+
+          <table class="export-table">
+            <thead>
+              <tr>
+                <th>Csapat</th>
+                <th>Matrica</th>
+                <th>Cím</th>
+                <th>Állapot</th>
+                <th>Beküldve</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (e of store.evidence(); track e.id) {
+                <tr>
+                  <td>{{ teamNameById(e.teamId) }}</td>
+                  <td>{{ stickerTitleById(e.stickerId) }}</td>
+                  <td>{{ e.title }}</td>
+                  <td>{{ statusLabel(e.status) }}</td>
+                  <td>{{ e.submittedAt.slice(0, 10) }}</td>
+                </tr>
+              } @empty {
+                <tr><td colspan="5" style="color: var(--n-500); text-align: center;">Nincs még bizonyíték.</td></tr>
+              }
+            </tbody>
+          </table>
+
+          <div class="footer">
+            <div>Bizonyíték-portfólió • {{ store.album.title }}</div>
+            <div>1 / 1</div>
+          </div>
+        </div>
+      }
+
+      @if (store.printOpen() === 'quality') {
+        <div class="page">
+          <div class="page-header">
+            <div class="brand-row">
+              <img src="assets/butterfly-mark.svg" />
+              <div>
+                <div class="brand-name">lecke</div>
+                <div class="brand-tag">MATRICÁS ALBUM</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>Album minőségi riport • {{ store.album.className || store.album.grade }}</div>
+              <div>{{ generatedDateLabel }}</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <div class="kicker">Album minőségi riport</div>
+            <h1 class="page-title">{{ store.album.title }}</h1>
+            <div class="page-sub">{{ store.qualityDims.length }} ellenőrzési dimenzió</div>
+          </div>
+
+          <div class="checklist">
+            @for (q of checklist(); track q.d) {
+              <div class="checklist-item">
+                <div class="dot" [style.background]="q.c"></div>
+                <div style="flex: 1;">{{ q.d }}</div>
+                <div [style.color]="q.c" style="font-size: 11px; font-weight: 500;">{{ q.s }}</div>
+              </div>
+            }
+          </div>
+
+          <div class="footer">
+            <div>Album minőségi riport • {{ store.album.title }}</div>
+            <div>1 / 1</div>
+          </div>
+        </div>
+      }
+
+      @if (store.printOpen() === 'closure') {
+        <div class="page">
+          <div class="page-header">
+            <div class="brand-row">
+              <img src="assets/butterfly-mark.svg" />
+              <div>
+                <div class="brand-name">lecke</div>
+                <div class="brand-tag">MATRICÁS ALBUM</div>
+              </div>
+            </div>
+            <div class="meta">
+              <div>Projektzárás összegzés • {{ store.album.className || store.album.grade }}</div>
+              <div>{{ generatedDateLabel }}</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 24px;">
+            <div class="kicker">Projektzárás</div>
+            <h1 class="page-title">{{ store.album.title }}</h1>
+            <div class="page-sub">{{ closureStats().teams }} csapat • {{ closureStats().evidence }} bizonyíték • {{ closureStats().reflections }} csapat-reflexió</div>
+          </div>
+
+          <h2 class="page-h2">Tanári hatásnapló</h2>
+          @if (store.teacherEffectLog(); as log) {
+            <div class="reflection-block">
+              <strong>Mi működött jól?</strong>
+              <div style="margin-top: 6px;">{{ log.workedWell || 'Nincs rögzítve.' }}</div>
+            </div>
+            <div class="reflection-block">
+              <strong>Hol látszott bevonódás?</strong>
+              <div style="margin-top: 6px;">{{ log.engagementSignals || 'Nincs rögzítve.' }}</div>
+            </div>
+            <div class="reflection-block">
+              <strong>Hol kellett tanári adaptáció vagy segítség?</strong>
+              <div style="margin-top: 6px;">{{ log.adaptationNotes || 'Nincs rögzítve.' }}</div>
+            </div>
+            <div class="reflection-block">
+              <strong>Mit vinnél tovább vagy módosítanál legközelebb?</strong>
+              <div style="margin-top: 6px;">{{ log.reuseNextTime || 'Nincs rögzítve.' }}</div>
+            </div>
+          } @else {
+            <div class="reflection-block" style="color: var(--n-500);">Nincs még tanári hatásnapló.</div>
+          }
+
+          <h2 class="page-h2">Csapatok projekt-reflexiói</h2>
+          @for (team of store.teams; track team.id) {
+            <div class="reflection-block">
+              <strong>{{ team.name }}</strong>
+              @if (store.teamReflections().length > 0 && reflectionFor(team.id); as r) {
+                <div style="margin-top: 6px; font-style: italic;">„{{ r }}"</div>
+              } @else {
+                <div style="margin-top: 6px; color: var(--n-500);">Nincs még projekt-reflexió.</div>
+              }
+            </div>
+          }
+
+          <h2 class="page-h2">Záró bemutató ellenőrzőlista — {{ closureStats().checklist }}</h2>
+          <div class="checklist">
+            @for (item of store.closureChecklist(); track item.id) {
+              <div class="checklist-item">
+                <div class="dot" [style.background]="item.done ? '#10b981' : '#d1d5db'"></div>
+                <div style="flex: 1;">{{ item.label }}</div>
+                <div [style.color]="item.done ? '#10b981' : 'var(--n-500)'" style="font-size: 11px; font-weight: 500;">
+                  {{ item.done ? 'Kész' : 'Hátra' }}
+                </div>
+              </div>
+            }
+          </div>
+
+          <div class="footer">
+            <div>Projektzárás összegzés • {{ store.album.title }}</div>
+            <div>1 / 1</div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}

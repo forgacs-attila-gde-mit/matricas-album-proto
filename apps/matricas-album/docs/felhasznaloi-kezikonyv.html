@@ -1,0 +1,1084 @@
+﻿<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matricas Album - Felhasznaloi kezikonyv</title>
+  <style>
+    :root {
+      --bg: #f6f5f1;
+      --paper: #ffffff;
+      --ink: #202124;
+      --muted: #5f6368;
+      --line: #dedbd4;
+      --soft: #f1efe8;
+      --accent: #176b62;
+      --accent-soft: #e7f4f1;
+      --warn: #9d5c00;
+      --warn-soft: #fff3df;
+      --blue: #2f5fb3;
+      --code: #f4f2ee;
+      --shadow: 0 18px 40px rgb(30 35 40 / 0.10);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.58;
+    }
+
+    a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
+    a:hover { color: var(--accent); }
+
+    .shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--line);
+      background: rgb(255 255 255 / 0.92);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 15px;
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--ink);
+      padding: 7px 10px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover { border-color: var(--accent); color: var(--accent); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 24px;
+      width: min(1440px, calc(100% - 32px));
+      margin: 24px auto 64px;
+      align-items: start;
+    }
+
+    aside {
+      position: sticky;
+      top: 72px;
+      max-height: calc(100vh - 96px);
+      overflow: auto;
+      padding: 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgb(30 35 40 / 0.06);
+    }
+
+    aside h2 {
+      margin: 0 0 10px;
+      padding: 0;
+      border: 0;
+      font-size: 15px;
+    }
+
+    #toc {
+      display: grid;
+      gap: 4px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 13px;
+    }
+
+    #toc a {
+      display: block;
+      padding: 5px 6px;
+      border-radius: 6px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    #toc a:hover { background: var(--accent-soft); color: var(--accent); }
+    #toc .level-3 { padding-left: 18px; }
+
+    main {
+      min-width: 0;
+      padding: 34px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .snapshot-note {
+      margin: 0 0 26px;
+      padding: 14px 16px;
+      border: 1px solid #cfe4df;
+      background: var(--accent-soft);
+      color: #124c45;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .snapshot-note code { background: rgb(255 255 255 / 0.65); }
+
+    h1, h2, h3 {
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      max-width: 920px;
+      font-size: 36px;
+    }
+
+    h2 {
+      margin: 42px 0 14px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      font-size: 25px;
+    }
+
+    h3 {
+      margin: 28px 0 10px;
+      font-size: 19px;
+    }
+
+    p, li { max-width: 980px; }
+
+    code {
+      background: var(--code);
+      border-radius: 5px;
+      padding: 0.12em 0.32em;
+      font-size: 0.92em;
+    }
+
+    pre {
+      overflow: auto;
+      padding: 16px;
+      background: var(--code);
+      border: 1px solid #e6e1d8;
+      border-radius: 8px;
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    .markdown-fallback { white-space: pre-wrap; }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0 24px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--soft);
+      color: #2b2b2b;
+    }
+
+    tr:nth-child(even) td { background: #fbfaf7; }
+
+    blockquote {
+      margin: 18px 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--line);
+      border-radius: 0 8px 8px 0;
+      background: #faf9f6;
+      color: var(--muted);
+    }
+
+    blockquote.concept-callout {
+      border: 1px solid #f0d6ad;
+      border-left: 5px solid var(--warn);
+      background: var(--warn-soft);
+      color: #553200;
+    }
+
+    blockquote.concept-callout::before {
+      content: "Confluence kapcsolat";
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 2px 7px;
+      border: 1px solid #e1bd82;
+      border-radius: 999px;
+      background: #fffaf0;
+      color: #6f4000;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .mermaid {
+      margin: 20px 0 30px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+      overflow: auto;
+    }
+
+    hr {
+      height: 1px;
+      border: 0;
+      background: var(--line);
+      margin: 30px 0;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+        max-height: none;
+      }
+
+      main { padding: 24px; }
+      h1 { font-size: 30px; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .topbar, aside { display: none; }
+      .layout { display: block; width: 100%; margin: 0; }
+      main {
+        border: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+      a[href]::after {
+        content: " (" attr(href) ")";
+        font-size: 10px;
+        color: #555;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">MA</span>
+        <span>Matricas Album - felhasznaloi kezikonyv</span>
+      </div>
+      <div class="top-actions">
+        <span>Generated: 2026-06-01 13:14:05 +02:00</span>
+        <button type="button" onclick="window.print()">Print / PDF</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside aria-label="Tartalomjegyzek">
+        <h2>Tartalom</h2>
+        <ol id="toc"></ol>
+      </aside>
+
+      <main>
+        <p class="snapshot-note">
+          HTML snapshot. Source of truth: <code>docs/felhasznaloi-kezikonyv.md</code>.
+          Keep this snapshot aligned with the Markdown source when the browser-readable document is refreshed.
+          Confluence links open the original concept pages.
+        </p>
+        <div id="content">
+          <pre id="markdown-source" class="markdown-fallback"># Matric&#225;s Album - vizu&#225;lis felhaszn&#225;l&#243;i k&#233;zik&#246;nyv
+
+Ez a k&#233;zik&#246;nyv tan&#225;roknak &#233;s belső bemutat&#243;knak k&#233;sz&#252;lt. Nem funkci&#243;listak&#233;nt &#233;rdemes olvasni, hanem t&#233;rk&#233;pk&#233;nt: mit jelent az album, hol t&#246;rt&#233;nik a tan&#225;ri d&#246;nt&#233;s, hol dolgozik a csapat, &#233;s hol seg&#237;t az AI.
+
+&gt; Alapelv: a Matric&#225;s Album nem jutalomrendszer. Az album a tanul&#225;si &#250;t, a `tev&#233;kenys&#233;g (matrica)` pedig egy bizony&#237;t&#233;kot termelő tanul&#225;si epiz&#243;d. A tan&#225;r indulhat egy &#246;tletből, egy &#243;r&#225;b&#243;l vagy egy tantervi v&#225;zb&#243;l; a teljes hierarchi&#225;t nem kell előre kit&#246;lteni.
+
+---
+
+## 0. Koncepci&#243;kapcsolati t&#233;rk&#233;p
+
+Az al&#225;bbi hivatkoz&#225;sok azt mutatj&#225;k, hogy a k&#233;zik&#246;nyvben le&#237;rt funkci&#243;k melyik Confluence-v&#237;zi&#243; vagy Lauder-visszajelz&#233;s term&#233;kbe ford&#237;t&#225;sai.
+
+```mermaid
+flowchart LR
+    V[&quot;Matric&#225;s Album&lt;br/&gt;term&#233;kv&#237;zi&#243;&quot;] --&gt; O[&quot;Első haszn&#225;lat&lt;br/&gt;m&#243;dszertani keret&quot;]
+    V --&gt; E[&quot;Progressz&#237;v bel&#233;p&#233;s&lt;br/&gt;&#246;tlet / &#243;ra / tanterv&quot;]
+    V --&gt; D[&quot;Di&#225;k v&#225;laszt&#225;si pont&lt;br/&gt;akt&#237;v tanul&#225;s&quot;]
+    V --&gt; L[&quot;Tanul&#225;si k&#246;rk&#233;p&lt;br/&gt;visszacsatol&#225;s&quot;]
+    K[&quot;Matric&#225;s album&lt;br/&gt;koncepci&#243;&quot;] --&gt; M[&quot;Matricat&#225;r&lt;br/&gt;tev&#233;kenys&#233;g (matrica)&quot;]
+    K --&gt; A[&quot;Albumterv&lt;br/&gt;t&#246;bb hetes tanul&#225;si &#250;t&quot;]
+    H[&quot;&#218;j term&#233;khierarchia&quot;] --&gt; TH[&quot;Tanterv → Modul → T&#233;mak&#246;r&lt;br/&gt;→ Tanul&#225;si egys&#233;g → Blokk → Tev&#233;kenys&#233;g&quot;]
+    Ld[&quot;Lauder visszajelz&#233;s&quot;] --&gt; P[&quot;Pilotbar&#225;t műk&#246;d&#233;s&lt;br/&gt;heti egys&#233;gek&quot;]
+    Ld --&gt; AI[&quot;AI mint tan&#225;ri t&#225;masz&lt;br/&gt;nem d&#246;nt&#233;shoz&#243;&quot;]
+```
+
+| Funkci&#243; a k&#233;zik&#246;nyvben | Megval&#243;s&#237;tott koncepci&#243; | Confluence forr&#225;s |
+|---|---|---|
+| Progressz&#237;v bel&#233;p&#233;si utak | A tan&#225;r kezdhet egy &#246;tlettel, egy &#243;r&#225;val/blokkal vagy egy tantervi v&#225;zzal, teljes hierarchia-k&#233;nyszer n&#233;lk&#252;l | [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) |
+| Első haszn&#225;lati m&#243;dszertani keret | Egy &#250;j tan&#225;r sz&#225;m&#225;ra intuit&#237;van &#233;rthetőv&#233; kell tenni, hogy mi az album &#233;s a tev&#233;kenys&#233;g (matrica) | [Lauder bemutat&#225;s](https://gdemikk.atlassian.net/wiki/spaces/DPA/pages/709296137/2026-05-20+Lauder+-+Lecke+bemutat+sa), [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) |
+| Matricat&#225;r | A tev&#233;kenys&#233;g (matrica) tanul&#225;si mini-forgat&#243;k&#246;nyv, nem puszta feladat | [Matric&#225;s album koncepci&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/631963649/Matric+s+album), [Lauder bemutat&#225;s](https://gdemikk.atlassian.net/wiki/spaces/DPA/pages/709296137/2026-05-20+Lauder+-+Lecke+bemutat+sa) |
+| Tanul&#225;si egys&#233;g &#233;s blokk | A tantervi hierarchia l&#225;that&#243;v&#225; v&#225;lik, de egyelőre szerkeszthető tervez&#233;si metaadatk&#233;nt | [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) |
+| Albumterv &#233;s fut&#243; album | T&#246;bb &#243;r&#225;n vagy h&#233;ten &#225;t&#237;velő tanul&#225;si &#237;v, heti egys&#233;gekkel &#233;s reflekt&#237;v lez&#225;r&#225;ssal | [Matric&#225;s album koncepci&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/631963649/Matric+s+album), [T&#246;bb &#243;r&#225;n &#225;t&#237;velő tanul&#225;si sorozatok](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/644251658) |
+| Di&#225;koldali v&#225;laszt&#225;si pont | A di&#225;k akt&#237;v szereplő, d&#246;nthet &#233;s alak&#237;thatja saj&#225;t tanul&#225;si folyamat&#225;t | [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) |
+| Bizony&#237;t&#233;k &#233;s tan&#225;ri feedback | A tanul&#225;si epiz&#243;dnak l&#225;that&#243; outputja, evidence-e, &#233;rtelmez&#233;se &#233;s visszajelz&#233;si pontja van | [Matric&#225;s album koncepci&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/631963649/Matric+s+album), [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) |
+| Differenci&#225;l&#225;si n&#233;zet | Adapt&#237;v pedag&#243;giai mozg&#225;st&#233;r &#233;s helyi ig&#233;nyekhez igaz&#237;t&#225;s | [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi), [Lauder bemutat&#225;s](https://gdemikk.atlassian.net/wiki/spaces/DPA/pages/709296137/2026-05-20+Lauder+-+Lecke+bemutat+sa) |
+| AI draftok &#233;s tan&#225;csok | Az AI &#246;tletet, k&#233;rd&#233;st &#233;s draftot ad, de nem veszi &#225;t a pedag&#243;giai d&#246;nt&#233;st | [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi), [Lauder AI-visszajelz&#233;s](https://gdemikk.atlassian.net/wiki/spaces/DPA/pages/709296137/2026-05-20+Lauder+-+Lecke+bemutat+sa) |
+| Projektz&#225;r&#225;s, tanul&#225;si k&#246;rk&#233;p &#233;s hat&#225;snapl&#243; | A rendszer a tanul&#225;si folyamatokb&#243;l visszacsatol&#225;st termel, hogy a k&#246;vetkező futtat&#225;s jobb legyen | [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi), [Matric&#225;s album koncepci&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/631963649/Matric+s+album) |
+
+Kapcsol&#243;d&#243; m&#243;dszertani h&#225;tt&#233;rok: [Pedag&#243;giai m&#243;dszertanok](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/644907019), [projektoktat&#225;s](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/645431311), [inquiry](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/645431318), [kooperat&#237;v tanul&#225;s](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/643956794), [csoportmunka](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/644087861), [p&#225;ros munka](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/644055086), [jigsaw](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/644808744), [kompetenci&#225;k](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/644612117).
+
+---
+
+## 1. A term&#233;k egy k&#233;pen
+
+```mermaid
+flowchart LR
+    M[&quot;Műhely&lt;br/&gt;kezdőpont&quot;] --&gt; S{&quot;Honnan indulsz?&quot;}
+    S --&gt; O[&quot;&#214;tlet&lt;br/&gt;tev&#233;kenys&#233;g (matrica)&quot;]
+    S --&gt; BL[&quot;&#211;ra&lt;br/&gt;blokk-v&#225;zlat&quot;]
+    S --&gt; TV[&quot;Tanterv&lt;br/&gt;tantervi v&#225;zlat&quot;]
+    O --&gt; A[&quot;Albumterv&lt;br/&gt;tanul&#225;si &#250;t terve&quot;]
+    BL --&gt; A
+    TV --&gt; A
+    A --&gt; F[&quot;Fut&#243; album&lt;br/&gt;oszt&#225;ly + csapatok&quot;]
+    F --&gt; C[&quot;Csapatmunka&lt;br/&gt;v&#225;laszt&#225;s + cselekv&#233;s&quot;]
+    C --&gt; B[&quot;Bizony&#237;t&#233;k&lt;br/&gt;fot&#243; / m&#233;r&#233;s / jegyzet / prezent&#225;ci&#243;&quot;]
+    B --&gt; V[&quot;Tan&#225;ri visszajelz&#233;s&lt;br/&gt;AI draft csak seg&#237;t&quot;]
+    V --&gt; R[&quot;Rev&#237;zi&#243; + reflexi&#243;&quot;]
+    R --&gt; Z[&quot;Projektz&#225;r&#225;s&lt;br/&gt;hat&#225;snapl&#243; + export&quot;]
+```
+
+### Mit jelentenek a fő fogalmak?
+
+| Fogalom | K&#233;pben gondolkodva | Mire val&#243;? | Nem ez |
+|---|---|---|---|
+| Album | Tanul&#225;si &#250;tvonal | Egy t&#246;bb l&#233;p&#233;sből &#225;ll&#243; pedag&#243;giai folyamat kerete | Feladatlista |
+| Tev&#233;kenys&#233;g (matrica) | Tanul&#225;si epiz&#243;d | Egy akt&#237;v cselekv&#233;s, amely l&#225;that&#243; bizony&#237;t&#233;kot termel | Badge vagy pont |
+| Tanul&#225;si egys&#233;g | Egy t&#233;ma kezelhető tanul&#225;si darabja | T&#246;bb blokkot/&#243;r&#225;t fog &#246;ssze | K&#252;l&#246;n adatb&#225;zis-objektum a mostani protot&#237;pusban |
+| Blokk | &#211;rai vagy r&#246;vid tanul&#225;si szervez&#233;s | 3-5 tev&#233;kenys&#233;get &#233;s időkeretet rendez &#246;ssze | Teljes tanterv |
+| Bizony&#237;t&#233;k | Nyom a tanul&#225;si &#250;tr&#243;l | A csapat munk&#225;j&#225;nak megfigyelhető produktuma | Csak beadand&#243; f&#225;jl |
+| Visszajelz&#233;s | Tan&#225;ri ir&#225;ny&#237;t&#225;si pont | Seg&#237;t d&#246;nteni: lez&#225;r&#225;s, jav&#237;t&#225;s, k&#246;vetkező l&#233;p&#233;s | Automatikus &#233;rt&#233;kel&#233;s |
+| Reflexi&#243; | Tanul&#225;si lez&#225;r&#225;s | Megmutatja, mi v&#225;ltozott a gondolkod&#225;sban | Adminisztrat&#237;v ut&#243;munka |
+| Hat&#225;snapl&#243; | Tan&#225;ri tanul&#225;si adat | Mit tanult a tan&#225;r ebből a futtat&#225;sb&#243;l | Minős&#237;t&#233;s vagy rangsor |
+
+---
+
+## 2. Szerepek &#233;s n&#233;zetek
+
+```mermaid
+flowchart TB
+    subgraph Teacher[&quot;Tan&#225;ri n&#233;zet&quot;]
+        TH[&quot;Tervez&#233;s&quot;]
+        TI[&quot;Futtat&#225;s&quot;]
+        TF[&quot;Visszajelz&#233;s&quot;]
+        TZ[&quot;Z&#225;r&#225;s&quot;]
+    end
+
+    subgraph Student[&quot;Di&#225;k n&#233;zet&quot;]
+        SA[&quot;Aktu&#225;lis matrica&quot;]
+        SC[&quot;Csapat&quot;]
+        SB[&quot;Bizony&#237;t&#233;k&quot;]
+        SR[&quot;Reflexi&#243;&quot;]
+    end
+
+    subgraph Closure[&quot;Projektz&#225;r&#243; n&#233;zet&quot;]
+        CZ[&quot;&#214;sszegz&#233;s&quot;]
+        CE[&quot;Export / nyomtat&#225;s&quot;]
+    end
+
+    TH --&gt; SA
+    TI --&gt; SC
+    SC --&gt; SB
+    SB --&gt; TF
+    TF --&gt; SR
+    SR --&gt; TZ
+    TZ --&gt; CZ
+    CZ --&gt; CE
+```
+
+### N&#233;zetv&#225;laszt&#225;s gyorsan
+
+| Ha ezt akarod... | Ezt a n&#233;zetet nyisd meg |
+|---|---|
+| Megn&#233;zni, hol tart a projekt | Tan&#225;r: **Műhely** vagy **Fut&#243; album** |
+| &#218;j tanul&#225;si epiz&#243;dot k&#233;sz&#237;teni | Tan&#225;r: **Kezdj egy &#246;tlettel**, **Matricat&#225;r** vagy **Fut&#243; album / &#218;j matrica** |
+| Albumtervet szerkeszteni | Tan&#225;r: **Albumtervek** |
+| Csapatokat kezelni | Tan&#225;r: **Csapatok** |
+| Bead&#225;sokat &#225;ttekinteni | Tan&#225;r: **Visszajelz&#233;si sor** |
+| Egy csapat szem&#233;vel l&#225;tni az appot | **Di&#225;k n&#233;zet** |
+| Projektz&#225;r&#243; anyagot k&#233;sz&#237;teni | Tan&#225;r: **Projektz&#225;r&#225;s** |
+
+---
+
+## 3. Tan&#225;ri oldals&#225;v t&#233;rk&#233;pe
+
+&gt; Koncepci&#243;kapcsolat: az oldals&#225;v sz&#225;nd&#233;kosan a tan&#225;ri facilit&#225;ci&#243;t k&#246;veti v&#233;gig a tervez&#233;stől a visszajelz&#233;sen &#225;t a z&#225;r&#225;sig, &#246;sszhangban a [Matric&#225;s Album term&#233;kv&#237;zi&#243; pedag&#243;gus-szerepv&#225;lt&#225;s&#225;val](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi).
+
+```text
+MŰHELY
+  Műhely
+
+KEZEL&#201;S
+  Matricat&#225;r
+  Albumtervek
+  Fut&#243; albumok
+
+AKT&#205;V FUT&#211; ALBUM
+  Fut&#243; album
+  Fut&#243; matric&#225;k
+  Csapatok
+  Bizony&#237;t&#233;k-portf&#243;li&#243;
+
+PEDAG&#211;GIA
+  Visszajelz&#233;si sor
+  Album minős&#233;gellenőrző
+  Differenci&#225;l&#225;s
+  Projektz&#225;r&#225;s
+
+ALUL
+  Pedag&#243;giai s&#250;g&#243;
+  Be&#225;ll&#237;t&#225;sok
+```
+
+### Ment&#225;lis t&#233;rk&#233;p
+
+```mermaid
+flowchart TD
+    W[&quot;Műhely&quot;] --&gt; K[&quot;Kezel&#233;s&lt;br/&gt;mit fogunk futtatni?&quot;]
+    W --&gt; R[&quot;Akt&#237;v fut&#243; album&lt;br/&gt;mi t&#246;rt&#233;nik most?&quot;]
+    R --&gt; P[&quot;Pedag&#243;gia&lt;br/&gt;milyen tan&#225;ri d&#246;nt&#233;s kell?&quot;]
+    P --&gt; H[&quot;Projektz&#225;r&#225;s&lt;br/&gt;mit tanultunk a futtat&#225;sb&#243;l?&quot;]
+```
+
+---
+
+## 4. A tan&#225;ri munkafolyamat l&#233;p&#233;sről l&#233;p&#233;sre
+
+### 4.1 Indul&#225;s: Műhely
+
+```mermaid
+flowchart LR
+    A[&quot;Műhely&quot;] --&gt; B{&quot;Van akt&#237;v fut&#243; album?&quot;}
+    B --&gt;|Igen| C[&quot;Fut&#243; album megnyit&#225;sa&quot;]
+    B --&gt;|Visszajelz&#233;s v&#225;r| D[&quot;Visszajelz&#233;si sor&quot;]
+    B --&gt;|Nincs &#250;j futtat&#225;s| E{&quot;Miből indulsz?&quot;}
+    E --&gt;|&#214;tlet| O[&quot;Kezdj egy &#246;tlettel&quot;]
+    E --&gt;|&#211;ra| L[&quot;Kezdj egy &#243;r&#225;val&quot;]
+    E --&gt;|Tanterv| T[&quot;Kezdj egy tantervvel&quot;]
+    A --&gt; F[&quot;Bemutat&#243; ind&#237;t&#225;sa&quot;]
+```
+
+**Mit n&#233;zz itt?**
+
+| K&#233;pernyőr&#233;sz | Jelent&#233;s | K&#246;vetkező tan&#225;ri l&#233;p&#233;s |
+|---|---|---|
+| Priorit&#225;si s&#225;v | Egy javasolt “most ezt csin&#225;ld” ir&#225;ny | Kattints a fő CTA-ra |
+| Bel&#233;p&#233;si utak | H&#225;rom tervez&#233;si kezdőpont: &#246;tlet, &#243;ra/blokk, tanterv | V&#225;laszd azt, ami most a legkisebb hasznos l&#233;p&#233;s |
+| Akt&#237;v fut&#243; album | A jelenlegi oszt&#225;lyprojekt &#225;llapota | Nyisd meg a fut&#243; albumot vagy a visszajelz&#233;si sort |
+| Kezel&#233;s &#233;s visszakeres&#233;s | Matricat&#225;r, Albumtervek, Fut&#243; albumok | Akkor haszn&#225;ld, ha megl&#233;vő anyagot keresel, &#250;jrafuttatsz vagy &#225;llapotot n&#233;zel |
+| Bemutat&#243; ind&#237;t&#225;sa | Vezetett mikrokl&#237;ma demo | Haszn&#225;ld bemutat&#243;n vagy betan&#237;t&#225;son |
+
+### A h&#225;rom bel&#233;p&#233;si &#250;t
+
+| Bel&#233;p&#233;si &#250;t | Mit hoz l&#233;tre? | Mikor j&#243;? | Fontos korl&#225;t |
+|---|---|---|---|
+| **Kezdj egy &#246;tlettel** | Szerkeszthető `tev&#233;kenys&#233;g (matrica)` v&#225;zlatot | Van egy m&#233;r&#233;s, megfigyel&#233;s vagy tanul&#243;i k&#233;rd&#233;s | Az AI csak előt&#246;lt; ment&#233;s előtt a tan&#225;r ellenőrzi |
+| **Kezdj egy &#243;r&#225;val** | `Blokk-v&#225;zlatot` 3-5 tev&#233;kenys&#233;ggel &#233;s percbeoszt&#225;ssal | Konkr&#233;t 45 perces &#243;r&#225;t akarsz &#246;sszerakni | A blokk m&#233;g albumtervk&#233;nt mentődik, nincs &#250;j blokks&#233;ma |
+| **Kezdj egy tantervvel** | `Tantervi v&#225;zlatot` modulokkal &#233;s t&#233;mak&#246;r&#246;kkel | Magasabb szintről tervezel, de nem akarsz teljes strukt&#250;r&#225;t kit&#246;lteni | A tantervi hierarchia most m&#233;g v&#225;zlat, nem k&#252;l&#246;n adatmodell |
+
+```mermaid
+flowchart LR
+    O[&quot;&#214;tlet&quot;] --&gt; A[&quot;Tev&#233;kenys&#233;g (matrica)&quot;]
+    A --&gt; B[&quot;Blokk-v&#225;zlat&quot;]
+    B --&gt; U[&quot;Tanul&#225;si egys&#233;ghez kapcsolhat&#243;&quot;]
+    T[&quot;Tantervi v&#225;zlat&quot;] --&gt; M[&quot;Modul / T&#233;mak&#246;r előn&#233;zet&quot;]
+    M --&gt; U
+    U --&gt; R[&quot;Fut&#243; albumk&#233;nt kipr&#243;b&#225;lhat&#243;&quot;]
+```
+
+---
+
+### 4.2 Matricat&#225;r: tev&#233;kenys&#233;gek (matric&#225;k) k&#233;szlete
+
+&gt; Koncepci&#243;kapcsolat: a Matricat&#225;r a [Matric&#225;s album koncepci&#243;ban](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/631963649/Matric+s+album) le&#237;rt &quot;matrica = struktur&#225;lt tanul&#225;si tev&#233;kenys&#233;g&quot; gondolat term&#233;kbeli otthona.
+
+```mermaid
+flowchart TD
+    L[&quot;Matricat&#225;r&quot;] --&gt; S[&quot;Tev&#233;kenys&#233;g (matrica) megnyit&#225;sa&quot;]
+    S --&gt; D[&quot;R&#233;szletek&quot;]
+    D --&gt; V[&quot;Verzi&#243;k&quot;]
+    D --&gt; AI[&quot;AI jelz&#233;sek&quot;]
+    D --&gt; DIFF[&quot;Differenci&#225;l&#225;si elv&quot;]
+    L --&gt; N[&quot;&#218;j tev&#233;kenys&#233;g&quot;]
+    L --&gt; I[&quot;Kezdj egy &#246;tlettel&quot;]
+    S --&gt; NV[&quot;&#218;j verzi&#243;&quot;]
+```
+
+**Mikor haszn&#225;ld?**
+
+| Helyzet | Mit csin&#225;lj? |
+|---|---|
+| &#218;jrahaszn&#225;lhat&#243; tanul&#225;si epiz&#243;d kell | Hozz l&#233;tre &#250;j tev&#233;kenys&#233;get vagy indulj a **Kezdj egy &#246;tlettel** &#250;ton |
+| Egy megl&#233;vő tev&#233;kenys&#233;g j&#243;, de m&#243;dos&#237;tan&#225;d | Haszn&#225;ld az adapt&#225;l&#225;st vagy hozz l&#233;tre &#250;j verzi&#243;t |
+| M&#225;r fut&#243; albumhoz kell egyszeri kieg&#233;sz&#237;t&#233;s | Ne a Matricat&#225;rb&#243;l indulj, hanem a **Fut&#243; album / &#218;j matrica** gombb&#243;l |
+
+**Tev&#233;kenys&#233;g (matrica) szerkezete**
+
+```mermaid
+flowchart LR
+    C[&quot;C&#237;m + tev&#233;kenys&#233;gt&#237;pus&quot;] --&gt; P[&quot;Tanul&#225;si &#250;t f&#225;zisa&quot;]
+    P --&gt; I[&quot;Di&#225;k instrukci&#243;&quot;]
+    I --&gt; CH[&quot;Tanul&#243;i d&#246;nt&#233;si pont&quot;]
+    CH --&gt; E[&quot;V&#225;rt produktum / bizony&#237;t&#233;k&quot;]
+    E --&gt; M[&quot;Tervez&#233;si meta&lt;br/&gt;tanterv / modul / t&#233;mak&#246;r / tanul&#225;si egys&#233;g / blokk&quot;]
+    M --&gt; R[&quot;Reflekt&#237;v k&#233;rd&#233;s&quot;]
+    R --&gt; B[&quot;B terv / eszk&#246;zszeg&#233;ny v&#225;ltozat&quot;]
+```
+
+**Tev&#233;kenys&#233;gt&#237;pus &#233;s f&#225;zis nem ugyanaz.**
+
+| Mező | Jelent&#233;s | P&#233;lda |
+|---|---|---|
+| Tev&#233;kenys&#233;gt&#237;pus | Mit csin&#225;lnak a di&#225;kok? | Felfedező, K&#237;s&#233;rletező, Feldolgoz&#243;, Kommunik&#225;ci&#243;s, Kollaborat&#237;v, Reflekt&#237;v |
+| Tanul&#225;si &#250;t f&#225;zisa | Hol tart a tanul&#225;si folyamat? | K&#233;rdez&#233;s, K&#233;pzelet, Cselekv&#233;s, Reflexi&#243; |
+
+---
+
+### 4.3 Albumtervek: a tanul&#225;si &#250;t terve
+
+&gt; Koncepci&#243;kapcsolat: az Albumterv a t&#246;bb &#243;r&#225;n &#225;t&#237;velő tematikus keretet ford&#237;tja műk&#246;dő tan&#225;ri tervezőfel&#252;lett&#233;, l&#225;sd [Matric&#225;s album koncepci&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/631963649/Matric+s+album) &#233;s [T&#246;bb &#243;r&#225;n &#225;t&#237;velő tanul&#225;si sorozatok](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/644251658).
+
+```mermaid
+flowchart LR
+    A[&quot;Albumterv&quot;] --&gt; Q[&quot;Vez&#233;rk&#233;rd&#233;s&quot;]
+    A --&gt; U[&quot;Időegys&#233;gek&lt;br/&gt;h&#233;t / &#243;ra / f&#225;zis&quot;]
+    A --&gt; S[&quot;Tev&#233;kenys&#233;gek sorrendje&quot;]
+    A --&gt; P[&quot;Reflexi&#243;s promptok&quot;]
+    A --&gt; PUB[&quot;Publik&#225;lt verzi&#243;&quot;]
+    PUB --&gt; RUN[&quot;Fut&#243; album ind&#237;t&#225;sa&quot;]
+```
+
+**&#218;j albumterv k&#233;sz&#237;t&#233;sekor elősz&#246;r ezt l&#225;tod:**
+
+```text
+M&#243;dszertani keret
+  Album   = tanul&#225;si &#250;t
+  Tev&#233;kenys&#233;g (matrica) = bizony&#237;t&#233;kos epiz&#243;d
+  Tan&#225;r   = facilit&#225;tor
+```
+
+**Progressz&#237;v tervez&#233;si szintek**
+
+```mermaid
+flowchart TD
+    T[&quot;Tanterv&quot;] --&gt; M[&quot;Modul&quot;]
+    M --&gt; K[&quot;T&#233;mak&#246;r&quot;]
+    K --&gt; U[&quot;Tanul&#225;si egys&#233;g&quot;]
+    U --&gt; B[&quot;Blokk&quot;]
+    B --&gt; A[&quot;Tev&#233;kenys&#233;g (matrica)&quot;]
+```
+
+Jelenleg ezek k&#246;z&#252;l a `Tev&#233;kenys&#233;g`, a `Blokk-v&#225;zlat` &#233;s a `Tantervi v&#225;zlat` l&#225;tszik a fel&#252;leten. A `Tanul&#225;si egys&#233;g` elhelyez&#233;si mezők&#233;nt jelenik meg, hogy a k&#233;sőbbi hierarchia &#233;rthető legyen, de m&#233;g nem kell k&#252;l&#246;n adatmodellk&#233;nt kezelni.
+
+**D&#246;nt&#233;si pontok albumtervn&#233;l**
+
+| D&#246;nt&#233;s | J&#243; k&#233;rd&#233;s magadnak |
+|---|---|
+| Milyen vez&#233;rk&#233;rd&#233;s viszi v&#233;gig az albumot? | A di&#225;kok tudnak r&#243;la saj&#225;t d&#246;nt&#233;st hozni? |
+| H&#225;ny egys&#233;gből &#225;lljon? | Hetekben, &#243;r&#225;kban vagy f&#225;zisokban gondolkodom? |
+| Milyen tev&#233;kenys&#233;gek ker&#252;ljenek bele? | Minden fontos ponton keletkezik l&#225;that&#243; bizony&#237;t&#233;k? |
+| Van-e &#243;rai blokk vagy tanul&#225;si egys&#233;g kontextus? | A tev&#233;kenys&#233;gek term&#233;szetes sorrendben &#233;p&#252;lnek egym&#225;sra? |
+| Milyen legyen a z&#225;r&#243; reflexi&#243;? | Kider&#252;l belőle, hogyan v&#225;ltozott a gondolkod&#225;s? |
+
+---
+
+### 4.4 Fut&#243; album: oszt&#225;lyhoz k&#246;t&#246;tt megval&#243;s&#237;t&#225;s
+
+&gt; Koncepci&#243;kapcsolat: a Fut&#243; album a Lauder-visszajelz&#233;sben megjelenő heti egys&#233;g, csapatmunka &#233;s pilotbar&#225;t kipr&#243;b&#225;lhat&#243;s&#225;g operat&#237;v n&#233;zete ([Lauder bemutat&#225;s](https://gdemikk.atlassian.net/wiki/spaces/DPA/pages/709296137/2026-05-20+Lauder+-+Lecke+bemutat+sa)).
+
+```mermaid
+flowchart TD
+    RUN[&quot;Fut&#243; album&quot;] --&gt; UNIT[&quot;Aktu&#225;lis egys&#233;g&quot;]
+    RUN --&gt; TEAMS[&quot;Csapatok&quot;]
+    RUN --&gt; STICKERS[&quot;Fut&#243; matric&#225;k&quot;]
+    RUN --&gt; EVID[&quot;Bizony&#237;t&#233;kok&quot;]
+    RUN --&gt; FEED[&quot;Visszajelz&#233;s&quot;]
+    RUN --&gt; CLOSE[&quot;Projektz&#225;r&#225;s&quot;]
+```
+
+**Itt m&#225;r nem csak tervet l&#225;tsz, hanem val&#243;s oszt&#225;lymunk&#225;t.**
+
+| Mit kezelsz itt? | P&#233;lda |
+|---|---|
+| C&#237;m, oszt&#225;ly, egys&#233;g | `7.B mikrokl&#237;ma projekt`, aktu&#225;lis h&#233;t |
+| Csapatok | tagok, f&#243;kusz, sz&#237;n |
+| Fut&#243; matric&#225;k | akt&#237;v / tervezett / lez&#225;rt epiz&#243;dok |
+| Bizony&#237;t&#233;kok | bead&#225;sok, seg&#237;ts&#233;gk&#233;r&#233;sek, reflexi&#243;k |
+| Tan&#225;ri d&#246;nt&#233;sek | jav&#237;t&#225;sra visszak&#252;ld&#233;s, lez&#225;r&#225;s, hat&#225;snapl&#243; |
+
+---
+
+## 5. Di&#225;koldali &#250;t
+
+&gt; Koncepci&#243;kapcsolat: a di&#225;koldali n&#233;zet a [term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) akt&#237;v, v&#225;laszt&#225;si lehetős&#233;get ad&#243; tanul&#243;k&#233;pet teszi l&#225;that&#243;v&#225;.
+
+### Di&#225;k oldals&#225;v t&#233;rk&#233;pe
+
+```text
+CSAPAT
+  aktu&#225;lis csapat
+  v&#225;lasztott f&#243;kusz
+
+ALBUM
+  Aktu&#225;lis matrica
+  Csapatunk
+  Bizony&#237;t&#233;kaink
+  Visszajelz&#233;sek
+  Reflexi&#243;
+
+ALUL
+  Seg&#237;ts&#233;g
+```
+
+### Di&#225;k munkafolyamat
+
+```mermaid
+flowchart LR
+    A[&quot;Aktu&#225;lis matrica&quot;] --&gt; C[&quot;Tanul&#243;i d&#246;nt&#233;si pont&quot;]
+    C --&gt; W[&quot;Csapatmunka&quot;]
+    W --&gt; E[&quot;Bizony&#237;t&#233;k bek&#252;ld&#233;se&quot;]
+    E --&gt; H{&quot;K&#233;rnek seg&#237;ts&#233;get?&quot;}
+    H --&gt;|Igen| T[&quot;Tan&#225;ri seg&#237;ts&#233;gk&#233;r&#233;s&quot;]
+    H --&gt;|Nem| Q[&quot;Tan&#225;ri visszajelz&#233;sre v&#225;r&quot;]
+    T --&gt; Q
+    Q --&gt; F[&quot;Visszajelz&#233;s&quot;]
+    F --&gt; R{&quot;Jav&#237;t&#225;s kell?&quot;}
+    R --&gt;|Igen| W
+    R --&gt;|Nem| REF[&quot;Reflexi&#243;&quot;]
+```
+
+### Mit l&#225;t a di&#225;k az Aktu&#225;lis matric&#225;n?
+
+| Blokk | Mit jelent? |
+|---|---|
+| F&#225;zis + &#225;llapot | Hol j&#225;r a matrica? Akt&#237;v, v&#225;rakozik, jav&#237;t&#225;s alatt, lez&#225;rt |
+| Di&#225;k instrukci&#243; | Mit kell most csin&#225;lni? |
+| Tanul&#243;i d&#246;nt&#233;si pont | Miben d&#246;nthet a csapat? |
+| Mit fogtok bek&#252;ldeni? | Milyen bizony&#237;t&#233;k k&#233;sz&#252;l? |
+| Reflekt&#237;v k&#233;rd&#233;s | Mire gondoljanak vissza a v&#233;g&#233;n? |
+| Bizony&#237;t&#233;k bek&#252;ld&#233;se | C&#237;m, le&#237;r&#225;s, seg&#237;ts&#233;gk&#233;r&#233;s, reflexi&#243; |
+
+---
+
+## 6. Bizony&#237;t&#233;k &#233;s visszajelz&#233;s k&#246;r
+
+&gt; Koncepci&#243;kapcsolat: a bizony&#237;t&#233;k, a tan&#225;ri feedback &#233;s a rev&#237;zi&#243; egy&#252;tt felel meg a matrica output/evidence/&#233;rt&#233;kel&#233;s szerkezet&#233;nek ([Matric&#225;s album koncepci&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/631963649/Matric+s+album)).
+
+```mermaid
+stateDiagram-v2
+    [*] --&gt; Aktiv: tan&#225;r megnyitja
+    Aktiv --&gt; Varakozik: csapat bek&#252;ldi
+    Varakozik --&gt; Javitas: tan&#225;r jav&#237;t&#225;st k&#233;r
+    Javitas --&gt; Varakozik: csapat m&#243;dos&#237;t
+    Varakozik --&gt; Elkeszult: tan&#225;r lez&#225;rja
+    Elkeszult --&gt; Reflektalt: csapat reflekt&#225;l
+```
+
+### Tan&#225;ri visszajelz&#233;si sor
+
+```mermaid
+flowchart TD
+    Q[&quot;Visszajelz&#233;si sor&quot;] --&gt; D[&quot;AI digest&lt;br/&gt;f&#252;ggőben l&#233;vő bizony&#237;t&#233;kokr&#243;l&quot;]
+    Q --&gt; H[&quot;Nyitott seg&#237;ts&#233;gk&#233;r&#233;sek&quot;]
+    Q --&gt; E[&quot;Beadott bizony&#237;t&#233;kok&quot;]
+    E --&gt; R[&quot;Tan&#225;ri review drawer&quot;]
+    R --&gt; CH[&quot;Tanul&#243;i d&#246;nt&#233;si pont l&#225;that&#243;&quot;]
+    R --&gt; AI[&quot;AI feedback draft&quot;]
+    R --&gt; DEC{&quot;Tan&#225;ri d&#246;nt&#233;s&quot;}
+    DEC --&gt; REV[&quot;Visszak&#252;ld&#246;m jav&#237;t&#225;sra&quot;]
+    DEC --&gt; DONE[&quot;Elfogadom &#233;s lez&#225;rom&quot;]
+    DEC --&gt; NOTE[&quot;Csak tan&#225;ri jegyzet&quot;]
+```
+
+**Fontos AI-szab&#225;ly:** az AI nem k&#252;ld visszajelz&#233;st. Draftot vagy k&#233;rd&#233;seket ad, a v&#233;gső d&#246;nt&#233;s &#233;s sz&#246;veg a tan&#225;r&#233;.
+
+---
+
+## 7. AI szerepe vizu&#225;lisan
+
+&gt; Koncepci&#243;kapcsolat: az AI itt pedag&#243;giai t&#225;masz, nem automata d&#246;nt&#233;shoz&#243;. Ez k&#246;zvetlen&#252;l k&#246;veti a [Matric&#225;s Album term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) technol&#243;giai szerep&#233;t &#233;s a [Lauder AI-visszajelz&#233;s](https://gdemikk.atlassian.net/wiki/spaces/DPA/pages/709296137/2026-05-20+Lauder+-+Lecke+bemutat+sa) &#243;vatoss&#225;g&#225;t.
+
+```mermaid
+flowchart LR
+    DATA[&quot;Album &#225;llapot&lt;br/&gt;bizony&#237;t&#233;kok, seg&#237;ts&#233;gk&#233;r&#233;sek, reflexi&#243;k&quot;] --&gt; SNAP[&quot;Szűrt snapshot&quot;]
+    SNAP --&gt; AI[&quot;AI tan&#225;csad&#243;&quot;]
+    AI --&gt; DRAFT[&quot;Javaslat / k&#233;rd&#233;sek / draft&quot;]
+    DRAFT --&gt; TEACHER[&quot;Tan&#225;ri ellenőrz&#233;s&quot;]
+    TEACHER --&gt; ACTION[&quot;Tan&#225;ri d&#246;nt&#233;s&quot;]
+```
+
+### Hol jelenik meg AI?
+
+| Hely | Mit ad? | Ki d&#246;nt? |
+|---|---|---|
+| Fut&#243; album | Tan&#225;ri tan&#225;csok, mikromatrica-javaslat | Tan&#225;r |
+| Visszajelz&#233;si sor | F&#252;ggőben l&#233;vő bizony&#237;t&#233;kok &#246;sszegz&#233;se | Tan&#225;r |
+| Bizony&#237;t&#233;k review | Szerkeszthető feedback draft | Tan&#225;r |
+| Seg&#237;ts&#233;gk&#233;r&#233;s | Socratikus tan&#225;ri k&#233;rd&#233;s&#246;tletek | Tan&#225;r |
+| Di&#225;k aktu&#225;lis matrica | Gondolkodtat&#243; k&#233;rd&#233;sek | Di&#225;k + tan&#225;r |
+
+### AI haszn&#225;lati f&#233;kl&#225;mpa
+
+| Jelz&#233;s | Haszn&#225;lat |
+|---|---|
+| Z&#246;ld | K&#233;rj &#246;sszegz&#233;st, draftot, k&#233;rd&#233;s&#246;tletet |
+| S&#225;rga | Szerkeszd &#225;t saj&#225;t tan&#225;ri hangra |
+| Piros | Ne engedd, hogy az AI &#233;rt&#233;keljen vagy pedag&#243;giai d&#246;nt&#233;st hozzon helyetted |
+
+---
+
+## 8. Differenci&#225;l&#225;s
+
+&gt; Koncepci&#243;kapcsolat: a differenci&#225;l&#225;si n&#233;zet az adapt&#237;v pedag&#243;giai mozg&#225;st&#233;r első, pilotbar&#225;t megjelen&#233;se, amelyet a [term&#233;kv&#237;zi&#243;](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi) &#233;s a [Lauder visszajelz&#233;s](https://gdemikk.atlassian.net/wiki/spaces/DPA/pages/709296137/2026-05-20+Lauder+-+Lecke+bemutat+sa) is hangs&#250;lyoz.
+
+```mermaid
+flowchart LR
+    S[&quot;Fut&#243; matrica&quot;] --&gt; SUP[&quot;T&#225;mogatott &#250;t&quot;]
+    S --&gt; BASE[&quot;Alap &#250;t&quot;]
+    S --&gt; CHAL[&quot;Kih&#237;v&#225;s &#250;t&quot;]
+```
+
+| &#218;t | Kinek j&#243;? | Mit ad? |
+|---|---|---|
+| T&#225;mogatott &#250;t | Bizonytalanabb vagy t&#246;bb t&#225;maszt ig&#233;nylő csapat | Sablon, ellenőrzőlista, kijel&#246;lt r&#233;szfeladat |
+| Alap &#250;t | A csapatok t&#246;bbs&#233;ge | &#214;n&#225;ll&#243; v&#225;laszt&#225;s, norm&#225;l munkamenet |
+| Kih&#237;v&#225;s &#250;t | Gyorsabban halad&#243;, erősebb csapat | M&#233;lyebb &#246;sszehasonl&#237;t&#225;s, saj&#225;t protokoll, komplexebb produktum |
+
+**Jelenlegi műk&#246;d&#233;s:** a differenci&#225;l&#225;si utak f&#225;zis szerint szerkeszthetők, &#233;s a tan&#225;r fut&#243; matric&#225;nk&#233;nt, csapatonk&#233;nt v&#225;laszthat t&#225;mogatott, alap vagy kih&#237;v&#225;s &#250;tvonalat. Ez nem rangsor, hanem tan&#225;ri adapt&#225;ci&#243;s d&#246;nt&#233;s.
+
+---
+
+## 9. Projektz&#225;r&#225;s
+
+&gt; Koncepci&#243;kapcsolat: a Projektz&#225;r&#225;s a visszacsatol&#225;sb&#243;l tanul&#243; rendszer első konkr&#233;t fel&#252;lete, l&#225;sd a [Matric&#225;s Album term&#233;kv&#237;zi&#243; learning-loop r&#233;sz&#233;t](https://gdemikk.atlassian.net/wiki/spaces/AI/pages/722370562/Matric+s+Album+-+Term+kv+zi).
+
+```mermaid
+flowchart TD
+    Z[&quot;Projektz&#225;r&#225;s&quot;] --&gt; FP[&quot;V&#233;gső produktum&quot;]
+    Z --&gt; LOOP[&quot;Tanul&#225;si k&#246;rk&#233;p&quot;]
+    Z --&gt; OBS[&quot;Heti pilot-megfigyel&#233;sek beemel&#233;se&quot;]
+    Z --&gt; LOG[&quot;Tan&#225;ri hat&#225;snapl&#243;&quot;]
+    Z --&gt; MAP[&quot;Lez&#225;rt album-t&#233;rk&#233;p&quot;]
+    Z --&gt; PORT[&quot;Portf&#243;li&#243; bizony&#237;t&#233;kok&quot;]
+    Z --&gt; CHECK[&quot;Z&#225;r&#243; bemutat&#243; checklist&quot;]
+    Z --&gt; REF[&quot;Csapat-reflexi&#243;k&quot;]
+    Z --&gt; PRINT[&quot;Nyomtathat&#243; z&#225;r&#243;csomag&quot;]
+```
+
+### Tanul&#225;si k&#246;rk&#233;p
+
+Ez egy le&#237;r&#243; snapshot, nem pontsz&#225;m.
+
+| Mutat&#243; | Mit mond el? |
+|---|---|
+| Matric&#225;k &#225;llapota | H&#225;ny akt&#237;v / lez&#225;rt epiz&#243;d van |
+| Bizony&#237;t&#233;kok | Mennyi l&#225;that&#243; tanul&#225;si nyom gyűlt &#246;ssze |
+| Seg&#237;ts&#233;gk&#233;r&#233;sek | Hol kellett tan&#225;ri beavatkoz&#225;s |
+| Visszajelz&#233;s &#233;s rev&#237;zi&#243; | T&#246;rt&#233;nt-e tan&#225;ri visszacsatol&#225;s &#233;s jav&#237;t&#225;s |
+| Reflexi&#243;k | H&#225;ny csapat &#233;s matrica kapott reflexi&#243;t |
+| Z&#225;r&#243; checklist | Felk&#233;sz&#252;lts&#233;g a bemutat&#243;ra |
+| Tan&#225;ri hat&#225;snapl&#243; | Van-e r&#246;gz&#237;tett tan&#225;ri ut&#243;reflexi&#243; |
+
+### Heti pilot-megfigyel&#233;sek beemel&#233;se
+
+A fut&#243; album oldal&#225;n r&#246;gz&#237;tett heti pilot-megfigyel&#233;sek helyi jegyzetek. Projektz&#225;r&#225;skor a rendszer jelzi, ha vannak ilyen jegyzetek az akt&#237;v futtat&#225;shoz, &#233;s egy **Beemel&#233;s** gombbal &#225;tm&#225;solhat&#243;k a tan&#225;ri hat&#225;snapl&#243; mezőibe.
+
+Fontos: a beemel&#233;s m&#233;g nem ment&#233;s. A tan&#225;r &#225;tn&#233;zi, szerkeszti, majd a **Hat&#225;snapl&#243; ment&#233;se** gombbal teszi tart&#243;ss&#225;.
+
+### Tan&#225;ri hat&#225;snapl&#243;
+
+```mermaid
+flowchart LR
+    O[&quot;Heti megfigyel&#233;sek&lt;br/&gt;opcion&#225;lis beemel&#233;s&quot;] --&gt; A[&quot;Mi műk&#246;d&#246;tt j&#243;l?&quot;]
+    A --&gt; B[&quot;Hol l&#225;tszott bevon&#243;d&#225;s?&quot;]
+    B --&gt; C[&quot;Hol kellett adapt&#225;ci&#243;?&quot;]
+    C --&gt; D[&quot;Mit vinn&#233;k tov&#225;bb?&quot;]
+```
+
+**Mi&#233;rt fontos?** Ez lesz a pilot tan&#225;ri tanul&#225;si adata. Nem a di&#225;kokat rangsorolja, hanem azt r&#246;gz&#237;ti, mit &#233;rdemes megtartani vagy m&#243;dos&#237;tani a k&#246;vetkező futtat&#225;sban.
+
+---
+
+## 10. Gyors feladat&#250;tvonalak
+
+### &#218;j album ind&#237;t&#225;sa oszt&#225;llyal
+
+```mermaid
+flowchart LR
+    A[&quot;Albumtervek&quot;] --&gt; B[&quot;Albumterv kiv&#225;laszt&#225;sa&quot;]
+    B --&gt; C[&quot;Ind&#237;t&#225;s oszt&#225;llyal&quot;]
+    C --&gt; D[&quot;Csapatok megad&#225;sa&quot;]
+    D --&gt; E[&quot;Fut&#243; album megnyit&#225;sa&quot;]
+    E --&gt; F[&quot;Aktu&#225;lis egys&#233;g be&#225;ll&#237;t&#225;sa&quot;]
+```
+
+### Csapat bizony&#237;t&#233;k&#225;nak kezel&#233;se
+
+```mermaid
+flowchart LR
+    A[&quot;Visszajelz&#233;si sor&quot;] --&gt; B[&quot;Bizony&#237;t&#233;k megnyit&#225;sa&quot;]
+    B --&gt; C[&quot;Le&#237;r&#225;s + d&#246;nt&#233;si pont &#225;ttekint&#233;se&quot;]
+    C --&gt; D[&quot;AI draft friss&#237;t&#233;se, ha kell&quot;]
+    D --&gt; E[&quot;Tan&#225;ri sz&#246;veg szerkeszt&#233;se&quot;]
+    E --&gt; F{&quot;D&#246;nt&#233;s&quot;}
+    F --&gt; G[&quot;Jav&#237;t&#225;sra visszak&#252;ld&quot;]
+    F --&gt; H[&quot;Lez&#225;r&quot;]
+```
+
+### Projektz&#225;r&#243; anyag k&#233;sz&#237;t&#233;se
+
+```mermaid
+flowchart LR
+    A[&quot;Projektz&#225;r&#225;s&quot;] --&gt; B[&quot;Tanul&#225;si k&#246;rk&#233;p ellenőrz&#233;se&quot;]
+    B --&gt; C[&quot;Tan&#225;ri hat&#225;snapl&#243; kit&#246;lt&#233;se&quot;]
+    C --&gt; D[&quot;Checklist v&#233;gigkattint&#225;sa&quot;]
+    D --&gt; E[&quot;Csapat-reflexi&#243;k ellenőrz&#233;se&quot;]
+    E --&gt; F[&quot;Nyomtathat&#243; z&#225;r&#243;csomag&quot;]
+```
+
+---
+
+## 11. D&#246;nt&#233;si fa: hova kattintsak?
+
+```mermaid
+flowchart TD
+    START[&quot;Mit szeretn&#233;l csin&#225;lni?&quot;] --&gt; A{&quot;Tervez&#233;s vagy futtat&#225;s?&quot;}
+    A --&gt;|Tervez&#233;s| B{&quot;Mekkora a k&#246;vetkező l&#233;p&#233;s?&quot;}
+    B --&gt;|&#214;tlet| C[&quot;Kezdj egy &#246;tlettel&quot;]
+    B --&gt;|&#211;ra / blokk| D[&quot;Kezdj egy &#243;r&#225;val&quot;]
+    B --&gt;|Tantervi v&#225;z| K[&quot;Kezdj egy tantervvel&quot;]
+    B --&gt;|Megl&#233;vő anyag| L[&quot;Kezel&#233;s &#233;s visszakeres&#233;s&quot;]
+    A --&gt;|Futtat&#225;s| E{&quot;Mi s&#252;rgős?&quot;}
+    E --&gt;|Bead&#225;s v&#225;r| F[&quot;Visszajelz&#233;si sor&quot;]
+    E --&gt;|Csapatok| G[&quot;Csapatok&quot;]
+    E --&gt;|Matrica &#225;llapot| H[&quot;Fut&#243; matric&#225;k&quot;]
+    E --&gt;|Z&#225;r&#225;s| I[&quot;Projektz&#225;r&#225;s&quot;]
+    E --&gt;|Nem tudom| J[&quot;Műhely priorit&#225;si s&#225;v&quot;]
+```
+
+---
+
+## 12. Demo m&#243;d
+
+```mermaid
+flowchart LR
+    A[&quot;Bemutat&#243; ind&#237;t&#225;sa&quot;] --&gt; B[&quot;Mikrokl&#237;ma demo &#250;t&quot;]
+    B --&gt; C[&quot;Matric&#225;k + albumterv&quot;]
+    C --&gt; D[&quot;Fut&#243; album + csapatok&quot;]
+    D --&gt; E[&quot;Di&#225;k bizony&#237;t&#233;k + seg&#237;ts&#233;g&quot;]
+    E --&gt; F[&quot;AI draft + tan&#225;ri feedback&quot;]
+    F --&gt; G[&quot;Reflexi&#243; + projektz&#225;r&#225;s&quot;]
+```
+
+**Mikor haszn&#225;ld?**
+
+| Helyzet | Aj&#225;nl&#225;s |
+|---|---|
+| Belső demo | Haszn&#225;ld a vezetett bemutat&#243;t |
+| Tan&#225;ri betan&#237;t&#225;s | L&#233;p&#233;senk&#233;nt mutasd: tan&#225;ri oldal, di&#225;k oldal, visszajelz&#233;s, z&#225;r&#225;s |
+| Val&#243;s pilot | Ne demo m&#243;db&#243;l indulj, hanem saj&#225;t albumtervből vagy megl&#233;vő mint&#225;b&#243;l |
+
+---
+
+## 13. Gyakori f&#233;lre&#233;rt&#233;sek
+
+| F&#233;lre&#233;rt&#233;s | Pontos&#237;t&#225;s |
+|---|---|
+| A matrica pont vagy badge | Nem. A matrica tanul&#225;si epiz&#243;d, amely bizony&#237;t&#233;kot termel |
+| A tan&#225;rnak teljes tantervet kell &#233;p&#237;tenie kezd&#233;skor | Nem. Kezdhet egy &#246;tlettel vagy egyetlen &#243;rai blokkal is |
+| A tanul&#225;si egys&#233;g m&#225;r k&#252;l&#246;n adminisztr&#225;land&#243; objektum | Nem. Most elhelyez&#233;si &#233;s gondolkod&#225;si keret, a k&#233;sőbbi hierarchia elők&#233;pe |
+| Az AI meg&#237;rja a pedag&#243;gi&#225;t | Nem. Az AI seg&#237;t, a tan&#225;r d&#246;nt |
+| A differenci&#225;l&#225;s k&#252;l&#246;n projektet jelent | Nem. K&#246;z&#246;s albumon bel&#252;li elt&#233;rő t&#225;masz vagy kih&#237;v&#225;s |
+| A projektz&#225;r&#225;s csak export | Nem. A z&#225;r&#225;s tanul&#225;si k&#246;rk&#233;p, heti megfigyel&#233;sek beemel&#233;se &#233;s tan&#225;ri hat&#225;snapl&#243; is |
+| A di&#225;k csak bead | Nem. V&#225;laszt, cselekszik, seg&#237;ts&#233;get k&#233;rhet, reflekt&#225;l |
+
+---
+
+## 14. Egyoldalas haszn&#225;lati pusk&#225;z&#243;
+
+```text
+1. Műhely
+   N&#233;zd meg, mit javasol a priorit&#225;si s&#225;v, majd v&#225;lassz bel&#233;p&#233;si utat.
+
+2. Bel&#233;p&#233;si &#250;t
+   &#214;tletből tev&#233;kenys&#233;g (matrica), &#243;r&#225;b&#243;l blokk-v&#225;zlat, tantervből tantervi v&#225;zlat.
+
+3. Albumterv
+   Tervezd meg a tanul&#225;si utat: vez&#233;rk&#233;rd&#233;s, egys&#233;gek, tev&#233;kenys&#233;gek, reflexi&#243;.
+
+4. Fut&#243; album
+   Ind&#237;tsd el oszt&#225;llyal, &#225;ll&#237;tsd be a csapatokat &#233;s az aktu&#225;lis egys&#233;get.
+
+5. Akt&#237;v matrica
+   A di&#225;kok v&#225;lasztanak, dolgoznak, bizony&#237;t&#233;kot k&#252;ldenek be.
+
+6. Visszajelz&#233;si sor
+   N&#233;zd &#225;t a bizony&#237;t&#233;kokat. AI draft seg&#237;thet, de Te d&#246;ntesz.
+
+7. Reflexi&#243;
+   A csapatok r&#246;gz&#237;tik, hogyan v&#225;ltozott a gondolkod&#225;suk.
+
+8. Projektz&#225;r&#225;s
+   Emeld be a heti megfigyel&#233;seket, n&#233;zd meg a tanul&#225;si k&#246;rk&#233;pet, t&#246;ltsd ki a hat&#225;snapl&#243;t, export&#225;lj.
+```
+
+### A legfontosabb mondat tan&#225;roknak
+
+&gt; Nem azt m&#233;rj&#252;k, hogy ki gyűjt&#246;tt t&#246;bb matric&#225;t, hanem azt tessz&#252;k l&#225;that&#243;v&#225;, hogyan halad egy csapat a k&#233;rd&#233;stől a bizony&#237;t&#233;kon &#233;s visszajelz&#233;sen &#225;t a reflexi&#243;ig.
+</pre>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.3/dist/mermaid.min.js"></script>
+  <script>
+    const content = document.getElementById("content");
+    const source = document.getElementById("markdown-source")?.textContent ?? "";
+    const toc = document.getElementById("toc");
+
+    function renderFallback() {
+      if (!content.querySelector("#markdown-source")) {
+        const pre = document.createElement("pre");
+        pre.id = "markdown-source";
+        pre.className = "markdown-fallback";
+        pre.textContent = source;
+        content.replaceChildren(pre);
+      }
+    }
+
+    function slugify(text) {
+      return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "section";
+    }
+
+    function decorateRenderedContent() {
+      content.querySelectorAll("pre code.language-mermaid").forEach((code) => {
+        const pre = code.parentElement;
+        pre.className = "mermaid";
+        pre.textContent = code.textContent;
+      });
+
+      content.querySelectorAll("a[href^='http']").forEach((link) => {
+        link.target = "_blank";
+        link.rel = "noreferrer";
+      });
+
+      content.querySelectorAll("blockquote").forEach((quote) => {
+        if (quote.textContent.includes("KoncepciĂłkapcsolat")) {
+          quote.classList.add("concept-callout");
+        }
+      });
+
+      const headings = [...content.querySelectorAll("h2, h3")];
+      const used = new Map();
+      toc.replaceChildren();
+
+      headings.forEach((heading) => {
+        const base = slugify(heading.textContent);
+        const count = used.get(base) ?? 0;
+        used.set(base, count + 1);
+        heading.id = count ? `${base}-${count + 1}` : base;
+
+        const item = document.createElement("li");
+        item.className = heading.tagName === "H3" ? "level-3" : "level-2";
+        const link = document.createElement("a");
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent;
+        item.appendChild(link);
+        toc.appendChild(item);
+      });
+    }
+
+    try {
+      if (!window.marked || !window.mermaid) {
+        renderFallback();
+      } else {
+        content.innerHTML = marked.parse(source, { gfm: true });
+        decorateRenderedContent();
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: "base",
+          themeVariables: {
+            primaryColor: "#e7f4f1",
+            primaryTextColor: "#202124",
+            primaryBorderColor: "#176b62",
+            lineColor: "#44736c",
+            secondaryColor: "#fff3df",
+            tertiaryColor: "#eef2f8",
+            noteBkgColor: "#fff8e8",
+            noteTextColor: "#202124"
+          }
+        });
+        mermaid.run({ querySelector: ".mermaid" });
+      }
+    } catch (error) {
+      console.error(error);
+      renderFallback();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { IconComponent } from '../shared/ui/icon/icon.component';
+import { RoleSwitcherComponent } from '../shared/ui/role-switcher/role-switcher.component';
+
+export interface Crumb {
+  readonly label: string;
+  readonly strong?: boolean;
+}
+
+@Component({
+  selector: 'ma-topbar',
+  standalone: true,
+  imports: [IconComponent, RoleSwitcherComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <header class="topbar">
+      <div class="crumbs">
+        @for (c of crumbs(); track $index; let i = $index) {
+          @if (i > 0) { <ma-icon name="chevron_right" size="sm" /> }
+          @if (c.strong) { <strong>{{ c.label }}</strong> }
+          @else { <span>{{ c.label }}</span> }
+        }
+      </div>
+      <div class="spacer"></div>
+      <ma-role-switcher />
+      <button type="button" class="icon-btn" aria-label="Súgó"><ma-icon name="help" /></button>
+      <button type="button" class="icon-btn" aria-label="Értesítések"><ma-icon name="notifications" /></button>
+      <div class="avatar">NA</div>
+    </header>
+  `,
+  styleUrl: './topbar.component.scss',
+})
+export class TopbarComponent {
+  readonly crumbs = input<Crumb[]>([]);
+}

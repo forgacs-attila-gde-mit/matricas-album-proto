@@ -1,0 +1,41 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.tmp
+*.temp
+*.swp
+~$*
+
+# Environment and secrets — keep only the example
+.env
+**/.env
+.env.*
+**/.env.*
+!.env.example
+!**/.env.example
+
+# .NET build output
+bin/
+obj/
+**/bin/
+**/obj/
+*.user
+
+# Angular / Node
+**/node_modules/
+**/dist/
+**/.angular/
+
+# Python
+__pycache__/
+**/__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.vs/
+.idea/
+.vscode/*
+!.vscode/extensions.json

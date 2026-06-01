@@ -1,0 +1,15 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.chip-phase-kerdezes  { background: var(--phase-kerdezes-bg);  color: var(--phase-kerdezes-fg);  border-color: var(--phase-kerdezes-line);  }
+.chip-phase-kepzelet  { background: var(--phase-kepzelet-bg);  color: var(--phase-kepzelet-fg);  border-color: var(--phase-kepzelet-line);  }
+.chip-phase-cselekves { background: var(--phase-cselekves-bg); color: var(--phase-cselekves-fg); border-color: var(--phase-cselekves-line); }
+.chip-phase-reflexio  { background: var(--phase-reflexio-bg);  color: var(--phase-reflexio-fg);  border-color: var(--phase-reflexio-line);  }

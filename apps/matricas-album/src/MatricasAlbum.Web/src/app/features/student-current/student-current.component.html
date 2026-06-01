@@ -1,0 +1,184 @@
+<div class="stack" style="margin-top: 24px;">
+  @if (active(); as a) {
+    <div class="card active-card">
+      <div class="row-between" style="margin-bottom: 14px;">
+        <div class="row">
+          <ma-phase-chip [phase]="a.phase" />
+          <ma-state-pill [state]="a.state" />
+          <ma-chip icon="calendar_month">{{ a.week }}. {{ store.albumUnitLabel }}</ma-chip>
+        </div>
+        <ma-chip [tone]="$any(banner().tone)" [icon]="banner().icon">
+          {{ banner().msg }}
+        </ma-chip>
+      </div>
+
+      <div class="row" style="gap: 18px; align-items: flex-start;">
+        <ma-sticker-stamp [phase]="a.phase" [size]="108" />
+        <div style="flex: 1; min-width: 0;">
+          <div class="t-headline" style="font-size: 24px;">{{ a.title }}</div>
+          <div class="t-body" style="margin-top: 10px;">{{ a.studentInstruction }}</div>
+
+          <div class="card choice-callout">
+            <div class="card-section-title primary-label">Tanulói döntési pont</div>
+            <div class="t-body">{{ a.studentChoice }}</div>
+          </div>
+
+          <div class="grid-2" style="margin-top: 14px;">
+            <div class="info-card">
+              <div class="card-section-title">Mit fogtok beküldeni?</div>
+              <div class="t-body">{{ a.expectedProduct }}</div>
+            </div>
+            <div class="info-card">
+              <div class="card-section-title">Reflektív kérdés</div>
+              <div class="t-body reflection">"{{ a.reflection }}"</div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 18px;">
+            @if (team()) {
+              @let progressState = activeProgress()?.state ?? null;
+              @if (a.state === 'aktiv' && (progressState === null || progressState === 'javitas')) {
+                <ma-btn variant="primary" icon="upload" (clicked)="store.setEvidenceFlowOpen(true)">
+                  Bizonyíték beküldése
+                </ma-btn>
+              }
+              @if (progressState === 'varakozik') {
+                <ma-btn variant="secondary" icon="edit" (clicked)="store.setEvidenceFlowOpen(true)">
+                  Beküldés módosítása
+                </ma-btn>
+              }
+            } @else {
+              <ma-chip tone="warning" icon="groups">Nincs csapat, a beküldés nem aktív</ma-chip>
+            }
+            <ma-btn variant="ghost" icon="open_in_new" (clicked)="store.openSticker(a.id)">
+              Matrica részletek
+            </ma-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if (store.evidenceFlowOpen()) {
+      @if (team()) {
+        <form class="card evidence-form" [formGroup]="evidenceForm" (ngSubmit)="submitEvidence()">
+          <div class="row-between">
+            <div>
+              <div class="card-section-title">Bizonyíték beküldése</div>
+              <div class="t-title-lg">{{ a.title }}</div>
+            </div>
+            <ma-btn variant="ghost" icon="close" (clicked)="store.setEvidenceFlowOpen(false)">Bezárás</ma-btn>
+          </div>
+
+          <div class="evidence-decision-note">
+            <ma-icon name="alt_route" />
+            <div>
+              <div class="card-section-title">Tanulói döntési pont ehhez a bizonyítékhoz</div>
+              <div class="t-body">{{ a.studentChoice }}</div>
+            </div>
+          </div>
+
+          <label>
+            <span>Cím</span>
+            <input formControlName="title" [placeholder]="placeholders().title" />
+            @if (isEvidenceFieldInvalid('title')) {
+              <div class="field-error">A cím kötelező.</div>
+            }
+          </label>
+          <label>
+            <span>Leírás</span>
+            <textarea rows="4" formControlName="description" [placeholder]="placeholders().description"></textarea>
+            @if (isEvidenceFieldInvalid('description')) {
+              <div class="field-error">Írjatok le legalább egy megfigyelést.</div>
+            }
+          </label>
+          <label class="help-checkbox">
+            <input type="checkbox" formControlName="helpRequested" />
+            <span>Segítséget kérek a tanártól ehhez a beküldéshez</span>
+          </label>
+          <div class="grid-2">
+            <label>
+              <span>Miben kértek segítséget? <span class="muted">(opcionális)</span></span>
+              <textarea rows="3" formControlName="helpRequest" [placeholder]="placeholders().helpRequest"></textarea>
+            </label>
+            <label>
+              <span>Reflexió <span class="muted">(opcionális)</span></span>
+              <textarea rows="3" formControlName="reflection" [placeholder]="placeholders().reflection"></textarea>
+            </label>
+          </div>
+
+          <div class="row-between">
+            <div class="muted t-body-sm">A beküldés bekerül a tanári visszajelzési sorba és a bizonyíték-portfólióba.</div>
+            <ma-btn variant="primary" icon="send" [disabled]="evidenceForm.invalid" (clicked)="submitEvidence()">Beküldés</ma-btn>
+          </div>
+        </form>
+      } @else {
+        <div class="card evidence-form">
+          <div class="row-between">
+            <div>
+              <div class="card-section-title">Bizonyíték beküldése</div>
+              <div class="t-title-lg">Nincs csapat kontextus</div>
+            </div>
+            <ma-btn variant="ghost" icon="close" (clicked)="store.setEvidenceFlowOpen(false)">Bezárás</ma-btn>
+          </div>
+          <div class="muted t-body">
+            Ehhez az albumhoz még nincs csapat rendelve, ezért bizonyíték nem küldhető be.
+          </div>
+        </div>
+      }
+    }
+  }
+
+  <div class="student-questions-panel">
+    <div class="row-between" style="gap: 12px; margin-bottom: 10px; flex-wrap: wrap;">
+      <div class="student-ai-note">
+        <ma-icon name="forum" />
+        <span>Az AI nem ad megoldást, csak kérdez. Ha elakadtok, kérjetek tanári segítséget.</span>
+      </div>
+      <div class="row" style="gap: 8px; flex-wrap: wrap;">
+        @if (dismissedVisibleCount() > 0) {
+          <ma-btn variant="ghost" icon="undo" (clicked)="restoreAllQuestions()">
+            Elrejtett kérdések ({{ dismissedVisibleCount() }})
+          </ma-btn>
+        }
+        <ma-btn variant="secondary" icon="auto_awesome" [disabled]="!team() || !active()" (clicked)="store.refreshStudentAdvice()">
+          Kérdések frissítése
+        </ma-btn>
+      </div>
+    </div>
+
+    <div class="question-card-grid">
+      @for (card of visibleQuestionCards(); track card.key) {
+        <div class="question-card">
+          <ma-icon name="psychology" />
+          <div class="question-text">{{ card.text }}</div>
+          <button
+            type="button"
+            class="question-dismiss"
+            (click)="dismissQuestion(card.key)"
+            [attr.aria-label]="'Kérdés elrejtése: ' + card.text"
+          >
+            <ma-icon name="check" />
+            <span>Megértettem</span>
+          </button>
+        </div>
+      } @empty {
+        @if (store.studentAdvices().length === 0) {
+          <div class="question-card placeholder">
+            <ma-icon name="psychology" />
+            <div class="question-text">Melyik megfigyelésetek támasztja alá legjobban az állításotokat?</div>
+          </div>
+          <div class="question-card placeholder">
+            <ma-icon name="psychology" />
+            <div class="question-text">Hol maradt bizonytalanság a bizonyítékotokban?</div>
+          </div>
+        } @else {
+          <div class="muted t-body-sm">Minden kérdést átnéztetek. Frissítsetek újat, vagy kérdezzétek a tanárt.</div>
+        }
+      }
+    </div>
+
+    <div class="student-ai-actions">
+      <ma-btn variant="ghost" icon="support_agent" (clicked)="askTeacher()">Nem értem, tanárt kérdezek</ma-btn>
+    </div>
+  </div>
+</div>

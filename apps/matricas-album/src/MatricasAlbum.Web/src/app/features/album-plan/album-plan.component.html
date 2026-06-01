@@ -1,0 +1,300 @@
+<div class="content-narrow">
+  <div class="page-head">
+    <div>
+      <ma-chip tone="primary" icon="auto_awesome">Aktív futó album</ma-chip>
+      <h1 style="margin-top: 14px;">{{ store.album.title }}</h1>
+      <div class="sub">
+        {{ store.album.subject }} • {{ store.album.grade }} • {{ store.album.duration }}
+      </div>
+      @if (store.album.archivedAt) {
+        <ma-chip tone="neutral" icon="archive" style="margin-top: 10px;">
+          Archivált — visszaállíthatod a "Visszaállítás" gombbal.
+        </ma-chip>
+      }
+      @if (store.album.templateArchivedAt) {
+        <ma-chip tone="warning" icon="archive" style="margin-top: 10px;">
+          A sablonterv archivált — az album fut, de új példány nem indítható belőle.
+        </ma-chip>
+      }
+      @if (upgradeAvailable() && upgradePlan(); as plan) {
+        <ma-chip tone="primary" icon="upgrade" style="margin-top: 10px;">
+          Új sablonverzió érhető el: v{{ plan.targetVersionNumber }}
+        </ma-chip>
+      }
+    </div>
+    <div class="row instance-actions">
+      <div class="unit-stepper">
+        <button
+          type="button"
+          class="unit-stepper-btn"
+          [disabled]="store.album.currentWeek <= 1"
+          (click)="stepCurrentUnit(-1)"
+          [attr.aria-label]="'Egy ' + store.albumUnitLabel + 'gel vissza'"
+        >
+          <ma-icon name="chevron_left" size="sm" />
+        </button>
+        <span class="unit-stepper-label">
+          {{ store.album.currentWeek }}. {{ store.albumUnitLabel }}
+        </span>
+        <button
+          type="button"
+          class="unit-stepper-btn"
+          [disabled]="store.album.currentWeek >= store.album.weekTitles.length"
+          (click)="stepCurrentUnit(1)"
+          [attr.aria-label]="'Egy ' + store.albumUnitLabel + 'gel előre'"
+        >
+          <ma-icon name="chevron_right" size="sm" />
+        </button>
+      </div>
+      @if (upgradeAvailable()) {
+        <ma-btn variant="primary" icon="upgrade" (clicked)="openUpgradeModal()">
+          Sablonverzió átvétele
+        </ma-btn>
+      }
+      <ma-btn variant="ghost" icon="edit" (clicked)="openEditDrawer()">
+        Beállítások
+      </ma-btn>
+      <ma-btn variant="primary" icon="add_circle" (clicked)="store.openInstanceStickerWizard()">
+        Új matrica
+      </ma-btn>
+      <ma-btn
+        variant="ghost"
+        [icon]="store.album.archivedAt ? 'unarchive' : 'archive'"
+        (clicked)="store.toggleInstanceArchive()"
+      >
+        @if (store.album.archivedAt) { Visszaállítás } @else { Archiválás }
+      </ma-btn>
+      <ma-btn variant="secondary" icon="print" (clicked)="store.setPrintOpen('weekly')">
+        Heti összefoglaló
+      </ma-btn>
+    </div>
+  </div>
+
+  <!-- Driving question banner -->
+  <div class="card driving-q-card">
+    <div class="row" style="gap: 20px; align-items: flex-start;">
+      <div class="dq-icon"><ma-icon name="question_mark" size="xl" /></div>
+      <div style="flex: 1;">
+        <div class="card-section-title" style="color: var(--primary-700); margin-bottom: 6px;">Vezérkérdés</div>
+        <div class="dq-text">„{{ store.album.drivingQ }}"</div>
+        <div class="muted t-body-sm" style="margin-top: 12px;">
+          {{ store.album.grade }} • {{ store.album.subject }} • Közönség: {{ store.album.audience }}
+        </div>
+      </div>
+      <div class="pill-row" style="max-width: 240px; justify-content: flex-end;">
+        @for (d of store.album.dispositions; track d) {
+          <ma-chip tone="primary">{{ d }}</ma-chip>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="card pilot-observation-card">
+    <div class="row-between observation-head">
+      <div>
+        <div class="card-section-title">Heti pilot-megfigyelés</div>
+        <div class="observation-title">
+          {{ store.album.currentWeek }}. {{ store.albumUnitLabel }} tanári jegyzetei
+        </div>
+      </div>
+      <div class="row observation-meta">
+        <ma-chip icon="visibility">Pontszám nélkül</ma-chip>
+        @if (pilotObservationUpdatedLabel(); as updated) {
+          <ma-chip tone="primary" icon="check">Mentve: {{ updated }}</ma-chip>
+        }
+      </div>
+    </div>
+
+    <div class="observation-grid">
+      <label class="field">
+        <span>Bevonódás jelei</span>
+        <textarea
+          class="textarea"
+          name="pilotObservationEngagement"
+          rows="3"
+          [ngModel]="observationEngagement()"
+          (ngModelChange)="observationEngagement.set($event)"
+        ></textarea>
+      </label>
+      <label class="field">
+        <span>Adaptáció</span>
+        <textarea
+          class="textarea"
+          name="pilotObservationAdaptation"
+          rows="3"
+          [ngModel]="observationAdaptation()"
+          (ngModelChange)="observationAdaptation.set($event)"
+        ></textarea>
+      </label>
+      <label class="field">
+        <span>Következő próba</span>
+        <textarea
+          class="textarea"
+          name="pilotObservationNextStep"
+          rows="3"
+          [ngModel]="observationNextStep()"
+          (ngModelChange)="observationNextStep.set($event)"
+        ></textarea>
+      </label>
+    </div>
+
+    <div class="row observation-actions">
+      <ma-btn variant="primary" icon="save" (clicked)="savePilotObservation()">Megfigyelés mentése</ma-btn>
+    </div>
+  </div>
+
+  <div class="ai-card advice-panel">
+    <div class="ai-icon"><ma-icon name="auto_awesome" /></div>
+    <div style="flex: 1; min-width: 0;">
+      <div class="row-between" style="gap: 16px; align-items: flex-start;">
+        <div>
+          <div class="ai-label">AI tanácsadó · aktív futó album</div>
+          <div class="t-title" style="margin-top: 2px;">Módszertani tanári javaslatok</div>
+          <div class="t-body-sm muted" style="margin-top: 6px;">
+            A tanácsok az aktuális albumfuttatás állapotából, bizonyítékaiból és visszajelzési helyzeteiből indulnak ki.
+          </div>
+        </div>
+        <ma-btn variant="primary" icon="auto_awesome" (clicked)="store.refreshTeacherAdvice()">
+          @if (store.adviceLoading()) { Frissítés... } @else { AI tanács kérése }
+        </ma-btn>
+      </div>
+
+      @if (store.teacherAdvices().length > 0) {
+        <div class="advice-list">
+          @for (advice of store.teacherAdvices().slice(0, 3); track advice.id) {
+            <button type="button" class="advice-row" (click)="store.openAdvice(advice.id)">
+              <div>
+                <div class="t-title">{{ advice.action?.label || 'Tanári tanács' }}</div>
+                <div class="t-body-sm muted">{{ advice.message }}</div>
+              </div>
+              <ma-chip icon="rule">{{ advice.status }}</ma-chip>
+            </button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Adaptive micro-sticker proposal -->
+  @if (microStillProposed()) {
+    <div class="ai-card micro-proposal">
+      <div class="ai-icon"><ma-icon name="auto_awesome" /></div>
+      <div style="flex: 1;">
+        <div class="ai-label">
+          AI javaslat • adaptív mikromatrica • tanári jóváhagyás szükséges
+        </div>
+        <div class="t-title" style="margin-top: 2px;">
+          „Mérési gyorstalpaló" — 15 perc, beillesztés a 2. hét végére
+        </div>
+        <div class="t-body" style="margin-top: 6px;">
+          Több csapat bizonytalan a mérés pontosságában. Javasolt egy 15 perces mérési
+          gyorstalpaló a 3. hét előtt: hőmérő használat, ismétlés, jegyzetelés.
+        </div>
+        <div class="row" style="margin-top: 12px; flex-wrap: wrap;">
+          <ma-btn variant="primary" icon="add" (clicked)="store.acceptMicroSticker()">
+            Beillesztem a 2. hét végére
+          </ma-btn>
+          <ma-btn variant="secondary" icon="bookmark">Csak tanári jegyzetként mentem</ma-btn>
+          <ma-btn variant="ghost" icon="close" (clicked)="store.rejectMicroSticker()">
+            Elutasítom
+          </ma-btn>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Inline edit form for title / className / unit-title overrides -->
+  @if (editing()) {
+    <div class="card edit-card" role="dialog" aria-label="Futó album beállítások">
+      <div class="card-section-title">Album beállítások</div>
+      <div class="edit-grid">
+        <label class="field">
+          <span>Album címe</span>
+          <input class="input" name="instanceTitle" [(ngModel)]="editTitle" />
+        </label>
+        <label class="field">
+          <span>Osztály / csoport</span>
+          <input class="input" name="instanceClassName" [(ngModel)]="editClassName" />
+        </label>
+      </div>
+
+      <div class="card-section-title" style="margin-top: 16px;">{{ store.albumUnitLabel }}-címek (felülírás)</div>
+      <div class="muted t-body-sm" style="margin-bottom: 8px;">
+        Üres mező → visszaáll a sablonterv eredeti címére.
+      </div>
+      <div class="unit-edit-list">
+        @for (title of editUnitTitles; track $index; let i = $index) {
+          <div class="unit-edit-row">
+            <span class="unit-num">{{ i + 1 }}. {{ store.albumUnitLabel }}</span>
+            <input
+              class="input"
+              [name]="'unitTitle-' + i"
+              [(ngModel)]="editUnitTitles[i]"
+              placeholder="Sablon szerinti cím"
+            />
+          </div>
+        }
+      </div>
+
+      <div class="row" style="gap: 8px; justify-content: flex-end; margin-top: 12px;">
+        <ma-btn variant="ghost" (clicked)="cancelEdit()">Mégse</ma-btn>
+        <ma-btn variant="primary" icon="check" (clicked)="saveEdit()">Kész</ma-btn>
+      </div>
+    </div>
+  }
+
+  <!-- Timeline -->
+  <div class="timeline-grid" [class.with-micro]="store.microStickerAccepted()">
+    @for (w of weeks(); track w) {
+      <div class="week-col">
+        <div class="week-head" [class.current]="w === store.album.currentWeek">
+          <div class="row-between">
+            <div>
+              <div class="week-num">{{ w }}. {{ store.albumUnitLabel }}{{ w === store.album.currentWeek ? ' • most' : '' }}</div>
+              <div class="week-title">{{ store.album.weekTitles[w - 1] }}</div>
+            </div>
+            @if (w === store.album.currentWeek) {
+              <ma-chip tone="primary" icon="play_arrow">Aktív</ma-chip>
+            }
+          </div>
+        </div>
+        @for (s of stickersForWeek(w); track s.id) {
+          <ma-sticker-card [sticker]="s" [showProgressAggregate]="true" (cardClick)="store.openSticker(s.id)" />
+        }
+      </div>
+
+      @if (store.microStickerAccepted() && w === 2) {
+        <div class="micro-col">
+          <div class="week-head primary">
+            <div class="week-num primary">Adaptív • 2. hét vége</div>
+            <div class="week-title">Mérési gyorstalpaló</div>
+          </div>
+          <div class="sticker phase-cselekves" style="cursor: default;">
+            <div class="sticker-phase-bar"></div>
+            <div class="sticker-row">
+              <div class="sticker-icon"><ma-icon name="speed" /></div>
+              <div style="flex: 1;">
+                <div class="t-title">Mérési gyorstalpaló</div>
+                <div class="t-body-sm muted" style="margin-top: 4px;">
+                  15 perces gyors gyakorlat: hőmérő használat, ismétlés, jegyzetelés.
+                </div>
+              </div>
+            </div>
+            <ma-chip tone="primary" icon="auto_awesome">AI által javasolt mikromatrica</ma-chip>
+          </div>
+        </div>
+      }
+    }
+  </div>
+
+  <div style="margin-top: 24px;">
+    <ma-ai-card label="Pedagógiai elv" icon="info">
+      Az AI javasol, a tanár dönt. A következő lépés attól függ, milyen bizonyítékokat
+      hoztak a csapatok.
+    </ma-ai-card>
+  </div>
+</div>
+
+@if (upgradeModalOpen()) {
+  <ma-instance-upgrade-modal [plan]="upgradePlan()" (close)="onUpgradeModalClose()" />
+}

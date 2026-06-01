@@ -1,0 +1,19 @@
+# .NET build output
+**/bin/
+**/obj/
+
+# Angular / Node output
+**/.angular/
+**/dist/
+**/node_modules/
+
+# Local environment and tool state
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+**/.claude/
+__pycache__/
+**/__pycache__/
+*.pyc
