@@ -1019,6 +1019,34 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
       border-color: var(--primary-300);
       box-shadow: var(--shadow-md);
     }
+    .details-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--n-200);
+      border-radius: 12px;
+      background: var(--n-50);
+      color: var(--n-800);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 650;
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 120ms, background 120ms;
+    }
+    .details-toggle ma-icon { color: var(--primary-600); }
+    .details-toggle .t-body-sm {
+      margin-left: auto;
+      font-weight: 400;
+      color: var(--n-500);
+      text-align: right;
+    }
+    .details-toggle:hover {
+      border-color: var(--primary-300);
+      background: white;
+    }
     @media (max-width: 900px) {
       .picker-grid { grid-template-columns: 1fr; }
     }

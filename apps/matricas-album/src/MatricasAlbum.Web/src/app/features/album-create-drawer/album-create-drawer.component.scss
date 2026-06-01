@@ -710,6 +710,47 @@
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 }
 
+.disclosure-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 18px;
+  padding: 11px 14px;
+  border: 1px solid var(--n-200);
+  border-radius: 8px;
+  background: var(--n-50);
+  color: var(--n-800);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 120ms, background 120ms;
+
+  ma-icon {
+    color: var(--primary-600);
+  }
+
+  .t-body-sm {
+    margin-left: auto;
+    font-weight: 400;
+    color: var(--n-500);
+    text-align: right;
+  }
+
+  &:hover {
+    border-color: var(--primary-300);
+    background: white;
+  }
+}
+
+.preview-panel {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
 .icon-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
