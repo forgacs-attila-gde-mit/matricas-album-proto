@@ -1,0 +1,212 @@
+{
+  "main": {
+    "id": "dcb7e37869b4ebe7",
+    "type": "split",
+    "children": [
+      {
+        "id": "69741ae489cbfb51",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "17c837c91884d65c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "docs/llm-wiki/wiki/entities/Glossary.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Glossary"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "10688a37410e9134",
+    "type": "split",
+    "children": [
+      {
+        "id": "2195ea23343490c4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e9d2b1494289ce4c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "aa1e08bf543911f1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "jutalom",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "1248d870b77636c3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "9f21c8071e62a06e",
+    "type": "split",
+    "children": [
+      {
+        "id": "f30197368424174e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5990ff07d8f0b323",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "docs/llm-wiki/wiki/entities/Glossary.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Glossary"
+            }
+          },
+          {
+            "id": "17cc2d3e874120e4",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "docs/llm-wiki/wiki/entities/Glossary.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Glossary"
+            }
+          },
+          {
+            "id": "cdf053e23e24157b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "177ff394afab3c00",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "14d077c4255f0116",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "docs/llm-wiki/wiki/entities/Glossary.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Glossary"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "17c837c91884d65c",
+  "lastOpenFiles": [
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.73dfaf67d9c5",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.a13f7def3150",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.1f69b9dbebe6",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.c5b84ab4d77c",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.11b7446ef893",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.12d15b2f1c4d",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.f293e39a3807",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md.tmp.63824.fbdee025265b",
+    "docs/llm-wiki/log.md.tmp.63824.771c5d42d08b",
+    "docs/llm-wiki/index.md.tmp.63824.c8e9dd32f8f8",
+    "docs/llm-wiki/wiki/ADRs/ADR003-matrica-tanulasi-atom.md",
+    "docs/llm-wiki/wiki/ADRs/ADR003-matrica-tanulasi-atom.md.tmp.63824.97a544f580fb",
+    "docs/llm-wiki/wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md",
+    "apps/matricas-album/docs/felhasznaloi-kezikonyv.md",
+    "docs/llm-wiki/wiki/entities/Evidence.md",
+    "apps/matricas-album/agent-wiki/album-mint-tanulasi-ut.md",
+    "docs/llm-wiki/wiki/concepts/aktivitas-csaladok.md",
+    "docs/llm-wiki/wiki/summaries/2026-06-01-rendszerstruktura-gold-standard.md",
+    "docs/llm-wiki/wiki/summaries/4k-6k-activity-piackutatas.md",
+    "apps/matricas-album/agent-wiki/minosegi-ellenorzo.md",
+    "docs/llm-wiki/wiki/entities/Glossary.md",
+    "docs/llm-wiki/index.md"
+  ]
+}

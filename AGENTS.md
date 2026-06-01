@@ -21,7 +21,7 @@ This file is the operating manual. Read it before doing anything else.
         ├── index.md           # catalog of all wiki pages
         ├── log.md             # append-only operation log
         ├── raw/               # human-owned immutable sources
-        └── wiki/{entities,concepts,summaries,prompts,ADRs}/ + features.md
+        └── wiki/{entities,concepts,summaries,prompts,ADRs,plans}/ + features.md
 ```
 
 Two things named "wiki" live here and **must never be confused** (§6): `docs/llm-wiki/` is this maintained wiki; `apps/matricas-album/agent-wiki/` is a **runtime asset** the product's AI agent loads. They have no runtime coupling.
@@ -46,7 +46,7 @@ Documentation is **split by document role**, not duplicated and not translated. 
 
 **Domain proper-noun / enum invariant** — Hungarian stays Hungarian **everywhere, including English docs and code**:
 - Persisted enums/state strings (`tervezett|aktiv`, `het|ora|fazis`, `tamogatott|alap|kihivas`, `uj|elfogadott|elutasitott|alkalmazott|hibas`, `ok|warn|miss`, `altalanos|produktiv-hibazas|kutatas-bizonyitas`) are stored in Postgres and matched case-insensitively — **never translate or rename**; docs cite them verbatim.
-- Hierarchy levels (`Tanterv→Modul→Témakör→Tanulási egység→Blokk→Tevékenység`), domain object names (`Tevékenység (matrica)`, `Album`, `Albumterv`, `Futó album`, `Matricatár`, `Műhely`, `Reflexió`) and UI labels (`Publikálás`, `Elvetés`, `Projektzárás`, `Hatásnapló`) stay Hungarian in prose, headings, and UI.
+- Hierarchy levels (`Tanterv→Modul→Témakör→Blokk→Tevékenység` — `Tanulási egység` retired from the target chain by the 2026-06-01 decision, see [[ADR002-temakor-elso-osztalyu-szint]]), domain object names (`Tevékenység (matrica)`, `Album`, `Albumterv`, `Futó album`, `Matricatár`, `Műhely`, `Reflexió`) and UI labels (`Publikálás`, `Elvetés`, `Projektzárás`, `Hatásnapló`) stay Hungarian in prose, headings, and UI.
 - Code convention: C#/TS/Python identifiers, comments, routes = English; Hungarian only where it is a domain term or user-facing string.
 
 ---
@@ -58,7 +58,7 @@ Every `docs/llm-wiki/wiki/` page starts with frontmatter:
 ```yaml
 ---
 title: <human-readable title>
-type: entity | concept | summary | prompt | adr
+type: entity | concept | summary | prompt | adr | plan
 sources:                       # raw/ mirrors or apps/ files this page draws on
   - raw/confluence/<file>.md
 updated: 2026-06-01            # ISO date of last edit
@@ -76,12 +76,15 @@ lang: hu | en | mixed
 | Prompt | `kebab-case.md` | `wiki/prompts/` |
 | ADR | `ADR###-short-name.md` | `wiki/ADRs/` |
 | Feature | a **row** in `wiki/features.md` (not a page) | `wiki/features.md` |
+| Plan | `[ID]-kebab-name.md` (a multi-step implementation/dev plan; ID like `REFACTOR-001`, `FEAT-001`) | `wiki/plans/` |
 
 **Links** — Obsidian-style `[[Slug]]` by **filename** (PascalCase for entities, kebab for the rest). Alias with `[[Slug|display text]]`. Filenames stay **ASCII** (no diacritics) for tool safety; the display title in frontmatter `title` may carry Hungarian diacritics, as may headings and body. `[[wikilinks]]` are language-agnostic and cross hu↔en freely.
 
 **Cite every claim** that originates from a source; point `sources` at the backing `raw/` mirror (or `apps/` file for technical pages). **Don't invent** entities, dates, or quotes — if it isn't in a source, say so. **Extend/merge over proliferate**: a wiki of well-cross-linked pages beats many thin ones; split a section only when it grows past ~400 words and stands alone.
 
 There is no `szintezis`/`attekintes`/`ellentmondasok`/`kerdesek` here as in the origin. Contradictions and open questions live as **sections inside** the relevant concept/ADR/summary; personas/orgs are `entities/`; product features are rows in `features.md`.
+
+**Development/implementation plans live in the wiki, not in `apps/`.** A multi-step refactor/feature plan is a `plan` page under `wiki/plans/` (e.g. `REFACTOR-001-...md`), with normal wiki frontmatter (`type: plan`). The app-local `apps/matricas-album/roadmap.md` / `backlog.md` / `LOG.md` stay as the living high-level tracker / deferred-with-trigger list / shipped changelog respectively, and **point to** the detailed `wiki/plans/` pages rather than containing the plans.
 
 ---
 

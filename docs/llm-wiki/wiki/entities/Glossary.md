@@ -5,6 +5,7 @@ sources:
   - apps/matricas-album/docs/architecture.md
   - apps/matricas-album/src/MatricasAlbum.Api/Domain/DomainValues.cs
   - apps/matricas-album/src/MatricasAlbum.Api/Domain/Album.cs
+  - raw/confluence/rendszerstruktura-es-alapfogalmak/2026-06-01/61-tevekenysegtipusok--taxonomia--736624652.md
 updated: 2026-06-01
 lang: mixed
 ---
@@ -23,7 +24,7 @@ The canonical **hu ↔ en bridge** for this repo. It is the contract that lets a
 
 | hu (canonical) | en gloss | Definíció | Kód / megfelelő |
 |---|---|---|---|
-| Tanterv → Modul → Témakör → Tanulási egység → Blokk → Tevékenység | Curriculum → Module → Topic → Learning unit → Block → Activity | A Confluence-igazított termékhierarchia. A `Témakör` első osztályú szint ([[ADR002-temakor-elso-osztalyu-szint\|ADR002]]). Magyar marad docs+UI-ban; több szint még nem külön schema-entitás. | lásd [[AlbumDomain]] |
+| Tanterv → Modul → Témakör → Blokk → Tevékenység | Curriculum → Module → Topic → Block → Activity | A termékhierarchia. A `Témakör` első osztályú szint; a `Tanulási egység` szintet a 2026-06-01-i termékdöntés **kivette** ([[ADR002-temakor-elso-osztalyu-szint\|ADR002]]). Magyar marad docs+UI-ban; több szint még nem külön schema-entitás. | lásd [[AlbumDomain]] |
 | Tevékenység (matrica) | Activity (sticker) | A legkisebb tanulási tevékenység a hierarchia alján; egy kérdezés→képzelet→cselekvés→reflexió ívű, evidence-szel záruló tanulási epizód. | `StickerResource` / `StickerVersion` |
 | matrica | sticker (learning episode) | A `Tevékenység` termékesített, vizuális egysége. Nem jutalom/badge, hanem evidence-szel záruló epizód. Domain token — nem fordítandó. | `Sticker*` |
 | Album / Albumterv / Futó album | Album / Album template / Running album instance | Album = tanulási út/expedíció; Albumterv = verziózott sablon; Futó album = egy osztályra példányosított futás. | `AlbumTemplate(+Version)` / `AlbumInstance` |
@@ -45,6 +46,21 @@ The canonical **hu ↔ en bridge** for this repo. It is the contract that lets a
 | uj / elfogadott / elutasitott / alkalmazott / hibas | new / accepted / rejected / applied / failed | Az [[AiAdvice]] állapotai (a "pedagógia előbb, AI második" guardrail kimenete). | `AdviceStatuses` |
 | ok / warn / miss | ok / warn / miss | A [[kreativ-tanulas\|kreatív tanulási]] minőségdimenziók állapota. | `QualityStates` |
 | altalanos / produktiv-hibazas / kutatas-bizonyitas | general / productive-failure / inquiry-proof | Albumsablon pedagógiai minták (`Pedagógiai minta`): Általános / Produktív hibázás / Kutatás-bizonyítás. | `AlbumTemplatePatterns` |
+
+## Tevékenységtípus — zárt taxonómia (ActivityType)
+
+A `Tevékenységtípus` a [rendszerstruktúra gold-standard](../summaries/2026-06-01-rendszerstruktura-gold-standard.md) **zárt, rendszer által definiált** kategóriarétege: minden `Tevékenység` pontosan **egy** domináns típushoz tartozik; felhasználó/AI **nem hoz létre** újat (az AI csak besorol/javasol). Magyar marad UI-ban és prózában; a `key` nem lokalizált ASCII. Ugyanez a 6-os készlet él a jelenlegi app Matricatár-létrehozó felületén is (lásd [[matricas-album-projekt-allapot]]).
+
+| hu (canonical) | key | pedagogyModel (en) | Definíció |
+|---|---|---|---|
+| Felfedező | `felfedezo` | exploratory | Megfigyelés, önálló adatgyűjtés, mintázatfelismerés. |
+| Kísérletező | `kiserletezo` | experimental | Próbálkozás, manipuláció, hipotézistesztelés. |
+| Feldolgozó | `feldolgozo` | analytical | Információ értelmezése, rendszerezése, elemzése. |
+| Kommunikációs | `kommunikacios` * | communicative | Tudás megfogalmazása, bemutatása, megosztása, érvelés. |
+| Kollaboratív | `kollaborativ` * | collaborative | Közös munka, együttműködés, szerepalapú tanulás. |
+| Reflektív | `reflektiv` * | reflective | A tanulási folyamat tudatosítása, önértékelés. |
+
+\* A `felfedezo / kiserletezo / feldolgozo` kulcsok a forrásban explicitek; a `kommunikacios / kollaborativ / reflektiv` az ASCII-kulcs mintából következtetett (a forrás csak a megjelenített neveket rögzíti) — sémamunka előtt megerősítendő. Megkülönböztetendő a `Phase` / „Tanulási út fázisa" enumtól (`kerdezes | kepzelet | cselekves | reflexio`) és a `reflektalt` munkaállapottól.
 
 ## Pedagogy concepts
 
