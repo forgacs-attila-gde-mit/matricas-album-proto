@@ -465,6 +465,17 @@ export interface EvidenceSubmissionResult {
   progress: TeamStickerProgress;
 }
 
+export interface ActivityMetadataPayload {
+  subject?: string;
+  gradeLevel?: string;
+  estimatedMinutes?: number;
+  modality?: string;
+  groupSize?: string;
+  contextMode?: string;
+  competencies?: string[];
+  natReferences?: string[];
+}
+
 export interface CreateStickerPayload {
   title: string;
   phase: PhaseId;
@@ -480,6 +491,9 @@ export interface CreateStickerPayload {
   // Dominant Tevékenységtípus key (one of the 6 system types); omitted/undefined leaves
   // the activity unclassified server-side.
   activityTypeKey?: string;
+  // Structured planning metadata; the server stores it on the activity instead of the
+  // old teacher-step note-lines.
+  metadata?: ActivityMetadataPayload;
 }
 
 export interface CreateAlbumTemplatePayload {

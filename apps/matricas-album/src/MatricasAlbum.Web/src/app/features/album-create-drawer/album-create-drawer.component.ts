@@ -5,7 +5,7 @@ import {
   AlbumTemplatePatternKey,
   DEFAULT_PROJECT_REFLECTION_PROMPTS,
 } from '../../core/models/album.model';
-import { CreateAlbumInstancePayload, CreateAlbumTemplatePayload, CreateStickerPayload } from '../../core/services/album-api.service';
+import { ActivityMetadataPayload, CreateAlbumInstancePayload, CreateAlbumTemplatePayload, CreateStickerPayload } from '../../core/services/album-api.service';
 import { AlbumStore, type StickerEntryContext, type TemplateEntryContext } from '../../core/services/album.store';
 import { ACTIVITY_TYPES, type ActivityTypeId, type ActivityTypeOption } from '../../core/tokens/activity-types';
 import { PhaseId } from '../../core/tokens/phases';
@@ -926,10 +926,11 @@ export class AlbumCreateDrawerComponent {
       title: this.stickerTitle.trim(),
       phase: this.stickerPhase,
       activityTypeKey: this.selectedActivityType,
+      metadata: this.toActivityMetadata(),
       shortDescription: this.stickerShort.trim(),
       studentInstruction: this.stickerInstruction.trim(),
       teacherSteps: [
-        ...this.activityMetadataTeacherSteps(),
+        ...this.activityContextNotes(),
         'Mutasd be a célt.',
         'Adj választási lehetőséget.',
         'Zárd reflexióval.',
@@ -961,10 +962,27 @@ export class AlbumCreateDrawerComponent {
     };
   }
 
-  private activityMetadataTeacherSteps(): string[] {
-    if (!this.activityMetadataVisible()) return [];
+  // Structured planning metadata sent to the API (Task 3.3). Replaces the former
+  // teacher-step note-line serialization for these fields.
+  private toActivityMetadata(): ActivityMetadataPayload {
+    const competencies = this.splitMetaList(this.metadataCompetencies);
+    const natReferences = this.splitMetaList(this.metadataNatLinks);
+    return {
+      subject: this.metadataSubject.trim() || undefined,
+      gradeLevel: this.metadataGrade.trim() || undefined,
+      estimatedMinutes: this.coerceLessonMinutes(this.metadataEstimatedMinutes) || undefined,
+      modality: this.metadataInteractionMode,
+      groupSize: this.metadataParticipantMode,
+      contextMode: this.metadataContextMode,
+      competencies: competencies.length ? competencies : undefined,
+      natReferences: natReferences.length ? natReferences : undefined,
+    };
+  }
 
-    const subjectGrade = [this.metadataSubject, this.metadataGrade].map(value => value.trim()).filter(Boolean).join(' / ');
+  // Hierarchy context (Tanterv → Blokk) and the free-text local-context note are not yet
+  // first-class columns (they become Block/Topic entities in later phases), so they stay as
+  // teacher-step note-lines for now — keeping the data until those entities exist.
+  private activityContextNotes(): string[] {
     const inheritedContext = [
       this.contextCurriculum.trim() ? `Tanterv: ${this.contextCurriculum.trim()}` : '',
       this.contextModule.trim() ? `Modul: ${this.contextModule.trim()}` : '',
@@ -972,46 +990,14 @@ export class AlbumCreateDrawerComponent {
       this.contextLearningUnit.trim() ? `Tanulási egység: ${this.contextLearningUnit.trim()}` : '',
       this.contextBlock.trim() ? `Blokk: ${this.contextBlock.trim()}` : '',
     ].filter(Boolean).join(' -> ');
-    const lines = [
-      `Tevékenységtípus: ${this.activityTypeLabel(this.selectedActivityType)}`,
-      subjectGrade ? `Tervezési meta: ${subjectGrade}` : '',
+    return [
       inheritedContext ? `Öröklött keret: ${inheritedContext}` : '',
-      this.metadataCompetencies.trim() ? `Kompetenciák: ${this.metadataCompetencies.trim()}` : '',
-      this.metadataNatLinks.trim() ? `NAT-kapcsolódás: ${this.metadataNatLinks.trim()}` : '',
-      `Munkaforma: ${this.interactionModeLabel(this.metadataInteractionMode)}, ${this.participantModeLabel(this.metadataParticipantMode)}, kb. ${this.coerceLessonMinutes(this.metadataEstimatedMinutes)} perc`,
-      `Valós kontextus: ${this.contextModeLabel(this.metadataContextMode)}${this.metadataContextNote.trim() ? ` - ${this.metadataContextNote.trim()}` : ''}`,
-    ];
-
-    return lines.filter(Boolean);
+      this.metadataContextNote.trim() ? `Helyi kontextus: ${this.metadataContextNote.trim()}` : '',
+    ].filter(Boolean);
   }
 
-  private interactionModeLabel(mode: ActivityInteractionMode): string {
-    switch (mode) {
-      case 'vita': return 'vita / érvelés';
-      case 'alkotas': return 'alkotás / prototípus';
-      case 'reflexio': return 'reflexió';
-      case 'gyakorlas': return 'gyakorlás';
-      default: return 'kutatás / megfigyelés';
-    }
-  }
-
-  private participantModeLabel(mode: ActivityParticipantMode): string {
-    switch (mode) {
-      case 'egyeni': return 'egyéni munka';
-      case 'paros': return 'páros munka';
-      case 'teljes-osztaly': return 'teljes osztály';
-      default: return 'csoportmunka';
-    }
-  }
-
-  private contextModeLabel(mode: ActivityContextMode): string {
-    switch (mode) {
-      case 'otthon': return 'otthon';
-      case 'kozosseg': return 'helyi közösség';
-      case 'terep': return 'terep / iskolaudvar';
-      case 'digitalis': return 'digitális forrás';
-      default: return 'iskola';
-    }
+  private splitMetaList(value: string): string[] {
+    return value.split(',').map(item => item.trim()).filter(Boolean);
   }
 
   private toTemplatePayload(): CreateAlbumTemplatePayload {

@@ -70,4 +70,34 @@ describe('AlbumCreateDrawerComponent — progressive disclosure (Task 1.3)', () 
     expect(preview).not.toBeNull();
     expect(preview?.querySelector('.mp-title')?.textContent).toContain('Élő előnézet teszt');
   });
+
+  it('sends structured activity metadata (not note-lines) in the create payload (Task 3.3)', () => {
+    const c = fixture.componentInstance;
+    c.stickerTitle = 'Sebesség mérése';
+    c.metadataSubject = 'Fizika';
+    c.metadataGrade = '9. évfolyam';
+    c.metadataCompetencies = 'mérés, elemzés';
+    c.metadataNatLinks = '2.1';
+    c.metadataInteractionMode = 'vita';
+    c.metadataParticipantMode = 'paros';
+    c.metadataEstimatedMinutes = 25;
+    c.metadataContextMode = 'terep';
+
+    const payload = (c as unknown as { toStickerPayload(): Record<string, unknown> }).toStickerPayload();
+    const meta = payload['metadata'] as Record<string, unknown>;
+
+    expect(meta).toBeTruthy();
+    expect(meta['subject']).toBe('Fizika');
+    expect(meta['gradeLevel']).toBe('9. évfolyam');
+    expect(meta['estimatedMinutes']).toBe(25);
+    expect(meta['modality']).toBe('vita');
+    expect(meta['groupSize']).toBe('paros');
+    expect(meta['contextMode']).toBe('terep');
+    expect(meta['competencies']).toEqual(['mérés', 'elemzés']);
+    expect(meta['natReferences']).toEqual(['2.1']);
+
+    // The planning metadata must no longer leak into the teacher steps as note-lines.
+    const steps = payload['teacherSteps'] as string[];
+    expect(steps.some(step => step.startsWith('Tervezési meta:') || step.startsWith('Kompetenciák:'))).toBe(false);
+  });
 });
