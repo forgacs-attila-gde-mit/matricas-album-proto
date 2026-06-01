@@ -465,6 +465,33 @@ if (blockFeatureEnabled)
         await db.SaveChangesAsync(cancellationToken);
         return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
     }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    // Additive migration helper (Task 4.4): derive published Blocks from a template's latest
+    // published version (one block per unit). Idempotent by name; never touches the template,
+    // its instances, or any evidence.
+    api.MapPost("/album-templates/{id:guid}/derive-blocks", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var template = await TemplateGraph(db).SingleOrDefaultAsync(template => template.Id == id, cancellationToken);
+        if (template is null) return Results.NotFound();
+
+        var version = template.Versions
+            .Where(version => !version.IsDraft)
+            .OrderByDescending(version => version.VersionNumber)
+            .FirstOrDefault();
+        if (version is null) return Results.BadRequest(new { error = "Nincs publikált albumterv-verzió." });
+
+        var units = version.Weeks.Select(week => (week.WeekNumber, week.Title)).ToList();
+        var stickers = version.Stickers.Select(sticker => (sticker.StickerVersionId, sticker.Week, sticker.SortOrder)).ToList();
+        var specs = TemplateBlockMapping.MapUnitsToBlocks(units, stickers);
+        var created = await BlockMaterializer.MaterializeAsync(db, specs, cancellationToken);
+
+        return Results.Ok(new
+        {
+            mapped = specs.Count,
+            created = created.Count,
+            blocks = created.Select(block => new { block.Id, block.Name }).ToList(),
+        });
+    }).RequireDemoRole(DemoAuth.TeacherRole);
 }
 
 api.MapGet("/album-templates", async (AlbumDbContext db, CancellationToken cancellationToken) =>
