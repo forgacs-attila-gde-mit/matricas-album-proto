@@ -182,6 +182,7 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
             }
           </section>
 
+          @if (detailsOpen()) {
           <section class="card detail-card">
             <div class="card-section-title">Záró produktum</div>
             @if (editing()) {
@@ -244,8 +245,22 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
               </ol>
             }
           </section>
+          }
         </div>
 
+        <button
+          type="button"
+          class="details-toggle"
+          data-disclosure="details"
+          [attr.aria-expanded]="detailsOpen()"
+          (click)="toggleDetails()"
+        >
+          <ma-icon [name]="detailsOpen() ? 'expand_less' : 'expand_more'" size="sm" />
+          <span>Részletek</span>
+          <span class="muted t-body-sm">záró produktum, közönség, reflexiós kérdések, tanulási fókuszok</span>
+        </button>
+
+        @if (detailsOpen()) {
         <section class="card detail-card">
           <div class="card-section-title">Tanulási fókuszok</div>
           @if (editing()) {
@@ -288,6 +303,7 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
             </div>
           }
         </section>
+        }
 
         <section class="assigned-section">
           <div class="section-title-row">
@@ -1072,6 +1088,9 @@ export class AlbumTemplateDetailComponent implements OnInit, OnDestroy {
   /** True when the page is rendering metadata as editable inputs. Mirrors the store flag. */
   readonly editing = this.store.editingTemplate;
 
+  /** REFACTOR-001 Task 1.5: collapses secondary metadata behind a "Részletek" disclosure. */
+  readonly detailsOpen = signal(false);
+
   /** Local chip-tag input buffer for dispositions. */
   newDispositionText = '';
 
@@ -1131,6 +1150,10 @@ export class AlbumTemplateDetailComponent implements OnInit, OnDestroy {
 
   exitEdit(): void {
     this.store.exitTemplateEdit();
+  }
+
+  toggleDetails(): void {
+    this.detailsOpen.update((open) => !open);
   }
 
   /** A fresh template is one that has only its initial draft (v1) and has not been published yet. */
