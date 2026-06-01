@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-01] feat | Evidence-safe template→Blocks derivation — REFACTOR-001 Phase 4 (Task 4.4) — PHASE 4 COMPLETE
+
+- Ask: finish Phase 4 with Task 4.4 — map template units to Blocks without breaking running albums.
+- Change: `TemplateBlockMapping.MapUnitsToBlocks` (pure, tested) maps a template version's per-unit (week) sticker groups → one published `Block` per non-empty unit (activities referenced in order, `primary` role). `BlockMaterializer.MaterializeAsync` (additive, idempotent by name) inserts only Block/BlockVersion/ActivityBlockRelation rows. `POST /api/album-templates/{id}/derive-blocks` (behind the flag) derives blocks from the latest published template version. architecture/plan/LOG updated.
+- Why: deliver the gold-standard `template units → Blocks` mapping additively. **Deliberate scope decision:** the proven `InstanceSticker` mint path is left untouched (it already snapshots references at run); rewiring the mint *through* blocks waits until a template actually composes blocks (Phase 5/6) — doing it now would put live albums' evidence at risk for no benefit.
+- State another agent needs: migration none (reuses Phase-4.1 tables). `dotnet test` 55/55, `ng test` 26/26 green; derive verified live (7 blocks from the seeded template, idempotent, running instance + 5 evidence rows intact). **Phase 4 complete (4.1–4.4).** Next: Phase 5 (`Témakör`/Topic) — `Topic → Block` directly (Tanulási egység removed), gated.
+
 ## [2026-06-01] feat | Blokk builder UI — REFACTOR-001 Phase 4 (Task 4.3)
 
 - Ask: continue Phase 4 with Task 4.3 — the 3-pane drag-&-drop block builder.
