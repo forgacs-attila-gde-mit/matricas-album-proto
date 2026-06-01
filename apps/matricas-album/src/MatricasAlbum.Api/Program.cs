@@ -413,6 +413,22 @@ if (blockFeatureEnabled)
         return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
     }).RequireDemoRole(DemoAuth.TeacherRole);
 
+    api.MapPatch("/blocks/{id:guid}/activities/{relationId:guid}", async (Guid id, Guid relationId, UpdateBlockActivityRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        var draft = DraftBlockVersion(block);
+        var relation = draft?.Activities.SingleOrDefault(activity => activity.Id == relationId);
+        if (relation is null) return Results.NotFound();
+
+        var role = BlockActivityRoles.Normalize(request.Role);
+        if (role is null) return Results.BadRequest(new { error = "Ismeretlen szerep." });
+        relation.Role = role;
+        block.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
     api.MapDelete("/blocks/{id:guid}/activities/{relationId:guid}", async (Guid id, Guid relationId, AlbumDbContext db, CancellationToken cancellationToken) =>
     {
         var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);

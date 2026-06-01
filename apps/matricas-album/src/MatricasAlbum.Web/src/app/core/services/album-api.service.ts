@@ -15,6 +15,10 @@ import {
   AlbumTemplateListItem,
   AlbumTemplatePatternKey,
   AlbumTemplateVersionView,
+  BlockActivityRef,
+  BlockDetail,
+  BlockListItem,
+  BlockVersionView,
   TeacherEffectLog,
   ClosureChecklistItem,
   CreateStickerAdviceActionPayload,
@@ -82,6 +86,45 @@ interface StickerResourceDetailDto {
   title: string;
   archivedAt?: string | null;
   versions: StickerVersionDto[];
+}
+
+interface BlockListItemDto {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  flowType: string;
+  grouping: string;
+  activityCount: number;
+  hasDraft: boolean;
+  archivedAt?: string | null;
+}
+
+interface BlockActivityDto {
+  id: string;
+  stickerVersionId: string;
+  stickerResourceId: string;
+  activityTitle: string;
+  stickerVersionNumber: number;
+  role: string;
+  sortOrder: number;
+}
+
+interface BlockVersionDto {
+  id: string;
+  blockId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  flowType: string;
+  grouping: string;
+  activities: BlockActivityDto[];
+}
+
+interface BlockDetailDto {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: BlockVersionDto[];
 }
 
 interface AlbumTemplateListItemDto {
@@ -644,6 +687,80 @@ export class AlbumApi {
       .pipe(map(dto => this.toStickerResourceDetail(dto)));
   }
 
+  // --- Blokk (Block) API (Phase 4; gated server-side by Features:Hierarchy:Block) --------
+
+  getBlocks() {
+    return this.http
+      .get<BlockListItemDto[]>(`${this.baseUrl}/blocks`)
+      .pipe(map(items => items.map(item => this.toBlockListItem(item))));
+  }
+
+  getBlock(id: string) {
+    return this.http
+      .get<BlockDetailDto>(`${this.baseUrl}/blocks/${id}`)
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  createBlock(payload: { name: string; flowType?: string; grouping?: string }) {
+    return this.http
+      .post<BlockDetailDto>(`${this.baseUrl}/blocks`, payload)
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  createBlockDraft(blockId: string) {
+    return this.http
+      .post<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/draft`, {})
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  publishBlockDraft(blockId: string) {
+    return this.http
+      .post<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/draft/publish`, {})
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  discardBlockDraft(blockId: string) {
+    return this.http
+      .delete<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/draft`)
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  updateBlockVersion(versionId: string, patch: { name?: string; flowType?: string; grouping?: string }) {
+    return this.http
+      .patch<BlockDetailDto>(`${this.baseUrl}/block-versions/${versionId}`, patch)
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  addBlockActivity(blockId: string, payload: { stickerVersionId: string; role?: string; sortOrder?: number }) {
+    return this.http
+      .post<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/activities`, payload)
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  updateBlockActivityRole(blockId: string, relationId: string, role: string) {
+    return this.http
+      .patch<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/activities/${relationId}`, { role })
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  removeBlockActivity(blockId: string, relationId: string) {
+    return this.http
+      .delete<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/activities/${relationId}`)
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  reorderBlockActivities(blockId: string, items: Array<{ id: string; sortOrder: number }>) {
+    return this.http
+      .post<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/activities/reorder`, { items })
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
+  toggleBlockArchive(blockId: string) {
+    return this.http
+      .patch<BlockDetailDto>(`${this.baseUrl}/blocks/${blockId}/archive`, {})
+      .pipe(map(dto => this.toBlockDetail(dto)));
+  }
+
   getTemplates() {
     return this.http
       .get<AlbumTemplateListItemDto[]>(`${this.baseUrl}/album-templates`)
@@ -1170,6 +1287,53 @@ export class AlbumApi {
       short: dto.shortDescription,
       templateUsageCount: dto.templateUsageCount,
       archivedAt: dto.archivedAt ?? null,
+    };
+  }
+
+  private toBlockListItem(dto: BlockListItemDto): BlockListItem {
+    return {
+      id: dto.id,
+      name: dto.name,
+      latestVersionNumber: dto.latestVersionNumber,
+      flowType: dto.flowType,
+      grouping: dto.grouping,
+      activityCount: dto.activityCount,
+      hasDraft: dto.hasDraft,
+      archivedAt: dto.archivedAt ?? null,
+    };
+  }
+
+  private toBlockDetail(dto: BlockDetailDto): BlockDetail {
+    return {
+      id: dto.id,
+      name: dto.name,
+      archivedAt: dto.archivedAt ?? null,
+      versions: (dto.versions ?? []).map(version => this.toBlockVersion(version)),
+    };
+  }
+
+  private toBlockVersion(dto: BlockVersionDto): BlockVersionView {
+    return {
+      id: dto.id,
+      blockId: dto.blockId,
+      versionNumber: dto.versionNumber,
+      isDraft: dto.isDraft,
+      name: dto.name,
+      flowType: dto.flowType,
+      grouping: dto.grouping,
+      activities: (dto.activities ?? []).map(activity => this.toBlockActivity(activity)),
+    };
+  }
+
+  private toBlockActivity(dto: BlockActivityDto): BlockActivityRef {
+    return {
+      id: dto.id,
+      stickerVersionId: dto.stickerVersionId,
+      stickerResourceId: dto.stickerResourceId,
+      activityTitle: dto.activityTitle,
+      stickerVersionNumber: dto.stickerVersionNumber,
+      role: dto.role,
+      sortOrder: dto.sortOrder,
     };
   }
 

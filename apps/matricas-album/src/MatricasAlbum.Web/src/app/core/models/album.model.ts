@@ -104,6 +104,47 @@ export interface StickerLibraryItem {
   archivedAt?: string | null;
 }
 
+// --- Blokk (Block) — reference-composed, versioned grouping of activities (Phase 4) -------
+
+export interface BlockListItem {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  flowType: string;
+  grouping: string;
+  activityCount: number;
+  hasDraft: boolean;
+  archivedAt?: string | null;
+}
+
+export interface BlockActivityRef {
+  id: string;
+  stickerVersionId: string;
+  stickerResourceId: string;
+  activityTitle: string;
+  stickerVersionNumber: number;
+  role: string;
+  sortOrder: number;
+}
+
+export interface BlockVersionView {
+  id: string;
+  blockId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  flowType: string;
+  grouping: string;
+  activities: BlockActivityRef[];
+}
+
+export interface BlockDetail {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: BlockVersionView[];
+}
+
 export interface StickerVersionView {
   id: string;
   stickerResourceId: string;

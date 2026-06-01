@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AlbumStore } from '../core/services/album.store';
+import { FEATURES } from '../core/tokens/features';
 import { BrandComponent } from '../shared/ui/brand/brand.component';
 import { IconComponent } from '../shared/ui/icon/icon.component';
 
@@ -56,6 +57,7 @@ export class TeacherSidebarComponent {
   private readonly baseItems: NavItem[] = [
     { label: 'Műhely',                     icon: 'hub',             path: [],                  exact: true, section: 'Műhely' },
     { label: 'Matricatár',                 icon: 'local_library',   path: ['sticker-library'], section: 'Kezelés' },
+    ...(FEATURES.hierarchyBlock ? [{ label: 'Blokkműhely', icon: 'dashboard', path: ['blocks'] } as NavItem] : []),
     { label: 'Albumtervek',                icon: 'edit_note',       path: ['templates'] },
     { label: 'Futó albumok',               icon: 'groups',          path: ['instances'] },
     { label: 'Futó album',                 icon: 'auto_stories',    path: ['instances', '__id__', 'plan'], section: 'Aktív futó album', needsInstance: true },

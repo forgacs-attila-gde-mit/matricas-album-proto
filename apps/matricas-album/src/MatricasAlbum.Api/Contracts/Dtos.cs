@@ -68,6 +68,9 @@ public sealed record AddBlockActivityRequest(
     string? Role = null,
     int? SortOrder = null);
 
+public sealed record UpdateBlockActivityRequest(
+    string Role);
+
 public sealed record ReorderBlockActivitiesRequest(
     IReadOnlyList<ReorderBlockActivityItem> Items);
 
