@@ -32,6 +32,17 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": { "buildTarget": "matricas-album:build" }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/assets"],
+            "styles": ["src/styles.scss"],
+            "karmaConfig": "karma.conf.js"
+          }
         }
       }
     }
