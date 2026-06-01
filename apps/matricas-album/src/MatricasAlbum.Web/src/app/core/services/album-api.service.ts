@@ -47,6 +47,7 @@ interface StickerResourceListItemDto {
   latestVersionId: string;
   latestVersionNumber: number;
   phase: string;
+  activityTypeKey?: string | null;
   shortDescription: string;
   templateUsageCount: number;
   archivedAt?: string | null;
@@ -476,6 +477,9 @@ export interface CreateStickerPayload {
   reflectionPrompt: string;
   bPlan: string;
   lowResource: string;
+  // Dominant Tevékenységtípus key (one of the 6 system types); omitted/undefined leaves
+  // the activity unclassified server-side.
+  activityTypeKey?: string;
 }
 
 export interface CreateAlbumTemplatePayload {
@@ -1148,6 +1152,7 @@ export class AlbumApi {
       latestVersionId: dto.latestVersionId,
       latestVersionNumber: dto.latestVersionNumber,
       phase: normalizePhase(dto.phase),
+      activityTypeKey: dto.activityTypeKey ?? null,
       short: dto.shortDescription,
       templateUsageCount: dto.templateUsageCount,
       archivedAt: dto.archivedAt ?? null,

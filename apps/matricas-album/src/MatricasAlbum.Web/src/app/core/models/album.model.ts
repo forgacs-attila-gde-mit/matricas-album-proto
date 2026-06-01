@@ -97,6 +97,8 @@ export interface StickerLibraryItem {
   latestVersionId: string;
   latestVersionNumber: number;
   phase: PhaseId;
+  // Dominant Tevékenységtípus key (one of the 6 system types), or null if unclassified.
+  activityTypeKey?: string | null;
   short: string;
   templateUsageCount: number;
   archivedAt?: string | null;

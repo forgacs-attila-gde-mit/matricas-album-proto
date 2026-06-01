@@ -7,6 +7,7 @@ import {
 } from '../../core/models/album.model';
 import { CreateAlbumInstancePayload, CreateAlbumTemplatePayload, CreateStickerPayload } from '../../core/services/album-api.service';
 import { AlbumStore, type StickerEntryContext, type TemplateEntryContext } from '../../core/services/album.store';
+import { ACTIVITY_TYPES, type ActivityTypeId, type ActivityTypeOption } from '../../core/tokens/activity-types';
 import { PhaseId } from '../../core/tokens/phases';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
@@ -31,15 +32,11 @@ interface LessonActivityDraft {
 type ActivityInteractionMode = 'kutatas' | 'vita' | 'alkotas' | 'reflexio' | 'gyakorlas';
 type ActivityParticipantMode = 'egyeni' | 'paros' | 'csoportos' | 'teljes-osztaly';
 type ActivityContextMode = 'iskola' | 'otthon' | 'kozosseg' | 'terep' | 'digitalis';
-type ActivityTypeId = 'felfedezo' | 'kiserletezo' | 'feldolgozo' | 'kommunikacios' | 'kollaborativ' | 'reflektiv';
 type LessonParticipationMode = 'required' | 'optional' | 'extra';
 
-interface ActivityTypeOption {
-  readonly id: ActivityTypeId;
-  readonly label: string;
-  readonly description: string;
-  readonly icon: string;
-}
+// ActivityTypeId / ActivityTypeOption / ACTIVITY_TYPES are the single-sourced system
+// taxonomy (core/tokens/activity-types). Re-exported here for template/type ergonomics.
+export type { ActivityTypeId, ActivityTypeOption };
 
 interface CurriculumModuleDraft {
   readonly id: string;
@@ -48,15 +45,6 @@ interface CurriculumModuleDraft {
 }
 
 const CONCEPT_ONBOARDING_STORAGE_KEY = 'matricas-album:onboarding:v1:dismissed';
-
-const ACTIVITY_TYPES: readonly ActivityTypeOption[] = [
-  { id: 'felfedezo', label: 'Felfedező', description: 'Megfigyelés, gyűjtés, kérdésindítás.', icon: 'travel_explore' },
-  { id: 'kiserletezo', label: 'Kísérletező', description: 'Próbálkozás, mérés, tesztelés.', icon: 'science' },
-  { id: 'feldolgozo', label: 'Feldolgozó', description: 'Információ értelmezése és rendezése.', icon: 'library_books' },
-  { id: 'kommunikacios', label: 'Kommunikációs', description: 'Magyarázat, vita, prezentáció, interjú.', icon: 'record_voice_over' },
-  { id: 'kollaborativ', label: 'Kollaboratív', description: 'Közös alkotás és szerepmunka.', icon: 'groups' },
-  { id: 'reflektiv', label: 'Reflektív', description: 'Önértékelés, visszatekintés, tanulság.', icon: 'self_improvement' },
-];
 
 @Component({
   selector: 'ma-album-create-drawer',
@@ -937,6 +925,7 @@ export class AlbumCreateDrawerComponent {
     return {
       title: this.stickerTitle.trim(),
       phase: this.stickerPhase,
+      activityTypeKey: this.selectedActivityType,
       shortDescription: this.stickerShort.trim(),
       studentInstruction: this.stickerInstruction.trim(),
       teacherSteps: [
@@ -959,6 +948,7 @@ export class AlbumCreateDrawerComponent {
     return {
       title: this.stickerTitle.trim(),
       phase: this.stickerPhase,
+      activityTypeKey: this.selectedActivityType,
       shortDescription: this.stickerShort.trim(),
       studentInstruction: this.stickerInstruction.trim(),
       teacherSteps: source?.teacherSteps ?? ['Mutasd be a célt.', 'Adj választási lehetőséget.', 'Zárd reflexióval.'],
