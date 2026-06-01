@@ -11,7 +11,7 @@ lang: mixed
 # REFACTOR-001 — Gold-standard rendszerstruktúra alignment + creation-UX simplification
 **Purpose**: Move the Matricás Album app toward the ingested Confluence gold-standard system structure (`Tanterv → Modul → Témakör → Blokk → Tevékenység` as real, reference-composed, versioned entities + a closed `Tevékenységtípus` taxonomy + a mode-chooser / 3-pane builder creation UX) **and** simplify the cramped creation screens (Albumterv, "Matrica"/Tevékenység) for a non-tech-savvy teacher audience.
 **Audience**: Matricás Album dev team (.NET API, Angular Web, Python agent); product owner (decision gates).
-**Status**: Draft
+**Status**: In Progress
 
 ---
 
@@ -61,7 +61,7 @@ When this plan is complete: (1) a teacher can create a `Tevékenység` and an `A
 - [ ] **UX-3**: A first-pilot teacher can create a publishable `Albumterv` with ≥1 `Tevékenység` without encountering more than ~7 simultaneous input fields on any single pane (measured against the redesigned screens).
 - [ ] **UX-4**: No regression — every `roadmap.md`-🟢 creation/edit capability (versioning, draft/publish, archive, reorder, instance binding) still works after the UX restructure.
 - [x] **GATE-1**: Product resolved C1–C5 on 2026-06-01 — hierarchy `Tanterv → Modul → Témakör → Blokk → Tevékenység` (`Tanulási egység` removed); `matrica` stays the learning atom; ChatGPT diagram disregarded. Recorded in [[ADR002-temakor-elso-osztalyu-szint|ADR002]] (updated) + [[ADR003-matrica-tanulasi-atom|ADR003]].
-- [ ] **FN-1**: `Tevékenységtípus` is a persisted, validated, case-insensitive `ActivityType` value on the activity record (6 system-defined keys), surfaced and filterable in the UI, with no user/AI type creation.
+- [x] **FN-1**: `Tevékenységtípus` is a persisted, validated, case-insensitive `ActivityType` value on the activity record (6 system-defined keys), surfaced and filterable in the UI, with no user/AI type creation. *(Done 2026-06-01: `activity_types` table + `StickerVersion.ActivityTypeKey`; `GET /api/activity-types`; `?activityType=` filter; create rejects unknown with 400; Matricatár facet + drawer picker persist it.)*
 - [ ] **FN-2**: `Block`, `Topic`, `Module`, `Curriculum` exist as entities composed **by reference**; creating/editing one does not copy or mutate its children; a child can be referenced by multiple parents.
 - [ ] **FN-3**: Every hierarchy level is versioned; a published version is immutable while referenced by a running `AlbumInstance`.
 - [ ] **FN-4**: A running `AlbumInstance` minted before the migration still loads and its evidence/progress/feedback/reflections are intact after each phase (proven by an upgrade/migration test).
@@ -208,21 +208,21 @@ When this plan is complete: (1) a teacher can create a `Tevékenység` and an `A
 - **Effect**: Phases 3–6 are **unblocked** and build to this model.
 
 #### Task 2.2 — `ActivityType` entity + seed (system-defined taxonomy)
-- [ ] **File**: `apps/matricas-album/src/MatricasAlbum.Api/Domain/ActivityType.cs`, `Domain/DomainValues.cs` (`ActivityTypeKeys`), `Data/AlbumDbContext.cs`, `Migrations/<ts>_AddActivityTypes.cs`, `Data/DemoSeeder.cs`
+- [x] **File**: `apps/matricas-album/src/MatricasAlbum.Api/Domain/ActivityType.cs`, `Domain/DomainValues.cs` (`ActivityTypeKeys`), `Data/AlbumDbContext.cs`, `Migrations/20260601120000_AddActivityTypes.cs`, `Data/DemoSeeder.cs` — **Done 2026-06-01** (16 xUnit tests; 6 rows verified on Postgres)
 - **Depends on**: Task 1.1
 - **Description**: `ActivityType` entity (`Key, Name, PedagogyModel, InteractionModel, CognitiveFocusJson, StructureFlexibility, DefaultGroupForm, AllowedActivityPatternsJson, CompatibilityJson`). `ActivityTypeKeys.All` = `{felfedezo, kiserletezo, feldolgozo, kommunikacios, kollaborativ, reflektiv}` with `Normalize(string?)` (case-insensitive; unknown→`null`/validation error, **no fallback invention**). Seed exactly 6 rows idempotently. Verify the three inferred keys against product before locking (ties to Glossary footnote).
 - **Releasable**: 6 seeded, queryable activity types.
 - **Tests (TDD)** — `ActivityTypeTests.cs`: `normalize_accepts_six_rejects_unknown`, `normalize_is_case_insensitive`, `seed_idempotent`. Checkpoint: `dotnet test --filter ActivityType`
 
 #### Task 2.3 — `Activity.type` field + read/filter endpoint + UI wiring
-- [ ] **File**: `Domain/Sticker.cs` (`StickerVersion.ActivityTypeKey`), `Migrations/<ts>_AddStickerVersionActivityType.cs`, `Program.cs` (`GET /api/activity-types`, filter param on sticker list), `Contracts/*`, web `album-api.service.ts` + the type picker in `album-create-drawer`
+- [x] **File**: `Domain/Sticker.cs` (`StickerVersion.ActivityTypeKey`), `Migrations/20260601130000_AddStickerVersionActivityType.cs`, `Program.cs` (`GET /api/activity-types`, filter param on sticker list), `Contracts/*`, web `album-api.service.ts` + the type picker in `album-create-drawer` + Matricatár facet (`sticker-library`) + `core/tokens/activity-types.ts` — **Done 2026-06-01** (27 xUnit / 21 ng-test green; 4 endpoint behaviors verified live)
 - **Depends on**: Task 2.2, Task 1.3
 - **Description**: Persist the dominant type on the activity record (additive, nullable; backfill from the existing note-field picker value where present). `GET /api/activity-types` returns the read-only list. Wire the existing fixed picker to the persisted field; add a type facet to the Matricatár filter. No user/AI type creation.
 - **Releasable**: activity type is a real, filterable field end-to-end.
 - **Tests (TDD)** — `ActivityTypeEndpointTests.cs`: `list_returns_six`, `set_type_persists`, `filter_by_type_returns_subset`, `reject_unknown_type_400`; web `type_picker_lists_system_types_only`. Checkpoint: `dotnet test --filter ActivityType` ; `ng test --include='**/album-create-drawer.*'`
 
 #### Task 2.4 — Register taxonomy in docs/wiki
-- [ ] **File**: `apps/matricas-album/docs/architecture.md` (+ ER) ; wiki [[Glossary]] already has it (confirm keys) via `/wiki`
+- [x] **File**: `apps/matricas-album/docs/architecture.md` (+ ER) ; wiki [[Glossary]] already has it (confirm keys) via `/wiki` — **Done 2026-06-01** (architecture.md: ER entity + API rows + "Tevékenységtípus (ActivityType) Taxonomy" section + mapping-row fix; Glossary table confirmed to match the 6 seeded keys/pedagogyModels)
 - **Depends on**: Task 2.2
 - **Description**: Document `ActivityType` in architecture.md; confirm the 3 inferred Glossary keys against the seeded values; note the `Phase` vs `Tevékenységtípus` distinction.
 - **Releasable**: docs match the shipped enum.

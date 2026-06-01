@@ -103,6 +103,15 @@ flowchart LR
 
 Important boundary: this is not a method marketplace or generalized activity platform in v1. The domain language stays `AlbumTemplate`, `StickerVersion`, `AlbumInstance`, `Evidence`, `Feedback`, and `Reflection`.
 
+## Tevékenységtípus (ActivityType) Taxonomy
+
+`Tevékenységtípus` is a closed, system-defined classifier: every `Tevékenység` (`StickerVersion`) has at most one dominant type. The six types are seeded into the `activity_types` reference table (key · pedagogyModel): `felfedezo` · exploratory, `kiserletezo` · experimental, `feldolgozo` · analytical, `kommunikacios` · communicative, `kollaborativ` · collaborative, `reflektiv` · reflective — Hungarian display names `Felfedező / Kísérletező / Feldolgozó / Kommunikációs / Kollaboratív / Reflektív` (canonical hu→en table in the wiki Glossary).
+
+- **Closed & read-only.** `ActivityTypeKeys.Normalize` accepts only these six keys (case-insensitive) and returns `null` for anything else — there is no fallback default, so users and the AI can *classify* but never *invent* a type. `GET /api/activity-types` is read-only; the web picker (create drawer) and the Matricatár facet both render this same closed set from `core/tokens/activity-types.ts`.
+- **Persisted on the activity.** `StickerVersion.ActivityTypeKey` is additive and nullable; pre-existing activities stay unclassified (`null`) rather than being backfilled with a guessed type. `GET /api/stickers?activityType=<key>` filters by it.
+- **Distinct from `Phase`.** The creative-learning `Phase` enum (`kerdezes | kepzelet | cselekves | reflexio`, "Tanulási út fázisa") is orthogonal to `Tevékenységtípus` and to the `reflektalt` work-state — a `reflektiv` activity is not the `reflexio` phase.
+- **Open item.** `felfedezo / kiserletezo / feldolgozo` are explicit in the gold-standard source; `kommunikacios / kollaborativ / reflektiv` and all six `pedagogyModel` values were inferred from the source's display names and are now seeded — to be confirmed against Confluence before richer per-type attributes (`interactionModel`, `compatibility`, …) are added.
+
 ## Product Hierarchy Mapping
 
 The 2026-05-29 product plan introduces a broader planning hierarchy:
@@ -184,7 +193,7 @@ Teacher-facing labels and saved artifacts intentionally diverge from implementat
 
 | Teacher-facing flow | Current implementation path | Persistence stance |
 | --- | --- | --- |
-| `Tevékenység (matrica)` | `CreateStickerPayload` -> `StickerResource` / `StickerVersion` | Existing sticker API. Optional activity metadata is serialized into teacher-facing note fields. |
+| `Tevékenység (matrica)` | `CreateStickerPayload` -> `StickerResource` / `StickerVersion` | Existing sticker API. The dominant `Tevékenységtípus` is now a real persisted field (`StickerVersion.ActivityTypeKey`); the remaining optional planning metadata (subject, grade, NAT, competencies, …) is still serialized into teacher-facing note fields pending Phase 3 structuring. |
 | `Blokk-vázlat` | `CreateAlbumTemplatePayload` with `DurationType = ora` | Existing album-template API. Lesson activities become current unit rows and final-product notes. |
 | `Tantervi vázlat` | `CreateAlbumTemplatePayload` with module/topic preview | Existing album-template API. Module/topic outline becomes current unit rows and final-product notes. |
 | `Tanulási egység` context | Editable frontend planning metadata | No entity yet. It is displayed between `Témakör` and `Blokk` so the locked hierarchy is visible before schema work. |
@@ -198,6 +207,7 @@ The compatibility rule is: labels may help teachers think in the future hierarch
 erDiagram
     STICKER_RESOURCE ||--o{ STICKER_VERSION : versions
     STICKER_VERSION ||--o{ STICKER_VERSION_TEACHER_STEP : steps
+    ACTIVITY_TYPE ||--o{ STICKER_VERSION : classifies
     ALBUM_TEMPLATE ||--o{ ALBUM_TEMPLATE_VERSION : versions
     ALBUM_TEMPLATE_VERSION ||--o{ ALBUM_TEMPLATE_VERSION_DISPOSITION : dispositions
     ALBUM_TEMPLATE_VERSION ||--o{ ALBUM_TEMPLATE_VERSION_WEEK_PLAN : units
@@ -239,10 +249,18 @@ erDiagram
         int VersionNumber
         string Title
         string Phase
+        string ActivityTypeKey FK
         text StudentInstruction
         text BPlan
         text LowResource
         datetime CreatedAt
+    }
+
+    ACTIVITY_TYPE {
+        string Key PK
+        string Name
+        string PedagogyModel
+        int SortOrder
     }
 
     ALBUM_TEMPLATE {
@@ -512,10 +530,11 @@ Projection maintenance:
 
 | Method | Route | Purpose |
 | --- | --- | --- |
-| `GET` | `/api/stickers` | List global sticker resources with latest version metadata. |
-| `POST` | `/api/stickers` | Create a sticker resource with version 1. |
-| `GET` | `/api/stickers/{id}` | Sticker resource detail and versions. |
-| `POST` | `/api/stickers/{id}/versions` | Create a new version of a sticker resource. |
+| `GET` | `/api/activity-types` | Read-only list of the 6 system-defined `Tevékenységtípus` rows (`key`, `name`, `pedagogyModel`). Users/AI never create types. |
+| `GET` | `/api/stickers` | List global sticker resources with latest version metadata (incl. `activityTypeKey`). Optional `?activityType=<key>` filters to one type; an empty/unknown value narrows nothing, and unclassified (null-type) stickers drop out once a concrete type is requested. |
+| `POST` | `/api/stickers` | Create a sticker resource with version 1. Body may carry `activityTypeKey`; a non-empty unknown value → `400`. |
+| `GET` | `/api/stickers/{id}` | Sticker resource detail and versions (each carries `activityTypeKey`). |
+| `POST` | `/api/stickers/{id}/versions` | Create a new version of a sticker resource. Body may carry `activityTypeKey`; unknown → `400`. |
 | `PATCH` | `/api/stickers/{id}/archive` | Toggle `StickerResource.ArchivedAt` (soft delete; archived stickers stay readable but are hidden from default pickers). |
 | `GET` | `/api/album-templates` | List reusable album templates. Carries `isDraftOnly` plus pattern metadata so the list can show and filter by album-minta. |
 | `POST` | `/api/album-templates` | Create an album template. `v1` lands with `IsDraft = true`; the teacher publishes from the detail page. Body carries `durationType: 'het' \| 'ora' \| 'fazis'`, `patternKey`, optional pattern label/description, units, and prompts; the server adds starter sticker assignments from the selected album-minta. |

@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-01] feat | Tevékenységtípus (ActivityType) taxonomy — REFACTOR-001 Phase 2
+
+- Ask: run REFACTOR-001 Phase 2 — formalize the closed `Tevékenységtípus` taxonomy (the one gold-standard piece that is alignment, not delta).
+- Change: new `activity_types` reference table + `ActivityType` entity/catalog (6 system types, seeded idempotently on every boot); `StickerVersion.ActivityTypeKey` (additive, nullable, never backfilled with a guess); `GET /api/activity-types` (read-only) + `?activityType=` filter on the sticker list + unknown-type→400 on create/version. Web: single-sourced the 6-type taxonomy in `core/tokens/activity-types.ts`; the create-drawer picker now persists the type; Matricatár gained a type-filter facet + per-card type chip. Docs: `architecture.md` ER + API + new "Tevékenységtípus (ActivityType) Taxonomy" section; wiki Glossary confirmed matching. Also fixed the API Dockerfile to restore the API project (not the whole `.slnx`) so the new test project no longer breaks the image build.
+- Why: move the app toward the gold-standard rendszerstruktúra with the dominant activity type as a real, filterable field; keep the taxonomy closed (users/AI classify, never invent).
+- State another agent needs: migrations `20260601120000_AddActivityTypes` + `20260601130000_AddStickerVersionActivityType` apply on boot and seed exactly 6 rows. `dotnet test` 27/27, `ng test` 21/21 green; all 4 endpoint behaviors verified live on Postgres. Branch `gold-standard-ingest-refactor-plan`. Rebuild containers (`docker compose up --build -d`) to pick up the web facet. The 3 inferred type keys/pedagogyModels (`kommunikacios/kollaborativ/reflektiv`) are now seeded but still pending Confluence confirmation. Next: REFACTOR-001 Phase 3 (Activity metadata structuring), gated after this.
+
 ## [2026-06-01] docs | Clean docs folder
 
 - Ask: clean out the `docs/` folder and only keep the architecture and user manual documents.
