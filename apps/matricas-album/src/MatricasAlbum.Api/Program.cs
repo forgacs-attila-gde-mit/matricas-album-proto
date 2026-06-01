@@ -67,6 +67,10 @@ app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 var api = app.MapGroup("/api")
     .AddEndpointFilter(DemoAuth.RequireAnyRole);
+// Hierarchy entities ship dark behind a feature flag (REFACTOR-001). Defaults to on in
+// Development (so the demo stack + tests can exercise them) and off elsewhere unless
+// Features:Hierarchy:Block is set explicitly.
+var blockFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Block") ?? app.Environment.IsDevelopment();
 const string PromptVersion = "phase5-v1";
 const string GuidedDemoPromptVersion = "phase4-v1-guided-demo";
 const string ProjectionVersion = "matricas-methodology-agent-wiki-v1";
@@ -236,6 +240,216 @@ api.MapPost("/stickers/{id:guid}/versions", async (Guid id, CreateStickerRequest
 
     return Results.Created($"/api/stickers/{id}", await MapStickerResourceDetailAsync(db, id, cancellationToken));
 }).RequireDemoRole(DemoAuth.TeacherRole);
+
+// --- Blokk (Block) API — reference-composed, versioned (Phase 4, behind feature flag) --------
+if (blockFeatureEnabled)
+{
+    api.MapGet("/blocks", async (AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var blocks = await db.Blocks
+            .AsNoTracking()
+            .Include(block => block.Versions)
+            .ThenInclude(version => version.Activities)
+            .OrderBy(block => block.Name)
+            .ToListAsync(cancellationToken);
+
+        return Results.Ok(blocks.Select(block =>
+        {
+            var latest = LatestBlockVersion(block);
+            return new BlockListItemDto(
+                block.Id,
+                UiText(block.Name),
+                latest.VersionNumber,
+                latest.FlowType,
+                latest.Grouping,
+                latest.Activities.Count,
+                block.Versions.Any(version => version.IsDraft),
+                block.ArchivedAt);
+        }));
+    });
+
+    api.MapPost("/blocks", async (CreateBlockRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+        {
+            return Results.BadRequest(new { error = "A blokk neve kötelező." });
+        }
+
+        var block = new Block { Name = request.Name.Trim() };
+        // v1 starts as an editable draft: create -> fill with activity references -> publish.
+        block.Versions.Add(new BlockVersion
+        {
+            BlockId = block.Id,
+            VersionNumber = 1,
+            IsDraft = true,
+            Name = request.Name.Trim(),
+            FlowType = BlockFlowTypes.Normalize(request.FlowType),
+            Grouping = BlockGroupings.Normalize(request.Grouping),
+        });
+        db.Blocks.Add(block);
+        await db.SaveChangesAsync(cancellationToken);
+
+        return Results.Created($"/api/blocks/{block.Id}", await MapBlockDetailAsync(db, block.Id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapGet("/blocks/{id:guid}", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var detail = await MapBlockDetailAsync(db, id, cancellationToken);
+        return detail is null ? Results.NotFound() : Results.Ok(detail);
+    });
+
+    api.MapPatch("/blocks/{id:guid}/archive", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await db.Blocks.SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        block.ArchivedAt = block.ArchivedAt is null ? DateTimeOffset.UtcNow : null;
+        block.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/blocks/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        if (DraftBlockVersion(block) is not null)
+        {
+            return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+        }
+
+        var latest = LatestBlockVersion(block);
+        var now = DateTimeOffset.UtcNow;
+        var draft = new BlockVersion
+        {
+            BlockId = block.Id,
+            VersionNumber = block.Versions.Max(version => version.VersionNumber) + 1,
+            IsDraft = true,
+            Name = latest.Name,
+            FlowType = latest.FlowType,
+            Grouping = latest.Grouping,
+            CreatedAt = now,
+            Activities = latest.Activities
+                .OrderBy(activity => activity.SortOrder)
+                .Select(activity => new ActivityBlockRelation
+                {
+                    StickerVersionId = activity.StickerVersionId,
+                    Role = activity.Role,
+                    SortOrder = activity.SortOrder,
+                    AddedAt = now,
+                })
+                .ToList(),
+        };
+        block.Versions.Add(draft);
+        block.UpdatedAt = now;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Created($"/api/blocks/{id}", await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/blocks/{id:guid}/draft/publish", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        var draft = DraftBlockVersion(block);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs publikálható blokkvázlat." });
+        draft.IsDraft = false;
+        block.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/blocks/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        var draft = DraftBlockVersion(block);
+        // Never strand a block with no published version: only discard a draft that has a
+        // published sibling.
+        if (draft is not null && block.Versions.Any(version => !version.IsDraft))
+        {
+            db.BlockVersions.Remove(draft);
+            block.UpdatedAt = DateTimeOffset.UtcNow;
+            await db.SaveChangesAsync(cancellationToken);
+        }
+        return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPatch("/block-versions/{versionId:guid}", async (Guid versionId, UpdateBlockVersionRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var version = await db.BlockVersions.SingleOrDefaultAsync(version => version.Id == versionId, cancellationToken);
+        if (version is null) return Results.NotFound();
+        if (!version.IsDraft) return Results.BadRequest(new { error = "Csak vázlat szerkeszthető." });
+        if (request.Name is { } name && !string.IsNullOrWhiteSpace(name)) version.Name = name.Trim();
+        if (request.FlowType is not null) version.FlowType = BlockFlowTypes.Normalize(request.FlowType);
+        if (request.Grouping is not null) version.Grouping = BlockGroupings.Normalize(request.Grouping);
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapBlockDetailAsync(db, version.BlockId, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/blocks/{id:guid}/activities", async (Guid id, AddBlockActivityRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        var draft = DraftBlockVersion(block);
+        if (draft is null) return Results.BadRequest(new { error = "Előbb hozz létre egy blokkvázlatot." });
+
+        var role = BlockActivityRoles.Normalize(request.Role) ?? (string.IsNullOrWhiteSpace(request.Role) ? BlockActivityRoles.Primary : null);
+        if (role is null) return Results.BadRequest(new { error = "Ismeretlen szerep." });
+
+        if (!await db.StickerVersions.AnyAsync(version => version.Id == request.StickerVersionId, cancellationToken))
+        {
+            return Results.BadRequest(new { error = "Ismeretlen tevékenység-verzió." });
+        }
+
+        var sortOrder = request.SortOrder ?? (draft.Activities.Count == 0 ? 1 : draft.Activities.Max(activity => activity.SortOrder) + 1);
+        draft.Activities.Add(new ActivityBlockRelation
+        {
+            BlockVersionId = draft.Id,
+            StickerVersionId = request.StickerVersionId,
+            Role = role,
+            SortOrder = sortOrder,
+        });
+        block.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/blocks/{id:guid}/activities/{relationId:guid}", async (Guid id, Guid relationId, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        var draft = DraftBlockVersion(block);
+        var relation = draft?.Activities.SingleOrDefault(activity => activity.Id == relationId);
+        if (relation is null) return Results.NotFound();
+        db.ActivityBlockRelations.Remove(relation);
+        block.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/blocks/{id:guid}/activities/reorder", async (Guid id, ReorderBlockActivitiesRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var block = await BlockGraph(db).SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+        if (block is null) return Results.NotFound();
+        var draft = DraftBlockVersion(block);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs szerkeszthető blokkvázlat." });
+
+        var targets = (request.Items ?? []).ToDictionary(item => item.Id, item => item.SortOrder);
+        // Two-pass write so the unique (BlockVersionId, SortOrder) index never collides mid-swap.
+        foreach (var activity in draft.Activities)
+        {
+            activity.SortOrder += 100000;
+        }
+        await db.SaveChangesAsync(cancellationToken);
+        foreach (var activity in draft.Activities)
+        {
+            if (targets.TryGetValue(activity.Id, out var sortOrder)) activity.SortOrder = sortOrder;
+            else activity.SortOrder -= 100000;
+        }
+        block.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapBlockDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+}
 
 api.MapGet("/album-templates", async (AlbumDbContext db, CancellationToken cancellationToken) =>
 {
@@ -4016,6 +4230,62 @@ static Team CreateTeam(CreateTeamRequest request) => new()
 
 static StickerVersion LatestVersion(StickerResource resource) =>
     resource.Versions.OrderByDescending(version => version.VersionNumber).First();
+
+static IQueryable<Block> BlockGraph(AlbumDbContext db) =>
+    db.Blocks
+        .Include(block => block.Versions)
+        .ThenInclude(version => version.Activities);
+
+static BlockVersion LatestBlockVersion(Block block) =>
+    block.Versions.OrderByDescending(version => version.VersionNumber).First();
+
+static BlockVersion? DraftBlockVersion(Block block) =>
+    block.Versions.SingleOrDefault(version => version.IsDraft);
+
+static async Task<BlockDetailDto?> MapBlockDetailAsync(AlbumDbContext db, Guid id, CancellationToken cancellationToken)
+{
+    var block = await db.Blocks
+        .AsNoTracking()
+        .Include(block => block.Versions)
+        .ThenInclude(version => version.Activities)
+        .ThenInclude(activity => activity.StickerVersion)
+        .ThenInclude(version => version!.StickerResource)
+        .SingleOrDefaultAsync(block => block.Id == id, cancellationToken);
+    if (block is null)
+    {
+        return null;
+    }
+
+    return new BlockDetailDto(
+        block.Id,
+        UiText(block.Name),
+        block.ArchivedAt,
+        block.Versions
+            .OrderByDescending(version => version.VersionNumber)
+            .Select(MapBlockVersion)
+            .ToList());
+}
+
+static BlockVersionDto MapBlockVersion(BlockVersion version) =>
+    new(
+        version.Id,
+        version.BlockId,
+        version.VersionNumber,
+        version.IsDraft,
+        UiText(version.Name),
+        version.FlowType,
+        version.Grouping,
+        version.Activities
+            .OrderBy(activity => activity.SortOrder)
+            .Select(activity => new BlockActivityDto(
+                activity.Id,
+                activity.StickerVersionId,
+                activity.StickerVersion?.StickerResourceId ?? Guid.Empty,
+                UiText(activity.StickerVersion?.StickerResource?.Title ?? activity.StickerVersion?.Title ?? string.Empty),
+                activity.StickerVersion?.VersionNumber ?? 0,
+                activity.Role,
+                activity.SortOrder))
+            .ToList());
 
 static string Clean(string? value) => string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();
 

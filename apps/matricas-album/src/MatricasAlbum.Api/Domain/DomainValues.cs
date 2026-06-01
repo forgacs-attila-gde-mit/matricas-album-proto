@@ -98,6 +98,67 @@ public static class ActivityTypeKeys
     }
 }
 
+public static class BlockFlowTypes
+{
+    public const string Linear = "linear";
+    public const string Cyclical = "cyclical";
+    public const string Exploratory = "exploratory";
+    public const string ProjectBased = "project_based";
+    public const string Mixed = "mixed";
+
+    public static readonly IReadOnlySet<string> All = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        Linear, Cyclical, Exploratory, ProjectBased, Mixed
+    };
+
+    public static string Normalize(string? value)
+    {
+        var key = value?.Trim().ToLowerInvariant();
+        return !string.IsNullOrEmpty(key) && All.Contains(key) ? key : Linear;
+    }
+}
+
+public static class BlockGroupings
+{
+    public const string Individual = "individual";
+    public const string Pair = "pair";
+    public const string Group = "group";
+    public const string WholeClass = "whole_class";
+    public const string Dynamic = "dynamic";
+
+    public static readonly IReadOnlySet<string> All = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        Individual, Pair, Group, WholeClass, Dynamic
+    };
+
+    public static string Normalize(string? value)
+    {
+        var key = value?.Trim().ToLowerInvariant();
+        return !string.IsNullOrEmpty(key) && All.Contains(key) ? key : Group;
+    }
+}
+
+public static class BlockActivityRoles
+{
+    public const string Primary = "primary";
+    public const string Supporting = "supporting";
+    public const string Optional = "optional";
+    public const string Transition = "transition";
+    public const string Assessment = "assessment";
+
+    public static readonly IReadOnlySet<string> All = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        Primary, Supporting, Optional, Transition, Assessment
+    };
+
+    // Closed set: an unknown role is rejected (null) so the endpoint can 400, never coerced.
+    public static string? Normalize(string? value)
+    {
+        var key = value?.Trim().ToLowerInvariant();
+        return !string.IsNullOrEmpty(key) && All.Contains(key) ? key : null;
+    }
+}
+
 public static class QualityStates
 {
     public const string Ok = "ok";

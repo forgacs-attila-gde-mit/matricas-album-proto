@@ -7,6 +7,9 @@ namespace MatricasAlbum.Api.Data;
 public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : DbContext(options)
 {
     public DbSet<ActivityType> ActivityTypes => Set<ActivityType>();
+    public DbSet<Block> Blocks => Set<Block>();
+    public DbSet<BlockVersion> BlockVersions => Set<BlockVersion>();
+    public DbSet<ActivityBlockRelation> ActivityBlockRelations => Set<ActivityBlockRelation>();
     public DbSet<StickerResource> StickerResources => Set<StickerResource>();
     public DbSet<StickerVersion> StickerVersions => Set<StickerVersion>();
     public DbSet<AlbumTemplate> AlbumTemplates => Set<AlbumTemplate>();
@@ -42,6 +45,33 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
             entity.Property(x => x.Key).HasMaxLength(40);
             entity.Property(x => x.Name).HasMaxLength(80);
             entity.Property(x => x.PedagogyModel).HasMaxLength(60);
+        });
+
+        modelBuilder.Entity<Block>(entity =>
+        {
+            entity.ToTable("blocks");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.HasMany(x => x.Versions).WithOne(x => x.Block).HasForeignKey(x => x.BlockId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<BlockVersion>(entity =>
+        {
+            entity.ToTable("block_versions");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.Property(x => x.FlowType).HasMaxLength(40);
+            entity.Property(x => x.Grouping).HasMaxLength(40);
+            entity.HasIndex(x => new { x.BlockId, x.VersionNumber }).IsUnique();
+            entity.HasMany(x => x.Activities).WithOne(x => x.BlockVersion).HasForeignKey(x => x.BlockVersionId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<ActivityBlockRelation>(entity =>
+        {
+            entity.ToTable("activity_block_relations");
+            entity.Property(x => x.Role).HasMaxLength(40);
+            entity.HasIndex(x => new { x.BlockVersionId, x.SortOrder }).IsUnique();
+            // Reference, not embed: deleting the relation never cascades into the activity;
+            // the same StickerVersion can be referenced by many blocks (no unique on it).
+            entity.HasOne(x => x.StickerVersion).WithMany().HasForeignKey(x => x.StickerVersionId).OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<StickerResource>(entity =>

@@ -16,6 +16,65 @@ public sealed record ActivityTypeDto(
     string Name,
     string PedagogyModel);
 
+// --- Blokk (Block) — reference-composed, versioned grouping of activities (Phase 4) -------
+
+public sealed record BlockListItemDto(
+    Guid Id,
+    string Name,
+    int LatestVersionNumber,
+    string FlowType,
+    string Grouping,
+    int ActivityCount,
+    bool HasDraft,
+    DateTimeOffset? ArchivedAt);
+
+public sealed record BlockDetailDto(
+    Guid Id,
+    string Name,
+    DateTimeOffset? ArchivedAt,
+    IReadOnlyList<BlockVersionDto> Versions);
+
+public sealed record BlockVersionDto(
+    Guid Id,
+    Guid BlockId,
+    int VersionNumber,
+    bool IsDraft,
+    string Name,
+    string FlowType,
+    string Grouping,
+    IReadOnlyList<BlockActivityDto> Activities);
+
+public sealed record BlockActivityDto(
+    Guid Id,
+    Guid StickerVersionId,
+    Guid StickerResourceId,
+    string ActivityTitle,
+    int StickerVersionNumber,
+    string Role,
+    int SortOrder);
+
+public sealed record CreateBlockRequest(
+    string Name,
+    string? FlowType = null,
+    string? Grouping = null);
+
+public sealed record UpdateBlockVersionRequest(
+    string? Name = null,
+    string? FlowType = null,
+    string? Grouping = null);
+
+public sealed record AddBlockActivityRequest(
+    Guid StickerVersionId,
+    string? Role = null,
+    int? SortOrder = null);
+
+public sealed record ReorderBlockActivitiesRequest(
+    IReadOnlyList<ReorderBlockActivityItem> Items);
+
+public sealed record ReorderBlockActivityItem(
+    Guid Id,
+    int SortOrder);
+
 public sealed record StickerResourceDetailDto(
     Guid Id,
     string Title,
