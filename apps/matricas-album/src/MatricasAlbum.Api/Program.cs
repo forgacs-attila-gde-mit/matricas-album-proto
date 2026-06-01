@@ -2429,6 +2429,30 @@ static async Task<StickerResourceDetailDto?> MapStickerResourceDetailAsync(Album
         .Where(note => note.OwnerType == "stickerVersion" && versionIds.Contains(note.OwnerId))
         .ToListAsync(cancellationToken);
 
+    // relations.reusedIn — the album-template versions that reference this activity.
+    var usageRows = await db.AlbumTemplateVersionStickers
+        .AsNoTracking()
+        .Include(usage => usage.AlbumTemplateVersion)
+        .Where(usage => versionIds.Contains(usage.StickerVersionId))
+        .ToListAsync(cancellationToken);
+    var versionNumberById = resource.Versions.ToDictionary(version => version.Id, version => version.VersionNumber);
+    var reusedIn = usageRows
+        .Where(usage => usage.AlbumTemplateVersion is not null)
+        .Select(usage => new ActivityUsageDto(
+            usage.AlbumTemplateVersion!.AlbumTemplateId,
+            UiText(usage.AlbumTemplateVersion.Title),
+            usage.AlbumTemplateVersion.VersionNumber,
+            usage.StickerVersionId,
+            versionNumberById.GetValueOrDefault(usage.StickerVersionId),
+            usage.Week))
+        .OrderBy(usage => usage.TemplateTitle)
+        .ThenBy(usage => usage.TemplateVersionNumber)
+        .ToList();
+    var derivedFrom = StickerVersionLineage
+        .Build(resource.Versions.Select(version => (version.Id, version.VersionNumber)))
+        .Select(entry => new ActivityLineageDto(entry.StickerVersionId, entry.VersionNumber, entry.DerivedFromVersionId, entry.DerivedFromVersionNumber))
+        .ToList();
+
     return new StickerResourceDetailDto(
         resource.Id,
         UiText(resource.Title),
@@ -2436,7 +2460,8 @@ static async Task<StickerResourceDetailDto?> MapStickerResourceDetailAsync(Album
         resource.Versions
             .OrderByDescending(version => version.VersionNumber)
             .Select(version => MapStickerVersion(version, notes.Where(note => note.OwnerId == version.Id)))
-            .ToList());
+            .ToList(),
+        new ActivityRelationsDto(reusedIn, derivedFrom, []));
 }
 
 static async Task<AlbumTemplateDetailDto?> MapTemplateDetailAsync(AlbumDbContext db, Guid id, CancellationToken cancellationToken)

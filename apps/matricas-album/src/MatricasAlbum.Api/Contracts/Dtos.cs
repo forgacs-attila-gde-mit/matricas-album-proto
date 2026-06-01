@@ -20,7 +20,30 @@ public sealed record StickerResourceDetailDto(
     Guid Id,
     string Title,
     DateTimeOffset? ArchivedAt,
-    IReadOnlyList<StickerVersionDto> Versions);
+    IReadOnlyList<StickerVersionDto> Versions,
+    ActivityRelationsDto Relations);
+
+// Read-only activity relations. `Blocks` stays empty until the Block entity lands (Phase 4);
+// `ReusedIn` is the template versions referencing this activity; `DerivedFrom` is the
+// implicit version lineage (version N <- version N-1).
+public sealed record ActivityRelationsDto(
+    IReadOnlyList<ActivityUsageDto> ReusedIn,
+    IReadOnlyList<ActivityLineageDto> DerivedFrom,
+    IReadOnlyList<string> Blocks);
+
+public sealed record ActivityUsageDto(
+    Guid TemplateId,
+    string TemplateTitle,
+    int TemplateVersionNumber,
+    Guid StickerVersionId,
+    int StickerVersionNumber,
+    int Week);
+
+public sealed record ActivityLineageDto(
+    Guid StickerVersionId,
+    int VersionNumber,
+    Guid? DerivedFromVersionId,
+    int? DerivedFromVersionNumber);
 
 public sealed record StickerVersionDto(
     Guid Id,
