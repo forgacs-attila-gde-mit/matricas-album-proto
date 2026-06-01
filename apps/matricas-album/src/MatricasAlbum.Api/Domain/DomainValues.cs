@@ -65,6 +65,30 @@ public static class DifferentiationPathKeys
     }
 }
 
+public static class ActivityTypeKeys
+{
+    public const string Explorer = "felfedezo";
+    public const string Experimenter = "kiserletezo";
+    public const string Processor = "feldolgozo";
+    public const string Communicator = "kommunikacios";
+    public const string Collaborator = "kollaborativ";
+    public const string Reflector = "reflektiv";
+
+    public static readonly IReadOnlySet<string> All = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        Explorer, Experimenter, Processor, Communicator, Collaborator, Reflector
+    };
+
+    // Closed, system-defined taxonomy: unknown input is rejected (null), never coerced to
+    // a default. Unlike DifferentiationPathKeys there is no fallback — users/AI cannot
+    // invent a Tevékenységtípus.
+    public static string? Normalize(string? value)
+    {
+        var key = value?.Trim().ToLowerInvariant();
+        return !string.IsNullOrEmpty(key) && All.Contains(key) ? key : null;
+    }
+}
+
 public static class QualityStates
 {
     public const string Ok = "ok";

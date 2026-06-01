@@ -6,6 +6,7 @@ namespace MatricasAlbum.Api.Data;
 
 public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : DbContext(options)
 {
+    public DbSet<ActivityType> ActivityTypes => Set<ActivityType>();
     public DbSet<StickerResource> StickerResources => Set<StickerResource>();
     public DbSet<StickerVersion> StickerVersions => Set<StickerVersion>();
     public DbSet<AlbumTemplate> AlbumTemplates => Set<AlbumTemplate>();
@@ -34,6 +35,15 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<ActivityType>(entity =>
+        {
+            entity.ToTable("activity_types");
+            entity.HasKey(x => x.Key);
+            entity.Property(x => x.Key).HasMaxLength(40);
+            entity.Property(x => x.Name).HasMaxLength(80);
+            entity.Property(x => x.PedagogyModel).HasMaxLength(60);
+        });
+
         modelBuilder.Entity<StickerResource>(entity =>
         {
             entity.ToTable("sticker_resources");

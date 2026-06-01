@@ -82,6 +82,10 @@ public static class DemoSeeder
 
     public static async Task SeedAsync(AlbumDbContext db, CancellationToken cancellationToken = default)
     {
+        // Reference data (the closed Tevékenységtípus taxonomy) is ensured on every boot,
+        // independent of the demo-content seed marker.
+        await SeedActivityTypesAsync(db, cancellationToken);
+
         if (await db.SeedMarkers.AnyAsync(marker => marker.Id == SeedMarkerId, cancellationToken))
         {
             await SeedMethodPatternTemplatesAsync(db, cancellationToken);
@@ -113,6 +117,29 @@ public static class DemoSeeder
         }
 
         await SeedMethodPatternTemplatesAsync(db, cancellationToken);
+    }
+
+    // Ensures the six system-defined activity types exist. Idempotent: only inserts keys
+    // that are missing, so calling it repeatedly leaves exactly six rows. Reference data is
+    // never removed by the demo resets (DeleteAllDemoDataAsync leaves activity_types alone).
+    public static async Task SeedActivityTypesAsync(AlbumDbContext db, CancellationToken cancellationToken = default)
+    {
+        var catalog = ActivityTypeCatalog.Seed();
+        var keys = catalog.Select(type => type.Key).ToList();
+        var existing = (await db.ActivityTypes
+                .Where(type => keys.Contains(type.Key))
+                .Select(type => type.Key)
+                .ToListAsync(cancellationToken))
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+        var missing = catalog.Where(type => !existing.Contains(type.Key)).ToList();
+        if (missing.Count == 0)
+        {
+            return;
+        }
+
+        db.ActivityTypes.AddRange(missing);
+        await db.SaveChangesAsync(cancellationToken);
     }
 
     public static async Task ResetAsync(AlbumDbContext db, CancellationToken cancellationToken = default)
