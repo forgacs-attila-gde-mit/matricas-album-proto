@@ -232,21 +232,21 @@ When this plan is complete: (1) a teacher can create a `Tevékenység` and an `A
 > **Releasable**: after this phase, `StickerVersion` carries the spec's structured `Activity` fields as real columns/child tables (additive), with the creator UX reading them — existing stickers keep working.
 
 #### Task 3.1 — Promote activity metadata from note-fields to structured columns
-- [ ] **File**: `Domain/Sticker.cs`, `Migrations/<ts>_AddActivityStructuredMetadata.cs`, `Data/AlbumDbContext.cs`
+- [x] **File**: `Domain/Sticker.cs`, `Domain/ActivityMetadataNotes.cs`, `Migrations/20260601140000_AddActivityStructuredMetadata.cs`, `Data/AlbumDbContext.cs`, `Contracts/Dtos.cs`, `Program.cs` — **Done 2026-06-01** (8 structured columns; tested note-line backfill parser; create path persists structured metadata; verified live. Deferred — not invented: `resources{}`, `lifecycle{status,source}`.)
 - **Depends on**: Task 2.1, Task 2.3
 - **Description**: Add `metadata` (`ShortDescription, EstimatedMinutes, Difficulty, GroupSize, Modality`), `pedagogy` (`CompetenciesJson, MethodsJson, ReflectionPromptsJson`), `context` (`Subject, GradeLevel, TopicsJson, NatReferencesJson`), `resources` (`ToolsJson, MaterialsJson, AttachmentsJson, ExternalLinksJson`), `lifecycle` (`Status, Source`) — all additive/nullable. One-time backfill parses today's note-field serialization where parseable; unparseable text retained in a `LegacyNotes` field (no data loss).
 - **Releasable**: structured activity metadata persisted and queryable.
 - **Tests (TDD)** — `ActivityMetadataTests.cs`: `new_columns_default_null`, `backfill_parses_known_notes`, `unparseable_notes_preserved`, `existing_sticker_loads_unchanged`. Checkpoint: `dotnet test --filter ActivityMetadata`
 
 #### Task 3.2 — `Activity.relations` (`derivedFrom`, `reusedIn`) read model
-- [ ] **File**: `Program.cs` (activity detail DTO), `Contracts/*`
+- [x] **File**: `Program.cs` (activity detail DTO), `Contracts/*`, `Domain/StickerVersionLineage.cs` — **Done 2026-06-01** (`relations.reusedIn` template usage + `derivedFrom` lineage; pure lineage helper tested; verified live)
 - **Depends on**: Task 3.1
 - **Description**: Surface `relations.blocks/reusedIn/derivedFrom` (derivable once `Block` exists; pre-Phase-4 returns sticker-version lineage + template usage). Read-only.
 - **Releasable**: activity detail shows lineage/reuse.
 - **Tests (TDD)**: `relations_reports_template_usage`, `derivedFrom_tracks_new_version_source`. Checkpoint: `dotnet test --filter ActivityRelations`
 
 #### Task 3.3 — Creator reads structured fields (replace note-field disclosure)
-- [ ] **File**: web `album-create-drawer` advanced disclosure (from Task 1.3) + `album-api.service.ts`
+- [x] **File**: web `album-create-drawer` advanced disclosure (from Task 1.3) + `album-api.service.ts` — **Done 2026-06-01** (drawer sends structured `metadata`; dead note-line serializer removed; hierarchy context kept as residual note-lines; Phase-1 layout preserved; spec added)
 - **Depends on**: Task 3.1
 - **Description**: Switch the "Részletes tervezés" disclosure from note-field serialization to the new structured fields; keep the calm default/disclosure layout from Phase 1.
 - **Releasable**: advanced metadata edits persist as structured data.

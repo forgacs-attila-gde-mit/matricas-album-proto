@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-01] feat | Activity model enrichment — REFACTOR-001 Phase 3
+
+- Ask: continue REFACTOR-001 with Phase 3 — promote activity metadata from note-fields to structured columns.
+- Change: `StickerVersion` gained additive/nullable structured columns (`Subject`, `GradeLevel`, `EstimatedMinutes`, `Modality`, `GroupSize`, `ContextMode`, `CompetenciesJson`, `NatReferencesJson`) + migration. `ActivityMetadataNotes.Parse` (pure, tested) lifts the legacy create-drawer note-lines into those fields and keeps the genuine teacher steps. The create drawer now sends a structured `metadata` object from the „Részletes tervezés" panel instead of serializing into note-lines; hierarchy context (`Tanterv → Blokk`) + free-text local context stay as note-lines until Block/Topic exist. Added a read-only `relations` model on the activity detail (`reusedIn` template usage + `derivedFrom` version lineage via the pure `StickerVersionLineage` helper). architecture.md mapping row updated.
+- Why: move the Activity model toward the gold-standard structured shape and make planning metadata queryable instead of buried in free text.
+- State another agent needs: migration `20260601140000_AddActivityStructuredMetadata` applies on boot. `dotnet test` 34/34, `ng test` 22/22 green; structured persist + legacy note-line promotion + relations verified live. Deferred (not invented): the `resources{}` group, `lifecycle{status,source}`, and hierarchy-as-entities (Phases 4–6). Next: Phase 4 (Blokk entity + reference composition + 3-pane flow builder), gated.
+
 ## [2026-06-01] feat | Tevékenységtípus (ActivityType) taxonomy — REFACTOR-001 Phase 2
 
 - Ask: run REFACTOR-001 Phase 2 — formalize the closed `Tevékenységtípus` taxonomy (the one gold-standard piece that is alignment, not delta).
