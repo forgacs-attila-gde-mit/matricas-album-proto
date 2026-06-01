@@ -38,7 +38,18 @@ public sealed record StickerVersionDto(
     string ReflectionPrompt,
     string BPlan,
     string LowResource,
-    IReadOnlyList<AiNoteDto> AiNotes);
+    IReadOnlyList<AiNoteDto> AiNotes,
+    ActivityMetadataDto Metadata);
+
+public sealed record ActivityMetadataDto(
+    string? Subject,
+    string? GradeLevel,
+    int? EstimatedMinutes,
+    string? Modality,
+    string? GroupSize,
+    string? ContextMode,
+    IReadOnlyList<string> Competencies,
+    IReadOnlyList<string> NatReferences);
 
 public sealed record AlbumTemplateListItemDto(
     Guid Id,
@@ -336,7 +347,18 @@ public sealed record CreateStickerRequest(
     string ReflectionPrompt,
     string BPlan,
     string LowResource,
-    string? ActivityTypeKey = null);
+    string? ActivityTypeKey = null,
+    ActivityMetadataInput? Metadata = null);
+
+public sealed record ActivityMetadataInput(
+    string? Subject = null,
+    string? GradeLevel = null,
+    int? EstimatedMinutes = null,
+    string? Modality = null,
+    string? GroupSize = null,
+    string? ContextMode = null,
+    IReadOnlyList<string>? Competencies = null,
+    IReadOnlyList<string>? NatReferences = null);
 
 public sealed record CreateAlbumTemplateRequest(
     string Title,

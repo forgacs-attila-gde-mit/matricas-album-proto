@@ -57,6 +57,13 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
             entity.Property(x => x.Title).HasMaxLength(180);
             entity.Property(x => x.Phase).HasMaxLength(40);
             entity.Property(x => x.ActivityTypeKey).HasMaxLength(40);
+            entity.Property(x => x.Subject).HasMaxLength(120);
+            entity.Property(x => x.GradeLevel).HasMaxLength(80);
+            entity.Property(x => x.Modality).HasMaxLength(40);
+            entity.Property(x => x.GroupSize).HasMaxLength(40);
+            entity.Property(x => x.ContextMode).HasMaxLength(40);
+            entity.Property(x => x.CompetenciesJson).HasColumnType("text");
+            entity.Property(x => x.NatReferencesJson).HasColumnType("text");
             entity.Property(x => x.EvidenceTypeLabel).HasMaxLength(120);
             entity.HasIndex(x => new { x.StickerResourceId, x.VersionNumber }).IsUnique();
             entity.HasMany(x => x.TeacherSteps).WithOne(x => x.StickerVersion).HasForeignKey(x => x.StickerVersionId).OnDelete(DeleteBehavior.Cascade);

@@ -22,6 +22,17 @@ public sealed class StickerVersion
     // Dominant Tevékenységtípus (ActivityType.Key). Nullable: legacy/unclassified activities
     // carry null until a teacher or the AI classifies them. Never invented on backfill.
     public string? ActivityTypeKey { get; set; }
+
+    // Structured activity-planning metadata (Task 3.1). All additive/nullable; legacy
+    // activities stay null until a teacher fills them or a note-line backfill runs.
+    public string? Subject { get; set; }                 // context.subject
+    public string? GradeLevel { get; set; }              // context.gradeLevel
+    public int? EstimatedMinutes { get; set; }           // metadata.estimatedTime
+    public string? Modality { get; set; }                // metadata.modality (interaction mode)
+    public string? GroupSize { get; set; }               // metadata.groupSize (participant mode)
+    public string? ContextMode { get; set; }             // context environment (iskola/otthon/…)
+    public string? CompetenciesJson { get; set; }        // pedagogy.competencies (JSON array)
+    public string? NatReferencesJson { get; set; }       // context.natReferences (JSON array)
     public string ShortDescription { get; set; } = string.Empty;
     public string StudentInstruction { get; set; } = string.Empty;
     public string StudentChoice { get; set; } = string.Empty;

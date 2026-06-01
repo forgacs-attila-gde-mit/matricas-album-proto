@@ -3637,7 +3637,16 @@ static StickerVersionDto MapStickerVersion(StickerVersion version, IEnumerable<A
         UiText(version.ReflectionPrompt),
         UiText(version.BPlan),
         UiText(version.LowResource),
-        notes.OrderByDescending(note => note.CreatedAt).Select(MapAiNote).ToList());
+        notes.OrderByDescending(note => note.CreatedAt).Select(MapAiNote).ToList(),
+        new ActivityMetadataDto(
+            version.Subject,
+            version.GradeLevel,
+            version.EstimatedMinutes,
+            version.Modality,
+            version.GroupSize,
+            version.ContextMode,
+            DeserializeJson<List<string>>(version.CompetenciesJson) ?? [],
+            DeserializeJson<List<string>>(version.NatReferencesJson) ?? []));
 
 static AlbumTemplateVersionDto MapTemplateVersion(AlbumTemplateVersion version, IEnumerable<AiNote> notes) =>
     new(
@@ -3910,27 +3919,51 @@ static StickerResource CreateStickerResource(CreateStickerRequest request, Guid 
     Versions = [CreateStickerVersion(request, resourceId, versionId, versionNumber)]
 };
 
-static StickerVersion CreateStickerVersion(CreateStickerRequest request, Guid resourceId, Guid versionId, int versionNumber) => new()
+static StickerVersion CreateStickerVersion(CreateStickerRequest request, Guid resourceId, Guid versionId, int versionNumber)
 {
-    Id = versionId,
-    StickerResourceId = resourceId,
-    VersionNumber = versionNumber,
-    Title = request.Title.Trim(),
-    Phase = NormalizeStickerPhase(request.Phase),
-    ActivityTypeKey = ActivityTypeKeys.Normalize(request.ActivityTypeKey),
-    ShortDescription = Clean(request.ShortDescription),
-    StudentInstruction = Clean(request.StudentInstruction),
-    StudentChoice = Clean(request.StudentChoice),
-    ExpectedProduct = Clean(request.ExpectedProduct),
-    EvidenceTypeLabel = Clean(request.EvidenceTypeLabel),
-    ReflectionPrompt = Clean(request.ReflectionPrompt),
-    BPlan = Clean(request.BPlan),
-    LowResource = Clean(request.LowResource),
-    TeacherSteps = (request.TeacherSteps ?? [])
+    // Lift any legacy metadata note-lines out of the teacher steps; the cleaned steps stay
+    // as the real pedagogical sequence. An explicit structured Metadata payload wins over
+    // anything parsed from the note-lines.
+    var rawSteps = (request.TeacherSteps ?? [])
         .Where(value => !string.IsNullOrWhiteSpace(value))
-        .Select((value, index) => new StickerVersionTeacherStep { SortOrder = index + 1, Text = value.Trim() })
-        .ToList()
-};
+        .Select(value => value.Trim());
+    var (parsed, cleanedSteps) = ActivityMetadataNotes.Parse(rawSteps);
+    var meta = request.Metadata;
+
+    var competencies = ((meta?.Competencies?.Count > 0 ? meta.Competencies : parsed.Competencies) ?? [])
+        .Where(value => !string.IsNullOrWhiteSpace(value)).Select(value => value.Trim()).ToList();
+    var natReferences = ((meta?.NatReferences?.Count > 0 ? meta.NatReferences : parsed.NatReferences) ?? [])
+        .Where(value => !string.IsNullOrWhiteSpace(value)).Select(value => value.Trim()).ToList();
+
+    return new StickerVersion
+    {
+        Id = versionId,
+        StickerResourceId = resourceId,
+        VersionNumber = versionNumber,
+        Title = request.Title.Trim(),
+        Phase = NormalizeStickerPhase(request.Phase),
+        ActivityTypeKey = ActivityTypeKeys.Normalize(request.ActivityTypeKey),
+        Subject = NullIfBlank(meta?.Subject) ?? parsed.Subject,
+        GradeLevel = NullIfBlank(meta?.GradeLevel) ?? parsed.GradeLevel,
+        EstimatedMinutes = meta?.EstimatedMinutes,
+        Modality = NullIfBlank(meta?.Modality),
+        GroupSize = NullIfBlank(meta?.GroupSize),
+        ContextMode = NullIfBlank(meta?.ContextMode),
+        CompetenciesJson = competencies.Count > 0 ? SerializeJson(competencies) : null,
+        NatReferencesJson = natReferences.Count > 0 ? SerializeJson(natReferences) : null,
+        ShortDescription = Clean(request.ShortDescription),
+        StudentInstruction = Clean(request.StudentInstruction),
+        StudentChoice = Clean(request.StudentChoice),
+        ExpectedProduct = Clean(request.ExpectedProduct),
+        EvidenceTypeLabel = Clean(request.EvidenceTypeLabel),
+        ReflectionPrompt = Clean(request.ReflectionPrompt),
+        BPlan = Clean(request.BPlan),
+        LowResource = Clean(request.LowResource),
+        TeacherSteps = cleanedSteps
+            .Select((value, index) => new StickerVersionTeacherStep { SortOrder = index + 1, Text = value })
+            .ToList()
+    };
+}
 
 static string NormalizeStickerPhase(string? value)
 {
@@ -3960,6 +3993,8 @@ static StickerVersion LatestVersion(StickerResource resource) =>
     resource.Versions.OrderByDescending(version => version.VersionNumber).First();
 
 static string Clean(string? value) => string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();
+
+static string? NullIfBlank(string? value) => string.IsNullOrWhiteSpace(value) ? null : value.Trim();
 
 // Defaults to 'het' so legacy clients sending no DurationType still get a valid value.
 static string NormalizeDurationType(string? value) =>
