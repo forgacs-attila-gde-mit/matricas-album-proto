@@ -1,0 +1,108 @@
+:host {
+  display: block;
+  height: 100%;
+  min-height: 0;
+}
+
+/* ---- mode chooser step ---- */
+.cs-chooser {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.cs-title {
+  margin: 0;
+  font-size: var(--t-title, 1.25rem);
+  font-weight: 700;
+}
+
+.cs-modes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.75rem;
+}
+
+.cs-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  text-align: left;
+  padding: 1rem;
+  border: 1px solid var(--c-border, #e5e5e5);
+  border-radius: var(--radius-lg, 0.75rem);
+  background: var(--c-surface, #fff);
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--c-primary, #9333ea);
+  }
+}
+
+.cs-mode-label {
+  font-weight: 600;
+}
+
+.cs-mode-desc {
+  font-size: var(--t-body-sm, 0.85rem);
+  color: var(--c-muted, #737373);
+}
+
+/* ---- 3-pane layout ---- */
+.cs-panes {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  min-height: 0;
+}
+
+.cs-left,
+.cs-center,
+.cs-right {
+  overflow: auto;
+  min-width: 0;
+  padding: 1rem;
+}
+
+.cs-left {
+  flex: 0 0 16rem;
+  border-right: 1px solid var(--c-border, #e5e5e5);
+}
+
+.cs-center {
+  flex: 1 1 auto;
+}
+
+.cs-right {
+  flex: 0 0 22rem;
+  border-left: 1px solid var(--c-border, #e5e5e5);
+}
+
+.cs-toggle {
+  flex: 0 0 auto;
+  width: 1.25rem;
+  border: none;
+  background: var(--c-surface-2, #f5f5f5);
+  color: var(--c-muted, #737373);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--c-primary, #9333ea);
+  }
+}
+
+/* On narrow screens the side panes stack under / collapse out of the way. */
+@media (max-width: 60rem) {
+  .cs-panes {
+    flex-direction: column;
+  }
+
+  .cs-left,
+  .cs-right {
+    flex-basis: auto;
+    border: none;
+    border-bottom: 1px solid var(--c-border, #e5e5e5);
+  }
+}
