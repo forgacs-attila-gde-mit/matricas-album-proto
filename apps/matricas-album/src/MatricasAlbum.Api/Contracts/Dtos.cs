@@ -6,9 +6,15 @@ public sealed record StickerResourceListItemDto(
     Guid LatestVersionId,
     int LatestVersionNumber,
     string Phase,
+    string? ActivityTypeKey,
     string ShortDescription,
     int TemplateUsageCount,
     DateTimeOffset? ArchivedAt);
+
+public sealed record ActivityTypeDto(
+    string Key,
+    string Name,
+    string PedagogyModel);
 
 public sealed record StickerResourceDetailDto(
     Guid Id,
@@ -22,6 +28,7 @@ public sealed record StickerVersionDto(
     int VersionNumber,
     string Title,
     string Phase,
+    string? ActivityTypeKey,
     string ShortDescription,
     string StudentInstruction,
     IReadOnlyList<string> TeacherSteps,
@@ -328,7 +335,8 @@ public sealed record CreateStickerRequest(
     string EvidenceTypeLabel,
     string ReflectionPrompt,
     string BPlan,
-    string LowResource);
+    string LowResource,
+    string? ActivityTypeKey = null);
 
 public sealed record CreateAlbumTemplateRequest(
     string Title,

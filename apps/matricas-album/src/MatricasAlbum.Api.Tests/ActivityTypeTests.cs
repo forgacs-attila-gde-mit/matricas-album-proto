@@ -74,6 +74,25 @@ public class ActivityTypeTests
     }
 
     [Fact]
+    public void MatchesFilter_with_no_filter_matches_everything()
+    {
+        Assert.True(ActivityTypeKeys.MatchesFilter("felfedezo", null));
+        Assert.True(ActivityTypeKeys.MatchesFilter("felfedezo", ""));
+        Assert.True(ActivityTypeKeys.MatchesFilter(null, "   "));
+        // A provided-but-unknown filter is lenient: it narrows nothing rather than erroring.
+        Assert.True(ActivityTypeKeys.MatchesFilter("felfedezo", "ismeretlen"));
+    }
+
+    [Fact]
+    public void MatchesFilter_with_valid_filter_narrows_to_that_type()
+    {
+        Assert.True(ActivityTypeKeys.MatchesFilter("kiserletezo", "kiserletezo"));
+        Assert.True(ActivityTypeKeys.MatchesFilter("KISERLETEZO", "kiserletezo")); // case-insensitive
+        Assert.False(ActivityTypeKeys.MatchesFilter("felfedezo", "kiserletezo"));
+        Assert.False(ActivityTypeKeys.MatchesFilter(null, "kiserletezo")); // unclassified excluded
+    }
+
+    [Fact]
     public async Task SeedActivityTypesAsync_is_idempotent()
     {
         var options = new DbContextOptionsBuilder<AlbumDbContext>()

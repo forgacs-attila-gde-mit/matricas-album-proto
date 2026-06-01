@@ -87,6 +87,15 @@ public static class ActivityTypeKeys
         var key = value?.Trim().ToLowerInvariant();
         return !string.IsNullOrEmpty(key) && All.Contains(key) ? key : null;
     }
+
+    // Filter predicate for the Matricatár facet. An empty or unrecognised filter narrows
+    // nothing (matches everything); a valid filter requires the activity's type to equal it.
+    // An unclassified activity (null type) is excluded once a concrete filter is applied.
+    public static bool MatchesFilter(string? activityTypeKey, string? filter)
+    {
+        var wanted = Normalize(filter);
+        return wanted is null || Normalize(activityTypeKey) == wanted;
+    }
 }
 
 public static class QualityStates

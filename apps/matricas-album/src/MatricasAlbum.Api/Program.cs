@@ -107,7 +107,7 @@ api.MapPost("/demo-maintenance/guided-demo/reset", async (AlbumDbContext db, Can
     return Results.Ok(new WorkspaceListsDto([], [], []));
 }).RequireDemoRole(DemoAuth.TeacherRole);
 
-api.MapGet("/stickers", async (AlbumDbContext db, CancellationToken cancellationToken) =>
+api.MapGet("/stickers", async (AlbumDbContext db, string? activityType, CancellationToken cancellationToken) =>
 {
     var resources = await db.StickerResources
         .AsNoTracking()
@@ -123,19 +123,33 @@ api.MapGet("/stickers", async (AlbumDbContext db, CancellationToken cancellation
         .GroupBy(sticker => sticker.StickerVersion!.StickerResourceId)
         .ToDictionary(group => group.Key, group => group.Count());
 
-    return Results.Ok(resources.Select(resource =>
-    {
-        var latest = LatestVersion(resource);
-        return new StickerResourceListItemDto(
-            resource.Id,
-            UiText(resource.Title),
-            latest.Id,
-            latest.VersionNumber,
-            latest.Phase,
-            UiText(latest.ShortDescription),
-            usage.GetValueOrDefault(resource.Id),
-            resource.ArchivedAt);
-    }));
+    var items = resources
+        .Select(resource => new { resource, latest = LatestVersion(resource) })
+        .Where(entry => ActivityTypeKeys.MatchesFilter(entry.latest.ActivityTypeKey, activityType))
+        .Select(entry => new StickerResourceListItemDto(
+            entry.resource.Id,
+            UiText(entry.resource.Title),
+            entry.latest.Id,
+            entry.latest.VersionNumber,
+            entry.latest.Phase,
+            entry.latest.ActivityTypeKey,
+            UiText(entry.latest.ShortDescription),
+            usage.GetValueOrDefault(entry.resource.Id),
+            entry.resource.ArchivedAt))
+        .ToList();
+
+    return Results.Ok(items);
+});
+
+api.MapGet("/activity-types", async (AlbumDbContext db, CancellationToken cancellationToken) =>
+{
+    // The closed Tevékenységtípus taxonomy, read-only. Users/AI never create types here.
+    var types = await db.ActivityTypes
+        .AsNoTracking()
+        .OrderBy(type => type.SortOrder)
+        .Select(type => new ActivityTypeDto(type.Key, type.Name, type.PedagogyModel))
+        .ToListAsync(cancellationToken);
+    return Results.Ok(types);
 });
 
 api.MapPost("/stickers", async (CreateStickerRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
@@ -143,6 +157,11 @@ api.MapPost("/stickers", async (CreateStickerRequest request, AlbumDbContext db,
     if (string.IsNullOrWhiteSpace(request.Title))
     {
         return Results.BadRequest(new { error = "A matrica címe kötelező." });
+    }
+
+    if (!string.IsNullOrWhiteSpace(request.ActivityTypeKey) && ActivityTypeKeys.Normalize(request.ActivityTypeKey) is null)
+    {
+        return Results.BadRequest(new { error = "Ismeretlen tevékenységtípus." });
     }
 
     var resource = CreateStickerResource(request, Guid.NewGuid(), Guid.NewGuid(), 1);
@@ -200,6 +219,11 @@ api.MapPost("/stickers/{id:guid}/versions", async (Guid id, CreateStickerRequest
     if (string.IsNullOrWhiteSpace(request.Title))
     {
         return Results.BadRequest(new { error = "A matrica címe kötelező." });
+    }
+
+    if (!string.IsNullOrWhiteSpace(request.ActivityTypeKey) && ActivityTypeKeys.Normalize(request.ActivityTypeKey) is null)
+    {
+        return Results.BadRequest(new { error = "Ismeretlen tevékenységtípus." });
     }
 
     var nextVersionNumber = resource.Versions.Count == 0 ? 1 : resource.Versions.Max(version => version.VersionNumber) + 1;
@@ -3603,6 +3627,7 @@ static StickerVersionDto MapStickerVersion(StickerVersion version, IEnumerable<A
         version.VersionNumber,
         UiText(version.Title),
         version.Phase,
+        version.ActivityTypeKey,
         UiText(version.ShortDescription),
         UiText(version.StudentInstruction),
         version.TeacherSteps.OrderBy(step => step.SortOrder).Select(step => UiText(step.Text)).ToList(),
@@ -3892,6 +3917,7 @@ static StickerVersion CreateStickerVersion(CreateStickerRequest request, Guid re
     VersionNumber = versionNumber,
     Title = request.Title.Trim(),
     Phase = NormalizeStickerPhase(request.Phase),
+    ActivityTypeKey = ActivityTypeKeys.Normalize(request.ActivityTypeKey),
     ShortDescription = Clean(request.ShortDescription),
     StudentInstruction = Clean(request.StudentInstruction),
     StudentChoice = Clean(request.StudentChoice),

@@ -56,6 +56,7 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
             entity.ToTable("sticker_versions");
             entity.Property(x => x.Title).HasMaxLength(180);
             entity.Property(x => x.Phase).HasMaxLength(40);
+            entity.Property(x => x.ActivityTypeKey).HasMaxLength(40);
             entity.Property(x => x.EvidenceTypeLabel).HasMaxLength(120);
             entity.HasIndex(x => new { x.StickerResourceId, x.VersionNumber }).IsUnique();
             entity.HasMany(x => x.TeacherSteps).WithOne(x => x.StickerVersion).HasForeignKey(x => x.StickerVersionId).OnDelete(DeleteBehavior.Cascade);

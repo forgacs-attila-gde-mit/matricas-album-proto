@@ -19,6 +19,9 @@ public sealed class StickerVersion
     public int VersionNumber { get; set; } = 1;
     public string Title { get; set; } = string.Empty;
     public string Phase { get; set; } = "kerdezes";
+    // Dominant Tevékenységtípus (ActivityType.Key). Nullable: legacy/unclassified activities
+    // carry null until a teacher or the AI classifies them. Never invented on backfill.
+    public string? ActivityTypeKey { get; set; }
     public string ShortDescription { get; set; } = string.Empty;
     public string StudentInstruction { get; set; } = string.Empty;
     public string StudentChoice { get; set; } = string.Empty;
