@@ -1,9 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
-COPY MatricasAlbum.slnx ./
 COPY src/MatricasAlbum.Api/MatricasAlbum.Api.csproj src/MatricasAlbum.Api/
-RUN dotnet restore MatricasAlbum.slnx
+RUN dotnet restore src/MatricasAlbum.Api/MatricasAlbum.Api.csproj
 
 COPY src/MatricasAlbum.Api/ src/MatricasAlbum.Api/
 RUN dotnet publish src/MatricasAlbum.Api/MatricasAlbum.Api.csproj -c Release -o /app/publish --no-restore
