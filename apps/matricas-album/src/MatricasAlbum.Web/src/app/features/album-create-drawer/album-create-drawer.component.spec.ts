@@ -62,4 +62,12 @@ describe('AlbumCreateDrawerComponent — progressive disclosure (Task 1.3)', () 
     expect(el.querySelector('[name="metadataSubject"]')).not.toBeNull();
     expect(el.querySelector('.adapt-panel')).not.toBeNull();
   });
+
+  it('shows a live matrica preview that reflects the title field', () => {
+    fixture.componentInstance.stickerTitle = 'Élő előnézet teszt';
+    fixture.detectChanges();
+    const preview = el.querySelector('ma-matrica-preview');
+    expect(preview).not.toBeNull();
+    expect(preview?.querySelector('.mp-title')?.textContent).toContain('Élő előnézet teszt');
+  });
 });

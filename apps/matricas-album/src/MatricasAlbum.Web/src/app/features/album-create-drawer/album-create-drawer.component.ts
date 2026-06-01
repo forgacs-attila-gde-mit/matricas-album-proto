@@ -12,6 +12,7 @@ import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
 import { DrawerComponent } from '../../shared/ui/drawer/drawer.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
+import { MatricaPreviewComponent } from './matrica-preview.component';
 
 interface InstanceStickerUnitOption {
   readonly week: number;
@@ -60,7 +61,7 @@ const ACTIVITY_TYPES: readonly ActivityTypeOption[] = [
 @Component({
   selector: 'ma-album-create-drawer',
   standalone: true,
-  imports: [FormsModule, BtnComponent, ChipComponent, DrawerComponent, IconComponent],
+  imports: [FormsModule, BtnComponent, ChipComponent, DrawerComponent, IconComponent, MatricaPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './album-create-drawer.component.html',
   styleUrl: './album-create-drawer.component.scss',

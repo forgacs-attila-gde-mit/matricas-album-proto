@@ -287,6 +287,17 @@
             <textarea name="stickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
           </label>
         </div>
+
+        <div class="preview-panel">
+          <div class="card-section-title">Előnézet</div>
+          <ma-matrica-preview
+            [title]="stickerTitle"
+            [phase]="stickerPhase"
+            [short]="stickerShort"
+            [instruction]="stickerInstruction"
+            [evidence]="stickerEvidence"
+          />
+        </div>
       }
 
       @case ('newVersion') {

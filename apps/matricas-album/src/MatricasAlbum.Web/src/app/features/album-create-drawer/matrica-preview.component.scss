@@ -1,0 +1,72 @@
+:host {
+  display: block;
+}
+
+.matrica-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid var(--c-border, #e5e5e5);
+  border-radius: var(--radius-lg, 0.75rem);
+  background: var(--c-surface, #fff);
+}
+
+.mp-head {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.mp-head-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.mp-title {
+  margin: 0;
+  font-size: var(--t-title, 1.15rem);
+  font-weight: 700;
+}
+
+.mp-short {
+  margin: 0;
+  color: var(--c-muted, #525252);
+}
+
+.mp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mp-label {
+  font-size: var(--t-body-sm, 0.8rem);
+  font-weight: 600;
+  color: var(--c-muted, #737373);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.mp-instruction {
+  margin: 0;
+  white-space: pre-line;
+}
+
+.mp-placeholder {
+  margin: 0;
+  color: var(--c-muted, #a3a3a3);
+  font-style: italic;
+}
+
+.mp-evidence {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.mp-evidence-value {
+  font-weight: 600;
+}
