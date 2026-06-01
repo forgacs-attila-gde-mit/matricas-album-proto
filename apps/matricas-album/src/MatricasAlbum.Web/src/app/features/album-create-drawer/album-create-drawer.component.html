@@ -119,7 +119,7 @@
           </div>
         }
 
-        @if (assignableStickers().length > 0) {
+        @if (advancedOpen() && assignableStickers().length > 0) {
           <div class="adapt-panel">
             <div>
               <div class="card-section-title">Meglévő tevékenység adaptálása</div>
@@ -168,6 +168,18 @@
                 </button>
               }
             </div>
+            <button
+              type="button"
+              class="disclosure-toggle"
+              data-disclosure="advanced"
+              [attr.aria-expanded]="advancedOpen()"
+              (click)="toggleAdvanced()"
+            >
+              <ma-icon [name]="advancedOpen() ? 'expand_less' : 'expand_more'" size="sm" />
+              <span>Részletes tervezés</span>
+              <span class="muted t-body-sm">tantárgy, évfolyam, kompetenciák, elhelyezés, meglévő adaptálása</span>
+            </button>
+            @if (advancedOpen()) {
             <div class="metadata-grid">
               <label class="field">
                 <span>Tantárgy</span>
@@ -243,6 +255,7 @@
                 <input name="metadataContextNote" class="input" [(ngModel)]="metadataContextNote" />
               </label>
             </div>
+            }
           </div>
         }
 

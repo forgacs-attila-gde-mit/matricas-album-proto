@@ -69,6 +69,8 @@ export class AlbumCreateDrawerComponent {
   readonly store = inject(AlbumStore);
   readonly saving = signal(false);
   readonly conceptOnboardingVisible = signal(!this.loadConceptOnboardingDismissed());
+  /** REFACTOR-001 Task 1.3: collapses the advanced "Részletes tervezés" metadata in matrica creation. */
+  readonly advancedOpen = signal(false);
   private lastAppliedTemplateContext: TemplateEntryContext | null = null;
   private lastAppliedStickerContext: StickerEntryContext | null = null;
 
@@ -314,6 +316,10 @@ export class AlbumCreateDrawerComponent {
     } catch {
       this.conceptOnboardingVisible.set(true);
     }
+  }
+
+  toggleAdvanced(): void {
+    this.advancedOpen.update((open) => !open);
   }
 
   stickerEntryIsIdea(): boolean {
