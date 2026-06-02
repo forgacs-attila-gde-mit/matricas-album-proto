@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-02] feat | Témakör (Topic) layer — REFACTOR-001 Phase 5 (Tasks 5.1–5.2) — PHASE 5 COMPLETE
+
+- Ask: start Phase 5 — the Témakör (Topic) level composing Blocks by reference.
+- Change: `Topic`/`TopicVersion`/`TopicBlockRelation` entities + `20260602120000_AddTopics` migration (mirrors block versioning: ≤1 draft, published-immutable; `Topic → Block` directly since `Tanulási egység` was retired). Reference composition: a topic version references `BlockVersion` rows (FK restrict, no copy; same block in many topics). Endpoints behind `Features:Hierarchy:Topic` (on in Development). `TopicBuilderComponent` (3-pane via `CreationShellComponent`): published-block library · drag-&-drop block references · progression preview; route `/teacher/topics` + „Témakörök" nav. `BlockListItem.latestPublishedVersionId` added so topics reference published blocks only.
+- Why: introduce the Topic level bottom-up, additively, dark behind the flag — no change to the running app.
+- State another agent needs: migration applies on boot (3 new tables). `dotnet test` 57/57, `ng test` 30/30 green; full topic flow verified live (reference 2 blocks, swap reorder, unknown block-version 400, publish, same block in two topics). **Task 5.3 (Week→UnitIndex rename) deferred** — gating condition (GATE-1 retires the week model) not met; kept in `backlog.md`. **Phase 5 complete.** Next: Phase 6 (`Modul` + `Tanterv`) + hierarchical drill-down, gated.
+
 ## [2026-06-01] feat | Evidence-safe template→Blocks derivation — REFACTOR-001 Phase 4 (Task 4.4) — PHASE 4 COMPLETE
 
 - Ask: finish Phase 4 with Task 4.4 — map template units to Blocks without breaking running albums.

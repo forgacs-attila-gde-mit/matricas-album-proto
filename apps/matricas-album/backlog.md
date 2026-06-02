@@ -25,6 +25,8 @@ The DurationType round kept the `Week` / `WeekNumber` / `CurrentWeek` column and
 
 Scope: rename in `Album.cs`, `AlbumDbContext.cs` configuration, migration to rename columns, `WeekPlanDto.WeekNumber` → `Unit.Index`, frontend `weeks`/`week`/`weekNumber` → `units`/`unitIndex`. Big-bang refactor, no behavior change. Domain-generalization note: this is the main deferred refactor that would make the current model read naturally as a future `LearningSequence` / `ClassroomRun`, but it should not be pulled forward just for naming cleanliness.
 
+**Re-assessed 2026-06-02 (REFACTOR-001 Task 5.3): kept deferred.** The plan gated this rename on "GATE-1 retires the week model", but the 2026-06-01 decision retired the `Tanulási egység` *level*, not the week/unit grid — so the trigger is not met. Pulling a cosmetic rename across running-album columns + the whole web app now would be high-risk churn for no functional gain. Revisit only when one of the triggers above actually fires (real schema churn near these tables, a confused maintainer, or non-album domain reuse).
+
 ---
 
 ## Split `feedback-drawer` into `StudentEvidenceDrawer` + `TeacherEvidenceDrawer`
