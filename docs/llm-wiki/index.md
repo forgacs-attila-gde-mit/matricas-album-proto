@@ -67,6 +67,7 @@ Catalog of all wiki pages, grouped by type. This wiki is scoped to the **Matric�
 | Page | lang | Description |
 |------|------|-------------|
 | [[REFACTOR-001-gold-standard-rendszerstruktura]] | mixed | Phased plan to align the app with the gold-standard rendszerstruktúra (hierarchy entities, `Tevékenységtípus`, reference composition, versioning) + simplify the Albumterv / „Matrica" creation UX. Status: Phases 1–6 core complete (full hierarchy shipped behind flags); tracked deferrals remain. |
+| [[REFACTOR-002-hierarchia-builder-ux]] | mixed | Web-only plan to align the hierarchy builders/explorer (Blokkműhely/Témakörök/Modulok/Tantervek/Felépítés) with the calm, preview-driven Matrica/Albumterv UX via a shared config-driven builder kit + browse/editor split. Status: Draft. |
 
 ## Features
 

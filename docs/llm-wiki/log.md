@@ -2,6 +2,11 @@
 
 Append-only operation log for the Matricás Album LLM wiki. Newest entries on top. Format: `## [YYYY-MM-DD] <verb> | <title>`.
 
+## [2026-06-02] note | New plan REFACTOR-002 (hierarchy-builder UX alignment)
+- Created [[REFACTOR-002-hierarchia-builder-ux]] (`wiki/plans/`, `type: plan`): web-only plan to make the five hierarchy surfaces feel like the Matrica/Albumterv flows — a shared config-driven `HierarchyBuilderComponent` + `HierarchyPreviewComponent`, a browse/editor split (Matricatár-style list → editor), progressive disclosure, plain-language copy/verbs, and a restyled Felépítés explorer. No API/domain change.
+- Registered in `index.md` „Plans". Companion to the just-shipped Beállítások béta-features switch that gates these nav entries.
+- next: execute Phase 1 (shared kit + Blokkműhely proof) on a `/loop`/dev session.
+
 ## [2026-06-02] note | Realized hierarchy doc refresh (REFACTOR-001 Phases 4–6) + ADR004
 - REFACTOR-001 Phases 4–6 shipped the full gold-standard chain as real, reference-composed, versioned entities (`Curriculum/Module/Topic/Block` + `ActivityType`/structured metadata on `Tevékenység`), dark behind `Features:Hierarchy:*` flags, additive, not yet wired into the `AlbumInstance` mint. New ADR: [[ADR004-hivatkozas-alapu-hierarchia]].
 - Closed the consistency pass flagged in the 2026-06-01 `note`: [[AlbumDomain]] hierarchy section rewritten (entities now exist; coexistence with the compatibility layer; deferrals) + frontmatter sources/date; [[matricas-album-projekt-allapot]] data-model state + hierarchy section + capability table + out-of-scope list updated with dated callouts; `index.md` rows (AlbumDomain, ADR004, plan Status) refreshed. `apps/matricas-album/docs/architecture.md` was updated in the app-side commit.
