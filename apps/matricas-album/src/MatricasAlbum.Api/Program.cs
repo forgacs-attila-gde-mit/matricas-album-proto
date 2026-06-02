@@ -257,6 +257,10 @@ if (blockFeatureEnabled)
         return Results.Ok(blocks.Select(block =>
         {
             var latest = LatestBlockVersion(block);
+            var latestPublished = block.Versions
+                .Where(version => !version.IsDraft)
+                .OrderByDescending(version => version.VersionNumber)
+                .FirstOrDefault();
             return new BlockListItemDto(
                 block.Id,
                 UiText(block.Name),
@@ -265,6 +269,7 @@ if (blockFeatureEnabled)
                 latest.Grouping,
                 latest.Activities.Count,
                 block.Versions.Any(version => version.IsDraft),
+                latestPublished?.Id,
                 block.ArchivedAt);
         }));
     });

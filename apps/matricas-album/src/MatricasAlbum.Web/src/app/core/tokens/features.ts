@@ -4,4 +4,5 @@
 // prototype; would be wired to an Angular environment/runtime config for real prod gating.
 export const FEATURES = {
   hierarchyBlock: true,
+  hierarchyTopic: true,
 } as const;

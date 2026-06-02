@@ -19,6 +19,10 @@ import {
   BlockDetail,
   BlockListItem,
   BlockVersionView,
+  TopicBlockRef,
+  TopicDetail,
+  TopicListItem,
+  TopicVersionView,
   TeacherEffectLog,
   ClosureChecklistItem,
   CreateStickerAdviceActionPayload,
@@ -96,7 +100,43 @@ interface BlockListItemDto {
   grouping: string;
   activityCount: number;
   hasDraft: boolean;
+  latestPublishedVersionId?: string | null;
   archivedAt?: string | null;
+}
+
+interface TopicListItemDto {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  blockCount: number;
+  hasDraft: boolean;
+  archivedAt?: string | null;
+}
+
+interface TopicBlockDto {
+  id: string;
+  blockVersionId: string;
+  blockId: string;
+  blockName: string;
+  blockVersionNumber: number;
+  activityCount: number;
+  sortOrder: number;
+}
+
+interface TopicVersionDto {
+  id: string;
+  topicId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  blocks: TopicBlockDto[];
+}
+
+interface TopicDetailDto {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: TopicVersionDto[];
 }
 
 interface BlockActivityDto {
@@ -761,6 +801,56 @@ export class AlbumApi {
       .pipe(map(dto => this.toBlockDetail(dto)));
   }
 
+  // --- Témakör (Topic) API (Phase 5; gated server-side by Features:Hierarchy:Topic) ------
+
+  getTopics() {
+    return this.http
+      .get<TopicListItemDto[]>(`${this.baseUrl}/topics`)
+      .pipe(map(items => items.map(item => this.toTopicListItem(item))));
+  }
+
+  getTopic(id: string) {
+    return this.http
+      .get<TopicDetailDto>(`${this.baseUrl}/topics/${id}`)
+      .pipe(map(dto => this.toTopicDetail(dto)));
+  }
+
+  createTopic(payload: { name: string }) {
+    return this.http
+      .post<TopicDetailDto>(`${this.baseUrl}/topics`, payload)
+      .pipe(map(dto => this.toTopicDetail(dto)));
+  }
+
+  createTopicDraft(topicId: string) {
+    return this.http
+      .post<TopicDetailDto>(`${this.baseUrl}/topics/${topicId}/draft`, {})
+      .pipe(map(dto => this.toTopicDetail(dto)));
+  }
+
+  publishTopicDraft(topicId: string) {
+    return this.http
+      .post<TopicDetailDto>(`${this.baseUrl}/topics/${topicId}/draft/publish`, {})
+      .pipe(map(dto => this.toTopicDetail(dto)));
+  }
+
+  addTopicBlock(topicId: string, payload: { blockVersionId: string; sortOrder?: number }) {
+    return this.http
+      .post<TopicDetailDto>(`${this.baseUrl}/topics/${topicId}/blocks`, payload)
+      .pipe(map(dto => this.toTopicDetail(dto)));
+  }
+
+  removeTopicBlock(topicId: string, relationId: string) {
+    return this.http
+      .delete<TopicDetailDto>(`${this.baseUrl}/topics/${topicId}/blocks/${relationId}`)
+      .pipe(map(dto => this.toTopicDetail(dto)));
+  }
+
+  reorderTopicBlocks(topicId: string, items: Array<{ id: string; sortOrder: number }>) {
+    return this.http
+      .post<TopicDetailDto>(`${this.baseUrl}/topics/${topicId}/blocks/reorder`, { items })
+      .pipe(map(dto => this.toTopicDetail(dto)));
+  }
+
   getTemplates() {
     return this.http
       .get<AlbumTemplateListItemDto[]>(`${this.baseUrl}/album-templates`)
@@ -1299,7 +1389,51 @@ export class AlbumApi {
       grouping: dto.grouping,
       activityCount: dto.activityCount,
       hasDraft: dto.hasDraft,
+      latestPublishedVersionId: dto.latestPublishedVersionId ?? null,
       archivedAt: dto.archivedAt ?? null,
+    };
+  }
+
+  private toTopicListItem(dto: TopicListItemDto): TopicListItem {
+    return {
+      id: dto.id,
+      name: dto.name,
+      latestVersionNumber: dto.latestVersionNumber,
+      blockCount: dto.blockCount,
+      hasDraft: dto.hasDraft,
+      archivedAt: dto.archivedAt ?? null,
+    };
+  }
+
+  private toTopicDetail(dto: TopicDetailDto): TopicDetail {
+    return {
+      id: dto.id,
+      name: dto.name,
+      archivedAt: dto.archivedAt ?? null,
+      versions: (dto.versions ?? []).map(version => this.toTopicVersion(version)),
+    };
+  }
+
+  private toTopicVersion(dto: TopicVersionDto): TopicVersionView {
+    return {
+      id: dto.id,
+      topicId: dto.topicId,
+      versionNumber: dto.versionNumber,
+      isDraft: dto.isDraft,
+      name: dto.name,
+      blocks: (dto.blocks ?? []).map(block => this.toTopicBlock(block)),
+    };
+  }
+
+  private toTopicBlock(dto: TopicBlockDto): TopicBlockRef {
+    return {
+      id: dto.id,
+      blockVersionId: dto.blockVersionId,
+      blockId: dto.blockId,
+      blockName: dto.blockName,
+      blockVersionNumber: dto.blockVersionNumber,
+      activityCount: dto.activityCount,
+      sortOrder: dto.sortOrder,
     };
   }
 

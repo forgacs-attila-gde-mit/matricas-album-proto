@@ -58,6 +58,7 @@ export class TeacherSidebarComponent {
     { label: 'Műhely',                     icon: 'hub',             path: [],                  exact: true, section: 'Műhely' },
     { label: 'Matricatár',                 icon: 'local_library',   path: ['sticker-library'], section: 'Kezelés' },
     ...(FEATURES.hierarchyBlock ? [{ label: 'Blokkműhely', icon: 'dashboard', path: ['blocks'] } as NavItem] : []),
+    ...(FEATURES.hierarchyTopic ? [{ label: 'Témakörök', icon: 'category', path: ['topics'] } as NavItem] : []),
     { label: 'Albumtervek',                icon: 'edit_note',       path: ['templates'] },
     { label: 'Futó albumok',               icon: 'groups',          path: ['instances'] },
     { label: 'Futó album',                 icon: 'auto_stories',    path: ['instances', '__id__', 'plan'], section: 'Aktív futó album', needsInstance: true },

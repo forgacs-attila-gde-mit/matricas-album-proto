@@ -26,6 +26,7 @@ public sealed record BlockListItemDto(
     string Grouping,
     int ActivityCount,
     bool HasDraft,
+    Guid? LatestPublishedVersionId,
     DateTimeOffset? ArchivedAt);
 
 public sealed record BlockDetailDto(

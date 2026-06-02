@@ -114,7 +114,45 @@ export interface BlockListItem {
   grouping: string;
   activityCount: number;
   hasDraft: boolean;
+  // The latest published BlockVersion id (null if the block has only a draft). Topics
+  // reference this when composing published blocks.
+  latestPublishedVersionId?: string | null;
   archivedAt?: string | null;
+}
+
+export interface TopicListItem {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  blockCount: number;
+  hasDraft: boolean;
+  archivedAt?: string | null;
+}
+
+export interface TopicBlockRef {
+  id: string;
+  blockVersionId: string;
+  blockId: string;
+  blockName: string;
+  blockVersionNumber: number;
+  activityCount: number;
+  sortOrder: number;
+}
+
+export interface TopicVersionView {
+  id: string;
+  topicId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  blocks: TopicBlockRef[];
+}
+
+export interface TopicDetail {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: TopicVersionView[];
 }
 
 export interface BlockActivityRef {
