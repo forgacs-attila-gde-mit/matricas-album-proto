@@ -93,6 +93,25 @@ public class ActivityTypeTests
     }
 
     [Fact]
+    public void SeededActivityTypeAssignments_use_valid_keys_and_cover_all_six_types()
+    {
+        var assignments = MatricasAlbum.Api.Data.DemoSeeder.SeededActivityTypeAssignments;
+
+        Assert.NotEmpty(assignments);
+        // Every assigned key is a real, system-defined type.
+        foreach (var key in assignments.Values)
+        {
+            Assert.Contains(key, ActivityTypeKeys.All);
+        }
+        // Every one of the six types is demonstrated in the seeded library, so the Matricatár
+        // type filter returns results for each chip (the bug was: zero seeded matricas had a type).
+        foreach (var type in ActivityTypeKeys.All)
+        {
+            Assert.Contains(type, assignments.Values);
+        }
+    }
+
+    [Fact]
     public async Task SeedActivityTypesAsync_is_idempotent()
     {
         var options = new DbContextOptionsBuilder<AlbumDbContext>()

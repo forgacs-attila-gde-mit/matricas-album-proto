@@ -85,7 +85,14 @@ public static class DemoSeeder
         // Reference data (the closed Tevékenységtípus taxonomy) is ensured on every boot,
         // independent of the demo-content seed marker.
         await SeedActivityTypesAsync(db, cancellationToken);
+        await SeedDemoContentAsync(db, cancellationToken);
+        // Classify the seeded matricas (dominant Tevékenységtípus) so the Matricatár type filter
+        // returns results. Idempotent (fills nulls only); runs after content seeding in every path.
+        await BackfillSeededActivityTypesAsync(db, cancellationToken);
+    }
 
+    private static async Task SeedDemoContentAsync(AlbumDbContext db, CancellationToken cancellationToken)
+    {
         if (await db.SeedMarkers.AnyAsync(marker => marker.Id == SeedMarkerId, cancellationToken))
         {
             await SeedMethodPatternTemplatesAsync(db, cancellationToken);
@@ -142,6 +149,53 @@ public static class DemoSeeder
         await db.SaveChangesAsync(cancellationToken);
     }
 
+    // Demo-content classification: each seeded matrica's dominant Tevékenységtípus, keyed by its
+    // (fixed) StickerVersion id. All six types are represented so every Matricatár type-filter
+    // chip returns results. This is demo authoring (a teacher/AI would classify the same way),
+    // not an invented domain fact.
+    public static readonly IReadOnlyDictionary<Guid, string> SeededActivityTypeAssignments =
+        new Dictionary<Guid, string>
+        {
+            [ObservationVersionId] = ActivityTypeKeys.Explorer,
+            [PerspectiveVersionId] = ActivityTypeKeys.Collaborator,
+            [MeasurementVersionId] = ActivityTypeKeys.Experimenter,
+            [PresentationVersionId] = ActivityTypeKeys.Communicator,
+            [MeasurementBasicsVersionId] = ActivityTypeKeys.Experimenter,
+            [ProductiveFailureChallengeVersionId] = ActivityTypeKeys.Explorer,
+            [ProductiveFailureFirstStrategyVersionId] = ActivityTypeKeys.Processor,
+            [ProductiveFailureDeadEndVersionId] = ActivityTypeKeys.Experimenter,
+            [ProductiveFailureConsolidationVersionId] = ActivityTypeKeys.Processor,
+            [ProductiveFailureRetryVersionId] = ActivityTypeKeys.Experimenter,
+            [InquiryQuestionVersionId] = ActivityTypeKeys.Explorer,
+            [InquiryHypothesisVersionId] = ActivityTypeKeys.Explorer,
+            [InquiryDataVersionId] = ActivityTypeKeys.Experimenter,
+            [InquiryClaimVersionId] = ActivityTypeKeys.Processor,
+            [InquiryEvidenceVersionId] = ActivityTypeKeys.Processor,
+            [InquiryReasoningVersionId] = ActivityTypeKeys.Communicator,
+            [InquiryRevisionVersionId] = ActivityTypeKeys.Reflector,
+        };
+
+    // Fills in the dominant Tevékenységtípus on the known seeded matricas where it is still null.
+    // Idempotent and non-destructive: never overwrites a teacher/AI-set type, only seeds missing
+    // ones — so it fixes an already-running DB on the next boot without a destructive reset.
+    public static async Task BackfillSeededActivityTypesAsync(AlbumDbContext db, CancellationToken cancellationToken = default)
+    {
+        var ids = SeededActivityTypeAssignments.Keys.ToList();
+        var versions = await db.StickerVersions
+            .Where(version => ids.Contains(version.Id) && version.ActivityTypeKey == null)
+            .ToListAsync(cancellationToken);
+        if (versions.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var version in versions)
+        {
+            version.ActivityTypeKey = SeededActivityTypeAssignments[version.Id];
+        }
+        await db.SaveChangesAsync(cancellationToken);
+    }
+
     public static async Task ResetAsync(AlbumDbContext db, CancellationToken cancellationToken = default)
     {
         await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);
@@ -153,6 +207,7 @@ public static class DemoSeeder
         await db.SaveChangesAsync(cancellationToken);
         await transaction.CommitAsync(cancellationToken);
         await SeedMethodPatternTemplatesAsync(db, cancellationToken);
+        await BackfillSeededActivityTypesAsync(db, cancellationToken);
     }
 
     public static async Task ResetToEmptyAsync(AlbumDbContext db, CancellationToken cancellationToken = default)
