@@ -6,4 +6,5 @@ export const FEATURES = {
   hierarchyBlock: true,
   hierarchyTopic: true,
   hierarchyModule: true,
+  hierarchyCurriculum: true,
 } as const;

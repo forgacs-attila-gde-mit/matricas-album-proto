@@ -127,6 +127,49 @@ public sealed record ReorderModuleTopicsRequest(IReadOnlyList<ReorderModuleTopic
 
 public sealed record ReorderModuleTopicItem(Guid Id, int SortOrder);
 
+// --- Tanterv (Curriculum) — reference-composed, versioned grouping of Modules (Phase 6) ----
+
+public sealed record CurriculumListItemDto(
+    Guid Id,
+    string Name,
+    int LatestVersionNumber,
+    int ModuleCount,
+    bool HasDraft,
+    DateTimeOffset? ArchivedAt);
+
+public sealed record CurriculumDetailDto(
+    Guid Id,
+    string Name,
+    DateTimeOffset? ArchivedAt,
+    IReadOnlyList<CurriculumVersionDto> Versions);
+
+public sealed record CurriculumVersionDto(
+    Guid Id,
+    Guid CurriculumId,
+    int VersionNumber,
+    bool IsDraft,
+    string Name,
+    IReadOnlyList<CurriculumModuleDto> Modules);
+
+public sealed record CurriculumModuleDto(
+    Guid Id,
+    Guid ModuleVersionId,
+    Guid ModuleId,
+    string ModuleName,
+    int ModuleVersionNumber,
+    int TopicCount,
+    int SortOrder);
+
+public sealed record CreateCurriculumRequest(string Name);
+
+public sealed record UpdateCurriculumVersionRequest(string? Name = null);
+
+public sealed record AddCurriculumModuleRequest(Guid ModuleVersionId, int? SortOrder = null);
+
+public sealed record ReorderCurriculumModulesRequest(IReadOnlyList<ReorderCurriculumModuleItem> Items);
+
+public sealed record ReorderCurriculumModuleItem(Guid Id, int SortOrder);
+
 public sealed record TopicDetailDto(
     Guid Id,
     string Name,

@@ -166,6 +166,41 @@ export interface ModuleDetail {
   versions: ModuleVersionView[];
 }
 
+export interface CurriculumListItem {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  moduleCount: number;
+  hasDraft: boolean;
+  archivedAt?: string | null;
+}
+
+export interface CurriculumModuleRef {
+  id: string;
+  moduleVersionId: string;
+  moduleId: string;
+  moduleName: string;
+  moduleVersionNumber: number;
+  topicCount: number;
+  sortOrder: number;
+}
+
+export interface CurriculumVersionView {
+  id: string;
+  curriculumId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  modules: CurriculumModuleRef[];
+}
+
+export interface CurriculumDetail {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: CurriculumVersionView[];
+}
+
 export interface TopicBlockRef {
   id: string;
   blockVersionId: string;

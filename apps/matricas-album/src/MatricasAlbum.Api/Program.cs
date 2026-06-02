@@ -73,6 +73,7 @@ var api = app.MapGroup("/api")
 var blockFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Block") ?? app.Environment.IsDevelopment();
 var topicFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Topic") ?? app.Environment.IsDevelopment();
 var moduleFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Module") ?? app.Environment.IsDevelopment();
+var curriculumFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Curriculum") ?? app.Environment.IsDevelopment();
 const string PromptVersion = "phase5-v1";
 const string GuidedDemoPromptVersion = "phase4-v1-guided-demo";
 const string ProjectionVersion = "matricas-methodology-agent-wiki-v1";
@@ -857,6 +858,177 @@ if (moduleFeatureEnabled)
         module.UpdatedAt = DateTimeOffset.UtcNow;
         await db.SaveChangesAsync(cancellationToken);
         return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+}
+
+// --- Tanterv (Curriculum) API — top of the hierarchy (Phase 6, behind feature flag) ----------
+if (curriculumFeatureEnabled)
+{
+    api.MapGet("/curricula", async (AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curricula = await db.Curricula
+            .AsNoTracking()
+            .Include(curriculum => curriculum.Versions)
+            .ThenInclude(version => version.Modules)
+            .OrderBy(curriculum => curriculum.Name)
+            .ToListAsync(cancellationToken);
+
+        return Results.Ok(curricula.Select(curriculum =>
+        {
+            var latest = LatestCurriculumVersion(curriculum);
+            return new CurriculumListItemDto(
+                curriculum.Id,
+                UiText(curriculum.Name),
+                latest.VersionNumber,
+                latest.Modules.Count,
+                curriculum.Versions.Any(version => version.IsDraft),
+                curriculum.ArchivedAt);
+        }));
+    });
+
+    api.MapPost("/curricula", async (CreateCurriculumRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+        {
+            return Results.BadRequest(new { error = "A tanterv neve kötelező." });
+        }
+
+        var curriculum = new Curriculum { Name = request.Name.Trim() };
+        curriculum.Versions.Add(new CurriculumVersion { CurriculumId = curriculum.Id, VersionNumber = 1, IsDraft = true, Name = request.Name.Trim() });
+        db.Curricula.Add(curriculum);
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Created($"/api/curricula/{curriculum.Id}", await MapCurriculumDetailAsync(db, curriculum.Id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapGet("/curricula/{id:guid}", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var detail = await MapCurriculumDetailAsync(db, id, cancellationToken);
+        return detail is null ? Results.NotFound() : Results.Ok(detail);
+    });
+
+    api.MapPatch("/curricula/{id:guid}/archive", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curriculum = await db.Curricula.SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+        if (curriculum is null) return Results.NotFound();
+        curriculum.ArchivedAt = curriculum.ArchivedAt is null ? DateTimeOffset.UtcNow : null;
+        curriculum.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapCurriculumDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/curricula/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curriculum = await CurriculumGraph(db).SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+        if (curriculum is null) return Results.NotFound();
+        if (DraftCurriculumVersion(curriculum) is not null)
+        {
+            return Results.Ok(await MapCurriculumDetailAsync(db, id, cancellationToken));
+        }
+
+        var latest = LatestCurriculumVersion(curriculum);
+        var now = DateTimeOffset.UtcNow;
+        curriculum.Versions.Add(new CurriculumVersion
+        {
+            CurriculumId = curriculum.Id,
+            VersionNumber = curriculum.Versions.Max(version => version.VersionNumber) + 1,
+            IsDraft = true,
+            Name = latest.Name,
+            CreatedAt = now,
+            Modules = latest.Modules.OrderBy(module => module.SortOrder)
+                .Select(module => new CurriculumModuleRelation { ModuleVersionId = module.ModuleVersionId, SortOrder = module.SortOrder, AddedAt = now })
+                .ToList(),
+        });
+        curriculum.UpdatedAt = now;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Created($"/api/curricula/{id}", await MapCurriculumDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/curricula/{id:guid}/draft/publish", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curriculum = await CurriculumGraph(db).SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+        if (curriculum is null) return Results.NotFound();
+        var draft = DraftCurriculumVersion(curriculum);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs publikálható tantervvázlat." });
+        draft.IsDraft = false;
+        curriculum.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapCurriculumDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/curricula/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curriculum = await CurriculumGraph(db).SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+        if (curriculum is null) return Results.NotFound();
+        var draft = DraftCurriculumVersion(curriculum);
+        if (draft is not null && curriculum.Versions.Any(version => !version.IsDraft))
+        {
+            db.CurriculumVersions.Remove(draft);
+            curriculum.UpdatedAt = DateTimeOffset.UtcNow;
+            await db.SaveChangesAsync(cancellationToken);
+        }
+        return Results.Ok(await MapCurriculumDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPatch("/curriculum-versions/{versionId:guid}", async (Guid versionId, UpdateCurriculumVersionRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var version = await db.CurriculumVersions.SingleOrDefaultAsync(version => version.Id == versionId, cancellationToken);
+        if (version is null) return Results.NotFound();
+        if (!version.IsDraft) return Results.BadRequest(new { error = "Csak vázlat szerkeszthető." });
+        if (request.Name is { } name && !string.IsNullOrWhiteSpace(name)) version.Name = name.Trim();
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapCurriculumDetailAsync(db, version.CurriculumId, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/curricula/{id:guid}/modules", async (Guid id, AddCurriculumModuleRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curriculum = await CurriculumGraph(db).SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+        if (curriculum is null) return Results.NotFound();
+        var draft = DraftCurriculumVersion(curriculum);
+        if (draft is null) return Results.BadRequest(new { error = "Előbb hozz létre egy tantervvázlatot." });
+
+        if (!await db.ModuleVersions.AnyAsync(version => version.Id == request.ModuleVersionId, cancellationToken))
+        {
+            return Results.BadRequest(new { error = "Ismeretlen modul-verzió." });
+        }
+
+        var sortOrder = request.SortOrder ?? (draft.Modules.Count == 0 ? 1 : draft.Modules.Max(module => module.SortOrder) + 1);
+        draft.Modules.Add(new CurriculumModuleRelation { CurriculumVersionId = draft.Id, ModuleVersionId = request.ModuleVersionId, SortOrder = sortOrder });
+        curriculum.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapCurriculumDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/curricula/{id:guid}/modules/{relationId:guid}", async (Guid id, Guid relationId, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curriculum = await CurriculumGraph(db).SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+        if (curriculum is null) return Results.NotFound();
+        var draft = DraftCurriculumVersion(curriculum);
+        var relation = draft?.Modules.SingleOrDefault(module => module.Id == relationId);
+        if (relation is null) return Results.NotFound();
+        db.CurriculumModuleRelations.Remove(relation);
+        curriculum.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapCurriculumDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/curricula/{id:guid}/modules/reorder", async (Guid id, ReorderCurriculumModulesRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var curriculum = await CurriculumGraph(db).SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+        if (curriculum is null) return Results.NotFound();
+        var draft = DraftCurriculumVersion(curriculum);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs szerkeszthető tantervvázlat." });
+
+        var targets = (request.Items ?? []).ToDictionary(item => item.Id, item => item.SortOrder);
+        foreach (var module in draft.Modules) module.SortOrder += 100000;
+        await db.SaveChangesAsync(cancellationToken);
+        foreach (var module in draft.Modules)
+        {
+            if (targets.TryGetValue(module.Id, out var sortOrder)) module.SortOrder = sortOrder;
+            else module.SortOrder -= 100000;
+        }
+        curriculum.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapCurriculumDetailAsync(db, id, cancellationToken));
     }).RequireDemoRole(DemoAuth.TeacherRole);
 }
 
@@ -4812,6 +4984,65 @@ static ModuleVersionDto MapModuleVersion(ModuleVersion version) =>
                 topic.TopicVersion?.VersionNumber ?? 0,
                 topic.TopicVersion?.Blocks.Count ?? 0,
                 topic.SortOrder))
+            .ToList());
+
+static IQueryable<Curriculum> CurriculumGraph(AlbumDbContext db) =>
+    db.Curricula
+        .Include(curriculum => curriculum.Versions)
+        .ThenInclude(version => version.Modules);
+
+static CurriculumVersion LatestCurriculumVersion(Curriculum curriculum) =>
+    curriculum.Versions.OrderByDescending(version => version.VersionNumber).First();
+
+static CurriculumVersion? DraftCurriculumVersion(Curriculum curriculum) =>
+    curriculum.Versions.SingleOrDefault(version => version.IsDraft);
+
+static async Task<CurriculumDetailDto?> MapCurriculumDetailAsync(AlbumDbContext db, Guid id, CancellationToken cancellationToken)
+{
+    var curriculum = await db.Curricula
+        .AsNoTracking()
+        .AsSplitQuery()
+        .Include(curriculum => curriculum.Versions)
+        .ThenInclude(version => version.Modules)
+        .ThenInclude(relation => relation.ModuleVersion)
+        .ThenInclude(moduleVersion => moduleVersion!.Module)
+        .Include(curriculum => curriculum.Versions)
+        .ThenInclude(version => version.Modules)
+        .ThenInclude(relation => relation.ModuleVersion)
+        .ThenInclude(moduleVersion => moduleVersion!.Topics)
+        .SingleOrDefaultAsync(curriculum => curriculum.Id == id, cancellationToken);
+    if (curriculum is null)
+    {
+        return null;
+    }
+
+    return new CurriculumDetailDto(
+        curriculum.Id,
+        UiText(curriculum.Name),
+        curriculum.ArchivedAt,
+        curriculum.Versions
+            .OrderByDescending(version => version.VersionNumber)
+            .Select(MapCurriculumVersion)
+            .ToList());
+}
+
+static CurriculumVersionDto MapCurriculumVersion(CurriculumVersion version) =>
+    new(
+        version.Id,
+        version.CurriculumId,
+        version.VersionNumber,
+        version.IsDraft,
+        UiText(version.Name),
+        version.Modules
+            .OrderBy(module => module.SortOrder)
+            .Select(module => new CurriculumModuleDto(
+                module.Id,
+                module.ModuleVersionId,
+                module.ModuleVersion?.ModuleId ?? Guid.Empty,
+                UiText(module.ModuleVersion?.Module?.Name ?? module.ModuleVersion?.Name ?? string.Empty),
+                module.ModuleVersion?.VersionNumber ?? 0,
+                module.ModuleVersion?.Topics.Count ?? 0,
+                module.SortOrder))
             .ToList());
 
 static string Clean(string? value) => string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();

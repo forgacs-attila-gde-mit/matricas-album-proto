@@ -16,6 +16,9 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
     public DbSet<Module> Modules => Set<Module>();
     public DbSet<ModuleVersion> ModuleVersions => Set<ModuleVersion>();
     public DbSet<ModuleTopicRelation> ModuleTopicRelations => Set<ModuleTopicRelation>();
+    public DbSet<Curriculum> Curricula => Set<Curriculum>();
+    public DbSet<CurriculumVersion> CurriculumVersions => Set<CurriculumVersion>();
+    public DbSet<CurriculumModuleRelation> CurriculumModuleRelations => Set<CurriculumModuleRelation>();
     public DbSet<StickerResource> StickerResources => Set<StickerResource>();
     public DbSet<StickerVersion> StickerVersions => Set<StickerVersion>();
     public DbSet<AlbumTemplate> AlbumTemplates => Set<AlbumTemplate>();
@@ -123,6 +126,28 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
             entity.ToTable("module_topic_relations");
             entity.HasIndex(x => new { x.ModuleVersionId, x.SortOrder }).IsUnique();
             entity.HasOne(x => x.TopicVersion).WithMany().HasForeignKey(x => x.TopicVersionId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Curriculum>(entity =>
+        {
+            entity.ToTable("curricula");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.HasMany(x => x.Versions).WithOne(x => x.Curriculum).HasForeignKey(x => x.CurriculumId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<CurriculumVersion>(entity =>
+        {
+            entity.ToTable("curriculum_versions");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.HasIndex(x => new { x.CurriculumId, x.VersionNumber }).IsUnique();
+            entity.HasMany(x => x.Modules).WithOne(x => x.CurriculumVersion).HasForeignKey(x => x.CurriculumVersionId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<CurriculumModuleRelation>(entity =>
+        {
+            entity.ToTable("curriculum_module_relations");
+            entity.HasIndex(x => new { x.CurriculumVersionId, x.SortOrder }).IsUnique();
+            entity.HasOne(x => x.ModuleVersion).WithMany().HasForeignKey(x => x.ModuleVersionId).OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<StickerResource>(entity =>

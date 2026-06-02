@@ -27,6 +27,10 @@ import {
   ModuleDetail,
   ModuleListItem,
   ModuleVersionView,
+  CurriculumModuleRef,
+  CurriculumDetail,
+  CurriculumListItem,
+  CurriculumVersionView,
   TeacherEffectLog,
   ClosureChecklistItem,
   CreateStickerAdviceActionPayload,
@@ -152,6 +156,41 @@ interface ModuleDetailDto {
   name: string;
   archivedAt?: string | null;
   versions: ModuleVersionDto[];
+}
+
+interface CurriculumListItemDto {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  moduleCount: number;
+  hasDraft: boolean;
+  archivedAt?: string | null;
+}
+
+interface CurriculumModuleDto {
+  id: string;
+  moduleVersionId: string;
+  moduleId: string;
+  moduleName: string;
+  moduleVersionNumber: number;
+  topicCount: number;
+  sortOrder: number;
+}
+
+interface CurriculumVersionDto {
+  id: string;
+  curriculumId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  modules: CurriculumModuleDto[];
+}
+
+interface CurriculumDetailDto {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: CurriculumVersionDto[];
 }
 
 interface TopicBlockDto {
@@ -942,6 +981,56 @@ export class AlbumApi {
       .pipe(map(dto => this.toModuleDetail(dto)));
   }
 
+  // --- Tanterv (Curriculum) API (Phase 6; gated server-side by Features:Hierarchy:Curriculum) -
+
+  getCurricula() {
+    return this.http
+      .get<CurriculumListItemDto[]>(`${this.baseUrl}/curricula`)
+      .pipe(map(items => items.map(item => this.toCurriculumListItem(item))));
+  }
+
+  getCurriculum(id: string) {
+    return this.http
+      .get<CurriculumDetailDto>(`${this.baseUrl}/curricula/${id}`)
+      .pipe(map(dto => this.toCurriculumDetail(dto)));
+  }
+
+  createCurriculum(payload: { name: string }) {
+    return this.http
+      .post<CurriculumDetailDto>(`${this.baseUrl}/curricula`, payload)
+      .pipe(map(dto => this.toCurriculumDetail(dto)));
+  }
+
+  createCurriculumDraft(curriculumId: string) {
+    return this.http
+      .post<CurriculumDetailDto>(`${this.baseUrl}/curricula/${curriculumId}/draft`, {})
+      .pipe(map(dto => this.toCurriculumDetail(dto)));
+  }
+
+  publishCurriculumDraft(curriculumId: string) {
+    return this.http
+      .post<CurriculumDetailDto>(`${this.baseUrl}/curricula/${curriculumId}/draft/publish`, {})
+      .pipe(map(dto => this.toCurriculumDetail(dto)));
+  }
+
+  addCurriculumModule(curriculumId: string, payload: { moduleVersionId: string; sortOrder?: number }) {
+    return this.http
+      .post<CurriculumDetailDto>(`${this.baseUrl}/curricula/${curriculumId}/modules`, payload)
+      .pipe(map(dto => this.toCurriculumDetail(dto)));
+  }
+
+  removeCurriculumModule(curriculumId: string, relationId: string) {
+    return this.http
+      .delete<CurriculumDetailDto>(`${this.baseUrl}/curricula/${curriculumId}/modules/${relationId}`)
+      .pipe(map(dto => this.toCurriculumDetail(dto)));
+  }
+
+  reorderCurriculumModules(curriculumId: string, items: Array<{ id: string; sortOrder: number }>) {
+    return this.http
+      .post<CurriculumDetailDto>(`${this.baseUrl}/curricula/${curriculumId}/modules/reorder`, { items })
+      .pipe(map(dto => this.toCurriculumDetail(dto)));
+  }
+
   getTemplates() {
     return this.http
       .get<AlbumTemplateListItemDto[]>(`${this.baseUrl}/album-templates`)
@@ -1537,6 +1626,49 @@ export class AlbumApi {
       topicName: dto.topicName,
       topicVersionNumber: dto.topicVersionNumber,
       blockCount: dto.blockCount,
+      sortOrder: dto.sortOrder,
+    };
+  }
+
+  private toCurriculumListItem(dto: CurriculumListItemDto): CurriculumListItem {
+    return {
+      id: dto.id,
+      name: dto.name,
+      latestVersionNumber: dto.latestVersionNumber,
+      moduleCount: dto.moduleCount,
+      hasDraft: dto.hasDraft,
+      archivedAt: dto.archivedAt ?? null,
+    };
+  }
+
+  private toCurriculumDetail(dto: CurriculumDetailDto): CurriculumDetail {
+    return {
+      id: dto.id,
+      name: dto.name,
+      archivedAt: dto.archivedAt ?? null,
+      versions: (dto.versions ?? []).map(version => this.toCurriculumVersion(version)),
+    };
+  }
+
+  private toCurriculumVersion(dto: CurriculumVersionDto): CurriculumVersionView {
+    return {
+      id: dto.id,
+      curriculumId: dto.curriculumId,
+      versionNumber: dto.versionNumber,
+      isDraft: dto.isDraft,
+      name: dto.name,
+      modules: (dto.modules ?? []).map(module => this.toCurriculumModule(module)),
+    };
+  }
+
+  private toCurriculumModule(dto: CurriculumModuleDto): CurriculumModuleRef {
+    return {
+      id: dto.id,
+      moduleVersionId: dto.moduleVersionId,
+      moduleId: dto.moduleId,
+      moduleName: dto.moduleName,
+      moduleVersionNumber: dto.moduleVersionNumber,
+      topicCount: dto.topicCount,
       sortOrder: dto.sortOrder,
     };
   }
