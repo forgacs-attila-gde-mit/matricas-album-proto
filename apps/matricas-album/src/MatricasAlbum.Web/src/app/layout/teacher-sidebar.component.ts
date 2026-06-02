@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AlbumStore } from '../core/services/album.store';
-import { FEATURES } from '../core/tokens/features';
+import { BetaFeaturesService } from '../core/services/beta-features.service';
 import { BrandComponent } from '../shared/ui/brand/brand.component';
 import { IconComponent } from '../shared/ui/icon/icon.component';
 
@@ -53,32 +53,40 @@ interface NavItem {
 })
 export class TeacherSidebarComponent {
   readonly store = inject(AlbumStore);
+  private readonly beta = inject(BetaFeaturesService);
 
-  private readonly baseItems: NavItem[] = [
-    { label: 'Műhely',                     icon: 'hub',             path: [],                  exact: true, section: 'Műhely' },
-    { label: 'Matricatár',                 icon: 'local_library',   path: ['sticker-library'], section: 'Kezelés' },
-    ...(FEATURES.hierarchyBlock ? [{ label: 'Blokkműhely', icon: 'dashboard', path: ['blocks'] } as NavItem] : []),
-    ...(FEATURES.hierarchyTopic ? [{ label: 'Témakörök', icon: 'category', path: ['topics'] } as NavItem] : []),
-    ...(FEATURES.hierarchyModule ? [{ label: 'Modulok', icon: 'account_tree', path: ['modules'] } as NavItem] : []),
-    ...(FEATURES.hierarchyCurriculum ? [{ label: 'Tantervek', icon: 'school', path: ['curricula'] } as NavItem] : []),
-    ...(FEATURES.hierarchyCurriculum ? [{ label: 'Felépítés', icon: 'lan', path: ['hierarchy'] } as NavItem] : []),
-    { label: 'Albumtervek',                icon: 'edit_note',       path: ['templates'] },
-    { label: 'Futó albumok',               icon: 'groups',          path: ['instances'] },
-    { label: 'Futó album',                 icon: 'auto_stories',    path: ['instances', '__id__', 'plan'], section: 'Aktív futó album', needsInstance: true },
-    { label: 'Futó matricák',              icon: 'bookmark_added',  path: ['instances', '__id__', 'stickers'], needsInstance: true },
-    { label: 'Csapatok',                   icon: 'groups',          path: ['instances', '__id__', 'teams'], needsInstance: true },
-    { label: 'Bizonyíték-portfólió',       icon: 'photo_library',   path: ['instances', '__id__', 'evidence'], needsInstance: true },
-    { label: 'Visszajelzési sor',          icon: 'rate_review',     path: ['instances', '__id__', 'feedback'], section: 'Pedagógia', needsInstance: true,
-      pill: () => this.store.pendingEvidence().length || null },
-    { label: 'Album minőségellenőrző',     icon: 'verified',        path: ['instances', '__id__', 'quality'], needsInstance: true },
-    { label: 'Differenciálás',             icon: 'tune',            path: ['instances', '__id__', 'differentiation'], needsInstance: true },
-    { label: 'Projektzárás',               icon: 'flag',            path: ['instances', '__id__', 'closure'], needsInstance: true },
+  // The gold-standard hierarchy builders/explorer — shown only when "beta features" is on
+  // (toggled on the Beállítások page). Inserted between Matricatár and Albumtervek.
+  private readonly betaItems: NavItem[] = [
+    { label: 'Blokkműhely', icon: 'dashboard',    path: ['blocks'] },
+    { label: 'Témakörök',   icon: 'category',     path: ['topics'] },
+    { label: 'Modulok',     icon: 'account_tree', path: ['modules'] },
+    { label: 'Tantervek',   icon: 'school',       path: ['curricula'] },
+    { label: 'Felépítés',   icon: 'lan',          path: ['hierarchy'] },
   ];
 
-  /** Resolve `__id__` placeholders against the current active instance; drop instance-scoped items when none is active. */
+  /** The full ordered nav, with the beta items spliced in only when beta features are enabled. */
   readonly resolvedItems = computed(() => {
     const instanceId = this.store.activeInstanceId();
-    return this.baseItems
+    const items: NavItem[] = [
+      { label: 'Műhely',                 icon: 'hub',             path: [],                  exact: true, section: 'Műhely' },
+      { label: 'Matricatár',             icon: 'local_library',   path: ['sticker-library'], section: 'Kezelés' },
+      ...(this.beta.enabled() ? this.betaItems : []),
+      { label: 'Albumtervek',            icon: 'edit_note',       path: ['templates'] },
+      { label: 'Futó albumok',           icon: 'groups',          path: ['instances'] },
+      { label: 'Futó album',             icon: 'auto_stories',    path: ['instances', '__id__', 'plan'], section: 'Aktív futó album', needsInstance: true },
+      { label: 'Futó matricák',          icon: 'bookmark_added',  path: ['instances', '__id__', 'stickers'], needsInstance: true },
+      { label: 'Csapatok',               icon: 'groups',          path: ['instances', '__id__', 'teams'], needsInstance: true },
+      { label: 'Bizonyíték-portfólió',   icon: 'photo_library',   path: ['instances', '__id__', 'evidence'], needsInstance: true },
+      { label: 'Visszajelzési sor',      icon: 'rate_review',     path: ['instances', '__id__', 'feedback'], section: 'Pedagógia', needsInstance: true,
+        pill: () => this.store.pendingEvidence().length || null },
+      { label: 'Album minőségellenőrző', icon: 'verified',        path: ['instances', '__id__', 'quality'], needsInstance: true },
+      { label: 'Differenciálás',         icon: 'tune',            path: ['instances', '__id__', 'differentiation'], needsInstance: true },
+      { label: 'Projektzárás',           icon: 'flag',            path: ['instances', '__id__', 'closure'], needsInstance: true },
+    ];
+
+    // Resolve `__id__` against the active instance; drop instance-scoped items when none is active.
+    return items
       .filter(item => !item.needsInstance || !!instanceId)
       .map(item => {
         const resolvedPath = item.path.map(segment => segment === '__id__' ? instanceId! : segment);
