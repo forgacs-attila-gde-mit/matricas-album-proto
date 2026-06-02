@@ -2,6 +2,12 @@
 
 Append-only operation log for the Matricás Album LLM wiki. Newest entries on top. Format: `## [YYYY-MM-DD] <verb> | <title>`.
 
+## [2026-06-02] note | Realized hierarchy doc refresh (REFACTOR-001 Phases 4–6) + ADR004
+- REFACTOR-001 Phases 4–6 shipped the full gold-standard chain as real, reference-composed, versioned entities (`Curriculum/Module/Topic/Block` + `ActivityType`/structured metadata on `Tevékenység`), dark behind `Features:Hierarchy:*` flags, additive, not yet wired into the `AlbumInstance` mint. New ADR: [[ADR004-hivatkozas-alapu-hierarchia]].
+- Closed the consistency pass flagged in the 2026-06-01 `note`: [[AlbumDomain]] hierarchy section rewritten (entities now exist; coexistence with the compatibility layer; deferrals) + frontmatter sources/date; [[matricas-album-projekt-allapot]] data-model state + hierarchy section + capability table + out-of-scope list updated with dated callouts; `index.md` rows (AlbumDomain, ADR004, plan Status) refreshed. `apps/matricas-album/docs/architecture.md` was updated in the app-side commit.
+- Wiki-only pass (read app code for provenance; no `apps/` edits here beyond the earlier app commits). `lint`-relevant: new `[[ADR004-hivatkozas-alapu-hierarchia]]` links resolve; ADR004 registered in `index.md`.
+- next: when a template composes blocks, document the mint-through-blocks wiring; revisit the `Week→UnitIndex` rename only if its `backlog.md` trigger fires.
+
 ## [2026-06-01] note | Gold-standard döntések (C1–C5) + „plans live in the wiki" szabály
 - Terméktulajdonosi döntés a 2026-06-01 ingest ellentmondásaira: **C1+C2** → a `Tanulási egység` szint kikerül, a `Témakör` first-class marad ⇒ lánc `Tanterv → Modul → Témakör → Blokk → Tevékenység`; **C3** → a `matrica` marad a tanulási atom (jutalom-olvasat elvetve); **C4+C5** → a ChatGPT-ábrát (`Feladat` szint stb.) egyelőre mellőzzük, a platform-spec fölérendelt réteg.
 - Rögzítve: [[ADR002-temakor-elso-osztalyu-szint]] frissítve (flag → Resolution), új [[ADR003-matrica-tanulasi-atom]], a [[2026-06-01-rendszerstruktura-gold-standard]] „6. Ellentmondások és döntések" szakasza, [[Glossary]] hierarchia-sora, és `AGENTS.md` §1 hierarchia-invariáns.

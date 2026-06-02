@@ -3,7 +3,12 @@ title: AlbumDomain
 type: entity
 sources:
   - apps/matricas-album/docs/architecture.md
-updated: 2026-06-01
+  - apps/matricas-album/src/MatricasAlbum.Api/Domain/Block.cs
+  - apps/matricas-album/src/MatricasAlbum.Api/Domain/Topic.cs
+  - apps/matricas-album/src/MatricasAlbum.Api/Domain/Module.cs
+  - apps/matricas-album/src/MatricasAlbum.Api/Domain/Curriculum.cs
+  - wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md
+updated: 2026-06-02
 lang: en
 ---
 
@@ -63,25 +68,23 @@ A template-version **upgrade** atomically opts a running instance into the lates
 
 `AiAdvice` and `AiAdviceRun` persist target-aware AI advice plus its audit trail, generated through the separate Python/Agno service and the static methodology `agent-wiki` projection. They are described in full on [[AiAdvice]]. `AiNote` (`OwnerType` + `OwnerId`, `TargetType`/`TargetId`/`TargetKey`, `Kind`, `Severity`) is the lighter instance-owned note primitive.
 
-## The hierarchy as a compatibility layer
+## Gold-standard hierarchy — now realized (behind feature flags)
 
-The locked product hierarchy is:
+The locked product hierarchy is `Tanterv → Modul → Témakör → Blokk → Tevékenység` (`Tanulási egység` retired — [[ADR002-temakor-elso-osztalyu-szint]]; `Témakör → Blokk` directly). As of 2026-06-02 (REFACTOR-001 Phases 4–6) these are **real, versioned, reference-composed entities**, shipped **dark** behind per-level feature flags (`Features:Hierarchy:{Block|Topic|Module|Curriculum}`, on in Development) — decision recorded in [[ADR004-hivatkozas-alapu-hierarchia]].
 
-`Tanterv -> Modul -> Témakör -> Tanulási egység -> Blokk -> Tevékenység`
-
-Foundation decision: `Témakör` is **first-class** and contains `Tanulási egység` (see [[ADR002-temakor-elso-osztalyu-szint]]). The current implementation is a **compatibility layer** — there are no `Curriculum`, `Module`, `Topic`, `LearningUnit`, or `Block` schema objects yet. The mapping:
-
-| Target concept | Current implementation | Mapping stance |
+| Level | Entity (resource / version / reference join) | Composes by reference |
 |---|---|---|
-| `Tanterv` | No dedicated entity | Future top-level container; do not add `Curriculum` until a later schema slice. |
-| `Modul` | No dedicated entity | Future larger thematic/program unit; do not add `Module` until ownership/navigation are scoped. |
-| `Témakör` | No dedicated entity | Future first-class level between `Modul` and `Tanulási egység`; do not model as a tag/label now. |
-| `Tanulási egység` | `AlbumTemplateVersionWeekPlan`, `AlbumInstanceWeekPlan`, `DurationType`, `Week` / `WeekNumber` | Current operational unit structure; keep existing names until the schema slice handles compatibility. |
-| `Blokk` | No dedicated entity | Future lesson/block composition; lesson starts save through `AlbumTemplateVersion` unit rows + final-product notes. |
-| `Tevékenység` | `StickerVersion` + `StickerVersionTeacherStep` | Current reusable activity-card primitive; `Tevékenység (matrica)` is the teacher-facing bridge while DB/API names stay unchanged. |
-| Classroom execution | `AlbumInstance`, `InstanceSticker`, teams, evidence, progress, feedback, reflections | Current running-album layer; the execution model until the hierarchy is explicitly introduced. |
+| `Tanterv` | `Curriculum` / `CurriculumVersion` / `CurriculumModuleRelation` | → `ModuleVersion` |
+| `Modul` | `Module` / `ModuleVersion` / `ModuleTopicRelation` | → `TopicVersion` |
+| `Témakör` | `Topic` / `TopicVersion` / `TopicBlockRelation` | → `BlockVersion` |
+| `Blokk` | `Block` / `BlockVersion` / `ActivityBlockRelation` (closed `Role`) | → `StickerVersion` |
+| `Tevékenység` | `StickerVersion` (+ `ActivityType`, structured metadata) | the learning atom |
 
-Deferred schema guidance: do not introduce `Curriculum`/`Module`/`Topic`/`LearningUnit`/`Block`; do not rename `Week`/`WeekNumber`/`CurrentWeek` to `UnitIndex` before a migration strategy is scoped; do not force teachers to manage the full hierarchy before creating or running an activity; do not build structured filtering/adaptation logic on text notes saved into existing fields (a no-regression bridge only).
+Each level mirrors the `AlbumTemplate` versioning (**≤1 draft** via partial unique index, published-immutable, `v1` starts editable, `POST …/draft` clones the latest published) and composes the level below **by reference** (`FK … ON DELETE RESTRICT`, **no copy**; a child version is reusable across many parents, so there is no `unique` on the referenced id). Reordering uses a two-pass write to dodge the `unique (parentVersionId, SortOrder)` index. `Tevékenység` gained a persisted `ActivityType` classifier (closed 6-type taxonomy — `felfedezo|kiserletezo|feldolgozo|kommunikacios|kollaborativ|reflektiv`, Phase 2) and structured planning metadata columns (`Subject`, `GradeLevel`, `EstimatedMinutes`, `Modality`, `GroupSize`, `ContextMode`, `CompetenciesJson`, `NatReferencesJson`, Phase 3).
+
+**Coexistence with the compatibility layer.** The running app still plans + executes through `AlbumTemplate(+Version)` → `AlbumInstance`/`InstanceSticker` (above); the new hierarchy is **additive and not yet wired into the mint path**. `POST /api/album-templates/{id}/derive-blocks` maps a template's unit rows to published Blocks **additively** (inserts only Block rows, idempotent by name, never touches instances/evidence). The `AlbumInstance` mint still snapshots references at run — wiring it *through* the hierarchy waits until a template composes blocks.
+
+Deferred (tracked in [[REFACTOR-001-gold-standard-rendszerstruktura]] + `backlog.md`): the `Week`/`WeekNumber`/`CurrentWeek` → `UnitIndex` rename (gate not met); richer per-level fields (`learningGoals`/`competencies`/`progression`); the `Blokk` `rules` field; the `Tanterv` `draft/review/approved/published` governance workflow; suggest-only AI structure help; and the mint-through-blocks rewire. Do not force teachers to manage the full hierarchy before creating or running an activity.
 
 ## Versioning and ownership invariants
 

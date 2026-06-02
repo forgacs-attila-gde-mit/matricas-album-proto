@@ -7,7 +7,7 @@ Catalog of all wiki pages, grouped by type. This wiki is scoped to the **Matric�
 | Page | lang | Description |
 |------|------|-------------|
 | [[Glossary]] | mixed | Canonical hu↔en domain-term bridge: hierarchy, persisted enums (never translate), pedagogy terms, UI labels. |
-| [[AlbumDomain]] | en | Core domain objects (`StickerResource/Version`, `AlbumTemplate/Version`, `AlbumInstance`, `InstanceSticker`, `Team`, `QualityDimension`) + the `Tanterv→…→Tevékenység` compatibility layer. |
+| [[AlbumDomain]] | en | Core domain objects (`StickerResource/Version`, `AlbumTemplate/Version`, `AlbumInstance`, `InstanceSticker`, `Team`, `QualityDimension`) + the realized reference-composed `Tanterv→…→Tevékenység` hierarchy (`Curriculum/Module/Topic/Block` behind flags) coexisting with the compatibility layer. |
 | [[Evidence]] | en | The `Evidence`/bizonyíték entity; matrica = evidence-bearing learning episode, with help-request, feedback, team progress. |
 | [[AiAdvice]] | en | Target-aware `AiAdvice`/`AiAdviceRun` + statuses + audit trail; the "AI suggests, teacher decides" guardrail. |
 | [[Lauder]] | hu | A Matricás pilot/beachhead intézmény (Horányi Gábor, András osztályfőnök, Lauder matrica-könyvtár, szeptemberi pilot). |
@@ -54,6 +54,7 @@ Catalog of all wiki pages, grouped by type. This wiki is scoped to the **Matric�
 | [[ADR001-kozos-activity-domain]] | mixed | No per-method bounded context; the `Sticker`/`Album`/`Instance`/`Evidence` core is the common activity-run engine. |
 | [[ADR002-temakor-elso-osztalyu-szint]] | mixed | `Témakör` is a first-class hierarchy level; `Tanulási egység` retired (resolved 2026-06-01); schema rename only after a migration mapping. |
 | [[ADR003-matrica-tanulasi-atom]] | mixed | Matrica stays the learning atom (platform spec's reward reframing rejected); the platform rendszerstruktúra is a superordinate layer; the unreleased ChatGPT diagram is disregarded for now. |
+| [[ADR004-hivatkozas-alapu-hierarchia]] | mixed | The realized reference-composed, versioned hierarchy (`Tanterv→…→Tevékenység`) shipped behind feature flags (REFACTOR-001 Phases 4–6); additive + evidence-safe, coexists with the compatibility layer; mint-through-blocks deferred. |
 
 ## Prompts
 
@@ -65,7 +66,7 @@ Catalog of all wiki pages, grouped by type. This wiki is scoped to the **Matric�
 
 | Page | lang | Description |
 |------|------|-------------|
-| [[REFACTOR-001-gold-standard-rendszerstruktura]] | mixed | Phased plan to align the app with the gold-standard rendszerstruktúra (hierarchy entities, `Tevékenységtípus`, reference composition, versioning) + simplify the Albumterv / „Matrica" creation UX. Status: Draft. |
+| [[REFACTOR-001-gold-standard-rendszerstruktura]] | mixed | Phased plan to align the app with the gold-standard rendszerstruktúra (hierarchy entities, `Tevékenységtípus`, reference composition, versioning) + simplify the Albumterv / „Matrica" creation UX. Status: Phases 1–6 core complete (full hierarchy shipped behind flags); tracked deferrals remain. |
 
 ## Features
 

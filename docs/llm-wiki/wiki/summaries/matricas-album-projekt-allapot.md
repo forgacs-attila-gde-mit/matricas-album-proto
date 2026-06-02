@@ -4,7 +4,8 @@ type: summary
 sources:
   - apps/matricas-album/docs/architecture.md
   - apps/matricas-album/README.md
-updated: 2026-06-01
+  - wiki/plans/REFACTOR-001-gold-standard-rendszerstruktura.md
+updated: 2026-06-02
 lang: mixed
 ---
 
@@ -24,7 +25,7 @@ The Matricás Album is a running Lecke.ai demonstrator that treats learning not 
 - **Pilot focus:** the live product plan targets 7-8th grade természettudományos teachers in an autonomy-supporting school context; [[Lauder]] remains the central pilot / beachhead.
 - **Current app state:** a running Angular + .NET + PostgreSQL + Python/FastAPI AI agent demonstrator, started via Docker Compose with seeded mikroklíma album data.
 - **UX state:** the teacher can start progressively from an idea, a lesson/`Blokk`, or a curriculum outline; the system does not force the full tantervi hierarchy on first use.
-- **Data-model state:** the model is still built around `StickerResource` / `StickerVersion`, `AlbumTemplate` / `AlbumTemplateVersion`, and `AlbumInstance`; the target hierarchy appears as a compatibility layer with no `Curriculum`, `Module`, `Topic`, `LearningUnit`, or `Block` entities (see [[ADR002-temakor-elso-osztalyu-szint]]).
+- **Data-model state:** the running app still plans + executes through `StickerResource` / `StickerVersion`, `AlbumTemplate` / `AlbumTemplateVersion`, and `AlbumInstance`. **Update 2026-06-02:** the target hierarchy is now also realized as real, reference-composed, versioned entities — `Curriculum`, `Module`, `Topic`, `Block` (+ `ActivityType` on `Tevékenység`) — shipped **dark behind feature flags** and **not yet wired into the mint path**; the two coexist ([[ADR004-hivatkozas-alapu-hierarchia]], [[AlbumDomain]]). `Tanulási egység` was retired ([[ADR002-temakor-elso-osztalyu-szint]]).
 - **AI state:** the AI suggests, pre-fills, asks, and drafts, but makes no pedagogical decision and never auto-saves a full structure ([[pedagogia-elobb-ai-masodik]]).
 - **Top guardrail:** pilot safety outranks fast conceptual cleanup. The target hierarchy may show in the UI, but schema/API migration only follows an explicit mapping and compatibility slice.
 
@@ -41,6 +42,8 @@ The Matricás Album is a running Lecke.ai demonstrator that treats learning not 
 | Demo / pilot owner | The usable story: progressive start → running album → student evidence → teacher feedback → closure/learning overview. |
 
 ## Product hierarchy as a compatibility layer
+
+> **Update 2026-06-02 (REFACTOR-001 Phases 4–6).** The hierarchy below is no longer *only* a compatibility layer: `Curriculum / Module / Topic / Block` now exist as real, reference-composed, versioned entities (`Tanterv → Modul → Témakör → Blokk → Tevékenység`, `Tanulási egység` retired), each with a 3-pane builder + a read-only drill-down explorer, shipped **dark behind `Features:Hierarchy:*` flags**. They are **additive** and **not yet wired into the `AlbumInstance` mint path**, so the compatibility-layer mapping described here still drives the running app (planning + execution stay on `AlbumTemplate`/`AlbumInstance`). `POST /api/album-templates/{id}/derive-blocks` maps template units → published Blocks additively (no touch to instances/evidence). Full detail: [[ADR004-hivatkozas-alapu-hierarchia]] + [[AlbumDomain]]. The rest of this section documents the still-live compatibility layer.
 
 The locked target hierarchy is `Tanterv -> Modul -> Témakör -> Tanulási egység -> Blokk -> Tevékenység`, with `Témakör` as a first-class level that contains `Tanulási egység` ([[ADR002-temakor-elso-osztalyu-szint]]). The 2026-05-29 recursive Confluence re-check found one source mismatch worth flagging before schema work: the `3. Rendszerstruktúra és alapfogalmak` page still lists the hierarchy without `Témakör`, while later topic/creation pages and product decisions treat it as first-class. Until reconciled, implementation stays aligned with the locked hierarchy and avoids introducing `Topic` / `LearningUnit` schema objects.
 
@@ -157,14 +160,14 @@ On startup the API migrates the schema and seeds the demonstrator if the Matrica
 | Differenciálás | working | `tamogatott`/`alap`/`kihivas` paths + per-team assignment. |
 | Projektzárás | working | Learning overview, effect log, checklist, export/print, AI synthesis. |
 | AI agent | working | Mock fallback and OpenAI Structured Outputs path. |
-| Product hierarchy | partial | UI/metadata compatibility layer; no new schema yet. |
+| Product hierarchy | working (dark) | `Curriculum/Module/Topic/Block` reference-composed entities + builders + drill-down explorer behind `Features:Hierarchy:*` flags; additive, not yet wired to the mint. UI/metadata compatibility layer still drives the running app. |
 | Pilot observation | partial | localStorage bridge; teacher-reviewed merge into closure. |
 | Docs | up to date | architecture + user manual in the long-lived docs folder. |
 
 ## Deliberately out of scope now
 
-- No `Curriculum`, `Module`, `Topic`, `LearningUnit`, `Block` backend schema.
-- No rename of `Week` / `WeekNumber` / `CurrentWeek` to `UnitIndex`.
+- ~~No `Curriculum`, `Module`, `Topic`, `LearningUnit`, `Block` backend schema.~~ **Superseded 2026-06-02:** `Curriculum/Module/Topic/Block` now exist (reference-composed, versioned, behind flags); still out of scope is wiring them *into* the `AlbumInstance` mint path. `LearningUnit` (`Tanulási egység`) stays retired.
+- No rename of `Week` / `WeekNumber` / `CurrentWeek` to `UnitIndex` (gating condition not met; see `backlog.md`).
 - No global rename of `Matricás Album` to `Activity Studio` (or `ActivityResource` for DB/API).
 - No broad community marketplace.
 - No automatic activity-effectiveness scoring.
