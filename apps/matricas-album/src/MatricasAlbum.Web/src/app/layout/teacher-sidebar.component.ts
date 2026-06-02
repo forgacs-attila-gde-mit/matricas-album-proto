@@ -61,6 +61,7 @@ export class TeacherSidebarComponent {
     ...(FEATURES.hierarchyTopic ? [{ label: 'Témakörök', icon: 'category', path: ['topics'] } as NavItem] : []),
     ...(FEATURES.hierarchyModule ? [{ label: 'Modulok', icon: 'account_tree', path: ['modules'] } as NavItem] : []),
     ...(FEATURES.hierarchyCurriculum ? [{ label: 'Tantervek', icon: 'school', path: ['curricula'] } as NavItem] : []),
+    ...(FEATURES.hierarchyCurriculum ? [{ label: 'Felépítés', icon: 'lan', path: ['hierarchy'] } as NavItem] : []),
     { label: 'Albumtervek',                icon: 'edit_note',       path: ['templates'] },
     { label: 'Futó albumok',               icon: 'groups',          path: ['instances'] },
     { label: 'Futó album',                 icon: 'auto_stories',    path: ['instances', '__id__', 'plan'], section: 'Aktív futó album', needsInstance: true },
