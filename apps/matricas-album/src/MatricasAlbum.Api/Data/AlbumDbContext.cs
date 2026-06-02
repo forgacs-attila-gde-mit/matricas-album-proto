@@ -10,6 +10,9 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
     public DbSet<Block> Blocks => Set<Block>();
     public DbSet<BlockVersion> BlockVersions => Set<BlockVersion>();
     public DbSet<ActivityBlockRelation> ActivityBlockRelations => Set<ActivityBlockRelation>();
+    public DbSet<Topic> Topics => Set<Topic>();
+    public DbSet<TopicVersion> TopicVersions => Set<TopicVersion>();
+    public DbSet<TopicBlockRelation> TopicBlockRelations => Set<TopicBlockRelation>();
     public DbSet<StickerResource> StickerResources => Set<StickerResource>();
     public DbSet<StickerVersion> StickerVersions => Set<StickerVersion>();
     public DbSet<AlbumTemplate> AlbumTemplates => Set<AlbumTemplate>();
@@ -72,6 +75,29 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
             // Reference, not embed: deleting the relation never cascades into the activity;
             // the same StickerVersion can be referenced by many blocks (no unique on it).
             entity.HasOne(x => x.StickerVersion).WithMany().HasForeignKey(x => x.StickerVersionId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Topic>(entity =>
+        {
+            entity.ToTable("topics");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.HasMany(x => x.Versions).WithOne(x => x.Topic).HasForeignKey(x => x.TopicId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<TopicVersion>(entity =>
+        {
+            entity.ToTable("topic_versions");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.HasIndex(x => new { x.TopicId, x.VersionNumber }).IsUnique();
+            entity.HasMany(x => x.Blocks).WithOne(x => x.TopicVersion).HasForeignKey(x => x.TopicVersionId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<TopicBlockRelation>(entity =>
+        {
+            entity.ToTable("topic_block_relations");
+            entity.HasIndex(x => new { x.TopicVersionId, x.SortOrder }).IsUnique();
+            // Reference, not embed: the same BlockVersion can be referenced by many topics.
+            entity.HasOne(x => x.BlockVersion).WithMany().HasForeignKey(x => x.BlockVersionId).OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<StickerResource>(entity =>

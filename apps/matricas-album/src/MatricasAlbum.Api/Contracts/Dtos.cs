@@ -71,6 +71,56 @@ public sealed record AddBlockActivityRequest(
 public sealed record UpdateBlockActivityRequest(
     string Role);
 
+// --- Témakör (Topic) — reference-composed, versioned grouping of Blocks (Phase 5) ----------
+
+public sealed record TopicListItemDto(
+    Guid Id,
+    string Name,
+    int LatestVersionNumber,
+    int BlockCount,
+    bool HasDraft,
+    DateTimeOffset? ArchivedAt);
+
+public sealed record TopicDetailDto(
+    Guid Id,
+    string Name,
+    DateTimeOffset? ArchivedAt,
+    IReadOnlyList<TopicVersionDto> Versions);
+
+public sealed record TopicVersionDto(
+    Guid Id,
+    Guid TopicId,
+    int VersionNumber,
+    bool IsDraft,
+    string Name,
+    IReadOnlyList<TopicBlockDto> Blocks);
+
+public sealed record TopicBlockDto(
+    Guid Id,
+    Guid BlockVersionId,
+    Guid BlockId,
+    string BlockName,
+    int BlockVersionNumber,
+    int ActivityCount,
+    int SortOrder);
+
+public sealed record CreateTopicRequest(
+    string Name);
+
+public sealed record UpdateTopicVersionRequest(
+    string? Name = null);
+
+public sealed record AddTopicBlockRequest(
+    Guid BlockVersionId,
+    int? SortOrder = null);
+
+public sealed record ReorderTopicBlocksRequest(
+    IReadOnlyList<ReorderTopicBlockItem> Items);
+
+public sealed record ReorderTopicBlockItem(
+    Guid Id,
+    int SortOrder);
+
 public sealed record ReorderBlockActivitiesRequest(
     IReadOnlyList<ReorderBlockActivityItem> Items);
 

@@ -71,6 +71,7 @@ var api = app.MapGroup("/api")
 // Development (so the demo stack + tests can exercise them) and off elsewhere unless
 // Features:Hierarchy:Block is set explicitly.
 var blockFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Block") ?? app.Environment.IsDevelopment();
+var topicFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Topic") ?? app.Environment.IsDevelopment();
 const string PromptVersion = "phase5-v1";
 const string GuidedDemoPromptVersion = "phase4-v1-guided-demo";
 const string ProjectionVersion = "matricas-methodology-agent-wiki-v1";
@@ -491,6 +492,187 @@ if (blockFeatureEnabled)
             created = created.Count,
             blocks = created.Select(block => new { block.Id, block.Name }).ToList(),
         });
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+}
+
+// --- Témakör (Topic) API — reference-composed, versioned (Phase 5, behind feature flag) ------
+if (topicFeatureEnabled)
+{
+    api.MapGet("/topics", async (AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topics = await db.Topics
+            .AsNoTracking()
+            .Include(topic => topic.Versions)
+            .ThenInclude(version => version.Blocks)
+            .OrderBy(topic => topic.Name)
+            .ToListAsync(cancellationToken);
+
+        return Results.Ok(topics.Select(topic =>
+        {
+            var latest = LatestTopicVersion(topic);
+            return new TopicListItemDto(
+                topic.Id,
+                UiText(topic.Name),
+                latest.VersionNumber,
+                latest.Blocks.Count,
+                topic.Versions.Any(version => version.IsDraft),
+                topic.ArchivedAt);
+        }));
+    });
+
+    api.MapPost("/topics", async (CreateTopicRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+        {
+            return Results.BadRequest(new { error = "A témakör neve kötelező." });
+        }
+
+        var topic = new Topic { Name = request.Name.Trim() };
+        topic.Versions.Add(new TopicVersion
+        {
+            TopicId = topic.Id,
+            VersionNumber = 1,
+            IsDraft = true,
+            Name = request.Name.Trim(),
+        });
+        db.Topics.Add(topic);
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Created($"/api/topics/{topic.Id}", await MapTopicDetailAsync(db, topic.Id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapGet("/topics/{id:guid}", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var detail = await MapTopicDetailAsync(db, id, cancellationToken);
+        return detail is null ? Results.NotFound() : Results.Ok(detail);
+    });
+
+    api.MapPatch("/topics/{id:guid}/archive", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topic = await db.Topics.SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+        if (topic is null) return Results.NotFound();
+        topic.ArchivedAt = topic.ArchivedAt is null ? DateTimeOffset.UtcNow : null;
+        topic.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/topics/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topic = await TopicGraph(db).SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+        if (topic is null) return Results.NotFound();
+        if (DraftTopicVersion(topic) is not null)
+        {
+            return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
+        }
+
+        var latest = LatestTopicVersion(topic);
+        var now = DateTimeOffset.UtcNow;
+        topic.Versions.Add(new TopicVersion
+        {
+            TopicId = topic.Id,
+            VersionNumber = topic.Versions.Max(version => version.VersionNumber) + 1,
+            IsDraft = true,
+            Name = latest.Name,
+            CreatedAt = now,
+            Blocks = latest.Blocks
+                .OrderBy(block => block.SortOrder)
+                .Select(block => new TopicBlockRelation { BlockVersionId = block.BlockVersionId, SortOrder = block.SortOrder, AddedAt = now })
+                .ToList(),
+        });
+        topic.UpdatedAt = now;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Created($"/api/topics/{id}", await MapTopicDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/topics/{id:guid}/draft/publish", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topic = await TopicGraph(db).SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+        if (topic is null) return Results.NotFound();
+        var draft = DraftTopicVersion(topic);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs publikálható témakörvázlat." });
+        draft.IsDraft = false;
+        topic.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/topics/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topic = await TopicGraph(db).SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+        if (topic is null) return Results.NotFound();
+        var draft = DraftTopicVersion(topic);
+        if (draft is not null && topic.Versions.Any(version => !version.IsDraft))
+        {
+            db.TopicVersions.Remove(draft);
+            topic.UpdatedAt = DateTimeOffset.UtcNow;
+            await db.SaveChangesAsync(cancellationToken);
+        }
+        return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPatch("/topic-versions/{versionId:guid}", async (Guid versionId, UpdateTopicVersionRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var version = await db.TopicVersions.SingleOrDefaultAsync(version => version.Id == versionId, cancellationToken);
+        if (version is null) return Results.NotFound();
+        if (!version.IsDraft) return Results.BadRequest(new { error = "Csak vázlat szerkeszthető." });
+        if (request.Name is { } name && !string.IsNullOrWhiteSpace(name)) version.Name = name.Trim();
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapTopicDetailAsync(db, version.TopicId, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/topics/{id:guid}/blocks", async (Guid id, AddTopicBlockRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topic = await TopicGraph(db).SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+        if (topic is null) return Results.NotFound();
+        var draft = DraftTopicVersion(topic);
+        if (draft is null) return Results.BadRequest(new { error = "Előbb hozz létre egy témakörvázlatot." });
+
+        if (!await db.BlockVersions.AnyAsync(version => version.Id == request.BlockVersionId, cancellationToken))
+        {
+            return Results.BadRequest(new { error = "Ismeretlen blokk-verzió." });
+        }
+
+        var sortOrder = request.SortOrder ?? (draft.Blocks.Count == 0 ? 1 : draft.Blocks.Max(block => block.SortOrder) + 1);
+        draft.Blocks.Add(new TopicBlockRelation { TopicVersionId = draft.Id, BlockVersionId = request.BlockVersionId, SortOrder = sortOrder });
+        topic.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/topics/{id:guid}/blocks/{relationId:guid}", async (Guid id, Guid relationId, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topic = await TopicGraph(db).SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+        if (topic is null) return Results.NotFound();
+        var draft = DraftTopicVersion(topic);
+        var relation = draft?.Blocks.SingleOrDefault(block => block.Id == relationId);
+        if (relation is null) return Results.NotFound();
+        db.TopicBlockRelations.Remove(relation);
+        topic.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/topics/{id:guid}/blocks/reorder", async (Guid id, ReorderTopicBlocksRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var topic = await TopicGraph(db).SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+        if (topic is null) return Results.NotFound();
+        var draft = DraftTopicVersion(topic);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs szerkeszthető témakörvázlat." });
+
+        var targets = (request.Items ?? []).ToDictionary(item => item.Id, item => item.SortOrder);
+        foreach (var block in draft.Blocks)
+        {
+            block.SortOrder += 100000;
+        }
+        await db.SaveChangesAsync(cancellationToken);
+        foreach (var block in draft.Blocks)
+        {
+            if (targets.TryGetValue(block.Id, out var sortOrder)) block.SortOrder = sortOrder;
+            else block.SortOrder -= 100000;
+        }
+        topic.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
     }).RequireDemoRole(DemoAuth.TeacherRole);
 }
 
@@ -4328,6 +4510,65 @@ static BlockVersionDto MapBlockVersion(BlockVersion version) =>
                 activity.StickerVersion?.VersionNumber ?? 0,
                 activity.Role,
                 activity.SortOrder))
+            .ToList());
+
+static IQueryable<Topic> TopicGraph(AlbumDbContext db) =>
+    db.Topics
+        .Include(topic => topic.Versions)
+        .ThenInclude(version => version.Blocks);
+
+static TopicVersion LatestTopicVersion(Topic topic) =>
+    topic.Versions.OrderByDescending(version => version.VersionNumber).First();
+
+static TopicVersion? DraftTopicVersion(Topic topic) =>
+    topic.Versions.SingleOrDefault(version => version.IsDraft);
+
+static async Task<TopicDetailDto?> MapTopicDetailAsync(AlbumDbContext db, Guid id, CancellationToken cancellationToken)
+{
+    var topic = await db.Topics
+        .AsNoTracking()
+        .AsSplitQuery()
+        .Include(topic => topic.Versions)
+        .ThenInclude(version => version.Blocks)
+        .ThenInclude(relation => relation.BlockVersion)
+        .ThenInclude(blockVersion => blockVersion!.Block)
+        .Include(topic => topic.Versions)
+        .ThenInclude(version => version.Blocks)
+        .ThenInclude(relation => relation.BlockVersion)
+        .ThenInclude(blockVersion => blockVersion!.Activities)
+        .SingleOrDefaultAsync(topic => topic.Id == id, cancellationToken);
+    if (topic is null)
+    {
+        return null;
+    }
+
+    return new TopicDetailDto(
+        topic.Id,
+        UiText(topic.Name),
+        topic.ArchivedAt,
+        topic.Versions
+            .OrderByDescending(version => version.VersionNumber)
+            .Select(MapTopicVersion)
+            .ToList());
+}
+
+static TopicVersionDto MapTopicVersion(TopicVersion version) =>
+    new(
+        version.Id,
+        version.TopicId,
+        version.VersionNumber,
+        version.IsDraft,
+        UiText(version.Name),
+        version.Blocks
+            .OrderBy(block => block.SortOrder)
+            .Select(block => new TopicBlockDto(
+                block.Id,
+                block.BlockVersionId,
+                block.BlockVersion?.BlockId ?? Guid.Empty,
+                UiText(block.BlockVersion?.Block?.Name ?? block.BlockVersion?.Name ?? string.Empty),
+                block.BlockVersion?.VersionNumber ?? 0,
+                block.BlockVersion?.Activities.Count ?? 0,
+                block.SortOrder))
             .ToList());
 
 static string Clean(string? value) => string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();
