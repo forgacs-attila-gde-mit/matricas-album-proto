@@ -23,6 +23,10 @@ import {
   TopicDetail,
   TopicListItem,
   TopicVersionView,
+  ModuleTopicRef,
+  ModuleDetail,
+  ModuleListItem,
+  ModuleVersionView,
   TeacherEffectLog,
   ClosureChecklistItem,
   CreateStickerAdviceActionPayload,
@@ -110,7 +114,44 @@ interface TopicListItemDto {
   latestVersionNumber: number;
   blockCount: number;
   hasDraft: boolean;
+  latestPublishedVersionId?: string | null;
   archivedAt?: string | null;
+}
+
+interface ModuleListItemDto {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  topicCount: number;
+  hasDraft: boolean;
+  latestPublishedVersionId?: string | null;
+  archivedAt?: string | null;
+}
+
+interface ModuleTopicDto {
+  id: string;
+  topicVersionId: string;
+  topicId: string;
+  topicName: string;
+  topicVersionNumber: number;
+  blockCount: number;
+  sortOrder: number;
+}
+
+interface ModuleVersionDto {
+  id: string;
+  moduleId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  topics: ModuleTopicDto[];
+}
+
+interface ModuleDetailDto {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: ModuleVersionDto[];
 }
 
 interface TopicBlockDto {
@@ -851,6 +892,56 @@ export class AlbumApi {
       .pipe(map(dto => this.toTopicDetail(dto)));
   }
 
+  // --- Modul (Module) API (Phase 6; gated server-side by Features:Hierarchy:Module) ------
+
+  getModules() {
+    return this.http
+      .get<ModuleListItemDto[]>(`${this.baseUrl}/modules`)
+      .pipe(map(items => items.map(item => this.toModuleListItem(item))));
+  }
+
+  getModule(id: string) {
+    return this.http
+      .get<ModuleDetailDto>(`${this.baseUrl}/modules/${id}`)
+      .pipe(map(dto => this.toModuleDetail(dto)));
+  }
+
+  createModule(payload: { name: string }) {
+    return this.http
+      .post<ModuleDetailDto>(`${this.baseUrl}/modules`, payload)
+      .pipe(map(dto => this.toModuleDetail(dto)));
+  }
+
+  createModuleDraft(moduleId: string) {
+    return this.http
+      .post<ModuleDetailDto>(`${this.baseUrl}/modules/${moduleId}/draft`, {})
+      .pipe(map(dto => this.toModuleDetail(dto)));
+  }
+
+  publishModuleDraft(moduleId: string) {
+    return this.http
+      .post<ModuleDetailDto>(`${this.baseUrl}/modules/${moduleId}/draft/publish`, {})
+      .pipe(map(dto => this.toModuleDetail(dto)));
+  }
+
+  addModuleTopic(moduleId: string, payload: { topicVersionId: string; sortOrder?: number }) {
+    return this.http
+      .post<ModuleDetailDto>(`${this.baseUrl}/modules/${moduleId}/topics`, payload)
+      .pipe(map(dto => this.toModuleDetail(dto)));
+  }
+
+  removeModuleTopic(moduleId: string, relationId: string) {
+    return this.http
+      .delete<ModuleDetailDto>(`${this.baseUrl}/modules/${moduleId}/topics/${relationId}`)
+      .pipe(map(dto => this.toModuleDetail(dto)));
+  }
+
+  reorderModuleTopics(moduleId: string, items: Array<{ id: string; sortOrder: number }>) {
+    return this.http
+      .post<ModuleDetailDto>(`${this.baseUrl}/modules/${moduleId}/topics/reorder`, { items })
+      .pipe(map(dto => this.toModuleDetail(dto)));
+  }
+
   getTemplates() {
     return this.http
       .get<AlbumTemplateListItemDto[]>(`${this.baseUrl}/album-templates`)
@@ -1401,7 +1492,52 @@ export class AlbumApi {
       latestVersionNumber: dto.latestVersionNumber,
       blockCount: dto.blockCount,
       hasDraft: dto.hasDraft,
+      latestPublishedVersionId: dto.latestPublishedVersionId ?? null,
       archivedAt: dto.archivedAt ?? null,
+    };
+  }
+
+  private toModuleListItem(dto: ModuleListItemDto): ModuleListItem {
+    return {
+      id: dto.id,
+      name: dto.name,
+      latestVersionNumber: dto.latestVersionNumber,
+      topicCount: dto.topicCount,
+      hasDraft: dto.hasDraft,
+      latestPublishedVersionId: dto.latestPublishedVersionId ?? null,
+      archivedAt: dto.archivedAt ?? null,
+    };
+  }
+
+  private toModuleDetail(dto: ModuleDetailDto): ModuleDetail {
+    return {
+      id: dto.id,
+      name: dto.name,
+      archivedAt: dto.archivedAt ?? null,
+      versions: (dto.versions ?? []).map(version => this.toModuleVersion(version)),
+    };
+  }
+
+  private toModuleVersion(dto: ModuleVersionDto): ModuleVersionView {
+    return {
+      id: dto.id,
+      moduleId: dto.moduleId,
+      versionNumber: dto.versionNumber,
+      isDraft: dto.isDraft,
+      name: dto.name,
+      topics: (dto.topics ?? []).map(topic => this.toModuleTopic(topic)),
+    };
+  }
+
+  private toModuleTopic(dto: ModuleTopicDto): ModuleTopicRef {
+    return {
+      id: dto.id,
+      topicVersionId: dto.topicVersionId,
+      topicId: dto.topicId,
+      topicName: dto.topicName,
+      topicVersionNumber: dto.topicVersionNumber,
+      blockCount: dto.blockCount,
+      sortOrder: dto.sortOrder,
     };
   }
 

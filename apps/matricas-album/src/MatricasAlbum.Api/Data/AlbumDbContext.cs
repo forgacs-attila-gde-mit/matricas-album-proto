@@ -13,6 +13,9 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
     public DbSet<Topic> Topics => Set<Topic>();
     public DbSet<TopicVersion> TopicVersions => Set<TopicVersion>();
     public DbSet<TopicBlockRelation> TopicBlockRelations => Set<TopicBlockRelation>();
+    public DbSet<Module> Modules => Set<Module>();
+    public DbSet<ModuleVersion> ModuleVersions => Set<ModuleVersion>();
+    public DbSet<ModuleTopicRelation> ModuleTopicRelations => Set<ModuleTopicRelation>();
     public DbSet<StickerResource> StickerResources => Set<StickerResource>();
     public DbSet<StickerVersion> StickerVersions => Set<StickerVersion>();
     public DbSet<AlbumTemplate> AlbumTemplates => Set<AlbumTemplate>();
@@ -98,6 +101,28 @@ public sealed class AlbumDbContext(DbContextOptions<AlbumDbContext> options) : D
             entity.HasIndex(x => new { x.TopicVersionId, x.SortOrder }).IsUnique();
             // Reference, not embed: the same BlockVersion can be referenced by many topics.
             entity.HasOne(x => x.BlockVersion).WithMany().HasForeignKey(x => x.BlockVersionId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<Module>(entity =>
+        {
+            entity.ToTable("modules");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.HasMany(x => x.Versions).WithOne(x => x.Module).HasForeignKey(x => x.ModuleId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<ModuleVersion>(entity =>
+        {
+            entity.ToTable("module_versions");
+            entity.Property(x => x.Name).HasMaxLength(180);
+            entity.HasIndex(x => new { x.ModuleId, x.VersionNumber }).IsUnique();
+            entity.HasMany(x => x.Topics).WithOne(x => x.ModuleVersion).HasForeignKey(x => x.ModuleVersionId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<ModuleTopicRelation>(entity =>
+        {
+            entity.ToTable("module_topic_relations");
+            entity.HasIndex(x => new { x.ModuleVersionId, x.SortOrder }).IsUnique();
+            entity.HasOne(x => x.TopicVersion).WithMany().HasForeignKey(x => x.TopicVersionId).OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<StickerResource>(entity =>

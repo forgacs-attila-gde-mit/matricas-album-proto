@@ -126,7 +126,44 @@ export interface TopicListItem {
   latestVersionNumber: number;
   blockCount: number;
   hasDraft: boolean;
+  latestPublishedVersionId?: string | null;
   archivedAt?: string | null;
+}
+
+export interface ModuleListItem {
+  id: string;
+  name: string;
+  latestVersionNumber: number;
+  topicCount: number;
+  hasDraft: boolean;
+  latestPublishedVersionId?: string | null;
+  archivedAt?: string | null;
+}
+
+export interface ModuleTopicRef {
+  id: string;
+  topicVersionId: string;
+  topicId: string;
+  topicName: string;
+  topicVersionNumber: number;
+  blockCount: number;
+  sortOrder: number;
+}
+
+export interface ModuleVersionView {
+  id: string;
+  moduleId: string;
+  versionNumber: number;
+  isDraft: boolean;
+  name: string;
+  topics: ModuleTopicRef[];
+}
+
+export interface ModuleDetail {
+  id: string;
+  name: string;
+  archivedAt?: string | null;
+  versions: ModuleVersionView[];
 }
 
 export interface TopicBlockRef {

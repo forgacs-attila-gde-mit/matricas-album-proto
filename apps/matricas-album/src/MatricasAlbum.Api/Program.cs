@@ -72,6 +72,7 @@ var api = app.MapGroup("/api")
 // Features:Hierarchy:Block is set explicitly.
 var blockFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Block") ?? app.Environment.IsDevelopment();
 var topicFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Topic") ?? app.Environment.IsDevelopment();
+var moduleFeatureEnabled = app.Configuration.GetValue<bool?>("Features:Hierarchy:Module") ?? app.Environment.IsDevelopment();
 const string PromptVersion = "phase5-v1";
 const string GuidedDemoPromptVersion = "phase4-v1-guided-demo";
 const string ProjectionVersion = "matricas-methodology-agent-wiki-v1";
@@ -515,12 +516,17 @@ if (topicFeatureEnabled)
         return Results.Ok(topics.Select(topic =>
         {
             var latest = LatestTopicVersion(topic);
+            var latestPublished = topic.Versions
+                .Where(version => !version.IsDraft)
+                .OrderByDescending(version => version.VersionNumber)
+                .FirstOrDefault();
             return new TopicListItemDto(
                 topic.Id,
                 UiText(topic.Name),
                 latest.VersionNumber,
                 latest.Blocks.Count,
                 topic.Versions.Any(version => version.IsDraft),
+                latestPublished?.Id,
                 topic.ArchivedAt);
         }));
     });
@@ -678,6 +684,179 @@ if (topicFeatureEnabled)
         topic.UpdatedAt = DateTimeOffset.UtcNow;
         await db.SaveChangesAsync(cancellationToken);
         return Results.Ok(await MapTopicDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+}
+
+// --- Modul (Module) API — reference-composed, versioned (Phase 6, behind feature flag) -------
+if (moduleFeatureEnabled)
+{
+    api.MapGet("/modules", async (AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var modules = await db.Modules
+            .AsNoTracking()
+            .Include(module => module.Versions)
+            .ThenInclude(version => version.Topics)
+            .OrderBy(module => module.Name)
+            .ToListAsync(cancellationToken);
+
+        return Results.Ok(modules.Select(module =>
+        {
+            var latest = LatestModuleVersion(module);
+            var latestPublished = module.Versions.Where(version => !version.IsDraft).OrderByDescending(version => version.VersionNumber).FirstOrDefault();
+            return new ModuleListItemDto(
+                module.Id,
+                UiText(module.Name),
+                latest.VersionNumber,
+                latest.Topics.Count,
+                module.Versions.Any(version => version.IsDraft),
+                latestPublished?.Id,
+                module.ArchivedAt);
+        }));
+    });
+
+    api.MapPost("/modules", async (CreateModuleRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+        {
+            return Results.BadRequest(new { error = "A modul neve kötelező." });
+        }
+
+        var module = new Module { Name = request.Name.Trim() };
+        module.Versions.Add(new ModuleVersion { ModuleId = module.Id, VersionNumber = 1, IsDraft = true, Name = request.Name.Trim() });
+        db.Modules.Add(module);
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Created($"/api/modules/{module.Id}", await MapModuleDetailAsync(db, module.Id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapGet("/modules/{id:guid}", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var detail = await MapModuleDetailAsync(db, id, cancellationToken);
+        return detail is null ? Results.NotFound() : Results.Ok(detail);
+    });
+
+    api.MapPatch("/modules/{id:guid}/archive", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var module = await db.Modules.SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+        if (module is null) return Results.NotFound();
+        module.ArchivedAt = module.ArchivedAt is null ? DateTimeOffset.UtcNow : null;
+        module.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/modules/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var module = await ModuleGraph(db).SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+        if (module is null) return Results.NotFound();
+        if (DraftModuleVersion(module) is not null)
+        {
+            return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
+        }
+
+        var latest = LatestModuleVersion(module);
+        var now = DateTimeOffset.UtcNow;
+        module.Versions.Add(new ModuleVersion
+        {
+            ModuleId = module.Id,
+            VersionNumber = module.Versions.Max(version => version.VersionNumber) + 1,
+            IsDraft = true,
+            Name = latest.Name,
+            CreatedAt = now,
+            Topics = latest.Topics.OrderBy(topic => topic.SortOrder)
+                .Select(topic => new ModuleTopicRelation { TopicVersionId = topic.TopicVersionId, SortOrder = topic.SortOrder, AddedAt = now })
+                .ToList(),
+        });
+        module.UpdatedAt = now;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Created($"/api/modules/{id}", await MapModuleDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/modules/{id:guid}/draft/publish", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var module = await ModuleGraph(db).SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+        if (module is null) return Results.NotFound();
+        var draft = DraftModuleVersion(module);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs publikálható modulvázlat." });
+        draft.IsDraft = false;
+        module.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/modules/{id:guid}/draft", async (Guid id, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var module = await ModuleGraph(db).SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+        if (module is null) return Results.NotFound();
+        var draft = DraftModuleVersion(module);
+        if (draft is not null && module.Versions.Any(version => !version.IsDraft))
+        {
+            db.ModuleVersions.Remove(draft);
+            module.UpdatedAt = DateTimeOffset.UtcNow;
+            await db.SaveChangesAsync(cancellationToken);
+        }
+        return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPatch("/module-versions/{versionId:guid}", async (Guid versionId, UpdateModuleVersionRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var version = await db.ModuleVersions.SingleOrDefaultAsync(version => version.Id == versionId, cancellationToken);
+        if (version is null) return Results.NotFound();
+        if (!version.IsDraft) return Results.BadRequest(new { error = "Csak vázlat szerkeszthető." });
+        if (request.Name is { } name && !string.IsNullOrWhiteSpace(name)) version.Name = name.Trim();
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapModuleDetailAsync(db, version.ModuleId, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/modules/{id:guid}/topics", async (Guid id, AddModuleTopicRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var module = await ModuleGraph(db).SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+        if (module is null) return Results.NotFound();
+        var draft = DraftModuleVersion(module);
+        if (draft is null) return Results.BadRequest(new { error = "Előbb hozz létre egy modulvázlatot." });
+
+        if (!await db.TopicVersions.AnyAsync(version => version.Id == request.TopicVersionId, cancellationToken))
+        {
+            return Results.BadRequest(new { error = "Ismeretlen témakör-verzió." });
+        }
+
+        var sortOrder = request.SortOrder ?? (draft.Topics.Count == 0 ? 1 : draft.Topics.Max(topic => topic.SortOrder) + 1);
+        draft.Topics.Add(new ModuleTopicRelation { ModuleVersionId = draft.Id, TopicVersionId = request.TopicVersionId, SortOrder = sortOrder });
+        module.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapDelete("/modules/{id:guid}/topics/{relationId:guid}", async (Guid id, Guid relationId, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var module = await ModuleGraph(db).SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+        if (module is null) return Results.NotFound();
+        var draft = DraftModuleVersion(module);
+        var relation = draft?.Topics.SingleOrDefault(topic => topic.Id == relationId);
+        if (relation is null) return Results.NotFound();
+        db.ModuleTopicRelations.Remove(relation);
+        module.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
+    }).RequireDemoRole(DemoAuth.TeacherRole);
+
+    api.MapPost("/modules/{id:guid}/topics/reorder", async (Guid id, ReorderModuleTopicsRequest request, AlbumDbContext db, CancellationToken cancellationToken) =>
+    {
+        var module = await ModuleGraph(db).SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+        if (module is null) return Results.NotFound();
+        var draft = DraftModuleVersion(module);
+        if (draft is null) return Results.BadRequest(new { error = "Nincs szerkeszthető modulvázlat." });
+
+        var targets = (request.Items ?? []).ToDictionary(item => item.Id, item => item.SortOrder);
+        foreach (var topic in draft.Topics) topic.SortOrder += 100000;
+        await db.SaveChangesAsync(cancellationToken);
+        foreach (var topic in draft.Topics)
+        {
+            if (targets.TryGetValue(topic.Id, out var sortOrder)) topic.SortOrder = sortOrder;
+            else topic.SortOrder -= 100000;
+        }
+        module.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(cancellationToken);
+        return Results.Ok(await MapModuleDetailAsync(db, id, cancellationToken));
     }).RequireDemoRole(DemoAuth.TeacherRole);
 }
 
@@ -4574,6 +4753,65 @@ static TopicVersionDto MapTopicVersion(TopicVersion version) =>
                 block.BlockVersion?.VersionNumber ?? 0,
                 block.BlockVersion?.Activities.Count ?? 0,
                 block.SortOrder))
+            .ToList());
+
+static IQueryable<Module> ModuleGraph(AlbumDbContext db) =>
+    db.Modules
+        .Include(module => module.Versions)
+        .ThenInclude(version => version.Topics);
+
+static ModuleVersion LatestModuleVersion(Module module) =>
+    module.Versions.OrderByDescending(version => version.VersionNumber).First();
+
+static ModuleVersion? DraftModuleVersion(Module module) =>
+    module.Versions.SingleOrDefault(version => version.IsDraft);
+
+static async Task<ModuleDetailDto?> MapModuleDetailAsync(AlbumDbContext db, Guid id, CancellationToken cancellationToken)
+{
+    var module = await db.Modules
+        .AsNoTracking()
+        .AsSplitQuery()
+        .Include(module => module.Versions)
+        .ThenInclude(version => version.Topics)
+        .ThenInclude(relation => relation.TopicVersion)
+        .ThenInclude(topicVersion => topicVersion!.Topic)
+        .Include(module => module.Versions)
+        .ThenInclude(version => version.Topics)
+        .ThenInclude(relation => relation.TopicVersion)
+        .ThenInclude(topicVersion => topicVersion!.Blocks)
+        .SingleOrDefaultAsync(module => module.Id == id, cancellationToken);
+    if (module is null)
+    {
+        return null;
+    }
+
+    return new ModuleDetailDto(
+        module.Id,
+        UiText(module.Name),
+        module.ArchivedAt,
+        module.Versions
+            .OrderByDescending(version => version.VersionNumber)
+            .Select(MapModuleVersion)
+            .ToList());
+}
+
+static ModuleVersionDto MapModuleVersion(ModuleVersion version) =>
+    new(
+        version.Id,
+        version.ModuleId,
+        version.VersionNumber,
+        version.IsDraft,
+        UiText(version.Name),
+        version.Topics
+            .OrderBy(topic => topic.SortOrder)
+            .Select(topic => new ModuleTopicDto(
+                topic.Id,
+                topic.TopicVersionId,
+                topic.TopicVersion?.TopicId ?? Guid.Empty,
+                UiText(topic.TopicVersion?.Topic?.Name ?? topic.TopicVersion?.Name ?? string.Empty),
+                topic.TopicVersion?.VersionNumber ?? 0,
+                topic.TopicVersion?.Blocks.Count ?? 0,
+                topic.SortOrder))
             .ToList());
 
 static string Clean(string? value) => string.IsNullOrWhiteSpace(value) ? string.Empty : value.Trim();

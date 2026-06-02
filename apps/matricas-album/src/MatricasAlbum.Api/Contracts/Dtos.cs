@@ -80,7 +80,52 @@ public sealed record TopicListItemDto(
     int LatestVersionNumber,
     int BlockCount,
     bool HasDraft,
+    Guid? LatestPublishedVersionId,
     DateTimeOffset? ArchivedAt);
+
+// --- Modul (Module) — reference-composed, versioned grouping of Topics (Phase 6) ----------
+
+public sealed record ModuleListItemDto(
+    Guid Id,
+    string Name,
+    int LatestVersionNumber,
+    int TopicCount,
+    bool HasDraft,
+    Guid? LatestPublishedVersionId,
+    DateTimeOffset? ArchivedAt);
+
+public sealed record ModuleDetailDto(
+    Guid Id,
+    string Name,
+    DateTimeOffset? ArchivedAt,
+    IReadOnlyList<ModuleVersionDto> Versions);
+
+public sealed record ModuleVersionDto(
+    Guid Id,
+    Guid ModuleId,
+    int VersionNumber,
+    bool IsDraft,
+    string Name,
+    IReadOnlyList<ModuleTopicDto> Topics);
+
+public sealed record ModuleTopicDto(
+    Guid Id,
+    Guid TopicVersionId,
+    Guid TopicId,
+    string TopicName,
+    int TopicVersionNumber,
+    int BlockCount,
+    int SortOrder);
+
+public sealed record CreateModuleRequest(string Name);
+
+public sealed record UpdateModuleVersionRequest(string? Name = null);
+
+public sealed record AddModuleTopicRequest(Guid TopicVersionId, int? SortOrder = null);
+
+public sealed record ReorderModuleTopicsRequest(IReadOnlyList<ReorderModuleTopicItem> Items);
+
+public sealed record ReorderModuleTopicItem(Guid Id, int SortOrder);
 
 public sealed record TopicDetailDto(
     Guid Id,
