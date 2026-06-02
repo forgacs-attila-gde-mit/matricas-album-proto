@@ -112,6 +112,22 @@ Important boundary: this is not a method marketplace or generalized activity pla
 - **Distinct from `Phase`.** The creative-learning `Phase` enum (`kerdezes | kepzelet | cselekves | reflexio`, "Tanulási út fázisa") is orthogonal to `Tevékenységtípus` and to the `reflektalt` work-state — a `reflektiv` activity is not the `reflexio` phase.
 - **Open item.** `felfedezo / kiserletezo / feldolgozo` are explicit in the gold-standard source; `kommunikacios / kollaborativ / reflektiv` and all six `pedagogyModel` values were inferred from the source's display names and are now seeded — to be confirmed against Confluence before richer per-type attributes (`interactionModel`, `compatibility`, …) are added.
 
+## Gold-standard hierarchy (Tanterv → Tevékenység) — realized
+
+The full gold-standard chain now exists as real, versioned, **reference-composed** entities, shipped **dark** behind per-level feature flags (`Features:Hierarchy:{Block|Topic|Module|Curriculum}` — on in Development, off in prod; no nav entry on the web when off). The chain, top to bottom:
+
+`Curriculum (Tanterv) → Module (Modul) → Topic (Témakör) → Block (Blokk) → Activity (Tevékenység = StickerVersion)`
+
+- **Reference composition, not copy.** Each level references the *version* below it through a join row (`CurriculumModuleRelation` → `ModuleVersion`, `ModuleTopicRelation` → `TopicVersion`, `TopicBlockRelation` → `BlockVersion`, `ActivityBlockRelation` → `StickerVersion`), with `FK … ON DELETE RESTRICT`. Deleting a relation never touches the referenced child, and the **same child version can be referenced by many parents** (no `unique` on the referenced id). `Tanulási egység` was retired (2026-06-01 decision) — `Topic → Block` directly.
+- **Uniform versioning.** Every level mirrors the proven `AlbumTemplate` machinery: `≤1 draft per resource` (partial unique index `WHERE IsDraft = TRUE`), published versions immutable, `v1` starts editable (create → fill by reference → publish), `POST …/draft` clones the latest published version.
+- **Two-pass reorder.** Reordering references offsets all `SortOrder`s then writes targets, so the `unique (parentVersionId, SortOrder)` index never collides mid-swap.
+- **Closed/defaulted block values.** `BlockFlowTypes` + `BlockGroupings` default to `linear`/`group`; `BlockActivityRoles` (`primary|supporting|optional|transition|assessment`) is a closed set (unknown → 400).
+- **Builders + explorer (web).** Each level has a 3-pane builder composing `CreationShellComponent` (library · drag-&-drop reference list · preview): Blokkműhely, Témakörök, Modulok, Tantervek. A read-only **Felépítés** drill-down navigator lazy-loads and walks the exact referenced versions down the whole chain.
+- **Evidence-safe additive migration.** `POST /api/album-templates/{id}/derive-blocks` maps a template's per-unit sticker groups to published Blocks; it is strictly additive (inserts only Block rows, idempotent by name) and never touches templates, instances, or evidence. The running `AlbumInstance` mint path is unchanged — it already snapshots references at run; wiring the mint *through* the new hierarchy waits until a template composes blocks.
+- **Deferred (not invented):** richer per-level fields (`learningGoals`, `competencies`, `progression`), the Block `rules` field, the Curriculum `draft/review/approved/published` governance workflow, suggest-only AI structure help, and the `Week → UnitIndex` rename (see `backlog.md`).
+
+API: each level exposes `GET/POST /api/{blocks|topics|modules|curricula}`, `…/{id}` detail, `…/{id}/archive`, `…/{id}/draft` + `/draft/publish` + `DELETE /draft`, `PATCH /{level}-versions/{versionId}`, and add/remove/`reorder` of the child reference. List items carry `latestPublishedVersionId` so a parent references only published children.
+
 ## Product Hierarchy Mapping
 
 The 2026-05-29 product plan introduces a broader planning hierarchy:
@@ -234,6 +250,19 @@ erDiagram
     ALBUM_INSTANCE ||--o{ ALBUM_INSTANCE_TEAM_REFLECTION : team_reflections
     TEAM ||--o{ ALBUM_INSTANCE_TEAM_REFLECTION : writes
     AI_ADVICE_RUN ||--o{ AI_ADVICE : creates
+
+    BLOCK ||--o{ BLOCK_VERSION : versions
+    BLOCK_VERSION ||--o{ ACTIVITY_BLOCK_RELATION : references
+    STICKER_VERSION ||--o{ ACTIVITY_BLOCK_RELATION : referenced_by
+    TOPIC ||--o{ TOPIC_VERSION : versions
+    TOPIC_VERSION ||--o{ TOPIC_BLOCK_RELATION : references
+    BLOCK_VERSION ||--o{ TOPIC_BLOCK_RELATION : referenced_by
+    MODULE ||--o{ MODULE_VERSION : versions
+    MODULE_VERSION ||--o{ MODULE_TOPIC_RELATION : references
+    TOPIC_VERSION ||--o{ MODULE_TOPIC_RELATION : referenced_by
+    CURRICULUM ||--o{ CURRICULUM_VERSION : versions
+    CURRICULUM_VERSION ||--o{ CURRICULUM_MODULE_RELATION : references
+    MODULE_VERSION ||--o{ CURRICULUM_MODULE_RELATION : referenced_by
 
     STICKER_RESOURCE {
         uuid Id PK

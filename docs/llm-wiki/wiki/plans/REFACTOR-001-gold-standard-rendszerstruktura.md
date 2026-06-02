@@ -11,7 +11,7 @@ lang: mixed
 # REFACTOR-001 — Gold-standard rendszerstruktúra alignment + creation-UX simplification
 **Purpose**: Move the Matricás Album app toward the ingested Confluence gold-standard system structure (`Tanterv → Modul → Témakör → Blokk → Tevékenység` as real, reference-composed, versioned entities + a closed `Tevékenységtípus` taxonomy + a mode-chooser / 3-pane builder creation UX) **and** simplify the cramped creation screens (Albumterv, "Matrica"/Tevékenység) for a non-tech-savvy teacher audience.
 **Audience**: Matricás Album dev team (.NET API, Angular Web, Python agent); product owner (decision gates).
-**Status**: In Progress
+**Status**: In Progress — Phases 1–6 core complete (full `Tanterv → … → Tevékenység` hierarchy shipped behind feature flags); remaining items are explicit, tracked deferrals (mint-through-blocks rewire, `Week→UnitIndex` rename, governance workflow, AI-suggest, richer per-level fields) + a `/wiki` doc refresh.
 
 ---
 
@@ -270,7 +270,7 @@ When this plan is complete: (1) a teacher can create a `Tevékenység` and an `A
 ### Phase 6 — `Modul` (Module) + `Tanterv` (Curriculum) + per-level versioning + navigation (gated)
 > **Releasable**: full `Tanterv → … → Tevékenység` chain exists as reference-composed, versioned entities with hierarchical drill-down; teachers still start from the smallest useful move (no forced full hierarchy).
 
-- **Task 6.1** — `Module` + `ModuleVersion` + `ModuleTopicRelation`; Module UX (topic flow/timeline builder). Tests: reference composition, versioning.
-- **Task 6.2** — `Curriculum` + `CurriculumVersion` + `CurriculumModuleRelation`; Curriculum UX (validation-driven structural planner per the spec's Tanterv-UX, incl. `draft/review/approved/published` states). Tests: reference composition, status workflow.
-- **Task 6.3** — Hierarchical drill-down navigation `Tanterv → Modul → Témakör → Blokk → Tevékenység` + breadcrumb; AI structure suggestions (suggest-only, no auto-save). Tests: nav drill-down, AI suggestion never auto-persists.
-- **Task 6.4** — Architecture/wiki/roadmap final reconciliation: `docs/architecture.md` hierarchy section reflects shipped entities; `/wiki` refresh of [[AlbumDomain]] + [[matricas-album-projekt-allapot]]; ADR for the realized hierarchy. Tests: N/A (docs).
+- **Task 6.1** — ✅ **Done 2026-06-02** — `Module`/`ModuleVersion`/`ModuleTopicRelation` + `20260602130000_AddModules` migration (mirrors topic versioning; Module→Topic by reference). Endpoints behind `Features:Hierarchy:Module`. `ModuleBuilderComponent` (3-pane). `TopicListItem.latestPublishedVersionId` added. 2 InMemory tests + module flow verified live.
+- **Task 6.2** — ✅ **Done 2026-06-02** — `Curriculum`/`CurriculumVersion`/`CurriculumModuleRelation` + `20260602140000_AddCurricula` migration (Curriculum→Module by reference). Endpoints behind `Features:Hierarchy:Curriculum`. `CurriculumBuilderComponent` (3-pane). 2 InMemory tests + curriculum flow verified live. **`draft/review/approved/published` governance workflow deferred** — uses the uniform draft/publish lifecycle (not invented).
+- **Task 6.3** — ✅ **Done 2026-06-02** — `HierarchyExplorerComponent`: read-only lazy-loading drill-down `Tanterv → Modul → Témakör → Blokk → Tevékenység`, resolving the exact referenced version at each level (route `/teacher/hierarchy`, „Felépítés" nav). Full chain verified live end-to-end. **AI structure suggestions (suggest-only) deferred** (consistent with the other AI-suggest deferrals).
+- **Task 6.4** — ✅ **Done 2026-06-02** (app docs) — `docs/architecture.md`: ER relationships for the 4 hierarchy levels + new "Gold-standard hierarchy (Tanterv → Tevékenység) — realized" section (reference composition, uniform versioning, builders/explorer, evidence-safe derivation, deferrals). **Follow-up via `/wiki`:** refresh [[AlbumDomain]] + [[matricas-album-projekt-allapot]] and add an ADR for the realized hierarchy (left to a `/wiki` pass per the wiki-ops discipline).

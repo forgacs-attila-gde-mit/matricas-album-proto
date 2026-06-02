@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-02] feat | Modul + Tanterv + drill-down — REFACTOR-001 Phase 6 — PHASE 6 COMPLETE (full hierarchy)
+
+- Ask: start Phase 6 — the top of the hierarchy (Modul + Tanterv) + drill-down navigation.
+- Change: `Module`/`ModuleVersion`/`ModuleTopicRelation` (`AddModules`) and `Curriculum`/`CurriculumVersion`/`CurriculumModuleRelation` (`AddCurricula`) entities + migrations, mirroring the topic/block reference-composition + versioning. Endpoints behind `Features:Hierarchy:{Module,Curriculum}`. `ModuleBuilderComponent` + `CurriculumBuilderComponent` (3-pane, mirror the topic builder) at „Modulok"/„Tantervek". `HierarchyExplorerComponent` — read-only lazy-loading drill-down over the whole chain, resolving the exact referenced version at each level („Felépítés" nav). `Topic/ModuleListItem.latestPublishedVersionId` added so parents reference published children. architecture.md got ER relationships + a "realized hierarchy" section.
+- Why: complete the gold-standard `Tanterv → Modul → Témakör → Blokk → Tevékenység` chain as reference-composed, versioned entities — additively, dark behind flags, no change to the running app.
+- State another agent needs: migrations apply on boot (6 new tables across Phases 4–6). `dotnet test` 61/61, `ng test` 40/40 green; **full chain drill-down verified live end-to-end** (Tanterv→…→4 activities). **Phase 6 complete → REFACTOR-001 Phases 1–6 core all done.** Deferrals (tracked in plan/backlog): mint-through-blocks rewire, `Week→UnitIndex` rename, Curriculum governance workflow (review/approved), suggest-only AI structure help, richer per-level fields, and a `/wiki` refresh of [[AlbumDomain]]/[[matricas-album-projekt-allapot]] + an ADR for the realized hierarchy.
+
 ## [2026-06-02] feat | Témakör (Topic) layer — REFACTOR-001 Phase 5 (Tasks 5.1–5.2) — PHASE 5 COMPLETE
 
 - Ask: start Phase 5 — the Témakör (Topic) level composing Blocks by reference.
