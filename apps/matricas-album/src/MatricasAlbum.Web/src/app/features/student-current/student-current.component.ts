@@ -4,6 +4,7 @@ import { EvidenceType } from '../../core/models/album.model';
 import { AlbumStore } from '../../core/services/album.store';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
+import { FieldComponent } from '../../shared/ui/field/field.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.component';
 import { StatePillComponent } from '../../shared/ui/state-pill/state-pill.component';
@@ -82,7 +83,7 @@ const DISMISSED_QUESTIONS_STORAGE_KEY = 'student-dismissed-questions-v1';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    BtnComponent, ChipComponent, IconComponent,
+    BtnComponent, ChipComponent, FieldComponent, IconComponent,
     PhaseChipComponent, StatePillComponent, StickerStampComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,

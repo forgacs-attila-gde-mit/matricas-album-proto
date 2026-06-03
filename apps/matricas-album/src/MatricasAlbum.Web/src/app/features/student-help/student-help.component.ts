@@ -3,12 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { AlbumStore } from '../../core/services/album.store';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
+import { FieldComponent } from '../../shared/ui/field/field.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 
 @Component({
   selector: 'ma-student-help',
   standalone: true,
-  imports: [FormsModule, BtnComponent, ChipComponent, IconComponent],
+  imports: [FormsModule, BtnComponent, ChipComponent, FieldComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="stack" style="margin-top: 24px;">
@@ -21,28 +22,29 @@ import { IconComponent } from '../../shared/ui/icon/icon.component';
         </div>
 
         <div style="margin-top: 14px;">
-          <label class="muted t-body-sm" for="help-target-sticker">
-            Melyik matricához kapcsolódik (opcionális)?
-          </label>
-          <select
-            id="help-target-sticker"
-            class="help-select"
-            [ngModel]="targetStickerId()"
-            (ngModelChange)="targetStickerId.set($event)"
-          >
-            <option [ngValue]="null">— Általános kérdés —</option>
-            @for (s of stickerOptions(); track s.id) {
-              <option [ngValue]="s.id">{{ s.week }}. hét · {{ s.title }}</option>
-            }
-          </select>
+          <ma-field label="Melyik matricához kapcsolódik (opcionális)?">
+            <select
+              id="help-target-sticker"
+              class="help-select"
+              [ngModel]="targetStickerId()"
+              (ngModelChange)="targetStickerId.set($event)"
+            >
+              <option [ngValue]="null">— Általános kérdés —</option>
+              @for (s of stickerOptions(); track s.id) {
+                <option [ngValue]="s.id">{{ s.week }}. hét · {{ s.title }}</option>
+              }
+            </select>
+          </ma-field>
         </div>
 
-        <textarea
-          class="help-input"
-          rows="4"
-          placeholder="Mit nem értetek, vagy hol kértek tanári segítséget?"
-          [(ngModel)]="question"
-        ></textarea>
+        <ma-field label="Kérdésetek" [required]="true">
+          <textarea
+            class="help-input"
+            rows="4"
+            placeholder="Mit nem értetek, vagy hol kértek tanári segítséget?"
+            [(ngModel)]="question"
+          ></textarea>
+        </ma-field>
 
         <div class="row" style="margin-top: 10px; justify-content: flex-end;">
           <ma-btn

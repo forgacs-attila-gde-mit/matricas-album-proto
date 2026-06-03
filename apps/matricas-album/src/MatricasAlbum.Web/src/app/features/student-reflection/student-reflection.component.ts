@@ -87,7 +87,7 @@ interface StickerReflectionRow {
                   </ma-btn>
                 }
                 <ma-btn
-                  variant="primary"
+                  variant="secondary"
                   icon="check"
                   size="sm"
                   [disabled]="!draftIsValid(row.sticker.id)"

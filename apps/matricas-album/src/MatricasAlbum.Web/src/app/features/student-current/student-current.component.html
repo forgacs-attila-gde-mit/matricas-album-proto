@@ -77,33 +77,31 @@
             </div>
           </div>
 
-          <label>
-            <span>Cím</span>
+          <ma-field
+            label="Cím"
+            [required]="true"
+            [error]="isEvidenceFieldInvalid('title') ? 'A cím kötelező.' : ''"
+          >
             <input formControlName="title" [placeholder]="placeholders().title" />
-            @if (isEvidenceFieldInvalid('title')) {
-              <div class="field-error">A cím kötelező.</div>
-            }
-          </label>
-          <label>
-            <span>Leírás</span>
+          </ma-field>
+          <ma-field
+            label="Leírás"
+            [required]="true"
+            [error]="isEvidenceFieldInvalid('description') ? 'Írjatok le legalább egy megfigyelést.' : ''"
+          >
             <textarea rows="4" formControlName="description" [placeholder]="placeholders().description"></textarea>
-            @if (isEvidenceFieldInvalid('description')) {
-              <div class="field-error">Írjatok le legalább egy megfigyelést.</div>
-            }
-          </label>
+          </ma-field>
           <label class="help-checkbox">
             <input type="checkbox" formControlName="helpRequested" />
             <span>Segítséget kérek a tanártól ehhez a beküldéshez</span>
           </label>
           <div class="grid-2">
-            <label>
-              <span>Miben kértek segítséget? <span class="muted">(opcionális)</span></span>
+            <ma-field label="Miben kértek segítséget? (opcionális)">
               <textarea rows="3" formControlName="helpRequest" [placeholder]="placeholders().helpRequest"></textarea>
-            </label>
-            <label>
-              <span>Reflexió <span class="muted">(opcionális)</span></span>
+            </ma-field>
+            <ma-field label="Reflexió (opcionális)">
               <textarea rows="3" formControlName="reflection" [placeholder]="placeholders().reflection"></textarea>
-            </label>
+            </ma-field>
           </div>
 
           <div class="row-between">
