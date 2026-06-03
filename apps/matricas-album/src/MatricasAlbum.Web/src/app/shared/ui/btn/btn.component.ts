@@ -14,6 +14,8 @@ export type BtnSize = 'sm' | 'md';
       type="button"
       class="btn"
       [class]="'btn-' + variant() + ' ' + (size() === 'sm' ? 'btn-sm' : '')"
+      [class.btn-icon-only]="iconOnly()"
+      [attr.aria-label]="ariaLabel()"
       [disabled]="disabled()"
       (click)="clicked.emit($event)"
     >
@@ -30,5 +32,9 @@ export class BtnComponent {
   readonly iconRight = input<string | null>(null);
   readonly size = input<BtnSize>('md');
   readonly disabled = input(false);
+  /** Accessible name for icon-only buttons (required when iconOnly). */
+  readonly ariaLabel = input<string | null>(null);
+  /** Square ≥40px hit target, no text padding — for close/reorder/delete icons. */
+  readonly iconOnly = input(false);
   readonly clicked = output<MouseEvent>();
 }

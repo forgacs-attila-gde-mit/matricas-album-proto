@@ -41,3 +41,12 @@
   &:hover { background: var(--danger-bg); border-color: var(--danger); }
 }
 .btn-sm { padding: 6px 12px; font-size: 13px; }
+
+/* WCAG target size: icon-only buttons stay a >=40px square */
+.btn-icon-only {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  justify-content: center;
+}
