@@ -13,6 +13,13 @@ Format:
 
 ---
 
+## [2026-06-03] refactor | Form density & hierarchy across form/drawer screens (REFACTOR-003)
+
+- Ask: reduce density and fix hierarchy on field-dense drawers/forms — required-first ordering, collapsed optional sections, labeled groups, required markers, one primary per screen, WCAG AA labels; shared components over per-page fixes.
+- Change: new design-system primitives in `shared/ui/` (`ma-field`, `ma-form-section`, `ma-disclosure`) + `--space-*`/AA text tokens in `styles.scss`; `ma-btn` gained `iconOnly`/`ariaLabel` (40px targets), `ma-drawer` switched to CDK FocusTrap. Restructured: `album-create-drawer` (all 7 modes, required-first + „Opcionális részletek"), `album-template-detail` (new „Részletek" disclosure), `feedback-drawer`, `teams-list`, `album-plan`, `student-current/help/reflection`. All one-off button styles (`adapt-btn`, `lesson-icon-btn`, `icon-btn` ×9, …) replaced with `ma-btn`; five drawer close buttons got accessible names. Karma test infra ported from the gold-standard branch; 37 specs green; create-drawer payload shape spec-asserted unchanged.
+- Why: 2026-06-03 design critique — optional fields buried required ones, 11px grey uppercase labels failed AA (`.card-section-title` ≈2.5:1), competing primaries; the `label.field` CSS was copy-pasted ×5 with no shared form primitives.
+- State another agent needs: branch `design-improvement` (off `main`); web-only, no API/DB change — web image rebuild needed for live check. Plan + contrast audit: `docs/llm-wiki/wiki/plans/REFACTOR-003-urlap-suruseg-es-hierarchia.md`. Follow-up flagged: multi-primary non-form screens (`sticker-detail-drawer` ×6, `teacher-dashboard`/`closure` ×3) need product decisions.
+
 ## [2026-06-01] docs | Clean docs folder
 
 - Ask: clean out the `docs/` folder and only keep the architecture and user manual documents.

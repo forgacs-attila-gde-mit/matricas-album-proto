@@ -60,6 +60,12 @@ Catalog of all wiki pages, grouped by type. This wiki is scoped to the **Matric�
 |------|------|-------------|
 | [[matricas-album-end-to-end-demo]] | mixed | English generative-prototyping prompt that produces the full Hungarian end-to-end album demo. |
 
+## Plans
+
+| Page | lang | Description |
+|------|------|-------------|
+| [[REFACTOR-003-urlap-suruseg-es-hierarchia]] | mixed | Cross-cutting form-density/hierarchy refactor: shared `ma-field`/`ma-form-section`/`ma-disclosure` + spacing tokens, required-first ordering with visible markers, collapsed „Opcionális részletek", one primary per screen, WCAG AA label contrast. Status: Complete (2026-06-03, branch `design-improvement`). |
+
 ## Features
 
 | Page | lang | Description |

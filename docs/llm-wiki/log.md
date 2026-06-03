@@ -2,6 +2,12 @@
 
 Append-only operation log for the Matricás Album LLM wiki. Newest entries on top. Format: `## [YYYY-MM-DD] <verb> | <title>`.
 
+## [2026-06-03] refactor | REFACTOR-003 executed — form density & hierarchy on `design-improvement`
+- New page: [[REFACTOR-003-urlap-suruseg-es-hierarchia]] (`wiki/plans/`, Status: Complete) + new „Plans" index section (convention pre-merged from the gold-standard branch's AGENTS.md §2 rule).
+- Shipped on branch `design-improvement` (off `main`): `--space-*`/AA text tokens, `ma-field`/`ma-form-section`/`ma-disclosure` shared primitives, `ma-btn` iconOnly/ariaLabel, `ma-drawer` on CDK FocusTrap; 8 screens restructured required-first with collapsed „Opcionális részletek"; all one-off button styles removed; karma test infra ported (37 specs green). Contrast audit table in the plan page; payload neutrality spec-asserted.
+- Decisions recorded: keep `canSubmit()` convention; AI actions demoted from primary on `album-plan` ([[pedagogia-elobb-ai-masodik]]). Flagged follow-up: multi-primary non-form screens (sticker-detail-drawer ×6 etc.) need product input.
+- next: live click-through at `localhost:4300` after a web image rebuild; merge coordination with `gold-standard-ingest-refactor-plan` (REFACTOR-002 consumes these primitives).
+
 ## [2026-06-03] note | ADR005 — reset the shared Postgres volume when switching branches
 - Diagnosed the 2026-06-03 `Adatbázis alapállapotba állítása` failure (Postgres 23503 on `FK_activity_block_relations_sticker_versions_StickerVersionId`): the shared `matricas-album_postgres-data` volume held 27 migrations from the `gold-standard-ingest-refactor-plan` branch while the running images came from `main` (20 migrations).
 - New page: [[ADR005-db-volume-reset-branchvaltasnal]] — rule: `docker compose down -v` on migration-divergent branch switches; never patch `DemoSeeder` for foreign tables. Numbered 005 because ADR003–004 exist on the branch.
