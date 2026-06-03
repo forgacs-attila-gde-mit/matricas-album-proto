@@ -115,6 +115,14 @@ button { font-family: inherit; cursor: pointer; }
 
 ::placeholder { color: var(--placeholder-fg); opacity: 1; }
 
+/* Form rhythm: big air BETWEEN groups, smaller inside (REFACTOR-003) */
+ma-form-section + ma-form-section,
+ma-form-section + ma-disclosure,
+ma-disclosure + ma-form-section {
+  display: block;
+  margin-top: var(--space-2xl);
+}
+
 /* Visually hidden, available to screen readers */
 .sr-only {
   position: absolute;

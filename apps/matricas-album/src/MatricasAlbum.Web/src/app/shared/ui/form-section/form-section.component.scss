@@ -1,0 +1,39 @@
+:host {
+  display: block;
+}
+
+.section-title {
+  margin: 0 0 var(--space-xs);
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 650;
+  color: var(--n-800);
+}
+
+.section-hint {
+  margin: 0 0 var(--space-xs);
+  font-size: 12.5px;
+  line-height: 18px;
+  color: var(--help-fg);
+}
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
+
+  &.cols-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  ::ng-deep .span-2 {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .section-grid.cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
