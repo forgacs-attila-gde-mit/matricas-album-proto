@@ -8,6 +8,7 @@ import { AlbumStore } from '../../core/services/album.store';
 import { AiCardComponent } from '../../shared/ui/ai-card/ai-card.component';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
+import { FieldComponent } from '../../shared/ui/field/field.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 import { StickerCardComponent } from '../../shared/ui/sticker-card/sticker-card.component';
 import { InstanceUpgradeModalComponent } from '../instance-upgrade-modal/instance-upgrade-modal.component';
@@ -22,7 +23,7 @@ interface PilotObservationDraft {
 @Component({
   selector: 'ma-album-plan',
   standalone: true,
-  imports: [FormsModule, AiCardComponent, BtnComponent, ChipComponent, IconComponent, StickerCardComponent, InstanceUpgradeModalComponent],
+  imports: [FormsModule, AiCardComponent, BtnComponent, ChipComponent, FieldComponent, IconComponent, StickerCardComponent, InstanceUpgradeModalComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './album-plan.component.html',
   styleUrl: './album-plan.component.scss',

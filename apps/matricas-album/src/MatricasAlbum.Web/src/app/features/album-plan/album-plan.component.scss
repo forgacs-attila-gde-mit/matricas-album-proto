@@ -38,20 +38,6 @@
   gap: 14px;
 }
 
-.pilot-observation-card .field {
-  display: grid;
-  gap: 6px;
-
-  > span {
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    color: var(--n-600);
-    font-weight: 700;
-  }
-}
-
 .pilot-observation-card .textarea {
   width: 100%;
   min-height: 94px;
@@ -127,15 +113,7 @@
 .edit-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-.edit-grid .field { display: grid; gap: 4px; }
-.edit-grid .field > span {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  text-transform: uppercase;
-  color: var(--n-600);
+  gap: var(--space-lg);
 }
 .edit-grid .input {
   padding: 8px 10px;
