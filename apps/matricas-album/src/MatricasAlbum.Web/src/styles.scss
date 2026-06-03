@@ -64,6 +64,22 @@
   --radius-2xl: 1.5rem;
   --radius-3xl: 1.875rem;
 
+  /* Spacing scale — use these instead of hardcoded px (REFACTOR-003).
+     Within-field: sm; between fields: lg; between form sections: 2xl. */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 40px;
+
+  /* Form text colors — AA-checked against white and the tinted panel
+     backgrounds in use (n-50, #f0f9ff, #f0fdf4, #eff6ff). */
+  --label-fg: var(--n-700);
+  --help-fg: var(--n-600);
+  --placeholder-fg: var(--n-600);
+
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.06);
   --shadow-md: 0 6px 18px -8px rgb(0 0 0 / 0.10);
@@ -96,6 +112,21 @@ body {
 .ic-xl { font-size: 36px !important; }
 
 button { font-family: inherit; cursor: pointer; }
+
+::placeholder { color: var(--placeholder-fg); opacity: 1; }
+
+/* Visually hidden, available to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
 
 /* Type scale */
 .t-display { font-size: 32px; line-height: 40px; font-weight: 400; letter-spacing: -0.2px; }
@@ -135,8 +166,8 @@ button { font-family: inherit; cursor: pointer; }
 .card { background: white; border: 1px solid var(--n-200); border-radius: 24px; padding: 28px; }
 .card-tight { padding: 18px; }
 .card-section-title {
-  font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase;
-  color: var(--n-400); font-weight: 600; margin-bottom: 10px;
+  font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase;
+  color: var(--n-600); font-weight: 600; margin-bottom: 10px;
 }
 
 /* Layout helpers */
