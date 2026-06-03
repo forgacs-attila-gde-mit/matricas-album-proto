@@ -7,13 +7,24 @@ import { ALBUM_TEMPLATE_PATTERNS, AlbumTemplateDetail, TemplateStickerView } fro
 import { AlbumStore } from '../../core/services/album.store';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
+import { DisclosureComponent } from '../../shared/ui/disclosure/disclosure.component';
+import { FieldComponent } from '../../shared/ui/field/field.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.component';
 
 @Component({
   selector: 'ma-album-template-detail',
   standalone: true,
-  imports: [FormsModule, DragDropModule, BtnComponent, ChipComponent, IconComponent, PhaseChipComponent],
+  imports: [
+    FormsModule,
+    DragDropModule,
+    BtnComponent,
+    ChipComponent,
+    DisclosureComponent,
+    FieldComponent,
+    IconComponent,
+    PhaseChipComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="content-narrow template-detail">
@@ -47,8 +58,7 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
                 (input)="patchMetadata(template.id, { title: $any($event.target).value })"
               />
               <div class="sub-grid labeled">
-                <label class="field">
-                  <span>Tantárgy</span>
+                <ma-field label="Tantárgy">
                   <input
                     class="meta-input"
                     type="text"
@@ -56,9 +66,8 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
                     placeholder="Pl. Integrált természettudomány"
                     (input)="patchMetadata(template.id, { subject: $any($event.target).value })"
                   />
-                </label>
-                <label class="field">
-                  <span>Évfolyam</span>
+                </ma-field>
+                <ma-field label="Évfolyam">
                   <input
                     class="meta-input"
                     type="text"
@@ -66,9 +75,8 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
                     placeholder="Pl. 7. évfolyam"
                     (input)="patchMetadata(template.id, { grade: $any($event.target).value })"
                   />
-                </label>
-                <label class="field">
-                  <span>Időegység</span>
+                </ma-field>
+                <ma-field label="Időegység">
                   <select
                     class="meta-input"
                     [value]="version.durationType"
@@ -78,9 +86,8 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
                     <option value="ora">Óra</option>
                     <option value="fazis">Fázis</option>
                   </select>
-                </label>
-                <label class="field">
-                  <span>Album-minta</span>
+                </ma-field>
+                <ma-field label="Album-minta">
                   <select
                     class="meta-input"
                     [value]="version.patternKey"
@@ -90,7 +97,7 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
                       <option [value]="pattern.key">{{ pattern.name }}</option>
                     }
                   </select>
-                </label>
+                </ma-field>
               </div>
             } @else {
               <h1>{{ version.title }}</h1>
@@ -182,6 +189,13 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
             }
           </section>
 
+        </div>
+
+        <ma-disclosure
+          label="Részletek"
+          hint="Záró produktum, közönség, reflexiós kérdések, tanulási fókuszok."
+          [(open)]="detailsOpen"
+        >
           <section class="card detail-card">
             <div class="card-section-title">Záró produktum</div>
             @if (editing()) {
@@ -219,15 +233,14 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
                       [placeholder]="'Reflexiós kérdés ' + ($index + 1)"
                       (input)="patchProjectReflectionPrompt(template.id, version.projectReflectionPrompts, $index, $any($event.target).value)"
                     ></textarea>
-                    <button
-                      type="button"
-                      class="project-prompt-remove"
-                      aria-label="Reflexiós kérdés eltávolítása"
+                    <ma-btn
+                      variant="ghost"
+                      [iconOnly]="true"
+                      icon="close"
+                      ariaLabel="Reflexiós kérdés eltávolítása"
                       [disabled]="version.projectReflectionPrompts.length <= 1"
-                      (click)="removeProjectReflectionPrompt(template.id, version.projectReflectionPrompts, $index)"
-                    >
-                      <ma-icon name="close" size="sm" />
-                    </button>
+                      (clicked)="removeProjectReflectionPrompt(template.id, version.projectReflectionPrompts, $index)"
+                    />
                   </div>
                 }
                 @if (version.projectReflectionPrompts.length < 5) {
@@ -244,9 +257,8 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
               </ol>
             }
           </section>
-        </div>
 
-        <section class="card detail-card">
+          <section class="card detail-card">
           <div class="card-section-title">Tanulási fókuszok</div>
           @if (editing()) {
             <div class="chip-input">
@@ -287,7 +299,8 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
               }
             </div>
           }
-        </section>
+          </section>
+        </ma-disclosure>
 
         <section class="assigned-section">
           <div class="section-title-row">
@@ -322,14 +335,13 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
                       Matrica
                     </ma-btn>
                     @if (editing()) {
-                      <button
-                        type="button"
-                        class="unit-remove-btn"
-                        [attr.aria-label]="unitLabel() + ' eltávolítása'"
-                        (click)="removeUnit(template.id, version.weeks, $index)"
-                      >
-                        <ma-icon name="delete" size="sm" />
-                      </button>
+                      <ma-btn
+                        variant="ghost"
+                        [iconOnly]="true"
+                        icon="delete"
+                        [ariaLabel]="unitLabel() + ' eltávolítása'"
+                        (clicked)="removeUnit(template.id, version.weeks, $index)"
+                      />
                     }
                   </div>
                 </div>
@@ -557,30 +569,13 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
 
     .project-prompt-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 34px;
-      gap: 8px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: var(--space-sm);
       align-items: start;
     }
 
     .project-prompt-input {
       margin: 0;
-    }
-
-    .project-prompt-remove {
-      width: 34px;
-      height: 34px;
-      display: inline-grid;
-      place-items: center;
-      border: 1px solid var(--n-200);
-      border-radius: 10px;
-      background: white;
-      color: var(--n-600);
-      cursor: pointer;
-
-      &:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
     }
 
     .project-prompts-list {
@@ -646,22 +641,7 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
       flex: 1 1 220px;
       max-width: 420px;
     }
-    .unit-remove-btn {
-      background: white;
-      border: 1px solid var(--n-200);
-      border-radius: 8px;
-      width: 30px;
-      height: 30px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--n-600);
-    }
-    .unit-remove-btn:hover {
-      background: var(--n-50);
-      color: var(--n-800);
-    }
+    ma-disclosure { margin: var(--space-xl) 0; }
     .add-unit-btn {
       display: inline-flex;
       align-items: center;
@@ -796,18 +776,6 @@ import { PhaseChipComponent } from '../../shared/ui/phase-chip/phase-chip.compon
       text-transform: uppercase;
       color: var(--n-600);
       margin: 0 0 6px 4px;
-    }
-    .sub-grid.labeled .field {
-      display: grid;
-      gap: 4px;
-    }
-    .sub-grid.labeled .field > span {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-      text-transform: uppercase;
-      color: var(--n-600);
-      padding-left: 4px;
     }
     .meta-input,
     .meta-textarea {
@@ -1077,6 +1045,8 @@ export class AlbumTemplateDetailComponent implements OnInit, OnDestroy {
 
   readonly pickerOpenForWeek = signal<number | null>(null);
   readonly patterns = ALBUM_TEMPLATE_PATTERNS;
+  /** REFACTOR-003: secondary metadata cards behind a collapsed "Részletek" disclosure. */
+  readonly detailsOpen = signal(false);
   readonly pickerStickers = computed(() =>
     this.store.stickerLibrary().filter(item => !item.archivedAt),
   );
