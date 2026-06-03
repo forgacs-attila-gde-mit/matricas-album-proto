@@ -23,9 +23,7 @@ import { IconComponent } from '../../shared/ui/icon/icon.component';
               <div class="muted t-body-sm">Sablonverzió átvétele</div>
               <h2>v{{ p.currentVersionNumber }} → v{{ p.targetVersionNumber }}</h2>
             </div>
-            <button type="button" class="icon-btn" (click)="close.emit()" aria-label="Bezárás">
-              <ma-icon name="close" />
-            </button>
+            <ma-btn variant="ghost" [iconOnly]="true" icon="close" ariaLabel="Bezárás" (clicked)="close.emit()" />
           </div>
 
           @if (p.isNoOp) {

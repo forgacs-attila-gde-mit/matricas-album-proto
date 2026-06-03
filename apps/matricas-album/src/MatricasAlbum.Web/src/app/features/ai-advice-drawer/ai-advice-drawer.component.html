@@ -2,7 +2,7 @@
   @if (advice(); as advice) {
     <div class="drawer-header">
       <div class="row">
-        <button type="button" class="icon-btn" (click)="close()"><ma-icon name="close" /></button>
+        <ma-btn variant="ghost" [iconOnly]="true" icon="close" ariaLabel="Bezárás" (clicked)="close()" />
         <div>
           <div class="row" style="gap: 8px; margin-bottom: 6px;">
             <ma-chip tone="primary" icon="auto_awesome">AI tanács</ma-chip>
@@ -81,7 +81,7 @@
             @for (step of draft.teacherSteps; track $index) {
               <div class="step-row">
                 <input [ngModel]="step" (ngModelChange)="updateStep($index, $event)" />
-                <button type="button" class="icon-btn" (click)="removeStep($index)"><ma-icon name="delete" /></button>
+                <ma-btn variant="ghost" [iconOnly]="true" icon="delete" ariaLabel="Lépés eltávolítása" (clicked)="removeStep($index)" />
               </div>
             }
           </div>

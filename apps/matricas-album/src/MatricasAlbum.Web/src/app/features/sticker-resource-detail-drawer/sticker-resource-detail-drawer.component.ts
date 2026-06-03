@@ -19,9 +19,7 @@ import { StickerStampComponent } from '../../shared/ui/sticker-stamp/sticker-sta
         <div class="drawer-header">
           <div class="row-between">
             <div class="row">
-              <button type="button" class="icon-btn" (click)="close()">
-                <ma-icon name="close" />
-              </button>
+              <ma-btn variant="ghost" [iconOnly]="true" icon="close" ariaLabel="Bezárás" (clicked)="close()" />
               @if (selectedVersion(); as v) {
                 <ma-sticker-stamp [phase]="v.phase" [size]="60" />
               }

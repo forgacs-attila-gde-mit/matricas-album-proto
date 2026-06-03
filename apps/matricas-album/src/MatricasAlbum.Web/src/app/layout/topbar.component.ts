@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { BtnComponent } from '../shared/ui/btn/btn.component';
 import { IconComponent } from '../shared/ui/icon/icon.component';
 import { RoleSwitcherComponent } from '../shared/ui/role-switcher/role-switcher.component';
 
@@ -10,7 +11,7 @@ export interface Crumb {
 @Component({
   selector: 'ma-topbar',
   standalone: true,
-  imports: [IconComponent, RoleSwitcherComponent],
+  imports: [BtnComponent, IconComponent, RoleSwitcherComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="topbar">
@@ -23,8 +24,8 @@ export interface Crumb {
       </div>
       <div class="spacer"></div>
       <ma-role-switcher />
-      <button type="button" class="icon-btn" aria-label="Súgó"><ma-icon name="help" /></button>
-      <button type="button" class="icon-btn" aria-label="Értesítések"><ma-icon name="notifications" /></button>
+      <ma-btn variant="ghost" [iconOnly]="true" icon="help" ariaLabel="Súgó" />
+      <ma-btn variant="ghost" [iconOnly]="true" icon="notifications" ariaLabel="Értesítések" />
       <div class="avatar">NA</div>
     </header>
   `,

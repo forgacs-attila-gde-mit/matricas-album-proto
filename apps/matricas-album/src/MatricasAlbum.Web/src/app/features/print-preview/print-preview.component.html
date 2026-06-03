@@ -1,7 +1,7 @@
 @if (store.printOpen()) {
   <div class="print-overlay">
     <div class="print-toolbar">
-      <button type="button" class="icon-btn" (click)="close()"><ma-icon name="close" /></button>
+      <ma-btn variant="ghost" [iconOnly]="true" icon="close" ariaLabel="Bezárás" (clicked)="close()" />
       <div>
         <div style="font-size: 14px; font-weight: 500;">
           Nyomtatási előnézet — {{ scopeLabel() }}
