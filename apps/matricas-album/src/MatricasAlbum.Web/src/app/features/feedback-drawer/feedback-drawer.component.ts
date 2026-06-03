@@ -7,6 +7,7 @@ import { AiCardComponent } from '../../shared/ui/ai-card/ai-card.component';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent, ChipTone } from '../../shared/ui/chip/chip.component';
 import { DrawerComponent } from '../../shared/ui/drawer/drawer.component';
+import { FieldComponent } from '../../shared/ui/field/field.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 import { TeamChipComponent } from '../../shared/ui/team-chip/team-chip.component';
 
@@ -25,7 +26,7 @@ interface StatusChip {
   imports: [
     FormsModule,
     AiCardComponent, BtnComponent, ChipComponent, DrawerComponent,
-    EvidenceAttachmentComponent, IconComponent, TeamChipComponent,
+    EvidenceAttachmentComponent, FieldComponent, IconComponent, TeamChipComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './feedback-drawer.component.html',

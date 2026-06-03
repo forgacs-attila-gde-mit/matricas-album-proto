@@ -86,22 +86,22 @@
           </div>
         </ma-ai-card>
 
-        <div class="field">
-          <label>Javasolt visszajelzés</label>
-          <div class="field-help">
-            Az AI által generált draft. Mindenképpen szerkeszd, hogy a Te hangod legyen.
-          </div>
+        <ma-field
+          label="Javasolt visszajelzés"
+          help="Az AI által generált draft. Mindenképpen szerkeszd, hogy a Te hangod legyen."
+        >
           <textarea
             class="textarea"
             rows="5"
+            name="feedbackText"
             [ngModel]="feedback()"
             (ngModelChange)="updateFeedback($event)"
           ></textarea>
-        </div>
+        </ma-field>
 
-        <div class="field">
-          <label>Mi történjen a matricával?</label>
-          <div class="grid-3" style="margin-top: 8px;">
+        <div class="choice-group" role="group" aria-label="Mi történjen a matricával?">
+          <span class="form-group-label">Mi történjen a matricával?</span>
+          <div class="grid-3">
             <button type="button" class="choice-card" [class.selected]="nextStep() === 'javitas'" (click)="setNextStep('javitas')">
               <div class="row" style="gap: 8px;"><ma-icon name="redo" /><span class="choice-title">Visszaküldöm javításra</span></div>
               <div class="choice-sub">A csapat új mérést végez, a matrica „Javítás alatt".</div>
@@ -137,7 +137,7 @@
         </div>
       } @else {
         <div class="muted t-body-sm">Olvasásra. A beküldést a tanár véleményezi.</div>
-        <ma-btn variant="primary" icon="close" (clicked)="close()">Bezárás</ma-btn>
+        <ma-btn variant="secondary" icon="close" (clicked)="close()">Bezárás</ma-btn>
       }
     </div>
   }

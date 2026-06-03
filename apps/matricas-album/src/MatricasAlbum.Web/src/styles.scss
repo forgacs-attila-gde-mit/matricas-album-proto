@@ -115,6 +115,17 @@ button { font-family: inherit; cursor: pointer; }
 
 ::placeholder { color: var(--placeholder-fg); opacity: 1; }
 
+/* Group label for control-groups that cannot wrap in a <label> (choice
+   cards, color pickers) — visually matches ma-field's label. */
+.form-group-label {
+  display: block;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 600;
+  color: var(--label-fg);
+  margin-bottom: var(--space-sm);
+}
+
 /* Form rhythm: big air BETWEEN groups, smaller inside (REFACTOR-003) */
 ma-form-section + ma-form-section,
 ma-form-section + ma-disclosure,

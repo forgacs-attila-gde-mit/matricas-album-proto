@@ -5,6 +5,7 @@ import { Evidence, Team } from '../../core/models/album.model';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
 import { EvidenceCardComponent } from '../../shared/ui/evidence-card/evidence-card.component';
+import { FieldComponent } from '../../shared/ui/field/field.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 
 interface TeamSummary {
@@ -22,7 +23,7 @@ const PALETTE = ['#7872d4', '#ef7c5b', '#5cb6a3', '#e5b653', '#4a8fc9', '#c14d8e
 @Component({
   selector: 'ma-teams-list',
   standalone: true,
-  imports: [FormsModule, BtnComponent, ChipComponent, EvidenceCardComponent, IconComponent],
+  imports: [FormsModule, BtnComponent, ChipComponent, EvidenceCardComponent, FieldComponent, IconComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="content-narrow">
@@ -33,20 +34,26 @@ const PALETTE = ['#7872d4', '#ef7c5b', '#5cb6a3', '#e5b653', '#4a8fc9', '#c14d8e
             {{ store.album.className || '—' }} — {{ store.teams.length }} csapat • Heti haladás csapatonként.
           </div>
         </div>
-        <ma-btn variant="primary" icon="add" (clicked)="startCreate()">Új csapat</ma-btn>
+        @if (!createOpen()) {
+          <ma-btn variant="primary" icon="add" (clicked)="startCreate()">Új csapat</ma-btn>
+        }
       </div>
 
       @if (createOpen()) {
         <div class="card edit-card">
           <div class="card-section-title">Új csapat</div>
           <div class="edit-grid">
-            <label class="field"><span>Név</span><input class="input" [(ngModel)]="newName" name="newName" placeholder="Pl. Naprendszer-felfedezők" /></label>
-            <label class="field"><span>Fókusz</span><input class="input" [(ngModel)]="newFocus" name="newFocus" placeholder="Pl. mérés és elemzés" /></label>
-            <label class="field span-2">
-              <span>Tagok (vesszővel)</span>
+            <ma-field label="Név" [required]="true">
+              <input class="input" [(ngModel)]="newName" name="newName" placeholder="Pl. Naprendszer-felfedezők" />
+            </ma-field>
+            <ma-field label="Fókusz">
+              <input class="input" [(ngModel)]="newFocus" name="newFocus" placeholder="Pl. mérés és elemzés" />
+            </ma-field>
+            <ma-field class="span-2" label="Tagok (vesszővel)">
               <input class="input" [(ngModel)]="newMembers" name="newMembers" placeholder="Anna, Bence, Cili" />
-            </label>
-            <div class="field"><span>Szín</span>
+            </ma-field>
+            <div role="group" aria-label="Szín">
+              <span class="form-group-label">Szín</span>
               <div class="color-row">
                 @for (c of palette; track c) {
                   <button type="button" class="color-dot" [class.active]="newColor === c" [style.background]="c" (click)="newColor = c" [attr.aria-label]="'Szín: ' + c"></button>
@@ -55,8 +62,11 @@ const PALETTE = ['#7872d4', '#ef7c5b', '#5cb6a3', '#e5b653', '#4a8fc9', '#c14d8e
             </div>
           </div>
           <div class="row" style="gap: 8px; justify-content: flex-end; margin-top: 12px;">
+            @if (!newName.trim()) {
+              <span class="muted t-body-sm" aria-live="polite">A kötelező mezők még hiányoznak.</span>
+            }
             <ma-btn variant="ghost" (clicked)="cancelCreate()">Mégse</ma-btn>
-            <ma-btn variant="primary" icon="check" (clicked)="saveCreate()">Mentés</ma-btn>
+            <ma-btn variant="primary" icon="check" [disabled]="!newName.trim()" (clicked)="saveCreate()">Mentés</ma-btn>
           </div>
         </div>
       }
@@ -90,11 +100,11 @@ const PALETTE = ['#7872d4', '#ef7c5b', '#5cb6a3', '#e5b653', '#4a8fc9', '#c14d8e
                 }
                 <ma-chip tone="neutral" icon="bookmark">{{ t.team.focus }}</ma-chip>
                 @if (editingTeamId() === t.team.id) {
-                  <button type="button" class="icon-btn" (click)="saveEdit(t.team.id)" aria-label="Mentés"><ma-icon name="check" size="sm" /></button>
-                  <button type="button" class="icon-btn" (click)="cancelEdit()" aria-label="Mégse"><ma-icon name="close" size="sm" /></button>
+                  <ma-btn variant="ghost" [iconOnly]="true" icon="check" ariaLabel="Mentés" (clicked)="saveEdit(t.team.id)" />
+                  <ma-btn variant="ghost" [iconOnly]="true" icon="close" ariaLabel="Mégse" (clicked)="cancelEdit()" />
                 } @else {
-                  <button type="button" class="icon-btn" (click)="startEdit(t.team)" aria-label="Szerkesztés"><ma-icon name="edit" size="sm" /></button>
-                  <button type="button" class="icon-btn danger" (click)="confirmDelete(t.team.id)" aria-label="Törlés"><ma-icon name="delete" size="sm" /></button>
+                  <ma-btn variant="ghost" [iconOnly]="true" icon="edit" ariaLabel="Szerkesztés" (clicked)="startEdit(t.team)" />
+                  <ma-btn variant="danger" [iconOnly]="true" icon="delete" ariaLabel="Törlés" (clicked)="confirmDelete(t.team.id)" />
                 }
               </div>
             </div>
@@ -175,24 +185,14 @@ const PALETTE = ['#7872d4', '#ef7c5b', '#5cb6a3', '#e5b653', '#4a8fc9', '#c14d8e
     .kpi-sub { color: var(--n-500); font-size: 11px; margin-top: 2px; }
 
     .edit-card { margin-bottom: 18px; padding: 18px 20px; border-color: var(--primary-200, #d8d1ff); background: #fdfcff; }
-    .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .edit-grid .field { display: grid; gap: 4px; }
-    .edit-grid .field.span-2 { grid-column: span 2; }
-    .edit-grid .field > span { font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--n-600); }
+    .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    .edit-grid .span-2 { grid-column: span 2; }
     .input { padding: 8px 10px; border: 1px solid var(--n-200); border-radius: 8px; font: inherit; background: white; }
     .team-name-input { font-size: 18px; font-weight: 600; padding: 6px 10px; }
 
     .color-row { display: flex; gap: 6px; flex-wrap: wrap; }
     .color-dot { width: 22px; height: 22px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px var(--n-300); cursor: pointer; padding: 0; }
     .color-dot.active { box-shadow: 0 0 0 2px var(--primary-500, #6f5ad9); }
-
-    .icon-btn {
-      display: inline-grid; place-items: center; width: 30px; height: 30px;
-      border: 1px solid var(--n-200); border-radius: 8px; background: white; cursor: pointer; color: var(--n-700);
-    }
-    .icon-btn:hover { background: var(--n-50); }
-    .icon-btn.danger { color: var(--danger, #c14444); }
-    .icon-btn.danger:hover { background: #fff5f5; border-color: var(--danger, #c14444); }
 
     .member-edit { margin: 14px 0; padding: 12px; border: 1px dashed var(--n-300); border-radius: 12px; background: #fafafa; }
     .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
