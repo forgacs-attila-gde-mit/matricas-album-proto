@@ -1,9 +1,14 @@
 <ma-drawer [open]="store.wizardOpen()" width="min(820px, 100%)" (close)="close()">
   <div class="drawer-header">
     <div class="row">
-      <button type="button" class="icon-btn" (click)="close()" [disabled]="saving()">
-        <ma-icon name="close" />
-      </button>
+      <ma-btn
+        variant="ghost"
+        [iconOnly]="true"
+        icon="close"
+        ariaLabel="Bezárás"
+        [disabled]="saving()"
+        (clicked)="close()"
+      />
       <div>
         <div class="row" style="margin-bottom: 4px;">
           @switch (store.wizardMode()) {
@@ -78,8 +83,7 @@
               </div>
               <ma-chip icon="verified_user">Tanári mentés kell</ma-chip>
             </div>
-            <label class="field">
-              <span>Kiinduló ötlet</span>
+            <ma-field label="Kiinduló ötlet">
               <textarea
                 name="activityIdea"
                 class="textarea"
@@ -87,7 +91,7 @@
                 [(ngModel)]="activityIdea"
                 placeholder="Pl. papírrepülő sebességmérés"
               ></textarea>
-            </label>
+            </ma-field>
             <div class="idea-copilot-actions">
               <ma-btn
                 variant="secondary"
@@ -111,47 +115,22 @@
                   <div class="handoff-title">Szeretnéd ezt egy órába szervezni?</div>
                   <div class="muted t-body-sm">A tevékenységből szerkeszthető órai blokk-vázlat készül, mentés nélkül is visszaléphetsz.</div>
                 </div>
-                <button type="button" class="handoff-action" (click)="startLessonFromCurrentActivity()">
-                  Órai blokk-vázlat <ma-icon name="arrow_forward" size="sm" />
-                </button>
+                <ma-btn variant="secondary" size="sm" iconRight="arrow_forward" (clicked)="startLessonFromCurrentActivity()">
+                  Órai blokk-vázlat
+                </ma-btn>
               </div>
             }
           </div>
         }
 
-        @if (assignableStickers().length > 0) {
-          <div class="adapt-panel">
-            <div>
-              <div class="card-section-title">Meglévő tevékenység adaptálása</div>
-              <div class="muted t-body-sm">Válassz egy meglévő tevékenységet (matricát) kiindulópontnak, majd írd át a saját órádhoz.</div>
-            </div>
-            <div class="adapt-row">
-              <select name="adaptSticker" class="input" [(ngModel)]="selectedAdaptStickerId">
-                <option value="">Válassz meglévő tevékenységet</option>
-                @for (item of assignableStickers(); track item.id) {
-                  <option [value]="item.id">{{ item.title }}</option>
-                }
-              </select>
-              <button type="button" class="adapt-btn" [disabled]="!selectedAdaptStickerId" (click)="adaptSelectedActivity()">
-                Adaptálás
-              </button>
-            </div>
-          </div>
-        }
+        <ma-form-section title="Alapok">
+          <ma-field label="Tevékenység címe" [required]="true">
+            <input name="stickerTitle" class="input" [(ngModel)]="stickerTitle" placeholder="Pl. Interjú a gondnokkal" />
+          </ma-field>
+        </ma-form-section>
 
         @if (activityMetadataVisible()) {
-          <div class="activity-metadata">
-            <div class="activity-metadata-head">
-              <div>
-                <div class="card-section-title">Tanítási keret</div>
-                <div class="activity-metadata-title">Opcionális tanári metaadatok a tevékenységkártyához.</div>
-              </div>
-              <ma-chip icon="tune">Opcionális</ma-chip>
-            </div>
-            <div class="metadata-subhead">
-              <strong>Tevékenységtípus</strong>
-              <span>Mit csinálnak a diákok? Ez külön van a tanulási út fázisától.</span>
-            </div>
+          <ma-form-section title="Tevékenységtípus" hint="Mit csinálnak a diákok? Ez külön van a tanulási út fázisától.">
             <div class="activity-type-grid" aria-label="Tevékenységtípus">
               @for (type of activityTypes; track type.id) {
                 <button
@@ -168,45 +147,63 @@
                 </button>
               }
             </div>
-            <div class="metadata-grid">
-              <label class="field">
-                <span>Tantárgy</span>
+          </ma-form-section>
+        }
+
+        <ma-disclosure label="Opcionális részletek" hint="Mentéshez nem kell kinyitnod." [(open)]="advancedOpen">
+          <ma-form-section title="Tevékenység tartalma" [columns]="2">
+            <ma-field
+              label="Tanulási út fázisa"
+              help="A fázis azt jelzi, hol tart a tanulási út; a tevékenységtípus azt, milyen munka történik."
+            >
+              <select name="stickerPhase" class="input" [(ngModel)]="stickerPhase">
+                <option value="kerdezes">Kérdezés</option>
+                <option value="kepzelet">Képzelet</option>
+                <option value="cselekves">Cselekvés</option>
+                <option value="reflexio">Reflexió</option>
+              </select>
+            </ma-field>
+            <ma-field label="Bizonyíték típusa">
+              <input name="stickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
+            </ma-field>
+            <ma-field class="span-2" label="Rövid leírás">
+              <textarea name="stickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+            </ma-field>
+            <ma-field class="span-2" label="Diák instrukció">
+              <textarea name="stickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+            </ma-field>
+          </ma-form-section>
+
+          @if (activityMetadataVisible()) {
+            <ma-form-section title="Tanítási keret" hint="Opcionális tanári metaadatok a tevékenységkártyához." [columns]="2">
+              <ma-field label="Tantárgy">
                 <input name="metadataSubject" class="input" [(ngModel)]="metadataSubject" />
-              </label>
-              <label class="field">
-                <span>Évfolyam</span>
+              </ma-field>
+              <ma-field label="Évfolyam">
                 <input name="metadataGrade" class="input" [(ngModel)]="metadataGrade" />
-              </label>
-              <label class="field span-2">
-                <span>Kompetenciák</span>
+              </ma-field>
+              <ma-field class="span-2" label="Kompetenciák">
                 <input name="metadataCompetencies" class="input" [(ngModel)]="metadataCompetencies" />
-              </label>
-              <label class="field span-2">
-                <span>NAT-kapcsolódás</span>
+              </ma-field>
+              <ma-field class="span-2" label="NAT-kapcsolódás">
                 <input name="metadataNatLinks" class="input" [(ngModel)]="metadataNatLinks" placeholder="Pl. energia, mérés, fenntarthatóság" />
-              </label>
-              <label class="field">
-                <span>Tanterv</span>
+              </ma-field>
+              <ma-field label="Tanterv">
                 <input name="contextCurriculum" class="input" [(ngModel)]="contextCurriculum" placeholder="Pl. 7. évfolyam természettudomány" />
-              </label>
-              <label class="field">
-                <span>Modul</span>
+              </ma-field>
+              <ma-field label="Modul">
                 <input name="contextModule" class="input" [(ngModel)]="contextModule" placeholder="Pl. Erők és kölcsönhatások" />
-              </label>
-              <label class="field">
-                <span>Témakör</span>
+              </ma-field>
+              <ma-field label="Témakör">
                 <input name="contextTopic" class="input" [(ngModel)]="contextTopic" />
-              </label>
-              <label class="field">
-                <span>Tanulási egység</span>
+              </ma-field>
+              <ma-field label="Tanulási egység">
                 <input name="contextLearningUnit" class="input" [(ngModel)]="contextLearningUnit" placeholder="Pl. Sebesség mérése a hétköznapokban" />
-              </label>
-              <label class="field">
-                <span>Blokk</span>
+              </ma-field>
+              <ma-field label="Blokk">
                 <input name="contextBlock" class="input" [(ngModel)]="contextBlock" />
-              </label>
-              <label class="field">
-                <span>Interakció</span>
+              </ma-field>
+              <ma-field label="Interakció">
                 <select name="metadataInteractionMode" class="input" [(ngModel)]="metadataInteractionMode">
                   <option value="kutatas">Kutatás / megfigyelés</option>
                   <option value="vita">Vita / érvelés</option>
@@ -214,22 +211,19 @@
                   <option value="reflexio">Reflexió</option>
                   <option value="gyakorlas">Gyakorlás</option>
                 </select>
-              </label>
-              <label class="field">
-                <span>Szervezés</span>
+              </ma-field>
+              <ma-field label="Szervezés">
                 <select name="metadataParticipantMode" class="input" [(ngModel)]="metadataParticipantMode">
                   <option value="egyeni">Egyéni munka</option>
                   <option value="paros">Páros munka</option>
                   <option value="csoportos">Csoportmunka</option>
                   <option value="teljes-osztaly">Teljes osztály</option>
                 </select>
-              </label>
-              <label class="field">
-                <span>Becsült idő</span>
+              </ma-field>
+              <ma-field label="Becsült idő">
                 <input name="metadataEstimatedMinutes" class="input" type="number" inputmode="numeric" min="1" max="90" [(ngModel)]="metadataEstimatedMinutes" />
-              </label>
-              <label class="field">
-                <span>Kontextus</span>
+              </ma-field>
+              <ma-field label="Kontextus">
                 <select name="metadataContextMode" class="input" [(ngModel)]="metadataContextMode">
                   <option value="iskola">Iskola</option>
                   <option value="otthon">Otthon</option>
@@ -237,157 +231,142 @@
                   <option value="terep">Terep / iskolaudvar</option>
                   <option value="digitalis">Digitális forrás</option>
                 </select>
-              </label>
-              <label class="field span-2">
-                <span>Valós helyzet</span>
+              </ma-field>
+              <ma-field class="span-2" label="Valós helyzet">
                 <input name="metadataContextNote" class="input" [(ngModel)]="metadataContextNote" />
-              </label>
-            </div>
-          </div>
-        }
+              </ma-field>
+            </ma-form-section>
+          }
 
-        <div class="form-grid">
-          <label class="field span-2">
-            <span>Tevékenység címe</span>
-            <input name="stickerTitle" class="input" [(ngModel)]="stickerTitle" placeholder="Pl. Interjú a gondnokkal" />
-          </label>
-          <label class="field">
-            <span>Tanulási út fázisa</span>
-            <select name="stickerPhase" class="input" [(ngModel)]="stickerPhase">
-              <option value="kerdezes">Kérdezés</option>
-              <option value="kepzelet">Képzelet</option>
-              <option value="cselekves">Cselekvés</option>
-              <option value="reflexio">Reflexió</option>
-            </select>
-            <span class="help">A fázis azt jelzi, hol tart a tanulási út; a tevékenységtípus azt, milyen munka történik.</span>
-          </label>
-          <label class="field">
-            <span>Bizonyíték típusa</span>
-            <input name="stickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
-          </label>
-          <label class="field span-2">
-            <span>Rövid leírás</span>
-            <textarea name="stickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
-          </label>
-          <label class="field span-2">
-            <span>Diák instrukció</span>
-            <textarea name="stickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
-          </label>
-        </div>
+          @if (assignableStickers().length > 0) {
+            <ma-form-section
+              title="Meglévő tevékenység adaptálása"
+              hint="Válassz egy meglévő tevékenységet (matricát) kiindulópontnak, majd írd át a saját órádhoz."
+            >
+              <div class="adapt-row">
+                <select name="adaptSticker" class="input" [(ngModel)]="selectedAdaptStickerId">
+                  <option value="">Válassz meglévő tevékenységet</option>
+                  @for (item of assignableStickers(); track item.id) {
+                    <option [value]="item.id">{{ item.title }}</option>
+                  }
+                </select>
+                <ma-btn variant="secondary" [disabled]="!selectedAdaptStickerId" (clicked)="adaptSelectedActivity()">
+                  Adaptálás
+                </ma-btn>
+              </div>
+            </ma-form-section>
+          }
+        </ma-disclosure>
       }
 
       @case ('newVersion') {
-        <div class="form-grid">
-          <label class="field span-2">
-            <span>Matrica címe</span>
+        <ma-form-section title="Alapok">
+          <ma-field label="Matrica címe" [required]="true">
             <input name="stickerTitle" class="input" [(ngModel)]="stickerTitle" />
-          </label>
-          <label class="field">
-            <span>Fázis</span>
-            <select name="stickerPhase" class="input" [(ngModel)]="stickerPhase">
-              <option value="kerdezes">Kérdezés</option>
-              <option value="kepzelet">Képzelet</option>
-              <option value="cselekves">Cselekvés</option>
-              <option value="reflexio">Reflexió</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Bizonyíték típusa</span>
-            <input name="stickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
-          </label>
-          <label class="field span-2">
-            <span>Rövid leírás</span>
-            <textarea name="stickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
-          </label>
-          <label class="field span-2">
-            <span>Diák instrukció</span>
-            <textarea name="stickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
-          </label>
-        </div>
+          </ma-field>
+        </ma-form-section>
+
+        <ma-disclosure label="Opcionális részletek" hint="Mentéshez nem kell kinyitnod; a mezők az előző verzióból vannak előtöltve." [(open)]="advancedOpen">
+          <ma-form-section title="Tevékenység tartalma" [columns]="2">
+            <ma-field label="Fázis">
+              <select name="stickerPhase" class="input" [(ngModel)]="stickerPhase">
+                <option value="kerdezes">Kérdezés</option>
+                <option value="kepzelet">Képzelet</option>
+                <option value="cselekves">Cselekvés</option>
+                <option value="reflexio">Reflexió</option>
+              </select>
+            </ma-field>
+            <ma-field label="Bizonyíték típusa">
+              <input name="stickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
+            </ma-field>
+            <ma-field class="span-2" label="Rövid leírás">
+              <textarea name="stickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+            </ma-field>
+            <ma-field class="span-2" label="Diák instrukció">
+              <textarea name="stickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+            </ma-field>
+          </ma-form-section>
+        </ma-disclosure>
       }
 
       @case ('instanceSticker') {
         <div class="muted t-body-sm" style="margin-bottom: 14px;">
           Ez a matrica csak a futó albumban jelenik meg. A sablontervet és a matricatár-hozzárendeléseket nem módosítja.
         </div>
-        <div class="form-grid">
-          <label class="field span-2">
-            <span>Matrica címe</span>
+        <ma-form-section title="Alapok">
+          <ma-field label="Matrica címe" [required]="true">
             <input name="instanceStickerTitle" class="input" [(ngModel)]="stickerTitle" placeholder="Pl. Gyors bizonyítékellenőrzés" />
-          </label>
-          <label class="field span-2">
-            <span>Elhelyezés</span>
+          </ma-field>
+          <ma-field label="Elhelyezés" [help]="instanceStickerPlacementHelp()">
             <select name="instanceStickerWeek" class="input" [(ngModel)]="instanceStickerWeek">
               @for (option of instanceStickerUnitOptions(); track option.week) {
                 <option [ngValue]="option.week">{{ instanceStickerUnitLabel(option) }}</option>
               }
             </select>
-            <span class="help">{{ instanceStickerPlacementHelp() }}</span>
-          </label>
-          <label class="field">
-            <span>Fázis</span>
-            <select name="instanceStickerPhase" class="input" [(ngModel)]="stickerPhase">
-              <option value="kerdezes">Kérdezés</option>
-              <option value="kepzelet">Képzelet</option>
-              <option value="cselekves">Cselekvés</option>
-              <option value="reflexio">Reflexió</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Bizonyíték típusa</span>
-            <input name="instanceStickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
-          </label>
-          <label class="field span-2">
-            <span>Rövid leírás</span>
-            <textarea name="instanceStickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
-          </label>
-          <label class="field span-2">
-            <span>Diák instrukció</span>
-            <textarea name="instanceStickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
-          </label>
-        </div>
+          </ma-field>
+        </ma-form-section>
+
+        <ma-disclosure label="Opcionális részletek" hint="Mentéshez nem kell kinyitnod." [(open)]="advancedOpen">
+          <ma-form-section title="Tevékenység tartalma" [columns]="2">
+            <ma-field label="Fázis">
+              <select name="instanceStickerPhase" class="input" [(ngModel)]="stickerPhase">
+                <option value="kerdezes">Kérdezés</option>
+                <option value="kepzelet">Képzelet</option>
+                <option value="cselekves">Cselekvés</option>
+                <option value="reflexio">Reflexió</option>
+              </select>
+            </ma-field>
+            <ma-field label="Bizonyíték típusa">
+              <input name="instanceStickerEvidence" class="input" [(ngModel)]="stickerEvidence" />
+            </ma-field>
+            <ma-field class="span-2" label="Rövid leírás">
+              <textarea name="instanceStickerShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+            </ma-field>
+            <ma-field class="span-2" label="Diák instrukció">
+              <textarea name="instanceStickerInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+            </ma-field>
+          </ma-form-section>
+        </ma-disclosure>
       }
 
       @case ('instanceStickerEdit') {
         <div class="muted t-body-sm" style="margin-bottom: 14px;">
           Ha a matricán már van beadás vagy csapatállapot, a rendszer javított másolatot hoz létre. Az eredeti beadások érintetlenek maradnak.
         </div>
-        <div class="form-grid">
-          <label class="field span-2">
-            <span>Matrica címe</span>
+        <ma-form-section title="Alapok">
+          <ma-field label="Matrica címe" [required]="true">
             <input name="instanceStickerEditTitle" class="input" [(ngModel)]="stickerTitle" />
-          </label>
-          <label class="field span-2">
-            <span>Elhelyezés</span>
+          </ma-field>
+          <ma-field label="Elhelyezés" [help]="instanceStickerPlacementHelp()">
             <select name="instanceStickerEditWeek" class="input" [(ngModel)]="instanceStickerWeek">
               @for (option of instanceStickerUnitOptions(); track option.week) {
                 <option [ngValue]="option.week">{{ instanceStickerUnitLabel(option) }}</option>
               }
             </select>
-            <span class="help">{{ instanceStickerPlacementHelp() }}</span>
-          </label>
-          <label class="field">
-            <span>Fázis</span>
-            <select name="instanceStickerEditPhase" class="input" [(ngModel)]="stickerPhase">
-              <option value="kerdezes">Kérdezés</option>
-              <option value="kepzelet">Képzelet</option>
-              <option value="cselekves">Cselekvés</option>
-              <option value="reflexio">Reflexió</option>
-            </select>
-          </label>
-          <label class="field">
-            <span>Bizonyíték típusa</span>
-            <input name="instanceStickerEditEvidence" class="input" [(ngModel)]="stickerEvidence" />
-          </label>
-          <label class="field span-2">
-            <span>Rövid leírás</span>
-            <textarea name="instanceStickerEditShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
-          </label>
-          <label class="field span-2">
-            <span>Diák instrukció</span>
-            <textarea name="instanceStickerEditInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
-          </label>
-        </div>
+          </ma-field>
+        </ma-form-section>
+
+        <ma-disclosure label="Opcionális részletek" hint="Mentéshez nem kell kinyitnod." [(open)]="advancedOpen">
+          <ma-form-section title="Tevékenység tartalma" [columns]="2">
+            <ma-field label="Fázis">
+              <select name="instanceStickerEditPhase" class="input" [(ngModel)]="stickerPhase">
+                <option value="kerdezes">Kérdezés</option>
+                <option value="kepzelet">Képzelet</option>
+                <option value="cselekves">Cselekvés</option>
+                <option value="reflexio">Reflexió</option>
+              </select>
+            </ma-field>
+            <ma-field label="Bizonyíték típusa">
+              <input name="instanceStickerEditEvidence" class="input" [(ngModel)]="stickerEvidence" />
+            </ma-field>
+            <ma-field class="span-2" label="Rövid leírás">
+              <textarea name="instanceStickerEditShort" class="textarea" rows="3" [(ngModel)]="stickerShort"></textarea>
+            </ma-field>
+            <ma-field class="span-2" label="Diák instrukció">
+              <textarea name="instanceStickerEditInstruction" class="textarea" rows="4" [(ngModel)]="stickerInstruction"></textarea>
+            </ma-field>
+          </ma-form-section>
+        </ma-disclosure>
       }
 
       @case ('template') {
@@ -398,15 +377,13 @@
                 <div class="card-section-title">Módszertani keret</div>
                 <div class="concept-panel-title">Az album a tanulási út térképe.</div>
               </div>
-              <button
-                type="button"
-                class="concept-dismiss"
-                title="Keret elrejtése"
-                aria-label="Módszertani keret elrejtése"
-                (click)="dismissConceptOnboarding()"
-              >
-                <ma-icon name="close" />
-              </button>
+              <ma-btn
+                variant="ghost"
+                [iconOnly]="true"
+                icon="close"
+                ariaLabel="Módszertani keret elrejtése"
+                (clicked)="dismissConceptOnboarding()"
+              />
             </div>
             <div class="concept-grid">
               <div class="concept-item">
@@ -454,26 +431,6 @@
           </span>
         </div>
 
-        @if (assignableTemplates().length > 0) {
-          <div class="adapt-panel">
-            <div>
-              <div class="card-section-title">Meglévő terv adaptálása</div>
-              <div class="muted t-body-sm">Indulhatsz meglévő albumtervből vagy blokk-vázlatból, de az új változat csak tanári mentéssel jön létre.</div>
-            </div>
-            <div class="adapt-row">
-              <select name="adaptTemplate" class="input" [(ngModel)]="selectedAdaptTemplateId">
-                <option value="">Válassz meglévő tervet</option>
-                @for (template of assignableTemplates(); track template.id) {
-                  <option [value]="template.id">{{ template.title }}</option>
-                }
-              </select>
-              <button type="button" class="adapt-btn" [disabled]="!selectedAdaptTemplateId" (click)="adaptSelectedTemplate()">
-                Adaptálás
-              </button>
-            </div>
-          </div>
-        }
-
         @if (lessonBuilderVisible()) {
           <div class="lesson-builder">
             <div class="lesson-builder-head">
@@ -502,22 +459,18 @@
             </div>
 
             <div class="metadata-grid">
-              <label class="field">
-                <span>Tanterv</span>
+              <ma-field label="Tanterv">
                 <input name="lessonBlockCurriculum" class="input" [(ngModel)]="lessonBlockCurriculumName" />
-              </label>
-              <label class="field">
-                <span>Modul</span>
+              </ma-field>
+              <ma-field label="Modul">
                 <input name="lessonBlockModule" class="input" [(ngModel)]="lessonBlockModuleName" />
-              </label>
-              <label class="field span-2">
-                <span>Témakör</span>
+              </ma-field>
+              <ma-field class="span-2" label="Témakör">
                 <input name="lessonBlockTopic" class="input" [(ngModel)]="lessonBlockTopicName" />
-              </label>
-              <label class="field span-2">
-                <span>Tanulási egység</span>
+              </ma-field>
+              <ma-field class="span-2" label="Tanulási egység">
                 <input name="lessonBlockLearningUnit" class="input" [(ngModel)]="lessonBlockLearningUnitName" />
-              </label>
+              </ma-field>
             </div>
 
             <div class="lesson-activity-list">
@@ -525,17 +478,15 @@
                 <div class="lesson-activity-row">
                   <div class="lesson-activity-order">{{ i + 1 }}</div>
                   <div class="lesson-activity-fields">
-                    <label class="field">
-                      <span>Tevékenység</span>
+                    <ma-field label="Tevékenység">
                       <input
                         class="input"
                         [name]="'lessonActivityTitle' + i"
                         [(ngModel)]="activity.title"
                         (ngModelChange)="syncLessonActivitiesToUnits()"
                       />
-                    </label>
-                    <label class="field lesson-minutes-field">
-                      <span>Perc</span>
+                    </ma-field>
+                    <ma-field class="lesson-minutes-field" label="Perc">
                       <input
                         class="input"
                         type="number"
@@ -546,9 +497,8 @@
                         [(ngModel)]="activity.minutes"
                         (ngModelChange)="syncLessonActivitiesToUnits()"
                       />
-                    </label>
-                    <label class="field">
-                      <span>Részvétel</span>
+                    </ma-field>
+                    <ma-field label="Részvétel">
                       <select
                         class="input"
                         [name]="'lessonActivityParticipation' + i"
@@ -559,47 +509,40 @@
                         <option value="optional">Választható</option>
                         <option value="extra">Extra</option>
                       </select>
-                    </label>
-                    <label class="field">
-                      <span>Eszköz / forrás</span>
+                    </ma-field>
+                    <ma-field label="Eszköz / forrás">
                       <input
                         class="input"
                         [name]="'lessonActivityResources' + i"
                         [(ngModel)]="activity.resources"
                       />
-                    </label>
+                    </ma-field>
                   </div>
                   <div class="lesson-activity-actions" aria-label="Tevékenység sorrend és eltávolítás">
-                    <button
-                      type="button"
-                      class="lesson-icon-btn"
-                      title="Feljebb"
-                      aria-label="Tevékenység feljebb mozgatása"
+                    <ma-btn
+                      variant="ghost"
+                      [iconOnly]="true"
+                      icon="keyboard_arrow_up"
+                      ariaLabel="Tevékenység feljebb mozgatása"
                       [disabled]="i === 0"
-                      (click)="moveLessonActivity(i, -1)"
-                    >
-                      <ma-icon name="keyboard_arrow_up" size="sm" />
-                    </button>
-                    <button
-                      type="button"
-                      class="lesson-icon-btn"
-                      title="Lejjebb"
-                      aria-label="Tevékenység lejjebb mozgatása"
+                      (clicked)="moveLessonActivity(i, -1)"
+                    />
+                    <ma-btn
+                      variant="ghost"
+                      [iconOnly]="true"
+                      icon="keyboard_arrow_down"
+                      ariaLabel="Tevékenység lejjebb mozgatása"
                       [disabled]="i === lessonActivities.length - 1"
-                      (click)="moveLessonActivity(i, 1)"
-                    >
-                      <ma-icon name="keyboard_arrow_down" size="sm" />
-                    </button>
-                    <button
-                      type="button"
-                      class="lesson-icon-btn"
-                      title="Eltávolítás"
-                      aria-label="Tevékenység eltávolítása"
+                      (clicked)="moveLessonActivity(i, 1)"
+                    />
+                    <ma-btn
+                      variant="ghost"
+                      [iconOnly]="true"
+                      icon="delete"
+                      ariaLabel="Tevékenység eltávolítása"
                       [disabled]="lessonActivities.length <= 3"
-                      (click)="removeLessonActivity(i)"
-                    >
-                      <ma-icon name="delete" size="sm" />
-                    </button>
+                      (clicked)="removeLessonActivity(i)"
+                    />
                   </div>
                 </div>
               }
@@ -620,14 +563,12 @@
             </div>
 
             <div class="metadata-grid">
-              <label class="field span-2">
-                <span>Reflexiós kérdés</span>
+              <ma-field class="span-2" label="Reflexiós kérdés">
                 <input name="lessonBlockReflection" class="input" [(ngModel)]="lessonBlockReflectionPrompt" />
-              </label>
-              <label class="field span-2">
-                <span>Alternatív út</span>
+              </ma-field>
+              <ma-field class="span-2" label="Alternatív út">
                 <textarea name="lessonBlockAlternative" class="textarea" rows="2" [(ngModel)]="lessonBlockAlternativePath"></textarea>
-              </label>
+              </ma-field>
             </div>
           </div>
         }
@@ -668,70 +609,68 @@
               @for (module of curriculumModules; track module.id; let moduleIndex = $index) {
                 <div class="curriculum-module">
                   <div class="curriculum-module-head">
-                    <label class="field">
-                      <span>Modul</span>
+                    <ma-field label="Modul">
                       <input
                         class="input"
                         [name]="'curriculumModule' + moduleIndex"
                         [(ngModel)]="module.title"
                         (ngModelChange)="syncCurriculumModulesToUnits()"
                       />
-                    </label>
-                    <button
-                      type="button"
-                      class="lesson-icon-btn"
-                      title="Modul eltávolítása"
-                      aria-label="Modul eltávolítása"
+                    </ma-field>
+                    <ma-btn
+                      variant="ghost"
+                      [iconOnly]="true"
+                      icon="delete"
+                      ariaLabel="Modul eltávolítása"
                       [disabled]="curriculumModules.length <= 1"
-                      (click)="removeCurriculumModule(moduleIndex)"
-                    >
-                      <ma-icon name="delete" size="sm" />
-                    </button>
+                      (clicked)="removeCurriculumModule(moduleIndex)"
+                    />
                   </div>
 
                   <div class="topic-list">
                     @for (topic of module.topics; track $index; let topicIndex = $index) {
-                      <label class="field topic-field">
-                        <span>{{ topicIndex + 1 }}. témakör</span>
-                        <input
-                          class="input"
-                          [name]="'curriculumTopic' + moduleIndex + '-' + topicIndex"
-                          [(ngModel)]="module.topics[topicIndex]"
-                          (ngModelChange)="syncCurriculumModulesToUnits()"
-                        />
-                        <button
-                          type="button"
-                          class="lesson-icon-btn"
-                          title="Témakör eltávolítása"
-                          aria-label="Témakör eltávolítása"
+                      <div class="topic-row">
+                        <ma-field [label]="topicIndex + 1 + '. témakör'">
+                          <input
+                            class="input"
+                            [name]="'curriculumTopic' + moduleIndex + '-' + topicIndex"
+                            [(ngModel)]="module.topics[topicIndex]"
+                            (ngModelChange)="syncCurriculumModulesToUnits()"
+                          />
+                        </ma-field>
+                        <ma-btn
+                          variant="ghost"
+                          [iconOnly]="true"
+                          icon="close"
+                          ariaLabel="Témakör eltávolítása"
                           [disabled]="module.topics.length <= 1"
-                          (click)="removeCurriculumTopic(moduleIndex, topicIndex)"
-                        >
-                          <ma-icon name="close" size="sm" />
-                        </button>
-                      </label>
+                          (clicked)="removeCurriculumTopic(moduleIndex, topicIndex)"
+                        />
+                      </div>
                     }
                   </div>
 
-                  <button type="button" class="adapt-btn subtle" (click)="addCurriculumTopic(moduleIndex)">
+                  <ma-btn variant="secondary" size="sm" icon="add" (clicked)="addCurriculumTopic(moduleIndex)">
                     Témakör hozzáadása
-                  </button>
+                  </ma-btn>
                 </div>
               }
             </div>
 
-            <button type="button" class="adapt-btn" (click)="addCurriculumModule()">Modul hozzáadása</button>
+            <ma-btn variant="secondary" size="sm" icon="add" (clicked)="addCurriculumModule()">Modul hozzáadása</ma-btn>
           </div>
         }
 
-        <div class="pattern-section">
-          <div class="pattern-section-head">
-            <div>
-              <div class="card-section-title">Pedagógiai minta</div>
-              <div class="muted t-body-sm">Opcionális keret: nem új hierarchiaszint, csak módszertani fókusz.</div>
-            </div>
-            <ma-chip icon="layers">Másodlagos</ma-chip>
-          </div>
+        <ma-form-section title="Alapok">
+          <ma-field [label]="templateTitleLabel()" [required]="true">
+            <input name="templateTitle" class="input" [(ngModel)]="templateTitle" />
+          </ma-field>
+          <ma-field label="Vezérkérdés" [required]="true">
+            <textarea name="drivingQuestion" class="textarea" rows="3" [(ngModel)]="drivingQuestion"></textarea>
+          </ma-field>
+        </ma-form-section>
+
+        <ma-form-section title="Pedagógiai minta" hint="Opcionális keret: nem új hierarchiaszint, csak módszertani fókusz.">
           <div class="pattern-picker">
             @for (pattern of templatePatterns; track pattern.key) {
               <button
@@ -745,99 +684,116 @@
               </button>
             }
           </div>
-        </div>
+        </ma-form-section>
 
-        <div class="form-grid">
-          <label class="field span-2">
-            <span>{{ templateTitleLabel() }}</span>
-            <input name="templateTitle" class="input" [(ngModel)]="templateTitle" />
-          </label>
-          <label class="field span-2">
-            <span>Vezérkérdés</span>
-            <textarea name="drivingQuestion" class="textarea" rows="3" [(ngModel)]="drivingQuestion"></textarea>
-          </label>
-          <label class="field"><span>Tantárgy</span><input name="subject" class="input" [(ngModel)]="subject" /></label>
-          <label class="field"><span>Évfolyam</span><input name="grade" class="input" [(ngModel)]="grade" /></label>
-          <label class="field">
-            <span>Időegység</span>
-            <select name="durationType" class="input" [(ngModel)]="durationType">
-              <option value="het">Hét</option>
-              <option value="ora">Óra</option>
-              <option value="fazis">Fázis</option>
-            </select>
-          </label>
-          <label class="field"><span>Közönség</span><input name="audience" class="input" [(ngModel)]="audience" /></label>
-          <label class="field span-2">
-            <span>Záró produktum</span>
-            <textarea name="finalProduct" class="textarea" rows="3" [(ngModel)]="finalProduct"></textarea>
-          </label>
-          <label class="field span-2">
-            <span>Tanulási fókuszok</span>
-            <input name="dispositions" class="input" [(ngModel)]="dispositions" />
-          </label>
-        </div>
+        <ma-disclosure label="Opcionális részletek" hint="Mentéshez nem kell kinyitnod." [(open)]="advancedOpen">
+          <ma-form-section title="További beállítások" [columns]="2">
+            <ma-field label="Tantárgy">
+              <input name="subject" class="input" [(ngModel)]="subject" />
+            </ma-field>
+            <ma-field label="Évfolyam">
+              <input name="grade" class="input" [(ngModel)]="grade" />
+            </ma-field>
+            <ma-field label="Időegység">
+              <select name="durationType" class="input" [(ngModel)]="durationType">
+                <option value="het">Hét</option>
+                <option value="ora">Óra</option>
+                <option value="fazis">Fázis</option>
+              </select>
+            </ma-field>
+            <ma-field label="Közönség">
+              <input name="audience" class="input" [(ngModel)]="audience" />
+            </ma-field>
+            <ma-field class="span-2" label="Záró produktum">
+              <textarea name="finalProduct" class="textarea" rows="3" [(ngModel)]="finalProduct"></textarea>
+            </ma-field>
+            <ma-field class="span-2" label="Tanulási fókuszok">
+              <input name="dispositions" class="input" [(ngModel)]="dispositions" />
+            </ma-field>
+          </ma-form-section>
 
-        <div class="week-panel">
-          <div class="card-section-title">{{ templateOutlineTitle() }}</div>
-          <div class="week-grid">
+          <ma-form-section [title]="templateOutlineTitle()" [columns]="2">
             @for (weekTitle of weekTitles; track $index) {
-              <label class="field week-field">
-                <span>{{ $index + 1 }}. {{ templateUnitLabel() }}</span>
+              <ma-field class="week-field" [label]="$index + 1 + '. ' + templateUnitLabel()">
                 <input class="input" [name]="'weekTitle' + $index" [(ngModel)]="weekTitles[$index]" />
-              </label>
+              </ma-field>
             }
-          </div>
-        </div>
+          </ma-form-section>
+
+          @if (assignableTemplates().length > 0) {
+            <ma-form-section
+              title="Meglévő terv adaptálása"
+              hint="Indulhatsz meglévő albumtervből vagy blokk-vázlatból, de az új változat csak tanári mentéssel jön létre."
+            >
+              <div class="adapt-row">
+                <select name="adaptTemplate" class="input" [(ngModel)]="selectedAdaptTemplateId">
+                  <option value="">Válassz meglévő tervet</option>
+                  @for (template of assignableTemplates(); track template.id) {
+                    <option [value]="template.id">{{ template.title }}</option>
+                  }
+                </select>
+                <ma-btn variant="secondary" [disabled]="!selectedAdaptTemplateId" (clicked)="adaptSelectedTemplate()">
+                  Adaptálás
+                </ma-btn>
+              </div>
+            </ma-form-section>
+          }
+        </ma-disclosure>
       }
 
       @case ('newTemplateVersion') {
-        <div class="form-grid">
-          <label class="field span-2">
-            <span>Albumterv címe</span>
+        <ma-form-section title="Alapok">
+          <ma-field label="Albumterv címe" [required]="true">
             <input name="templateTitle" class="input" [(ngModel)]="templateTitle" />
-          </label>
-          <label class="field span-2">
-            <span>Vezérkérdés</span>
+          </ma-field>
+          <ma-field label="Vezérkérdés" [required]="true">
             <textarea name="drivingQuestion" class="textarea" rows="3" [(ngModel)]="drivingQuestion"></textarea>
-          </label>
-          <label class="field"><span>Tantárgy</span><input name="subject" class="input" [(ngModel)]="subject" /></label>
-          <label class="field"><span>Évfolyam</span><input name="grade" class="input" [(ngModel)]="grade" /></label>
-          <label class="field">
-            <span>Időegység</span>
-            <select name="durationType" class="input" [(ngModel)]="durationType">
-              <option value="het">Hét</option>
-              <option value="ora">Óra</option>
-              <option value="fazis">Fázis</option>
-            </select>
-          </label>
-          <label class="field"><span>Közönség</span><input name="audience" class="input" [(ngModel)]="audience" /></label>
-          <label class="field span-2">
-            <span>Záró produktum</span>
-            <textarea name="finalProduct" class="textarea" rows="3" [(ngModel)]="finalProduct"></textarea>
-          </label>
-          <label class="field span-2">
-            <span>Tanulási fókuszok</span>
-            <input name="dispositions" class="input" [(ngModel)]="dispositions" />
-          </label>
-        </div>
+          </ma-field>
+        </ma-form-section>
 
-        <div class="week-panel">
-          <div class="card-section-title">Heti vázlat</div>
-          <div class="week-grid">
+        <ma-disclosure label="Opcionális részletek" hint="Mentéshez nem kell kinyitnod; a mezők az előző verzióból vannak előtöltve." [(open)]="advancedOpen">
+          <ma-form-section title="További beállítások" [columns]="2">
+            <ma-field label="Tantárgy">
+              <input name="subject" class="input" [(ngModel)]="subject" />
+            </ma-field>
+            <ma-field label="Évfolyam">
+              <input name="grade" class="input" [(ngModel)]="grade" />
+            </ma-field>
+            <ma-field label="Időegység">
+              <select name="durationType" class="input" [(ngModel)]="durationType">
+                <option value="het">Hét</option>
+                <option value="ora">Óra</option>
+                <option value="fazis">Fázis</option>
+              </select>
+            </ma-field>
+            <ma-field label="Közönség">
+              <input name="audience" class="input" [(ngModel)]="audience" />
+            </ma-field>
+            <ma-field class="span-2" label="Záró produktum">
+              <textarea name="finalProduct" class="textarea" rows="3" [(ngModel)]="finalProduct"></textarea>
+            </ma-field>
+            <ma-field class="span-2" label="Tanulási fókuszok">
+              <input name="dispositions" class="input" [(ngModel)]="dispositions" />
+            </ma-field>
+          </ma-form-section>
+
+          <ma-form-section title="Heti vázlat" [columns]="2">
             @for (weekTitle of weekTitles; track $index) {
-              <label class="field week-field">
-                <span>{{ $index + 1 }}. hét</span>
+              <ma-field class="week-field" [label]="$index + 1 + '. hét'">
                 <input class="input" [name]="'weekTitle' + $index" [(ngModel)]="weekTitles[$index]" />
-              </label>
+              </ma-field>
             }
-          </div>
-        </div>
+          </ma-form-section>
+        </ma-disclosure>
       }
 
       @case ('instance') {
-        <div class="form-grid">
-          <label class="field span-2">
-            <span>Albumterv</span>
+        <ma-form-section title="Alapok">
+          <ma-field
+            label="Albumterv"
+            [required]="true"
+            [help]="assignableTemplates().length === 0 ? 'Nincs indítható albumterv. Az archivált tervek nem választhatók.' : ''"
+          >
             <select
               class="input"
               name="template"
@@ -848,24 +804,22 @@
                 <option [value]="template.id">{{ template.title }}</option>
               }
             </select>
-            @if (assignableTemplates().length === 0) {
-              <span class="help">Nincs indítható albumterv. Az archivált tervek nem választhatók.</span>
-            }
-          </label>
-          <label class="field">
-            <span>Futó album neve</span>
+          </ma-field>
+          <ma-field label="Futó album neve" [required]="true">
             <input name="instanceTitle" class="input" [(ngModel)]="instanceTitle" placeholder="Pl. 7.C tavaszi futtatás" />
-          </label>
-          <label class="field">
-            <span>Osztály / csoport</span>
-            <input name="className" class="input" [(ngModel)]="className" />
-          </label>
-          <label class="field span-2">
-            <span>Csapatok</span>
-            <textarea name="teamLines" class="textarea mono" rows="7" [(ngModel)]="teamLines"></textarea>
-            <span class="help">Formátum: Csapatnév | fókusz | tag1, tag2, tag3</span>
-          </label>
-        </div>
+          </ma-field>
+        </ma-form-section>
+
+        <ma-disclosure label="Opcionális részletek" hint="Mentéshez nem kell kinyitnod." [(open)]="advancedOpen">
+          <ma-form-section title="Osztály és csapatok">
+            <ma-field label="Osztály / csoport">
+              <input name="className" class="input" [(ngModel)]="className" />
+            </ma-field>
+            <ma-field label="Csapatok" help="Formátum: Csapatnév | fókusz | tag1, tag2, tag3">
+              <textarea name="teamLines" class="textarea mono" rows="7" [(ngModel)]="teamLines"></textarea>
+            </ma-field>
+          </ma-form-section>
+        </ma-disclosure>
       }
     }
   </form>
@@ -873,9 +827,11 @@
   <div class="drawer-footer">
     <ma-btn variant="ghost" (clicked)="close()" [disabled]="saving()">Mégse</ma-btn>
     <div class="row">
-      @if (!canSubmit()) {
-        <span class="muted t-body-sm">A kötelező mezők még hiányoznak.</span>
-      }
+      <span class="muted t-body-sm" aria-live="polite">
+        @if (!canSubmit()) {
+          A kötelező mezők még hiányoznak.
+        }
+      </span>
       <ma-btn variant="primary" icon="add" (clicked)="submit()" [disabled]="!canSubmit()">
         @if (saving()) {
           Mentés...

@@ -1,24 +1,3 @@
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-
-  > span {
-    font-size: 11px;
-    line-height: 16px;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    color: var(--n-500);
-    font-weight: 600;
-  }
-}
-
 .span-2 { grid-column: 1 / -1; }
 
 .concept-panel {
@@ -43,23 +22,6 @@
   font-size: 15px;
   line-height: 22px;
   font-weight: 650;
-}
-
-.concept-dismiss {
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--primary-200);
-  border-radius: 999px;
-  background: white;
-  color: var(--n-600);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-
-  &:hover {
-    border-color: var(--primary-300);
-    color: var(--primary-700);
-  }
 }
 
 .concept-grid {
@@ -176,7 +138,6 @@
 
 .handoff-panel,
 .handoff-ladder,
-.adapt-panel,
 .printable-signal {
   display: flex;
   align-items: flex-start;
@@ -194,41 +155,6 @@
   font-size: 14px;
   line-height: 20px;
   font-weight: 650;
-}
-
-.handoff-action,
-.adapt-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 40px;
-  padding: 9px 12px;
-  border: 1px solid var(--primary-300);
-  border-radius: 8px;
-  background: var(--primary-50, #f5f1ff);
-  color: var(--primary-700, #5b3fd6);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 650;
-  white-space: nowrap;
-  cursor: pointer;
-
-  &:hover:not(:disabled) {
-    border-color: var(--primary-500);
-    background: white;
-  }
-
-  &:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-}
-
-.adapt-panel {
-  display: grid;
-  margin-bottom: 18px;
-  background: var(--n-50);
 }
 
 .adapt-row {
@@ -285,51 +211,6 @@
   border-color: var(--primary-500);
   background: var(--primary-50, #f5f1ff);
   box-shadow: inset 0 0 0 1px var(--primary-500);
-}
-
-.activity-metadata {
-  display: grid;
-  gap: 14px;
-  margin-bottom: 18px;
-  padding: 16px;
-  border: 1px solid var(--n-200);
-  border-left: 4px solid var(--n-500);
-  border-radius: 8px;
-  background: var(--n-50);
-}
-
-.activity-metadata-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.activity-metadata-title {
-  margin-top: 3px;
-  color: var(--n-900);
-  font-size: 15px;
-  line-height: 21px;
-  font-weight: 650;
-}
-
-.metadata-subhead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  color: var(--n-700);
-
-  strong {
-    color: var(--n-900);
-    font-size: 13px;
-    line-height: 18px;
-  }
-
-  span {
-    font-size: 12.5px;
-    line-height: 18px;
-  }
 }
 
 .metadata-grid {
@@ -439,29 +320,6 @@
   gap: 4px;
 }
 
-.lesson-icon-btn {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border: 1px solid transparent;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--n-600);
-  cursor: pointer;
-
-  &:hover:not(:disabled) {
-    border-color: #bbf7d0;
-    background: #f0fdf4;
-    color: #166534;
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-}
-
 .lesson-guardrail {
   flex: 1 1 260px;
   color: var(--n-600);
@@ -487,19 +345,15 @@
 .curriculum-module-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 10px;
+  gap: var(--space-sm);
   align-items: end;
 }
 
-.topic-field {
+.topic-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px;
+  gap: var(--space-sm);
   align-items: end;
-
-  > span {
-    grid-column: 1 / -1;
-  }
 }
 
 .printable-signal {
@@ -561,30 +415,6 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-}
-
-.adapt-btn.subtle {
-  justify-self: start;
-  border-color: var(--n-300);
-  background: white;
-  color: var(--n-700);
-}
-
-.pattern-section {
-  display: grid;
-  gap: 12px;
-  margin-bottom: 18px;
-  padding: 14px;
-  border: 1px solid var(--n-200);
-  border-radius: 8px;
-  background: var(--n-50);
-}
-
-.pattern-section-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
 }
 
 .pattern-picker {
@@ -655,22 +485,6 @@
   min-height: 86px;
 }
 
-.week-panel {
-  border: 1px solid var(--n-200);
-  border-radius: 18px;
-  background: white;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.week-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
-
 .week-field .input {
   background: var(--n-50);
 }
@@ -698,26 +512,11 @@
   }
 }
 
-.help {
-  font-size: 12px;
-  color: var(--n-500);
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-  font-weight: 400 !important;
-}
-
 .mono {
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 }
 
-.icon-btn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-}
-
 @media (max-width: 760px) {
-  .form-grid,
-  .week-grid,
   .concept-grid,
   .metadata-grid,
   .activity-type-grid,
@@ -727,16 +526,13 @@
 
   .idea-copilot-head,
   .handoff-panel,
-  .handoff-ladder,
-  .activity-metadata-head,
-  .metadata-subhead,
-  .pattern-section-head {
+  .handoff-ladder {
     flex-direction: column;
   }
 
   .adapt-row,
   .curriculum-module-head,
-  .topic-field {
+  .topic-row {
     grid-template-columns: 1fr;
   }
 

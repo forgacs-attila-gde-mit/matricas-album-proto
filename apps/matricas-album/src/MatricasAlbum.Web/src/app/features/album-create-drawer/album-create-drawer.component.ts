@@ -10,7 +10,10 @@ import { AlbumStore, type StickerEntryContext, type TemplateEntryContext } from 
 import { PhaseId } from '../../core/tokens/phases';
 import { BtnComponent } from '../../shared/ui/btn/btn.component';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
+import { DisclosureComponent } from '../../shared/ui/disclosure/disclosure.component';
 import { DrawerComponent } from '../../shared/ui/drawer/drawer.component';
+import { FieldComponent } from '../../shared/ui/field/field.component';
+import { FormSectionComponent } from '../../shared/ui/form-section/form-section.component';
 import { IconComponent } from '../../shared/ui/icon/icon.component';
 
 interface InstanceStickerUnitOption {
@@ -60,7 +63,16 @@ const ACTIVITY_TYPES: readonly ActivityTypeOption[] = [
 @Component({
   selector: 'ma-album-create-drawer',
   standalone: true,
-  imports: [FormsModule, BtnComponent, ChipComponent, DrawerComponent, IconComponent],
+  imports: [
+    FormsModule,
+    BtnComponent,
+    ChipComponent,
+    DisclosureComponent,
+    DrawerComponent,
+    FieldComponent,
+    FormSectionComponent,
+    IconComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './album-create-drawer.component.html',
   styleUrl: './album-create-drawer.component.scss',
@@ -69,6 +81,8 @@ export class AlbumCreateDrawerComponent {
   readonly store = inject(AlbumStore);
   readonly saving = signal(false);
   readonly conceptOnboardingVisible = signal(!this.loadConceptOnboardingDismissed());
+  /** REFACTOR-003: single "Opcionális részletek" disclosure per wizard mode, collapsed by default. */
+  readonly advancedOpen = signal(false);
   private lastAppliedTemplateContext: TemplateEntryContext | null = null;
   private lastAppliedStickerContext: StickerEntryContext | null = null;
 
