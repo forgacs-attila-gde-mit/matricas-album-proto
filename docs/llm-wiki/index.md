@@ -52,6 +52,7 @@ Catalog of all wiki pages, grouped by type. This wiki is scoped to the **Matric�
 |------|------|-------------|
 | [[ADR001-kozos-activity-domain]] | mixed | No per-method bounded context; the `Sticker`/`Album`/`Instance`/`Evidence` core is the common activity-run engine. |
 | [[ADR002-temakor-elso-osztalyu-szint]] | mixed | `Témakör` is a first-class hierarchy level (contains `Tanulási egység`); schema rename only after a migration mapping. |
+| [[ADR005-db-volume-reset-branchvaltasnal]] | mixed | Branches share one Postgres volume; on migration-divergent branch switch, reset with `docker compose down -v` — never teach `DemoSeeder` foreign tables. (ADR003–004 are reserved on the `gold-standard-ingest-refactor-plan` branch.) |
 
 ## Prompts
 
