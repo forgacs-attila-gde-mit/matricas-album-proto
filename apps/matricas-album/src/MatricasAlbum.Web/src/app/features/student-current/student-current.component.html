@@ -37,7 +37,7 @@
           <div class="row" style="margin-top: 18px;">
             @if (team()) {
               @let progressState = activeProgress()?.state ?? null;
-              @if (a.state === 'aktiv' && (progressState === null || progressState === 'javitas')) {
+              @if (a.state === 'aktiv' && (progressState === null || progressState === 'javitas') && !store.evidenceFlowOpen()) {
                 <ma-btn variant="primary" icon="upload" (clicked)="store.setEvidenceFlowOpen(true)">
                   Bizonyíték beküldése
                 </ma-btn>

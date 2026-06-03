@@ -9,7 +9,7 @@
       <ma-btn variant="secondary" icon="print" (clicked)="store.setPrintOpen('closure')">
         Nyomtatható zárócsomag
       </ma-btn>
-      <ma-btn variant="primary" icon="download" (clicked)="store.setPrintOpen('closure')">Összegzés exportálása</ma-btn>
+      <ma-btn variant="secondary" icon="download" (clicked)="store.setPrintOpen('closure')">Összegzés exportálása</ma-btn>
     </div>
   </div>
 
@@ -66,7 +66,7 @@
         <div class="t-title-lg">Mintázatok és következő tanári kérdések</div>
       </div>
       <ma-btn
-        variant="primary"
+        variant="secondary"
         icon="auto_awesome"
         [disabled]="store.adviceLoading()"
         (clicked)="requestClosureSynthesis()"

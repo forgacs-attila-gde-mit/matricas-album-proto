@@ -77,7 +77,7 @@ import { IconComponent } from '../../shared/ui/icon/icon.component';
               <ma-btn variant="secondary" icon="radio_button_checked" (clicked)="store.selectInstance(instance.id)">
                 Aktiválás
               </ma-btn>
-              <ma-btn variant="primary" icon="open_in_new" (clicked)="openInstance(instance.id)">
+              <ma-btn variant="secondary" icon="open_in_new" (clicked)="openInstance(instance.id)">
                 Megnyitás
               </ma-btn>
             </div>
